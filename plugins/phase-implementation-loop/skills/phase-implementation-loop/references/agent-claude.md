@@ -106,5 +106,7 @@ Please check:
 3. Are tests/verifications sufficient for this phase?
 4. Any blockers before the phase can be marked green?
 
-Return: PASS if no blockers, otherwise BLOCKED with concrete fixes.
+Return a concise final verdict, not a step-by-step reasoning transcript. Use
+PASS if no blockers, otherwise BLOCKED with concrete fixes and only the evidence
+needed to act.
 ```

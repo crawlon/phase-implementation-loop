@@ -149,9 +149,11 @@ Default supervision pattern:
    question, error, timeout, or approval need appears.
 3. Use sparse health checks for long-running work. Check for completion, hangs,
    repeated failures, or unexpected prompts; avoid summarizing ordinary logs.
-4. After the agent returns, read the final report, inspect `git status --short`
-   and the actual diff, then run verification.
-5. In user-facing updates and phase reports, summarize decisions, changed files,
+4. After an implementation agent returns, read the final report, inspect
+   `git status --short` and the actual diff, then run verification.
+5. After a verification agent returns, read its verdict and blocker list. Do not
+   relay its reasoning transcript unless a specific finding needs evidence.
+6. In user-facing updates and phase reports, summarize decisions, changed files,
    verification, risks, and blockers. Do not paste or paraphrase a full peer
    agent transcript unless it contains a decision or blocker the user needs.
 
@@ -188,7 +190,8 @@ For each phase:
    touched surfaces, failures, or repo norms.
 6. Run verifier review according to the execution profile using an independent
    agent where practical. Use selected agent references for exact wrapper,
-   model, effort, and prompt details.
+   model, effort, and prompt details. Apply the Supervision Budget to verifier
+   work as well as implementation work.
 7. If Codex review, tests, or verifier output are red, fix directly or redelegate
    a targeted follow-up. Repeat review and verification until green or until a
    real blocker or user decision is needed.
