@@ -136,6 +136,31 @@ as fallbacks:
 - Cursor: `references/agent-cursor.md`
 - Claude: `references/agent-claude.md`
 
+## Supervision Budget
+
+Keep orchestration supervision bounded. Codex must know whether delegated work is
+progressing, what changed, and whether the result is safe, but should not
+continuously narrate or relay a peer agent's routine step-by-step activity.
+
+Default supervision pattern:
+
+1. Send the selected agent a bounded prompt with required final output.
+2. Let the agent work without live commentary unless a meaningful state change,
+   question, error, timeout, or approval need appears.
+3. Use sparse health checks for long-running work. Check for completion, hangs,
+   repeated failures, or unexpected prompts; avoid summarizing ordinary logs.
+4. After the agent returns, read the final report, inspect `git status --short`
+   and the actual diff, then run verification.
+5. In user-facing updates and phase reports, summarize decisions, changed files,
+   verification, risks, and blockers. Do not paste or paraphrase a full peer
+   agent transcript unless it contains a decision or blocker the user needs.
+
+For long phases, prefer explicit checkpoint boundaries over constant monitoring:
+planning complete, implementation returned, diff inspected, verification passed
+or failed, verifier returned, phase report ready. If an active system/developer
+instruction requires periodic user updates, keep those updates short and about
+phase state, not detailed peer-agent narration.
+
 ## Phase Loop
 
 For each phase:
@@ -155,7 +180,7 @@ For each phase:
    delegation is useful. Use an edit-capable agent for workspace edits, or have
    a planning/review-only agent produce guidance that Codex applies after
    inspection. Include Ponytail/minimal-diff by default unless the user requested
-   another style.
+   another style. Apply the Supervision Budget while delegated work runs.
 4. After delegated implementation or Codex edits, run `git status --short` and
    inspect the actual diff yourself before trusting the result or running broad
    verification.

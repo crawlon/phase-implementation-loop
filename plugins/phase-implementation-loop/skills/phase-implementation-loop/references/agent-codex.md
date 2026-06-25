@@ -59,6 +59,7 @@ Context:
 
 Expected output:
 - Make the implementation changes if this agent has edit capability.
+- Return a concise final report, not a step-by-step activity transcript.
 - Report files changed and why.
 - Report anything skipped or deferred.
 - Report verification commands run or recommended.

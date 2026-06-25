@@ -80,6 +80,7 @@ Context:
 Expected output:
 - If this tool has edit capability, make the implementation changes.
 - If this tool is read-only, return concrete code-level guidance instead.
+- Return a concise final report, not a step-by-step activity transcript.
 - Report files changed or files likely to change.
 - Report risks, skipped/deferred work, and verification commands.
 ```
