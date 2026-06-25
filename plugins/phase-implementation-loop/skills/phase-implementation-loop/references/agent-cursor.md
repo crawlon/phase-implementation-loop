@@ -15,17 +15,29 @@ when set. They should not inject phase-loop guardrails or prompt policy.
 - Implementation/editing: `codex-cursor-impl`
 
 Use `composer-2.5-fast` as the default Cursor model for this skill unless the
-user asks otherwise. Because the wrappers are thin, set it at call time:
-`CODEX_CURSOR_MODEL=composer-2.5-fast codex-cursor-plan "..."`.
+user asks otherwise. Because the wrappers are thin, set it at call time using
+syntax for the active shell:
+
+- macOS/Linux/POSIX shells: `CODEX_CURSOR_MODEL=composer-2.5-fast codex-cursor-plan "..."`
+- Windows PowerShell: `$env:CODEX_CURSOR_MODEL = "composer-2.5-fast"; codex-cursor-plan "..."`
+- Windows `cmd.exe`: `set CODEX_CURSOR_MODEL=composer-2.5-fast && codex-cursor-plan "..."`
 
 If the wrappers are unavailable but `cursor-agent` exists, call Cursor directly:
 
-- Planning: `cursor-agent --print --mode plan --model composer-2.5-fast --trust --workspace "$PWD" "..."`
-- Ask/review/verification: `cursor-agent --print --mode ask --model composer-2.5-fast --trust --workspace "$PWD" "..."`
-- Implementation/editing: `cursor-agent --print --model composer-2.5-fast --trust --workspace "$PWD" "..."`
+- Planning: `cursor-agent --print --mode plan --model composer-2.5-fast --trust --workspace <current-working-directory> "..."`
+- Ask/review/verification: `cursor-agent --print --mode ask --model composer-2.5-fast --trust --workspace <current-working-directory> "..."`
+- Implementation/editing: `cursor-agent --print --model composer-2.5-fast --trust --workspace <current-working-directory> "..."`
 
-Omit or change `--model` when the execution profile requests a different Cursor
-model.
+Use the shell's current-directory expression when replacing
+`<current-working-directory>`:
+
+- macOS/Linux/POSIX shells: `$(pwd)`
+- Windows PowerShell: `(Get-Location).Path`
+- Windows `cmd.exe`: `%CD%`
+
+If already running in the target repository and the wrapper or CLI uses the
+current directory by default, omit `--workspace`. Omit or change `--model` when
+the execution profile requests a different Cursor model.
 
 ## Shared Rules
 

@@ -17,6 +17,12 @@ provides a more specific Opus 4.8 model id.
 If the wrapper is unavailable but `claude` exists, call Claude directly:
 `claude --print --permission-mode plan --no-chrome --no-session-persistence --model opus "..."`.
 
+The direct Claude command is the same on macOS, Linux, PowerShell, and
+`cmd.exe` when `claude` is on `PATH`; adapt prompt quoting for the active shell.
+For long prompts or fragile quoting, place the prompt in a temporary text file
+and pass it using the supported Claude CLI input method for the installed
+version.
+
 Choose effort per phase instead of hardcoding one globally. Omit `--effort` when
 default effort is enough; add `--effort high`, `xhigh`, or `max` for large
 diffs, high-risk migrations, auth/security changes, data-loss risk, or subtle

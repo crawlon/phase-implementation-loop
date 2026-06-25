@@ -107,20 +107,31 @@ that agent. If an agent can only plan or review, treat its output as guidance fo
 Codex or another edit-capable implementer.
 
 Before recommending a profile, check current capabilities with lightweight
-commands or tool discovery:
+commands or tool discovery. Use the command form for the active shell:
 
-- `command -v codex-cursor-impl`
-- `command -v codex-cursor-plan`
-- `command -v codex-cursor-ask`
-- `command -v codex-claude-ask`
-- `command -v cursor-agent`
-- `command -v claude`
+- macOS/Linux/POSIX shells: `command -v <tool>`
+- Windows PowerShell: `Get-Command <tool>`
+- Windows `cmd.exe`: `where <tool>`
+
+Check for these optional tools:
+
+- `codex-cursor-impl`
+- `codex-cursor-plan`
+- `codex-cursor-ask`
+- `codex-claude-ask`
+- `cursor-agent`
+- `claude`
 - available Codex subagent tools
 
 Global wrappers are thin transport commands; do not assume they inject
 guardrails, models, or role prompts. Put those details in the prompt using the
 selected agent reference. If a wrapper is missing but the underlying CLI exists,
 use the direct command pattern from that agent reference.
+
+When showing direct commands, adapt environment-variable syntax, quoting, and
+current-directory expressions to the active shell. In durable instructions, use
+neutral placeholders such as `<current-working-directory>` when the shell is
+unknown.
 
 Adjust the recommendation based on the repo and phase risk. For small or
 low-risk phases, Codex may implement directly and use Cursor, Claude, or Codex

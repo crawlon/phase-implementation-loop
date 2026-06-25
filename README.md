@@ -6,14 +6,32 @@ planning, implementation, and verification.
 
 ## Install
 
-Add this repository as a Codex plugin marketplace:
+Prerequisites:
 
-```bash
+- Codex installed and available as `codex` on `PATH`.
+- Git available in repositories where the phase loop should create branches or
+  commits.
+- Optional peer agents installed and authenticated only where you want to use
+  them: Cursor Agent as `cursor-agent` and Claude Code as `claude`.
+
+Add this repository as a Codex plugin marketplace. The command is the same from
+macOS/Linux shells, Windows PowerShell, and Windows `cmd.exe` when `codex` is on
+`PATH`:
+
+```text
 codex plugin marketplace add crawlon/phase-implementation-loop --sparse .agents/plugins
 ```
 
 Then restart Codex and install **Phase Implementation Loop** from the plugin
 directory.
+
+## Cross-Platform Notes
+
+The plugin is platform-neutral: it is a Codex plugin manifest plus Markdown
+skill instructions. No Bash-only setup script is required. The skill references
+include shell-specific examples for environment variables, current working
+directory syntax, and command discovery on macOS, Linux, PowerShell, and
+`cmd.exe`.
 
 ## What It Does
 
