@@ -1,15 +1,16 @@
 ---
 name: phase-implementation-loop
-description: Execute multi-phase implementation plans with Codex as orchestrator and selected Codex, Cursor, or Claude agents for implementation, review, and verification according to current tool capabilities. Use when the user asks to implement or execute a plan phase by phase from a markdown plan, Linear issues, a Linear parent issue with sub-issues, or a mixed plan source; reconcile plans and Linear issues into a canonical markdown phase plan before Phase 1; choose or confirm an execution profile for implementation and verification agents; run a relatively autonomous phase-gated build; set a goal for a multi-phase implementation; keep one branch across phases; or create durable phase handoffs before continuing.
+description: Execute multi-phase implementation plans with the invoking agent as orchestrator and selected Codex, Cursor, or Claude agents for implementation, review, and verification according to current tool capabilities. Use when the user asks to implement or execute a plan phase by phase from a markdown plan, Linear issues, a Linear parent issue with sub-issues, or a mixed plan source; reconcile plans and Linear issues into a canonical markdown phase plan before Phase 1; choose or confirm an execution profile for implementation and verification agents; run a relatively autonomous phase-gated build; set a goal for a multi-phase implementation; keep one branch across phases; or create durable phase handoffs before continuing.
 ---
 
 # Phase Implementation Loop
 
 Use this skill to run a relatively autonomous implementation loop inside any
-repository. Codex remains the process owner: peer-agent output is advisory and
-untrusted until Codex inspects the actual files, diff, and verification results.
-Cursor, Claude, and Codex can each be assigned implementation, review, or
-verification roles when the available tools support that role.
+repository. The agent invoking this skill remains the process owner, normally
+Codex when used as a Codex skill. Peer-agent output is advisory and untrusted
+until the orchestrator inspects the actual files, diff, and verification
+results. Cursor, Claude, and Codex can each be assigned implementation, review,
+or verification roles when the available tools support that role.
 
 Autonomy applies within each phase. Do not commit, push, deploy, expose secrets,
 change credentials, run destructive commands, or start the next phase without the
@@ -28,11 +29,16 @@ required user approval.
 5. Establish the execution profile for implementation and verification. Ask the
    user to confirm when the plan is material and the profile was not already
    specified; recommend a profile yourself instead of asking open-endedly.
-6. Establish one dedicated branch for the whole plan before Phase 1
+6. If the active orchestration surface supports persistent goal-state commands,
+   set one process goal after the canonical plan and execution profile are
+   known. For Cursor, use `/mål` or `/goal` when supported. Treat goal state as
+   reinforcement only; keep the canonical markdown plan and phase prompts as the
+   source of truth.
+7. Establish one dedicated branch for the whole plan before Phase 1
    implementation when working in git. If already on a suitable branch, keep it.
    Otherwise create a `codex/` branch unless the user or repo conventions specify
    another prefix.
-7. If branch setup is risky because of unrelated dirty worktree changes, ask the
+8. If branch setup is risky because of unrelated dirty worktree changes, ask the
    user how to proceed. If the directory is not a git repo, skip branch and commit
    steps and report that mode.
 
@@ -94,7 +100,8 @@ Recommended execution profile:
 - Planning: Codex by default; add Cursor or Claude for risky/unclear phases.
 - Implementation: Cursor via codex-cursor-impl or Codex direct; use Claude as implementation advisor unless an edit-capable Claude tool is available and permitted.
 - Verification: Claude Opus 4.8, Cursor, or Codex reviewer; use at least one independent verifier for material phases.
-- Codex role: orchestrator, diff owner, test runner, and commit gatekeeper.
+- Orchestrator role: current invoking agent, usually Codex; if Cursor is orchestrating, use `/mål` or `/goal` for process and phase goal state when supported.
+- Codex role when present: diff owner, test runner, and commit gatekeeper.
 - Continuation: after you approve a green phase, commit it and continue directly to the next phase unless you say stop.
 
 Approve this profile?
@@ -186,6 +193,11 @@ For each phase:
    - active repo constraints
    - verification commands or acceptance checks
    - known risks and stop conditions
+   If the active orchestrator supports per-task goal-state commands, refresh the
+   goal state at each phase boundary. For Cursor, use `/mål` or `/goal` with the
+   current phase objective, acceptance criteria, out-of-scope items, and stop
+   conditions. Still include the same details in any implementation or
+   verification prompt.
 2. Run planning/exploration according to the execution profile when it would
    reduce risk or clarify the implementation path. Codex may plan directly, or
    ask selected agents for bounded plans using their reference prompts.

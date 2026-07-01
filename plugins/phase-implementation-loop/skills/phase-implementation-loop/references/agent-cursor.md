@@ -39,6 +39,37 @@ If already running in the target repository and the wrapper or CLI uses the
 current directory by default, omit `--workspace`. Omit or change `--model` when
 the execution profile requests a different Cursor model.
 
+## Cursor Goal State
+
+When Cursor is the active orchestrator or is running the phase loop directly,
+use Cursor's goal-state command as reinforcement when the environment supports
+it:
+
+- Swedish UI/command mode: `/mål`
+- English UI/command mode: `/goal`
+
+Set a process goal once after the canonical markdown plan and execution profile
+are known. Keep it concise:
+
+```text
+/goal Execute the canonical phase plan phase by phase. Keep one branch for the
+whole plan, respect approval gates, use the selected implementation and
+verification agents, inspect diffs and verification before reporting green, and
+continue to the next phase after an approved commit unless stopped.
+```
+
+Refresh the goal at each phase boundary:
+
+```text
+/goal Complete Phase [N] only: [objective]. Acceptance criteria: [criteria].
+Out of scope: [items]. Stop if [stop conditions].
+```
+
+Do not rely on `/mål` or `/goal` as the only source of truth. Non-interactive
+Cursor Agent calls may ignore slash commands or run without persistent goal
+state. Always include the process goal or phase goal directly in the ordinary
+Cursor prompt as well.
+
 ## Shared Rules
 
 Treat Cursor output as advisory until Codex inspects the actual files and diff.
