@@ -14,14 +14,22 @@ Use `codex-claude-ask --model opus` by default for Claude calls. This targets
 Claude Opus 4.8 through the CLI model alias unless the user or environment
 provides a more specific Opus 4.8 model id.
 
+Pass short prompts as a final argument:
+`codex-claude-ask --model opus "..."`.
+
+For long prompts, write the prompt to a temporary text file and call:
+`codex-claude-ask --model opus --prompt-file <path>`. Prefer this over shell
+pipes or redirection from inside Codex, because piped commands may run in a
+sandbox/auth context where Claude reports `Not logged in`.
+
 If the wrapper is unavailable but `claude` exists, call Claude directly:
 `claude --print --permission-mode plan --no-chrome --no-session-persistence --model opus "..."`.
 
 The direct Claude command is the same on macOS, Linux, PowerShell, and
 `cmd.exe` when `claude` is on `PATH`; adapt prompt quoting for the active shell.
-For long prompts or fragile quoting, place the prompt in a temporary text file
-and pass it using the supported Claude CLI input method for the installed
-version.
+For long direct-CLI prompts or fragile quoting, place the prompt in a temporary
+text file and pass it using the supported Claude CLI input method for the
+installed version.
 
 Choose effort per phase instead of hardcoding one globally. Omit `--effort` when
 default effort is enough; add `--effort high`, `xhigh`, or `max` for large
