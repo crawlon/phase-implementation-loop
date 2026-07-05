@@ -7,20 +7,35 @@ implementation, review, verification, exploration, or fallback roles.
 
 The global Cursor wrappers should contain only CLI transport behavior: check
 that `cursor-agent` exists, set non-interactive mode, use the current workspace,
-read prompt args/stdin where applicable, and pass through `CODEX_CURSOR_MODEL`
-when set. They should not inject phase-loop guardrails or prompt policy.
+read prompt args/stdin where applicable, and pass through model selection. They
+should not inject phase-loop guardrails or prompt policy.
 
 - Planning: `codex-cursor-plan`
 - Ask/review/verification/exploration: `codex-cursor-ask`
 - Implementation/editing: `codex-cursor-impl`
 
 Use `composer-2.5-fast` as the default Cursor model for this skill unless the
-user asks otherwise. Because the wrappers are thin, set it at call time using
-syntax for the active shell:
+user asks otherwise. Prefer setting the model per call with `--model`:
+
+- Planning: `codex-cursor-plan --model composer-2.5-fast "..."`
+- Ask/review/verification/exploration: `codex-cursor-ask --model composer-2.5-fast "..."`
+- Implementation/editing: `codex-cursor-impl --model composer-2.5-fast "..."`
+
+The wrappers also honor `CODEX_CURSOR_MODEL` for a session-wide default. Set it
+using syntax for the active shell:
 
 - macOS/Linux/POSIX shells: `CODEX_CURSOR_MODEL=composer-2.5-fast codex-cursor-plan "..."`
 - Windows PowerShell: `$env:CODEX_CURSOR_MODEL = "composer-2.5-fast"; codex-cursor-plan "..."`
 - Windows `cmd.exe`: `set CODEX_CURSOR_MODEL=composer-2.5-fast && codex-cursor-plan "..."`
+
+If both are present, the per-call `--model` value overrides
+`CODEX_CURSOR_MODEL`.
+
+Known Cursor model ids verified with `cursor-agent models` on 2026-07-05:
+
+- `composer-2.5-fast`: Composer 2.5 Fast default.
+- `glm-5.2-high`: GLM 5.2.
+- `glm-5.2-max`: GLM 5.2 Max.
 
 If the wrappers are unavailable but `cursor-agent` exists, call Cursor directly:
 
