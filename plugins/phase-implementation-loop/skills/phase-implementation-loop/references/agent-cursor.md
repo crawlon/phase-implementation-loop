@@ -165,3 +165,8 @@ Return a concise final verdict, not a step-by-step reasoning transcript. Use
 PASS if no blockers, otherwise BLOCKED with concrete fixes and only the evidence
 needed to act.
 ```
+
+Cursor verification may take several minutes on large diffs, slow models, or
+long context. Wait for the command to finish rather than retrying immediately.
+Retry only after a clear process failure, auth/permission issue, provider error,
+or a genuinely long timeout for the phase size.

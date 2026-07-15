@@ -175,6 +175,16 @@ Default supervision pattern:
    verification, risks, and blockers. Do not paste or paraphrase a full peer
    agent transcript unless it contains a decision or blocker the user needs.
 
+External verification by Cursor or Claude can legitimately take several
+minutes, especially with large diffs, long test output, high-effort models, or
+remote provider latency. Be patient while the verifier is still running. Do not
+cancel, restart, or send a duplicate verifier request just because there is no
+immediate output. Intervene only when there is a real signal: process exit,
+explicit error, auth/permission prompt, repeated failure, a timeout that is long
+enough for the phase risk, or evidence that the command is hung rather than
+thinking. If user-facing progress updates are required while waiting, say that
+external verification is still running and that this can take time.
+
 For long phases, prefer explicit checkpoint boundaries over constant monitoring:
 planning complete, implementation returned, diff inspected, verification passed
 or failed, verifier returned, phase report ready. If an active system/developer
