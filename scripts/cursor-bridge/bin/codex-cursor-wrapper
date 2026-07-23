@@ -1,0 +1,269 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+kind="${1:-}"
+if [[ -z "$kind" ]]; then
+  print -u2 -- "usage: codex-cursor-wrapper <ask|plan|impl> [--model model-id] '<prompt>'"
+  exit 64
+fi
+shift
+
+case "$kind" in
+  ask|plan|impl) ;;
+  *)
+    print -u2 -- "unknown Cursor wrapper kind: $kind"
+    exit 64
+    ;;
+esac
+
+wrapper_name="codex-cursor-$kind"
+
+if ! command -v cursor-agent >/dev/null 2>&1; then
+  print -u2 -- "cursor-agent CLI was not found on PATH"
+  exit 127
+fi
+
+if ! command -v jq >/dev/null 2>&1; then
+  print -u2 -- "jq is required to validate Cursor's structured result"
+  exit 127
+fi
+
+model="${CODEX_CURSOR_MODEL:-}"
+prompt_parts=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --model)
+      if [[ $# -lt 2 ]]; then
+        print -u2 -- "usage: $wrapper_name [--model model-id] '<prompt>'"
+        exit 64
+      fi
+      model="$2"
+      shift 2
+      ;;
+    --model=*)
+      model="${1#--model=}"
+      shift
+      ;;
+    *)
+      prompt_parts+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if [[ ${#prompt_parts[@]} -eq 0 ]]; then
+  if [[ -t 0 ]]; then
+    print -u2 -- "usage: $wrapper_name [--model model-id] '<prompt>'"
+    exit 64
+  fi
+  user_prompt="$(cat)"
+else
+  user_prompt="${prompt_parts[*]}"
+fi
+
+model_args=()
+if [[ -n "$model" ]]; then
+  model_args=(--model "$model")
+fi
+
+mode_args=()
+if [[ "$kind" == "ask" || "$kind" == "plan" ]]; then
+  mode_args=(--mode "$kind")
+fi
+
+temp_dir="$(mktemp -d "${TMPDIR:-/tmp}/codex-cursor-wrapper.XXXXXX")"
+trap 'rm -rf -- "$temp_dir"' EXIT
+stdout_file="$temp_dir/stdout"
+stderr_file="$temp_dir/stderr"
+
+run_cursor() {
+  set +e
+  cursor-agent \
+    --print \
+    --output-format json \
+    "${mode_args[@]}" \
+    "${model_args[@]}" \
+    --trust \
+    --workspace "$PWD" \
+    "$user_prompt" \
+    >"$stdout_file" 2>"$stderr_file"
+  run_status=$?
+  set -e
+}
+
+read_json_field() {
+  local field="$1"
+  jq -r "$field // \"unknown\"" "$stdout_file" 2>/dev/null || print -r -- "unknown"
+}
+
+result_is_successful() {
+  [[ "$run_status" -eq 0 ]] &&
+    jq -e '
+      type == "object" and
+      .type == "result" and
+      .subtype == "success" and
+      .is_error == false
+    ' "$stdout_file" >/dev/null 2>&1
+}
+
+result_has_text() {
+  jq -e '
+    (.result // "") as $result |
+    ($result | type) == "string" and
+    ($result | test("\\S"))
+  ' "$stdout_file" >/dev/null 2>&1
+}
+
+failure_reason() {
+  if [[ "$run_status" -ne 0 ]]; then
+    print -r -- "Cursor exited with status $run_status"
+  elif ! jq -e . "$stdout_file" >/dev/null 2>&1; then
+    print -r -- "Cursor returned invalid JSON"
+  elif ! result_is_successful; then
+    print -r -- "Cursor returned a non-success terminal result"
+  else
+    print -r -- "Cursor returned an empty result"
+  fi
+}
+
+combined_diagnostic() {
+  if [[ -s "$stderr_file" ]]; then
+    command cat "$stderr_file"
+  fi
+
+  if jq -e . "$stdout_file" >/dev/null 2>&1; then
+    jq -r '
+      [
+        .error.message?,
+        .message?,
+        .result?,
+        (if (.error? | type) == "string" then .error else empty end)
+      ] |
+      .[] |
+      select(type == "string" and length > 0)
+    ' "$stdout_file" 2>/dev/null
+  elif [[ -s "$stdout_file" ]]; then
+    command cat "$stdout_file"
+  fi
+}
+
+failure_is_non_retryable() {
+  local diagnostic
+  diagnostic="$(combined_diagnostic 2>/dev/null)"
+  diagnostic="${diagnostic:l}"
+
+  [[ "$diagnostic" == *"authentication"* ||
+    "$diagnostic" == *"credential"* ||
+    "$diagnostic" == *"login required"* ||
+    "$diagnostic" == *"not logged in"* ||
+    "$diagnostic" == *"unauthorized"* ||
+    "$diagnostic" == *"invalid api key"* ||
+    "$diagnostic" == *"permission"* ||
+    "$diagnostic" == *"operation not permitted"* ||
+    "$diagnostic" == *"eperm"* ||
+    "$diagnostic" == *"access denied"* ||
+    "$diagnostic" == *"forbidden"* ||
+    "$diagnostic" == *"invalid model"* ||
+    "$diagnostic" == *"unknown model"* ||
+    "$diagnostic" == *"model not found"* ||
+    "$diagnostic" == *"unsupported model"* ]]
+}
+
+failure_is_transient() {
+  if failure_is_non_retryable; then
+    return 1
+  fi
+
+  if [[ "$run_status" -eq 0 ]]; then
+    if ! jq -e . "$stdout_file" >/dev/null 2>&1; then
+      return 0
+    fi
+    if result_is_successful && ! result_has_text; then
+      return 0
+    fi
+  fi
+
+  local diagnostic
+  diagnostic="$(combined_diagnostic 2>/dev/null)"
+  diagnostic="${diagnostic:l}"
+
+  [[ "$diagnostic" == *"temporarily unavailable"* ||
+    "$diagnostic" == *"service unavailable"* ||
+    "$diagnostic" == *"upstream"* ||
+    "$diagnostic" == *"rate limit"* ||
+    "$diagnostic" == *"rate-limit"* ||
+    "$diagnostic" == *"too many requests"* ||
+    "$diagnostic" == *"429"* ||
+    "$diagnostic" == *"timeout"* ||
+    "$diagnostic" == *"timed out"* ||
+    "$diagnostic" == *"connection"* ||
+    "$diagnostic" == *"network"* ||
+    "$diagnostic" == *"socket"* ||
+    "$diagnostic" == *"econn"* ||
+    "$diagnostic" == *"fetch failed"* ||
+    "$diagnostic" == *"empty response"* ||
+    "$diagnostic" == *"stream ended"* ]]
+}
+
+print_failure() {
+  local reason="$1"
+  local session_id request_id structured_error
+  session_id="$(read_json_field '.session_id')"
+  request_id="$(read_json_field '.request_id')"
+
+  if [[ -s "$stderr_file" ]]; then
+    command cat "$stderr_file" >&2
+  fi
+  if jq -e . "$stdout_file" >/dev/null 2>&1; then
+    structured_error="$(combined_diagnostic 2>/dev/null)"
+    if [[ -n "$structured_error" ]]; then
+      print -u2 -- "$structured_error"
+    fi
+  fi
+  if [[ "$run_status" -eq 0 ]] && ! jq -e . "$stdout_file" >/dev/null 2>&1 && [[ -s "$stdout_file" ]]; then
+    print -u2 -- "Cursor raw output:"
+    command cat "$stdout_file" >&2
+    print -u2
+  fi
+
+  print -u2 -- "$wrapper_name: $reason (session_id=$session_id request_id=$request_id)"
+  if [[ "$kind" == "impl" ]]; then
+    print -u2 -- "$wrapper_name: Cursor may have changed files; inspect the workspace diff before resuming or retrying."
+  fi
+}
+
+max_attempts=1
+if [[ "$kind" == "ask" || "$kind" == "plan" ]]; then
+  max_attempts=2
+fi
+
+attempt=1
+while [[ "$attempt" -le "$max_attempts" ]]; do
+  : >"$stdout_file"
+  : >"$stderr_file"
+  run_cursor
+
+  if result_is_successful && result_has_text; then
+    jq -r '.result' "$stdout_file"
+    exit 0
+  fi
+
+  reason="$(failure_reason)"
+  if [[ "$attempt" -lt "$max_attempts" ]] && failure_is_transient; then
+    session_id="$(read_json_field '.session_id')"
+    request_id="$(read_json_field '.request_id')"
+    print -u2 -- "$wrapper_name: $reason (session_id=$session_id request_id=$request_id); retrying once"
+    sleep 1
+    attempt=$((attempt + 1))
+    continue
+  fi
+
+  print_failure "$reason"
+  if [[ "$run_status" -ne 0 ]]; then
+    exit "$run_status"
+  fi
+  exit 70
+done
+
+exit 70

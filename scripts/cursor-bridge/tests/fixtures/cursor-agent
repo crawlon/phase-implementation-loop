@@ -1,0 +1,75 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+state_dir="${FAKE_CURSOR_STATE_DIR:?FAKE_CURSOR_STATE_DIR is required}"
+scenario="${FAKE_CURSOR_SCENARIO:-success}"
+mkdir -p "$state_dir"
+
+count_file="$state_dir/calls"
+args_file="$state_dir/args"
+
+count=0
+if [[ -f "$count_file" ]]; then
+  count="$(<"$count_file")"
+fi
+count=$((count + 1))
+print -r -- "$count" >"$count_file"
+print -r -- "$*" >>"$args_file"
+
+success() {
+  local result="$1"
+  print -r -- "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"result\":\"$result\",\"session_id\":\"session-$count\",\"request_id\":\"request-$count\"}"
+}
+
+case "$scenario" in
+  success)
+    success "FAKE_OK"
+    ;;
+  transient_then_success)
+    if [[ "$count" -eq 1 ]]; then
+      print -u2 -- "service temporarily unavailable"
+      exit 1
+    fi
+    success "RECOVERED"
+    ;;
+  empty_then_success)
+    if [[ "$count" -eq 1 ]]; then
+      success ""
+      exit 0
+    fi
+    success "RECOVERED_FROM_EMPTY"
+    ;;
+  empty)
+    success ""
+    ;;
+  auth_failure)
+    print -u2 -- "Authentication failed: network connection unavailable"
+    exit 1
+    ;;
+  permission_failure)
+    print -u2 -- "Permission check failed: network access is not allowed"
+    exit 1
+    ;;
+  invalid_model_failure)
+    print -u2 -- "Invalid model: connection cannot start"
+    exit 1
+    ;;
+  structured_auth_failure)
+    print -r -- '{"type":"result","subtype":"error","is_error":true,"result":"Authentication required","session_id":"session-1","request_id":"request-1"}'
+    ;;
+  structured_nonzero_auth_failure)
+    print -r -- '{"type":"result","subtype":"error","is_error":true,"error":{"message":"Credentials expired: connection unavailable"},"session_id":"session-1","request_id":"request-1"}'
+    exit 1
+    ;;
+  invalid_json_then_success)
+    if [[ "$count" -eq 1 ]]; then
+      print -r -- "not-json"
+      exit 0
+    fi
+    success "RECOVERED_FROM_INVALID_JSON"
+    ;;
+  *)
+    print -u2 -- "unknown fake scenario: $scenario"
+    exit 64
+    ;;
+esac

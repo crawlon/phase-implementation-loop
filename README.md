@@ -41,8 +41,9 @@ directory syntax, and command discovery on macOS, Linux, PowerShell, and
   Cursor, and Claude roles.
 - Runs phase by phase with planning, implementation, verification, phase reports,
   approval gates, commits, and durable handoffs.
-- Keeps wrappers thin: agent policies, prompts, defaults, and fallbacks live in
-  the skill references.
+- Keeps wrappers transport-focused: agent policies, prompts, defaults, and
+  fallbacks live in the skill references. Optional hardened macOS/zsh Cursor
+  wrappers live under `scripts/cursor-bridge/`.
 
 ## Structure
 
@@ -56,4 +57,8 @@ plugins/phase-implementation-loop/
       agent-codex.md
       agent-cursor.md
       agent-claude.md
+scripts/
+  cursor-bridge/
+    bin/
+    tests/
 ```

@@ -7,8 +7,9 @@ implementation, review, verification, exploration, or fallback roles.
 
 The global Cursor wrappers should contain only CLI transport behavior: check
 that `cursor-agent` exists, set non-interactive mode, use the current workspace,
-read prompt args/stdin where applicable, and pass through model selection. They
-should not inject phase-loop guardrails or prompt policy.
+read prompt args/stdin where applicable, pass through model selection, and
+validate Cursor's structured terminal result. They should not inject phase-loop
+guardrails or prompt policy.
 
 - Planning: `codex-cursor-plan`
 - Ask/review/verification/exploration: `codex-cursor-ask`
@@ -31,17 +32,32 @@ using syntax for the active shell:
 If both are present, the per-call `--model` value overrides
 `CODEX_CURSOR_MODEL`.
 
-Known Cursor model ids verified with `cursor-agent models` on 2026-07-05:
+Known Cursor model ids verified with `cursor-agent models` on 2026-07-23:
 
 - `composer-2.5-fast`: Composer 2.5 Fast default.
+- `cursor-grok-4.5-high`: Cursor Grok 4.5 High.
+- `cursor-grok-4.5-high-fast`: Cursor Grok 4.5 High Fast.
 - `glm-5.2-high`: GLM 5.2.
 - `glm-5.2-max`: GLM 5.2 Max.
 
+The hardened wrappers use `--output-format json` and require a successful,
+non-empty terminal result. `codex-cursor-ask` and `codex-cursor-plan` retry once
+after an empty/invalid result or a clearly transient provider/network error.
+They do not retry authentication, permission, or invalid-model failures.
+
+`codex-cursor-impl` never retries automatically. A disconnected implementation
+may already have edited files. On any ambiguous failure, inspect `git status
+--short` and the diff before deciding whether to resume the Cursor session,
+retry, or switch to a fallback agent.
+
+Structured failures report Cursor session/request IDs when available. Preserve
+those IDs in phase evidence when provider instability affects execution.
+
 If the wrappers are unavailable but `cursor-agent` exists, call Cursor directly:
 
-- Planning: `cursor-agent --print --mode plan --model composer-2.5-fast --trust --workspace <current-working-directory> "..."`
-- Ask/review/verification: `cursor-agent --print --mode ask --model composer-2.5-fast --trust --workspace <current-working-directory> "..."`
-- Implementation/editing: `cursor-agent --print --model composer-2.5-fast --trust --workspace <current-working-directory> "..."`
+- Planning: `cursor-agent --print --output-format json --mode plan --model composer-2.5-fast --trust --workspace <current-working-directory> "..."`
+- Ask/review/verification: `cursor-agent --print --output-format json --mode ask --model composer-2.5-fast --trust --workspace <current-working-directory> "..."`
+- Implementation/editing: `cursor-agent --print --output-format json --model composer-2.5-fast --trust --workspace <current-working-directory> "..."`
 
 Use the shell's current-directory expression when replacing
 `<current-working-directory>`:
@@ -168,5 +184,11 @@ needed to act.
 
 Cursor verification may take several minutes on large diffs, slow models, or
 long context. Wait for the command to finish rather than retrying immediately.
-Retry only after a clear process failure, auth/permission issue, provider error,
-or a genuinely long timeout for the phase size.
+Retry only after a clear transient provider/network failure or a genuinely long
+timeout for the phase size. Resolve authentication, permission, and model
+configuration failures before issuing another request.
+
+If Cursor reports a provider degradation, switch to the execution profile's
+documented fallback instead of repeatedly retrying the same model. For an
+implementation failure, inspect the actual workspace first so fallback work
+does not duplicate edits from an uncertain Cursor run.
