@@ -25,6 +25,10 @@ case "$scenario" in
   success)
     success "FAKE_OK"
     ;;
+  slow_success)
+    sleep 2
+    success "SLOW_FAKE_OK"
+    ;;
   transient_then_success)
     if [[ "$count" -eq 1 ]]; then
       print -u2 -- "service temporarily unavailable"

@@ -78,6 +78,18 @@ stdout_file="$temp_dir/stdout"
 stderr_file="$temp_dir/stderr"
 
 run_cursor() {
+  local heartbeat_seconds="${CODEX_CURSOR_HEARTBEAT_SECONDS:-15}"
+  local elapsed_seconds=0
+  local cursor_pid
+
+  if [[ "$heartbeat_seconds" != <-> || "$heartbeat_seconds" -lt 1 ]]; then
+    print -u2 -- "$wrapper_name: CODEX_CURSOR_HEARTBEAT_SECONDS must be a positive integer"
+    run_status=64
+    return
+  fi
+
+  print -u2 -- "$wrapper_name: Cursor call started; wait for the terminal result"
+
   set +e
   cursor-agent \
     --print \
@@ -87,7 +99,18 @@ run_cursor() {
     --trust \
     --workspace "$PWD" \
     "$user_prompt" \
-    >"$stdout_file" 2>"$stderr_file"
+    >"$stdout_file" 2>"$stderr_file" &
+  cursor_pid=$!
+
+  while kill -0 "$cursor_pid" 2>/dev/null; do
+    sleep 1
+    elapsed_seconds=$((elapsed_seconds + 1))
+    if (( elapsed_seconds % heartbeat_seconds == 0 )); then
+      print -u2 -- "$wrapper_name: Cursor is still running (${elapsed_seconds}s); continue waiting"
+    fi
+  done
+
+  wait "$cursor_pid"
   run_status=$?
   set -e
 }

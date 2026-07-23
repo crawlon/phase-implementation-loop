@@ -11,6 +11,16 @@ All three wrappers request Cursor's JSON result format, require a successful
 terminal result with non-empty text, and report Cursor session/request IDs on
 structured failures.
 
+The wrappers print an immediate start notice and a liveness message every 15
+seconds while Cursor is still running. Set `CODEX_CURSOR_HEARTBEAT_SECONDS` to a
+different positive integer to change that interval.
+
+Cursor calls can outlive an individual Codex tool yield. A tool result that says
+the script is still running, or includes a cell/session ID without a terminal
+exit, is not an empty Cursor response. Continue polling that same cell/session
+until it exits. Do not launch a duplicate request merely because the first poll
+has no model text yet.
+
 `ask` and `plan` retry once after an empty/invalid terminal result or an explicit
 transient provider/network error. Authentication, permission, and model errors
 are not retried.

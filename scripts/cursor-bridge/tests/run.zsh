@@ -88,11 +88,19 @@ run_wrapper codex-cursor-ask success --model cursor-grok-4.5-high "health check"
 assert_eq "0" "$RUN_STATUS" "ask success status"
 assert_eq "FAKE_OK" "$RUN_STDOUT" "ask success output"
 assert_eq "1" "$RUN_CALLS" "ask success call count"
+assert_contains "$RUN_STDERR" "Cursor call started" "ask reports immediate liveness"
 assert_contains "$RUN_ARGS" "--output-format json" "ask requests structured output"
 assert_contains "$RUN_ARGS" "--mode ask" "ask passes ask mode"
 assert_contains "$RUN_ARGS" "--model cursor-grok-4.5-high" "ask passes model"
 assert_contains "$RUN_ARGS" "--trust" "ask trusts selected workspace"
 assert_contains "$RUN_ARGS" "--workspace" "ask passes workspace"
+
+export CODEX_CURSOR_HEARTBEAT_SECONDS=1
+run_wrapper codex-cursor-ask slow_success "wait for a slow response"
+assert_eq "0" "$RUN_STATUS" "ask slow success status"
+assert_eq "SLOW_FAKE_OK" "$RUN_STDOUT" "ask slow success output"
+assert_contains "$RUN_STDERR" "Cursor is still running" "ask reports periodic liveness"
+unset CODEX_CURSOR_HEARTBEAT_SECONDS
 
 export CODEX_CURSOR_MODEL="glm-5.2-high"
 run_wrapper codex-cursor-ask success "use the environment model"

@@ -45,6 +45,12 @@ non-empty terminal result. `codex-cursor-ask` and `codex-cursor-plan` retry once
 after an empty/invalid result or a clearly transient provider/network error.
 They do not retry authentication, permission, or invalid-model failures.
 
+The wrappers emit an immediate start notice and periodic liveness messages while
+Cursor is still running. If the execution tool yields a running cell/session ID,
+poll that exact cell/session until a terminal exit is returned. A yielded call
+with no model text is still in progress, not an empty Cursor result. Do not
+start a duplicate Cursor request while the original process remains active.
+
 `codex-cursor-impl` never retries automatically. A disconnected implementation
 may already have edited files. On any ambiguous failure, inspect `git status
 --short` and the diff before deciding whether to resume the Cursor session,
