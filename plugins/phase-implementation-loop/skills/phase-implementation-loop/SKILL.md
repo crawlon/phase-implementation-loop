@@ -165,8 +165,12 @@ Default supervision pattern:
 1. Send the selected agent a bounded prompt with required final output.
 2. Let the agent work without live commentary unless a meaningful state change,
    question, error, timeout, or approval need appears.
-3. Use sparse health checks for long-running work. Check for completion, hangs,
-   repeated failures, or unexpected prompts; avoid summarizing ordinary logs.
+3. Use sparse health checks for long-running work. Poll an active
+   implementation or verification command no more than about once per minute by
+   default. Check for completion, hangs, repeated failures, or unexpected
+   prompts; avoid summarizing ordinary logs. Poll sooner only when there is a
+   concrete reason, such as a known short command, a terminal signal, an
+   auth/permission prompt, a near timeout, or a user status request.
 4. After an implementation agent returns, read the final report, inspect
    `git status --short` and the actual diff, then run verification.
 5. After a verification agent returns, read its verdict and blocker list. Do not
@@ -189,7 +193,9 @@ For long phases, prefer explicit checkpoint boundaries over constant monitoring:
 planning complete, implementation returned, diff inspected, verification passed
 or failed, verifier returned, phase report ready. If an active system/developer
 instruction requires periodic user updates, keep those updates short and about
-phase state, not detailed peer-agent narration.
+phase state, not detailed peer-agent narration. When a wrapper yields a running
+cell or session id, poll that same id on the same roughly one-minute cadence
+until it exits instead of starting another request.
 
 ## Phase Loop
 
