@@ -174,6 +174,35 @@ settles a delegated job. Treat missing text before that point as transport state
 not agent output. Keep the role, handle, start time, and expected terminal
 artifact in durable state when a handoff may be needed.
 
+## Verifier Result Contract
+
+Require every verifier prompt to begin its terminal response with this exact
+three-part contract. Do not accept prose before `VERDICT`:
+
+```text
+VERDICT: PASS | BLOCKED | INCONCLUSIVE
+FINDINGS:
+- none, or concrete issue(s) with evidence
+EVIDENCE:
+- tests, diff paths, or inspection basis
+```
+
+Classify terminal verifier responses precisely:
+
+- A response matching the contract is structured and usable.
+- Non-empty review text that misses the contract is unstructured, not a bridge
+  failure. Extract concrete findings, perform the orchestrator's own verdict,
+  and report reduced formatting confidence. Do not switch verifiers merely
+  because the first line is not literal `PASS` or `BLOCKED`.
+- A terminal non-zero exit or whitespace-only terminal output is a transport or
+  provider failure. Before calling it unusable or invoking a fallback, record the
+  agent/model, command or wrapper, handle when available, exit code, stdout byte
+  count, and concise stderr/error evidence. Never claim a capture failure without
+  that evidence.
+- `INCONCLUSIVE` is a usable result that cannot make the phase green. Resolve its
+  stated gap, use the selected fallback once when independence is needed, or run
+  a disclosed Codex second pass.
+
 ## Supervision Budget
 
 Keep orchestration supervision bounded. Codex must know whether delegated work is
@@ -251,7 +280,8 @@ For each phase:
 6. Run verifier review according to the execution profile using an independent
    agent where practical. Use selected agent references for exact wrapper,
    model, effort, and prompt details. Drive the verifier job to a terminal result
-   under the External Job Lifecycle before evaluating its verdict.
+   under the External Job Lifecycle, then classify it under the Verifier Result
+   Contract before evaluating its verdict or invoking a fallback.
 7. If Codex review, tests, or verifier output are red, fix directly or redelegate
    a targeted follow-up. Repeat review and verification until green or until a
    real blocker or user decision is needed.
@@ -301,6 +331,10 @@ capable agent and disclose the fallback in the phase report.
 - Verification role unavailable: prefer a different independent verifier. If no
   independent verifier is available, the main Codex agent performs an explicit
   second-pass review and marks verifier confidence as degraded.
+
+Do not treat an unstructured but non-empty verifier response as unavailable. A
+fallback is appropriate only after a documented terminal transport/provider
+failure, an `INCONCLUSIVE` result, or concrete unresolved review risk.
 
 Green is still possible with fallback when the same gates pass. Peer-agent quota
 exhaustion is not automatically a blocker.

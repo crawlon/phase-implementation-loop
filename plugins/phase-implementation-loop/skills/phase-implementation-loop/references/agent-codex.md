@@ -103,7 +103,10 @@ Please check:
 3. Are tests/verifications sufficient for this phase?
 4. Any blockers before the phase can be marked green?
 
-Return a concise final verdict, not a step-by-step reasoning transcript. Use
-PASS if no blockers, otherwise BLOCKED with concrete fixes and only the evidence
-needed to act.
+Return no prose before this exact contract:
+VERDICT: PASS, BLOCKED, or INCONCLUSIVE
+FINDINGS:
+- none, or concrete issue(s) with evidence
+EVIDENCE:
+- tests, diff paths, or inspection basis
 ```

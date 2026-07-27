@@ -11,6 +11,11 @@ All three wrappers request Cursor's JSON result format, require a successful
 terminal result with non-empty text, and report Cursor session/request IDs on
 structured failures.
 
+Terminal failures also report the selected model, exit status, and stdout/stderr
+byte counts. Preserve that evidence before classifying a failure or switching
+verifiers. A successful non-empty Cursor result that misses a verifier's expected
+format is unstructured review evidence, not a bridge-capture failure.
+
 The wrappers print an immediate start notice and a liveness message every 15
 seconds while Cursor is still running. Set `CODEX_CURSOR_HEARTBEAT_SECONDS` to a
 different positive integer to change that interval.

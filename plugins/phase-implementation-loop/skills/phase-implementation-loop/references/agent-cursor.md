@@ -45,6 +45,14 @@ non-empty terminal result. `codex-cursor-ask` and `codex-cursor-plan` retry once
 after an empty/invalid result or a clearly transient provider/network error.
 They do not retry authentication, permission, or invalid-model failures.
 
+A successful non-empty `.result` is transport-usable even when it misses the
+verifier's requested `VERDICT` contract. Treat that case as unstructured review
+evidence and apply the phase loop's Verifier Result Contract; do not call it a
+bridge failure or switch verifiers solely because it lacks literal verdict text.
+Terminal wrapper failures include model, exit status, stdout/stderr byte counts,
+and Cursor session/request IDs when available; preserve those fields before
+using a fallback.
+
 The wrappers emit an immediate start notice and periodic liveness messages while
 Cursor is still running. If the execution tool yields a running cell/session ID,
 resume that exact cell/session immediately with the active surface's wait/poll
@@ -186,9 +194,12 @@ Please check:
 3. Are tests/verifications sufficient for this phase?
 4. Any blockers before the phase can be marked green?
 
-Return a concise final verdict, not a step-by-step reasoning transcript. Use
-PASS if no blockers, otherwise BLOCKED with concrete fixes and only the evidence
-needed to act.
+Return no prose before this exact contract:
+VERDICT: PASS, BLOCKED, or INCONCLUSIVE
+FINDINGS:
+- none, or concrete issue(s) with evidence
+EVIDENCE:
+- tests, diff paths, or inspection basis
 ```
 
 Cursor verification may take several minutes on large diffs, slow models, or
