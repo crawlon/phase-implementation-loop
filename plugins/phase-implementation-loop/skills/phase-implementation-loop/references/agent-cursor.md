@@ -47,9 +47,12 @@ They do not retry authentication, permission, or invalid-model failures.
 
 The wrappers emit an immediate start notice and periodic liveness messages while
 Cursor is still running. If the execution tool yields a running cell/session ID,
-poll that exact cell/session until a terminal exit is returned. A yielded call
-with no model text is still in progress, not an empty Cursor result. Do not
-start a duplicate Cursor request while the original process remains active.
+resume that exact cell/session immediately with the active surface's wait/poll
+mechanism and a wait window of up to about one minute, repeating until a terminal
+exit is returned. A yielded call with no model text is still in progress, not an
+empty Cursor result. Do not report a phase outcome, start verification, or end
+the task while the original request remains active; do not start a duplicate
+Cursor request.
 
 `codex-cursor-impl` never retries automatically. A disconnected implementation
 may already have edited files. On any ambiguous failure, inspect `git status

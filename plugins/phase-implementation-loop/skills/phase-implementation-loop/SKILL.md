@@ -154,6 +154,26 @@ as fallbacks:
 - Cursor: `references/agent-cursor.md`
 - Claude: `references/agent-claude.md`
 
+## External Job Lifecycle
+
+Treat every delegated implementation, review, verification, or exploration call
+as a state machine: `launched` -> `in flight` -> `terminal success` or
+`terminal failure`. A running cell, session, process, or tool handle is always
+`in flight`, even when it contains no model text.
+
+`In flight` is a hard non-terminal state for the orchestrator. Do not report an
+empty response, begin tests or the next role, produce a phase report, ask for
+approval, or end the task while an external job remains in flight. Resume the
+exact returned handle immediately using the active surface's wait/poll mechanism
+with a wait window of up to about one minute. If it still runs, resume that same
+handle again. This is continuation, not a duplicate request or frequent active
+monitoring.
+
+Only a terminal exit, structured terminal result, or explicit terminal error
+settles a delegated job. Treat missing text before that point as transport state,
+not agent output. Keep the role, handle, start time, and expected terminal
+artifact in durable state when a handoff may be needed.
+
 ## Supervision Budget
 
 Keep orchestration supervision bounded. Codex must know whether delegated work is
@@ -163,14 +183,14 @@ continuously narrate or relay a peer agent's routine step-by-step activity.
 Default supervision pattern:
 
 1. Send the selected agent a bounded prompt with required final output.
-2. Let the agent work without live commentary unless a meaningful state change,
-   question, error, timeout, or approval need appears.
-3. Use sparse health checks for long-running work. Poll an active
-   implementation or verification command no more than about once per minute by
-   default. Check for completion, hangs, repeated failures, or unexpected
-   prompts; avoid summarizing ordinary logs. Poll sooner only when there is a
-   concrete reason, such as a known short command, a terminal signal, an
-   auth/permission prompt, a near timeout, or a user status request.
+2. If the call returns an in-flight handle, resume that exact handle immediately
+   as required by the External Job Lifecycle. Do not interpret the first yield
+   as an empty agent response.
+3. Use wait windows of up to about one minute for long-running jobs, then resume
+   the same handle if still running. Check only for completion, hangs, repeated
+   failures, or unexpected prompts; avoid summarizing ordinary logs. This limits
+   active status checks without permitting the orchestrator to leave an in-flight
+   job.
 4. After an implementation agent returns, read the final report, inspect
    `git status --short` and the actual diff, then run verification.
 5. After a verification agent returns, read its verdict and blocker list. Do not
@@ -193,9 +213,9 @@ For long phases, prefer explicit checkpoint boundaries over constant monitoring:
 planning complete, implementation returned, diff inspected, verification passed
 or failed, verifier returned, phase report ready. If an active system/developer
 instruction requires periodic user updates, keep those updates short and about
-phase state, not detailed peer-agent narration. When a wrapper yields a running
-cell or session id, poll that same id on the same roughly one-minute cadence
-until it exits instead of starting another request.
+phase state, not detailed peer-agent narration. A running cell or session id
+must be resumed to terminal exit; it is never a reason to end the task or infer
+an empty peer-agent response.
 
 ## Phase Loop
 
@@ -221,7 +241,8 @@ For each phase:
    delegation is useful. Use an edit-capable agent for workspace edits, or have
    a planning/review-only agent produce guidance that Codex applies after
    inspection. Include Ponytail/minimal-diff by default unless the user requested
-   another style. Apply the Supervision Budget while delegated work runs.
+   another style. Drive every delegated job to a terminal result under the
+   External Job Lifecycle before moving to the next step.
 4. After delegated implementation or Codex edits, run `git status --short` and
    inspect the actual diff yourself before trusting the result or running broad
    verification.
@@ -229,15 +250,16 @@ For each phase:
    touched surfaces, failures, or repo norms.
 6. Run verifier review according to the execution profile using an independent
    agent where practical. Use selected agent references for exact wrapper,
-   model, effort, and prompt details. Apply the Supervision Budget to verifier
-   work as well as implementation work.
+   model, effort, and prompt details. Drive the verifier job to a terminal result
+   under the External Job Lifecycle before evaluating its verdict.
 7. If Codex review, tests, or verifier output are red, fix directly or redelegate
    a targeted follow-up. Repeat review and verification until green or until a
    real blocker or user decision is needed.
 8. Check whether durable state is sufficient for the next phase. If context is
    getting heavy, update a plan document, ledger, changelog, issue, or handoff
    note before asking to continue.
-9. End with a phase report and ask for one approval covering both the phase
+9. Confirm that no delegated job remains in flight. Then end with a phase report
+   and ask for one approval covering both the phase
    commit and continuation to the next phase, unless a stop condition applies.
 10. After approval, create a focused phase commit unless the user says not to, the
    repo is not under git, or there are no changes. Do not push unless separately
@@ -296,7 +318,8 @@ Stop and ask before continuing when:
   branch switch, or pre-approval commit is needed
 - important verification cannot be run
 - peer agents recommend conflicting high-risk changes
-- commands hang or repeatedly fail without new information
+- a delegated job reached a terminal error, commands hang, or commands repeatedly
+  fail without new information; an in-flight handle by itself is not a failure
 - no usable fallback exists for an exhausted peer-agent role
 - the next phase depends on a product or architecture decision
 - precise history needed for the next phase has not been written to durable state

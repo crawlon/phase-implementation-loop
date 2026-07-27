@@ -129,3 +129,10 @@ Claude verification may take several minutes on large diffs, high effort, or
 long context. Wait for the command to finish rather than retrying immediately.
 Retry only after a clear process failure, auth/permission issue, provider error,
 or a genuinely long timeout for the phase size.
+
+If the orchestration surface first returns a running cell, session, or process
+handle without Claude text, treat that as an in-flight request rather than an
+empty response. Resume the exact handle immediately with the surface's wait/poll
+mechanism and a wait window of up to about one minute, repeating until terminal
+exit. Do not report verification, start a fallback, or end the task while the
+original Claude request remains active.

@@ -16,6 +16,23 @@ implementation, review, verification, exploration, or fallback roles.
 Codex is always the orchestrator, test runner, diff owner, approval gatekeeper,
 and final reporter even when another agent contributes work.
 
+## External Tool Continuation
+
+Treat an execution handle as a live delegated job, not as agent output. Do not
+end the task, report an empty response, or start verification while that job is
+still running.
+
+When the available Codex tools return `Script running with cell ID <id>`, call
+the matching wait tool for that exact cell immediately with a wait window of up
+to about 60 seconds. If it remains running, repeat the same wait on the same
+cell. When a terminal command returns a session id, resume that exact session
+with the terminal's wait/poll tool on the same pattern. Do not issue a second
+implementation or verification command while the first handle remains active.
+
+The one-minute window limits status churn; it does not mean sleeping for a minute
+or leaving the task between polls. Only a terminal result or terminal error is
+available for phase decisions.
+
 ## Planning Prompt Shape
 
 Use this shape for a Codex subagent or internal planning pass:
