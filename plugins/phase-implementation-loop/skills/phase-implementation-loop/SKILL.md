@@ -174,6 +174,13 @@ settles a delegated job. Treat missing text before that point as transport state
 not agent output. Keep the role, handle, start time, and expected terminal
 artifact in durable state when a handoff may be needed.
 
+When an orchestration surface wraps a terminal call, forward the completed nested
+result into the outer response with its exit code, output, and session/handle.
+An outer cell with zero-byte output and no exposed exit code or stderr is an
+indeterminate orchestration-capture state, not evidence that the provider returned
+an empty response. Repair or bypass the forwarding layer before using a verifier
+fallback.
+
 ## Verifier Result Contract
 
 Require every verifier prompt to begin its terminal response with this exact

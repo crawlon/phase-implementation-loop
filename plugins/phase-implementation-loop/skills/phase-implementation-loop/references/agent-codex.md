@@ -33,6 +33,35 @@ The one-minute window limits status churn; it does not mean sleeping for a minut
 or leaving the task between polls. Only a terminal result or terminal error is
 available for phase decisions.
 
+## Nested Command Forwarding
+
+When using `functions.exec` to call `tools.exec_command`, an awaited nested result
+is not automatically emitted from the outer cell. Do not leave that call as the
+last statement or the outer cell may complete with zero-byte output and hide the
+terminal exit/error details. Drive any returned terminal session to completion,
+then explicitly emit the result:
+
+```javascript
+let result = await tools.exec_command({ /* command options */ });
+while (result.session_id) {
+  result = await tools.write_stdin({
+    session_id: result.session_id,
+    chars: "",
+    yield_time_ms: 60000,
+  });
+}
+text(JSON.stringify({
+  exit_code: result.exit_code,
+  output: result.output ?? "",
+  session_id: result.session_id ?? null,
+}));
+```
+
+If `functions.exec` itself yields a running cell, resume that exact cell with its
+wait tool until it emits this terminal payload. A zero-byte outer cell with no
+exit code or stderr is an indeterminate forwarding defect, not a Claude or Cursor
+bridge failure and not grounds for a verifier fallback.
+
 ## Planning Prompt Shape
 
 Use this shape for a Codex subagent or internal planning pass:
