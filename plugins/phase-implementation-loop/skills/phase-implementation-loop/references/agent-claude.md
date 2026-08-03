@@ -14,6 +14,11 @@ Use `codex-claude-ask --model opus` by default for Claude calls. This targets
 Claude Opus 4.8 through the CLI model alias unless the user or environment
 provides a more specific Opus 4.8 model id.
 
+For this workflow, Claude Opus is always the preferred external verifier. Use
+Cursor GLM 5.2 only after a documented Claude terminal failure, `INCONCLUSIVE`
+result, unavailability, or an explicit user choice. Do not launch both external
+verifiers by default.
+
 Pass short prompts as a final argument:
 `codex-claude-ask --model opus "..."`.
 

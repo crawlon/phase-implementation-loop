@@ -98,8 +98,8 @@ make a recommendation and ask for a compact confirmation such as:
 ```text
 Recommended execution profile:
 - Planning: Codex by default; add Cursor or Claude for risky/unclear phases.
-- Implementation: Cursor via codex-cursor-impl or Codex direct; use Claude as implementation advisor unless an edit-capable Claude tool is available and permitted.
-- Verification: Claude Opus 4.8, Cursor, or Codex reviewer; use at least one independent verifier for material phases.
+- Implementation: route each phase locally to Codex direct, Cursor Composer 2.5, or Cursor Grok 4.5 according to the Adaptive Routing Policy below.
+- Verification: Claude Opus 4.8 is the preferred external verifier. Use Cursor GLM 5.2 only as the selected fallback; Codex remains the diff owner and fallback reviewer.
 - Orchestrator role: current invoking agent, usually Codex; if Cursor is orchestrating, use `/mål` or `/goal` for process and phase goal state when supported.
 - Codex role when present: diff owner, test runner, and commit gatekeeper.
 - Continuation: after you approve a green phase, commit it and continue directly to the next phase unless you say stop.
@@ -146,6 +146,46 @@ review. For large, unfamiliar, security-sensitive, data-loss, migration, or
 cross-module work, prefer an edit-capable implementer plus one independent
 verifier. If a selected agent is unavailable, use the fallback rules and report
 the degraded profile.
+
+## Adaptive Routing Policy
+
+When the user has made the available models known, select the implementation
+route once per phase from the phase brief and current repository facts. Do not
+ask a model to choose the model, run exploratory comparison prompts, or try
+multiple implementation models for the same phase merely to compare them.
+
+The current supported routes are:
+
+- Codex direct implementation.
+- Cursor Composer 2.5: `composer-2.5-fast`.
+- Cursor Grok 4.5: `cursor-grok-4.5-high`.
+- External verification: Claude Opus 4.8 via `codex-claude-ask --model opus`
+  is always preferred. Cursor GLM 5.2 via `codex-cursor-ask --model
+  glm-5.2-high` is the one external fallback. Do not assume other models are
+  available unless the user or a current capability check establishes that.
+
+Make the selection using only information already needed for the phase brief:
+scope, affected files/modules, risk surface, requirement certainty, existing
+patterns, expected iteration count, and verification burden. This is a local
+orchestrator decision and should add only a short rationale, not another agent
+round trip.
+
+- Use Codex direct for a tiny, familiar, low-risk change: normally one or two
+  files, a clear failure or acceptance test, no material design ambiguity, and
+  no migration, auth, public-contract, concurrency, or cross-module impact.
+- Use Composer 2.5 for bounded routine implementation with clear acceptance
+  criteria, established local patterns, and limited cross-module impact.
+- Use Grok 4.5 for ambiguous bugs, broader refactors, cross-package behavior,
+  complex state or data flow, migrations or contracts, security-sensitive work,
+  or phases likely to require meaningful exploration and several iterations.
+- Use Claude Opus for selected external verification. Use GLM 5.2 only after a
+  documented Claude terminal failure, `INCONCLUSIVE` result, unavailability, or
+  an explicit user choice. Do not start both external verifiers by default.
+
+Record the selected implementer/model, verifier/model when used, and one-line
+rationale in the phase brief or durable phase state. Keep the selection for the
+phase unless scope, risk, or a terminal provider failure materially changes; do
+not switch models mid-phase because of routine progress or stylistic preference.
 
 Load agent-specific instructions only for agents selected in the profile or used
 as fallbacks:

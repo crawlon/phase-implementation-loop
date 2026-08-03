@@ -15,12 +15,19 @@ guardrails or prompt policy.
 - Ask/review/verification/exploration: `codex-cursor-ask`
 - Implementation/editing: `codex-cursor-impl`
 
-Use `composer-2.5-fast` as the default Cursor model for this skill unless the
-user asks otherwise. Prefer setting the model per call with `--model`:
+Use the implementation model chosen by the main skill's Adaptive Routing Policy.
+`composer-2.5-fast` is the routine Cursor implementation route and
+`cursor-grok-4.5-high` is the complexity-escalation route. Prefer setting the
+selected model per call with `--model`:
 
 - Planning: `codex-cursor-plan --model composer-2.5-fast "..."`
 - Ask/review/verification/exploration: `codex-cursor-ask --model composer-2.5-fast "..."`
 - Implementation/editing: `codex-cursor-impl --model composer-2.5-fast "..."`
+
+Do not call Cursor to decide between Composer and Grok. The orchestrator makes
+that one local decision from the phase brief. Do not try both models for the same
+phase unless a documented scope/risk change or terminal provider failure requires
+a fallback.
 
 The wrappers also honor `CODEX_CURSOR_MODEL` for a session-wide default. Set it
 using syntax for the active shell:
@@ -39,6 +46,10 @@ Known Cursor model ids verified with `cursor-agent models` on 2026-07-23:
 - `cursor-grok-4.5-high-fast`: Cursor Grok 4.5 High Fast.
 - `glm-5.2-high`: GLM 5.2.
 - `glm-5.2-max`: GLM 5.2 Max.
+
+For this workflow, use GLM 5.2 only as the external-verification fallback after
+Claude Opus is terminally unavailable, `INCONCLUSIVE`, or explicitly declined by
+the user. Do not treat other listed Cursor models as selected workflow defaults.
 
 The hardened wrappers use `--output-format json` and require a successful,
 non-empty terminal result. `codex-cursor-ask` and `codex-cursor-plan` retry once
