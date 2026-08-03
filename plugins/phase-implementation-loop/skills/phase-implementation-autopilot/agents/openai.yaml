@@ -1,0 +1,4 @@
+interface:
+  display_name: "Phase Implementation Autopilot"
+  short_description: "Run verified phase plans without routine pauses"
+  default_prompt: "Use $phase-implementation-autopilot to execute this approved phase plan autonomously, committing each green phase and stopping only on a defined safety gate."

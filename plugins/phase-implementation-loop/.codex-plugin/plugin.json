@@ -1,15 +1,15 @@
 {
   "name": "phase-implementation-loop",
-  "version": "0.1.0",
-  "description": "Phase-gated implementation workflow with configurable Codex, Cursor, and Claude agent roles.",
+  "version": "0.2.0",
+  "description": "Phase-gated and autopilot implementation workflows with configurable Codex, Cursor, and Claude agent roles.",
   "author": {
     "name": "Jonas Velander"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "Phase Implementation Loop",
-    "shortDescription": "Run phase-gated implementation plans with selected agent roles.",
-    "longDescription": "Reconcile markdown plans and Linear issues into a canonical phase plan, choose Codex/Cursor/Claude roles for planning, implementation, and verification, then run gated phase-by-phase implementation with durable handoffs.",
+    "shortDescription": "Run phase plans with gated or autopilot execution.",
+    "longDescription": "Reconcile markdown plans and Linear issues into a canonical phase plan, choose Codex/Cursor/Claude roles, then use either per-phase approval gates or bounded autopilot execution with automatic green-phase commits and strict operator stop conditions.",
     "developerName": "Jonas Velander",
     "category": "Productivity",
     "capabilities": [

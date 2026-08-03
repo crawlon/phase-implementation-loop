@@ -9,9 +9,12 @@ implementation, review, verification, exploration, or fallback roles.
   and independent exploration would save context.
 - Implementation: main Codex can edit directly. A Codex worker/subagent may be
   used when available, but the main Codex agent still owns the diff.
-- Verification: use a separate Codex reviewer/subagent when available and
-  independence matters. If none is available, the main Codex agent performs an
-  explicit second-pass review and reports degraded independence.
+- Verification: use a fresh separate Codex reviewer/subagent as the last-resort
+  verifier after Claude Opus and Cursor GLM 5.2 are terminally unavailable or
+  inconclusive. Prefer `gpt-5.6-terra` with high reasoning when available, or a
+  comparable strong Codex coding model with high reasoning or effort. If no
+  subagent is available, the main Codex agent may perform an explicit second
+  pass, but it is not independent and must be reported as degraded.
 
 Codex is always the orchestrator, test runner, diff owner, approval gatekeeper,
 and final reporter even when another agent contributes work.
@@ -118,11 +121,15 @@ Use this shape for a Codex reviewer/subagent or for a main-agent second pass:
 ```text
 Verify phase [N]: [short title].
 
-Review this implementation as an independent verifier.
+Review this implementation as a read-only verifier. You did not implement this
+phase. Do not edit, stage, commit, push, deploy, access secrets, or perform
+destructive or live actions.
 
 Inputs:
 - Phase objective: [objective]
-- Diff summary: [summary]
+- Frozen acceptance criteria: [criteria]
+- Repository path and base commit: [path/base]
+- Actual diff scope: [paths/modules]
 - Test commands and results: [commands/results]
 - Known constraints: [repo rules/security/auth/i18n/etc.]
 
@@ -139,3 +146,15 @@ FINDINGS:
 EVIDENCE:
 - tests, diff paths, or inspection basis
 ```
+
+For a last-resort Codex verifier, start with fresh context and disable unrelated
+user configuration, connectors, or MCP startup when the active surface supports
+it. Do not provide the implementer's reasoning transcript or the orchestrator's
+desired verdict. Record the actual model, reasoning effort, verifier session,
+and any isolation option used.
+
+The orchestrator must check concrete claims against the files and test output.
+A Codex subagent `PASS` has degraded cross-provider independence. It cannot by
+itself green critical auth/security, irreversible or production-data,
+destructive, live-migration, or credential work after both external verifiers
+fail. The main orchestrator's second pass must never be described as independent.

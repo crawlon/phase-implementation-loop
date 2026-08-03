@@ -1,8 +1,14 @@
 # Phase Implementation Loop
 
-A Codex plugin that adds the `$phase-implementation-loop` skill: a phase-gated
-implementation workflow with configurable Codex, Cursor, and Claude roles for
-planning, implementation, and verification.
+A Codex plugin with two execution modes:
+
+- `$phase-implementation-loop`: phase-gated execution with approval before each
+  commit.
+- `$phase-implementation-autopilot`: bounded continuous execution with automatic
+  commits for green phases and strict operator stop gates.
+
+Both support configurable Codex, Cursor, and Claude roles for planning,
+implementation, and verification.
 
 ## Install
 
@@ -41,6 +47,11 @@ directory syntax, and command discovery on macOS, Linux, PowerShell, and
   Cursor, and Claude roles.
 - Runs phase by phase with planning, implementation, verification, phase reports,
   approval gates, commits, and durable handoffs.
+- Offers an explicit autopilot variant that freezes the approved scope, commits
+  each green phase, continues without routine approval pauses, and stops on
+  ambiguity, insufficient verification, or high-risk actions.
+- Uses Claude Opus as the preferred external verifier, GLM 5.2 as fallback, and
+  a fresh high-reasoning Codex sub-agent as the final verification fallback.
 - Keeps wrappers transport-focused: agent policies, prompts, defaults, and
   fallbacks live in the skill references. Optional hardened macOS/zsh Cursor
   wrappers live under `scripts/cursor-bridge/`.
@@ -57,6 +68,11 @@ plugins/phase-implementation-loop/
       agent-codex.md
       agent-cursor.md
       agent-claude.md
+  skills/phase-implementation-autopilot/
+    SKILL.md
+    agents/openai.yaml
+    references/
+      agent-routing.md
 scripts/
   cursor-bridge/
     bin/

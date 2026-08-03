@@ -99,7 +99,7 @@ make a recommendation and ask for a compact confirmation such as:
 Recommended execution profile:
 - Planning: Codex by default; add Cursor or Claude for risky/unclear phases.
 - Implementation: route each phase locally to Codex direct, Cursor Composer 2.5, or Cursor Grok 4.5 according to the Adaptive Routing Policy below.
-- Verification: Claude Opus 4.8 is the preferred external verifier. Use Cursor GLM 5.2 only as the selected fallback; Codex remains the diff owner and fallback reviewer.
+- Verification: Claude Opus 4.8 is preferred, Cursor GLM 5.2 is the external fallback, and a fresh high-reasoning Codex verifier subagent is the last resort. Codex remains the diff owner and commit gatekeeper.
 - Orchestrator role: current invoking agent, usually Codex; if Cursor is orchestrating, use `/mål` or `/goal` for process and phase goal state when supported.
 - Codex role when present: diff owner, test runner, and commit gatekeeper.
 - Continuation: after you approve a green phase, commit it and continue directly to the next phase unless you say stop.
@@ -159,10 +159,10 @@ The current supported routes are:
 - Codex direct implementation.
 - Cursor Composer 2.5: `composer-2.5-fast`.
 - Cursor Grok 4.5: `cursor-grok-4.5-high`.
-- External verification: Claude Opus 4.8 via `codex-claude-ask --model opus`
-  is always preferred. Cursor GLM 5.2 via `codex-cursor-ask --model
-  glm-5.2-high` is the one external fallback. Do not assume other models are
-  available unless the user or a current capability check establishes that.
+- Verification order: Claude Opus 4.8 via `codex-claude-ask --model opus`;
+  Cursor GLM 5.2 via `codex-cursor-ask --model glm-5.2-high`; then a fresh
+  read-only Codex verifier subagent, preferably `gpt-5.6-terra` with high
+  reasoning. Do not assume unconfirmed models are available.
 
 Make the selection using only information already needed for the phase brief:
 scope, affected files/modules, risk surface, requirement certainty, existing
@@ -180,7 +180,9 @@ round trip.
   or phases likely to require meaningful exploration and several iterations.
 - Use Claude Opus for selected external verification. Use GLM 5.2 only after a
   documented Claude terminal failure, `INCONCLUSIVE` result, unavailability, or
-  an explicit user choice. Do not start both external verifiers by default.
+  an explicit user choice. Use a fresh Codex verifier subagent only after both
+  external tiers are unavailable or inconclusive. Do not start multiple
+  verifiers by default.
 
 Record the selected implementer/model, verifier/model when used, and one-line
 rationale in the phase brief or durable phase state. Keep the selection for the
@@ -247,8 +249,26 @@ Classify terminal verifier responses precisely:
   count, and concise stderr/error evidence. Never claim a capture failure without
   that evidence.
 - `INCONCLUSIVE` is a usable result that cannot make the phase green. Resolve its
-  stated gap, use the selected fallback once when independence is needed, or run
-  a disclosed Codex second pass.
+  stated gap or advance through the verification fallback chain when
+  independence is needed.
+
+## Verification Fallback Chain
+
+Use one verifier at a time. Fix or escalate `BLOCKED`; never ask the next verifier
+to overrule it. Fall back only after documented terminal failure, unavailability,
+or `INCONCLUSIVE`.
+
+1. Prefer Claude Opus via `codex-claude-ask --model opus`; choose effort from
+   phase risk.
+2. Use Cursor GLM 5.2 via `codex-cursor-ask --model glm-5.2-high` when Claude is
+   terminally unavailable or inconclusive.
+3. Last resort: launch a fresh read-only Codex verifier subagent, preferably
+   `gpt-5.6-terra` with high reasoning or a comparable strong Codex model. Follow
+   `references/agent-codex.md`; orchestrator self-review is not independent.
+
+A last-resort Codex `PASS` may green an ordinary phase when the report discloses
+`degraded-independent-verification`. After both external tiers fail, ask the user
+before greening critical auth/security, production-data, destructive, live-migration, or credential work.
 
 ## Supervision Budget
 
@@ -375,9 +395,10 @@ capable agent and disclose the fallback in the phase report.
   directly while keeping the same phase brief and gates.
 - Planning/exploration role unavailable: the main Codex agent plans, optionally
   using another available agent for bounded exploration.
-- Verification role unavailable: prefer a different independent verifier. If no
-  independent verifier is available, the main Codex agent performs an explicit
-  second-pass review and marks verifier confidence as degraded.
+- Verification role unavailable: follow the Verification Fallback Chain. If no
+  fresh Codex verifier subagent is available after both external tiers fail, the
+  main Codex agent may perform a disclosed second pass, but it does not count as
+  independent verification and critical phases require a user decision.
 
 Do not treat an unstructured but non-empty verifier response as unavailable. A
 fallback is appropriate only after a documented terminal transport/provider
