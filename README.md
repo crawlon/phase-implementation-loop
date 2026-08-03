@@ -7,8 +7,8 @@ A Codex plugin with two execution modes:
 - `$phase-implementation-autopilot`: bounded continuous execution with automatic
   commits for green phases and strict operator stop gates.
 
-Both support configurable Codex, Cursor, and Claude roles for planning,
-implementation, and verification.
+Both use one shared protocol and support configurable Codex, Cursor, and Claude
+roles. The invoking agent orchestrates; a separate edit-capable agent implements.
 
 ## Install
 
@@ -34,17 +34,18 @@ directory.
 ## Cross-Platform Notes
 
 The plugin is platform-neutral: it is a Codex plugin manifest plus Markdown
-skill instructions. No Bash-only setup script is required. The skill references
-include shell-specific examples for environment variables, current working
-directory syntax, and command discovery on macOS, Linux, PowerShell, and
+skill instructions. No Bash-only setup script is required. The shared protocol
+covers command discovery and shell adaptation on macOS, Linux, PowerShell, and
 `cmd.exe`.
 
 ## What It Does
 
 - Reconciles markdown plans and Linear issues into a canonical markdown phase
   plan before implementation starts.
-- Lets the main Codex agent recommend or confirm an execution profile for Codex,
-  Cursor, and Claude roles.
+- Lets the invoking orchestrator recommend or confirm an execution profile for
+  Codex, Cursor, and Claude roles.
+- Keeps Codex implementation separate from orchestration: a selected Codex
+  implementer always runs as an edit-capable worker sub-agent.
 - Runs phase by phase with planning, implementation, verification, phase reports,
   approval gates, commits, and durable handoffs.
 - Offers an explicit autopilot variant that freezes the approved scope, commits
@@ -55,6 +56,8 @@ directory syntax, and command discovery on macOS, Linux, PowerShell, and
 - Keeps wrappers transport-focused: agent policies, prompts, defaults, and
   fallbacks live in the skill references. Optional hardened macOS/zsh Cursor
   wrappers live under `scripts/cursor-bridge/`.
+- Packages both execution modes together; autopilot intentionally reuses the
+  gated skill's shared protocol and agent references.
 
 ## Structure
 
@@ -65,14 +68,15 @@ plugins/phase-implementation-loop/
   skills/phase-implementation-loop/
     SKILL.md
     references/
+      shared-protocol.md
+      delegated-jobs.md
+      agent-prompts.md
       agent-codex.md
       agent-cursor.md
       agent-claude.md
   skills/phase-implementation-autopilot/
     SKILL.md
     agents/openai.yaml
-    references/
-      agent-routing.md
 scripts/
   cursor-bridge/
     bin/

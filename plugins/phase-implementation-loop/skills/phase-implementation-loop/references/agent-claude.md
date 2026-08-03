@@ -1,146 +1,51 @@
 # Claude Agent Reference
 
-Use this reference when the execution profile assigns Claude to planning,
-implementation, review, verification, exploration, or fallback roles.
+Use this reference when Claude is selected for planning, implementation advice,
+review, verification, exploration, or orchestration.
 
-## Thin Wrapper
+## Transport And Effort
 
-The global Claude wrapper should contain only CLI transport behavior: check that
-`claude` exists, run non-interactively, keep the call read-only unless an
-explicit edit-capable Claude tool exists, and pass through caller-provided
-arguments. It should not inject phase-loop guardrails or prompt policy.
-
-Use `codex-claude-ask --model opus` by default for Claude calls. This targets
-Claude Opus 4.8 through the CLI model alias unless the user or environment
-provides a more specific Opus 4.8 model id.
-
-For this workflow, Claude Opus is always the preferred external verifier. Use
-Cursor GLM 5.2 only after a documented Claude terminal failure, `INCONCLUSIVE`
-result, unavailability, or an explicit user choice. Do not launch both external
-verifiers by default.
-
-Pass short prompts as a final argument:
-`codex-claude-ask --model opus "..."`.
-
-For long prompts, write the prompt to a temporary text file and call:
-`codex-claude-ask --model opus --prompt-file <path>`. Prefer this over shell
-pipes or redirection from inside Codex, because piped commands may run in a
-sandbox/auth context where Claude reports `Not logged in`.
-
-If the wrapper is unavailable but `claude` exists, call Claude directly:
-`claude --print --permission-mode plan --no-chrome --no-session-persistence --model opus "..."`.
-
-The direct Claude command is the same on macOS, Linux, PowerShell, and
-`cmd.exe` when `claude` is on `PATH`; adapt prompt quoting for the active shell.
-For long direct-CLI prompts or fragile quoting, place the prompt in a temporary
-text file and pass it using the supported Claude CLI input method for the
-installed version.
-
-Choose effort per phase instead of hardcoding one globally. Omit `--effort` when
-default effort is enough; add `--effort high`, `xhigh`, or `max` for large
-diffs, high-risk migrations, auth/security changes, data-loss risk, or subtle
-architecture questions.
-
-## Capabilities
-
-With the current global wrapper, Claude runs in non-interactive ask/plan mode.
-Use it for planning, review, verification, risk analysis, and implementation
-guidance. Do not claim Claude edited files unless an explicitly approved
-edit-capable Claude tool is available in the current environment and was used.
-
-If Claude is selected for implementation but only `codex-claude-ask` is
-available, use Claude as an implementation advisor and have Codex or another
-edit-capable agent apply the changes after inspection. If an edit-capable Claude
-tool is available and current repo/user policy permits using it, use the
-Implementation Prompt Shape and keep the same Codex diff ownership gates.
-
-## Planning Prompt Shape
-
-Use this shape with `codex-claude-ask --model opus`:
+Use the thin read-only wrapper:
 
 ```text
-Plan phase [N]: [short title].
-
-Inputs:
-- Phase objective: [objective]
-- In scope: [bullets]
-- Out of scope: [bullets]
-- Known repo constraints: [constraints]
-- Likely files/modules: [paths/modules if known]
-
-Return:
-- Minimal implementation approach.
-- Risks and unclear requirements.
-- Suggested verification.
-- Stop conditions.
+codex-claude-ask --model opus "..."
+codex-claude-ask --model opus --prompt-file <path>
 ```
 
-## Implementation Prompt Shape
-
-Use this shape when Claude is selected for implementation. If Claude cannot edit
-directly, this is implementation guidance for Codex or another edit-capable
-agent to apply:
+Prefer a prompt file for long calls. If the wrapper is unavailable but `claude`
+exists, use non-interactive print/plan mode with session persistence and browser
+integration disabled. Adapt quoting and prompt-file input to the installed CLI
+and active shell.
 
 ```text
-Implement or advise on phase [N]: [short title].
-
-Context:
-- Repo/task: [context]
-- Current phase objective: [objective]
-- In scope: [bullets]
-- Out of scope: [bullets]
-- Constraints: follow active repo instructions; no commits, pushes, deploys,
-  secrets, credential changes, or destructive commands. Ask questions only when
-  requirements are unclear or the answer changes scope/product behavior.
-- Style: Ponytail/minimal-diff by default: smallest working diff, existing
-  project patterns, no speculative abstractions, no unrelated cleanup. Preserve
-  required auth, validation, security, accessibility, and verification.
-
-Expected output:
-- If this tool has edit capability, make the implementation changes.
-- If this tool is read-only, return concrete code-level guidance instead.
-- Return a concise final report, not a step-by-step activity transcript.
-- Report files changed or files likely to change.
-- Report risks, skipped/deferred work, and verification commands.
+claude --print --permission-mode plan --no-chrome --no-session-persistence --model opus "..."
 ```
 
-## Verification Prompt Shape
+The `opus` alias should target Claude Opus 4.8 for this package; verify the current
+CLI mapping when uncertain. Let the orchestrator choose effort from phase risk:
+default for bounded work; high or maximum supported effort for large diffs,
+subtle architecture, auth/security, migration, or data-loss risk. Do not hardcode
+unsupported effort flags.
 
-Use this shape with `codex-claude-ask --model opus`:
+Apply terminal lifecycle, output classification, patience, and fallback rules
+from `delegated-jobs.md`.
 
-```text
-Verify phase [N]: [short title].
+## Capabilities And Prompts
 
-Review this implementation as an external verifier.
+The current wrapper is read-only. Use it for planning, review, verification,
+risk analysis, and implementation advice. Do not claim workspace edits unless an
+explicitly available and authorized edit-capable Claude surface was used.
 
-Inputs:
-- Phase objective: [objective]
-- Diff summary: [summary]
-- Test commands and results: [commands/results]
-- Known constraints: [repo rules/security/auth/i18n/etc.]
+When the user selects Claude implementation and an edit-capable Claude surface is
+available, delegate the implementation prompt to that surface under the same
+role separation and workspace gates. Otherwise Claude is an advisor only.
 
-Please check:
-1. Does the diff satisfy the phase objective?
-2. Any correctness, security, auth, data-loss, migration, UX, or regression risks?
-3. Are tests/verifications sufficient for this phase?
-4. Any blockers before the phase can be marked green?
+Use `agent-prompts.md` for the selected role. When Claude is implementation
+advisor only, return concrete code-level guidance to the selected edit-capable
+implementation agent. If that agent is Codex, it must be the separate worker
+subagent defined in `agent-codex.md`, never the orchestrator.
 
-Return no prose before this exact contract:
-VERDICT: PASS, BLOCKED, or INCONCLUSIVE
-FINDINGS:
-- none, or concrete issue(s) with evidence
-EVIDENCE:
-- tests, diff paths, or inspection basis
-```
-
-Claude verification may take several minutes on large diffs, high effort, or
-long context. Wait for the command to finish rather than retrying immediately.
-Retry only after a clear process failure, auth/permission issue, provider error,
-or a genuinely long timeout for the phase size.
-
-If the orchestration surface first returns a running cell, session, or process
-handle without Claude text, treat that as an in-flight request rather than an
-empty response. Resume the exact handle immediately with the surface's wait/poll
-mechanism and a wait window of up to about one minute, repeating until terminal
-exit. Do not report verification, start a fallback, or end the task while the
-original Claude request remains active.
+Claude Opus is the preferred external verifier. GLM follows only after documented
+terminal failure, unavailability, or `INCONCLUSIVE`, or explicit user selection.
+A Claude `BLOCKED` finding returns to implementation and must not be shopped to a
+fallback verifier.

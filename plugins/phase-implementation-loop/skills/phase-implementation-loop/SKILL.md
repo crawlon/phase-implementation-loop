@@ -1,499 +1,124 @@
 ---
 name: phase-implementation-loop
-description: Execute multi-phase implementation plans with the invoking agent as orchestrator and selected Codex, Cursor, or Claude agents for implementation, review, and verification according to current tool capabilities. Use when the user asks to implement or execute a plan phase by phase from a markdown plan, Linear issues, a Linear parent issue with sub-issues, or a mixed plan source; reconcile plans and Linear issues into a canonical markdown phase plan before Phase 1; choose or confirm an execution profile for implementation and verification agents; run a relatively autonomous phase-gated build; set a goal for a multi-phase implementation; keep one branch across phases; or create durable phase handoffs before continuing.
+description: Execute a multi-phase implementation plan in gated mode, with the invoking agent as orchestrator, delegated implementation, independent verification, and approval before each phase commit. Use for markdown plans, Linear issues, parent issues with sub-issues, or mixed sources. Codex implementation always uses a separate worker subagent.
 ---
 
 # Phase Implementation Loop
 
-Use this skill to run a relatively autonomous implementation loop inside any
-repository. The agent invoking this skill remains the process owner, normally
-Codex when used as a Codex skill. Peer-agent output is advisory and untrusted
-until the orchestrator inspects the actual files, diff, and verification
-results. Cursor, Claude, and Codex can each be assigned implementation, review,
-or verification roles when the available tools support that role.
-
-Autonomy applies within each phase. Do not commit, push, deploy, expose secrets,
-change credentials, run destructive commands, or start the next phase without the
-required user approval.
-
-## Start-Up
-
-1. Read the active repo and workspace instructions before planning work.
-2. If the user explicitly says "set a goal" or asks for goal mode, create one
-   goal for the whole plan.
-3. Identify the working directory, whether it is a git repository, the current
-   branch, and `git status --short` when available.
-4. Reconcile the plan source into a canonical markdown phase plan with ordered
-   phases small enough to verify independently. If the phase list is missing or
-   materially ambiguous, draft it and ask for approval before Phase 1.
-5. Establish the execution profile for implementation and verification. Ask the
-   user to confirm when the plan is material and the profile was not already
-   specified; recommend a profile yourself instead of asking open-endedly.
-6. If the active orchestration surface supports persistent goal-state commands,
-   set one process goal after the canonical plan and execution profile are
-   known. For Cursor, use `/mål` or `/goal` when supported. Treat goal state as
-   reinforcement only; keep the canonical markdown plan and phase prompts as the
-   source of truth.
-7. Establish one dedicated branch for the whole plan before Phase 1
-   implementation when working in git. If already on a suitable branch, keep it.
-   Otherwise create a `codex/` branch unless the user or repo conventions specify
-   another prefix.
-8. If branch setup is risky because of unrelated dirty worktree changes, ask the
-   user how to proceed. If the directory is not a git repo, skip branch and commit
-   steps and report that mode.
-
-User-facing reports may be in the user's language. Prompts sent to peer agents
-should be in English by default.
-
-## Plan Sources
-
-Accept plans from markdown files, chat, Linear issue lists, a single Linear issue
-with sub-issues, or mixed sources. Do not create separate workflows for each
-format. Before Phase 1, reconcile every source into one canonical markdown phase
-plan. Execute from that markdown plan, with Linear issues preserved as linked
-tracker references.
-
-If the markdown plan is missing and Linear issues exist, create the markdown plan
-from the issues/sub-issues. If the markdown plan exists but Linear issues are
-missing and Linear-backed tracking is requested or clearly expected, create or
-prepare the missing issues from the plan; ask before bulk creation when the
-mapping or project/team is ambiguous. If both markdown and Linear issues exist,
-verify they are 100% synchronized before implementation starts.
-
-The canonical plan should include:
-
-- phase number and title
-- source reference such as file heading, Linear issue id, or sub-issue id
-- objective and acceptance criteria
-- dependencies or ordering constraints
-- likely verification
-- known blockers, deferrals, or out-of-scope items
-
-Use the user's explicit order when given. Otherwise infer order from dependencies,
-Linear project/order, parent issue sub-issue order, priority, or the markdown
-structure, and say what ordering rule was used. Treat each Linear issue or
-sub-issue as a phase by default, but split an oversized issue or group tiny
-related issues when that makes verification cleaner. Preserve the source ids in
-phase briefs, reports, durable state, and commit messages when useful.
-
-100% synchronized means every planned phase has matching issue links when Linear
-tracking is in use, every relevant issue/sub-issue appears in the markdown plan,
-phase order and dependencies agree, objectives and acceptance criteria do not
-conflict, and blockers/deferrals are represented in both places. Fix mismatches
-before Phase 1, or document the gap and ask for approval if fixing it would
-change scope or external project state.
-
-If sources disagree, prefer explicit user instructions, then the most specific
-source attached to the phase, then the broader plan. Ask only when the conflict
-changes scope, product behavior, risk, or phase order. Do not mark Linear issues
-done, close them, or change ownership/status unless the user explicitly asks or
-the repo/team convention is clear.
-
-## Execution Profile
-
-Before Phase 1, choose or confirm how implementation and verification should be
-done. If the user already specified agents, models, or effort, use that. Otherwise
-make a recommendation and ask for a compact confirmation such as:
+Run one approved phase at a time. The invoking agent is the orchestrator and does
+not implement code. A green phase waits for user approval before its focused
+commit; approval may also authorize immediate continuation to the next phase.
 
 ```text
-Recommended execution profile:
-- Planning: Codex by default; add Cursor or Claude for risky/unclear phases.
-- Implementation: route each phase locally to Codex direct, Cursor Composer 2.5, or Cursor Grok 4.5 according to the Adaptive Routing Policy below.
-- Verification: Claude Opus 4.8 is preferred, Cursor GLM 5.2 is the external fallback, and a fresh high-reasoning Codex verifier subagent is the last resort. Codex remains the diff owner and commit gatekeeper.
-- Orchestrator role: current invoking agent, usually Codex; if Cursor is orchestrating, use `/mål` or `/goal` for process and phase goal state when supported.
-- Codex role when present: diff owner, test runner, and commit gatekeeper.
-- Continuation: after you approve a green phase, commit it and continue directly to the next phase unless you say stop.
+canonical plan -> delegated implementation -> diff/tests -> verifier ->
+phase report -> approval -> commit -> continue when approved
+```
+
+## Shared Protocol
+
+This skill is distributed with `phase-implementation-autopilot`. Before planning,
+read `references/shared-protocol.md`. Before the first delegated call, read
+`references/delegated-jobs.md`. Load `references/agent-prompts.md` plus only the
+selected agent references:
+
+- `references/agent-codex.md`
+- `references/agent-cursor.md`
+- `references/agent-claude.md`
+
+Those files are authoritative for plan synchronization, role separation,
+deterministic routing, Codex worker selection, terminal handling, verification,
+fallbacks, and prompt contracts. This file defines only gated-mode behavior.
+
+## Startup Gate
+
+Before Phase 1:
+
+1. Read repository/workspace instructions and inspect working directory, git
+   status, branch, and relevant process identity.
+2. Reconcile all plan sources into the canonical markdown plan under
+   `shared-protocol.md`. Prepare Linear mutations first and ask for explicit
+   authorization before applying them. Start only after a re-read proves complete
+   synchronization.
+3. Use the user's execution profile or recommend one compactly. The recommendation
+   names the orchestrator, implementation route/fallback, verifier chain, models,
+   reasoning/effort, and continuation behavior. Obtain confirmation for material
+   work when the profile was not already approved.
+4. Name a durable-state location for multi-phase work. The canonical plan may
+   carry phase status when it can record every field required by the shared
+   protocol; otherwise use a repo-appropriate adjacent markdown artifact.
+5. If the orchestration surface supports persistent goals, set one process goal
+   after the plan and profile are fixed. For Cursor use `/mål` or `/goal`; include
+   the same goal in ordinary prompts because slash-command state may not persist.
+6. Establish one dedicated branch for the whole plan. Follow repository naming;
+   otherwise use `agent/<plan-slug>`. If unrelated changes make branch or path
+   ownership uncertain, stop for guidance. In a non-git directory, disclose that
+   commits are unavailable and skip git-only gates.
+
+Compact profile shape:
+
+```text
+Recommended execution profile
+- Orchestrator: [agent]
+- Implementation: [agent/model/reasoning and fallback]
+- Verification: Claude Opus -> Cursor GLM 5.2 -> fresh Codex verifier
+- Continuation: after approval, commit Phase N and immediately start Phase N+1
 
 Approve this profile?
 ```
 
-Profiles are role assignments, not fixed agent-role pairs. Any capable selected
-agent may be used for implementation, review, or verification, but do not ask an
-agent to edit unless the current tools explicitly support edit delegation for
-that agent. If an agent can only plan or review, treat its output as guidance for
-Codex or another edit-capable implementer.
-
-Before recommending a profile, check current capabilities with lightweight
-commands or tool discovery. Use the command form for the active shell:
-
-- macOS/Linux/POSIX shells: `command -v <tool>`
-- Windows PowerShell: `Get-Command <tool>`
-- Windows `cmd.exe`: `where <tool>`
-
-Check for these optional tools:
-
-- `codex-cursor-impl`
-- `codex-cursor-plan`
-- `codex-cursor-ask`
-- `codex-claude-ask`
-- `cursor-agent`
-- `claude`
-- available Codex subagent tools
-
-Global wrappers are thin transport commands; do not assume they inject
-guardrails, models, or role prompts. Put those details in the prompt using the
-selected agent reference. If a wrapper is missing but the underlying CLI exists,
-use the direct command pattern from that agent reference.
-
-When showing direct commands, adapt environment-variable syntax, quoting, and
-current-directory expressions to the active shell. In durable instructions, use
-neutral placeholders such as `<current-working-directory>` when the shell is
-unknown.
-
-Adjust the recommendation based on the repo and phase risk. For small or
-low-risk phases, Codex may implement directly and use Cursor, Claude, or Codex
-review. For large, unfamiliar, security-sensitive, data-loss, migration, or
-cross-module work, prefer an edit-capable implementer plus one independent
-verifier. If a selected agent is unavailable, use the fallback rules and report
-the degraded profile.
-
-## Adaptive Routing Policy
-
-When the user has made the available models known, select the implementation
-route once per phase from the phase brief and current repository facts. Do not
-ask a model to choose the model, run exploratory comparison prompts, or try
-multiple implementation models for the same phase merely to compare them.
-
-The current supported routes are:
-
-- Codex direct implementation.
-- Cursor Composer 2.5: `composer-2.5-fast`.
-- Cursor Grok 4.5: `cursor-grok-4.5-high`.
-- Verification order: Claude Opus 4.8 via `codex-claude-ask --model opus`;
-  Cursor GLM 5.2 via `codex-cursor-ask --model glm-5.2-high`; then a fresh
-  read-only Codex verifier subagent, preferably `gpt-5.6-terra` with high
-  reasoning. Do not assume unconfirmed models are available.
-
-Make the selection using only information already needed for the phase brief:
-scope, affected files/modules, risk surface, requirement certainty, existing
-patterns, expected iteration count, and verification burden. This is a local
-orchestrator decision and should add only a short rationale, not another agent
-round trip.
-
-- Use Codex direct for a tiny, familiar, low-risk change: normally one or two
-  files, a clear failure or acceptance test, no material design ambiguity, and
-  no migration, auth, public-contract, concurrency, or cross-module impact.
-- Use Composer 2.5 for bounded routine implementation with clear acceptance
-  criteria, established local patterns, and limited cross-module impact.
-- Use Grok 4.5 for ambiguous bugs, broader refactors, cross-package behavior,
-  complex state or data flow, migrations or contracts, security-sensitive work,
-  or phases likely to require meaningful exploration and several iterations.
-- Use Claude Opus for selected external verification. Use GLM 5.2 only after a
-  documented Claude terminal failure, `INCONCLUSIVE` result, unavailability, or
-  an explicit user choice. Use a fresh Codex verifier subagent only after both
-  external tiers are unavailable or inconclusive. Do not start multiple
-  verifiers by default.
-
-Record the selected implementer/model, verifier/model when used, and one-line
-rationale in the phase brief or durable phase state. Keep the selection for the
-phase unless scope, risk, or a terminal provider failure materially changes; do
-not switch models mid-phase because of routine progress or stylistic preference.
-
-Load agent-specific instructions only for agents selected in the profile or used
-as fallbacks:
-
-- Codex: `references/agent-codex.md`
-- Cursor: `references/agent-cursor.md`
-- Claude: `references/agent-claude.md`
-
-## External Job Lifecycle
-
-Treat every delegated implementation, review, verification, or exploration call
-as a state machine: `launched` -> `in flight` -> `terminal success` or
-`terminal failure`. A running cell, session, process, or tool handle is always
-`in flight`, even when it contains no model text.
-
-`In flight` is a hard non-terminal state for the orchestrator. Do not report an
-empty response, begin tests or the next role, produce a phase report, ask for
-approval, or end the task while an external job remains in flight. Resume the
-exact returned handle immediately using the active surface's wait/poll mechanism
-with a wait window of up to about one minute. If it still runs, resume that same
-handle again. This is continuation, not a duplicate request or frequent active
-monitoring.
-
-Only a terminal exit, structured terminal result, or explicit terminal error
-settles a delegated job. Treat missing text before that point as transport state,
-not agent output. Keep the role, handle, start time, and expected terminal
-artifact in durable state when a handoff may be needed.
-
-When an orchestration surface wraps a terminal call, forward the completed nested
-result into the outer response with its exit code, output, and session/handle.
-An outer cell with zero-byte output and no exposed exit code or stderr is an
-indeterminate orchestration-capture state, not evidence that the provider returned
-an empty response. Repair or bypass the forwarding layer before using a verifier
-fallback.
-
-## Verifier Result Contract
-
-Require every verifier prompt to begin its terminal response with this exact
-three-part contract. Do not accept prose before `VERDICT`:
-
-```text
-VERDICT: PASS | BLOCKED | INCONCLUSIVE
-FINDINGS:
-- none, or concrete issue(s) with evidence
-EVIDENCE:
-- tests, diff paths, or inspection basis
-```
-
-Classify terminal verifier responses precisely:
-
-- A response matching the contract is structured and usable.
-- Non-empty review text that misses the contract is unstructured, not a bridge
-  failure. Extract concrete findings, perform the orchestrator's own verdict,
-  and report reduced formatting confidence. Do not switch verifiers merely
-  because the first line is not literal `PASS` or `BLOCKED`.
-- A terminal non-zero exit or whitespace-only terminal output is a transport or
-  provider failure. Before calling it unusable or invoking a fallback, record the
-  agent/model, command or wrapper, handle when available, exit code, stdout byte
-  count, and concise stderr/error evidence. Never claim a capture failure without
-  that evidence.
-- `INCONCLUSIVE` is a usable result that cannot make the phase green. Resolve its
-  stated gap or advance through the verification fallback chain when
-  independence is needed.
-
-## Verification Fallback Chain
-
-Use one verifier at a time. Fix or escalate `BLOCKED`; never ask the next verifier
-to overrule it. Fall back only after documented terminal failure, unavailability,
-or `INCONCLUSIVE`.
-
-1. Prefer Claude Opus via `codex-claude-ask --model opus`; choose effort from
-   phase risk.
-2. Use Cursor GLM 5.2 via `codex-cursor-ask --model glm-5.2-high` when Claude is
-   terminally unavailable or inconclusive.
-3. Last resort: launch a fresh read-only Codex verifier subagent, preferably
-   `gpt-5.6-terra` with high reasoning or a comparable strong Codex model. Follow
-   `references/agent-codex.md`; orchestrator self-review is not independent.
-
-A last-resort Codex `PASS` may green an ordinary phase when the report discloses
-`degraded-independent-verification`. After both external tiers fail, ask the user
-before greening critical auth/security, production-data, destructive, live-migration, or credential work.
-
-## Supervision Budget
-
-Keep orchestration supervision bounded. Codex must know whether delegated work is
-progressing, what changed, and whether the result is safe, but should not
-continuously narrate or relay a peer agent's routine step-by-step activity.
-
-Default supervision pattern:
-
-1. Send the selected agent a bounded prompt with required final output.
-2. If the call returns an in-flight handle, resume that exact handle immediately
-   as required by the External Job Lifecycle. Do not interpret the first yield
-   as an empty agent response.
-3. Use wait windows of up to about one minute for long-running jobs, then resume
-   the same handle if still running. Check only for completion, hangs, repeated
-   failures, or unexpected prompts; avoid summarizing ordinary logs. This limits
-   active status checks without permitting the orchestrator to leave an in-flight
-   job.
-4. After an implementation agent returns, read the final report, inspect
-   `git status --short` and the actual diff, then run verification.
-5. After a verification agent returns, read its verdict and blocker list. Do not
-   relay its reasoning transcript unless a specific finding needs evidence.
-6. In user-facing updates and phase reports, summarize decisions, changed files,
-   verification, risks, and blockers. Do not paste or paraphrase a full peer
-   agent transcript unless it contains a decision or blocker the user needs.
-
-External verification by Cursor or Claude can legitimately take several
-minutes, especially with large diffs, long test output, high-effort models, or
-remote provider latency. Be patient while the verifier is still running. Do not
-cancel, restart, or send a duplicate verifier request just because there is no
-immediate output. Intervene only when there is a real signal: process exit,
-explicit error, auth/permission prompt, repeated failure, a timeout that is long
-enough for the phase risk, or evidence that the command is hung rather than
-thinking. If user-facing progress updates are required while waiting, say that
-external verification is still running and that this can take time.
-
-For long phases, prefer explicit checkpoint boundaries over constant monitoring:
-planning complete, implementation returned, diff inspected, verification passed
-or failed, verifier returned, phase report ready. If an active system/developer
-instruction requires periodic user updates, keep those updates short and about
-phase state, not detailed peer-agent narration. A running cell or session id
-must be resumed to terminal exit; it is never a reason to end the task or infer
-an empty peer-agent response.
-
-## Phase Loop
+## Gated Phase Loop
 
 For each phase:
 
-1. Read the current phase from the canonical markdown plan, then write a concise
-   phase brief before editing:
-   - objective
-   - in scope and out of scope
-   - likely files or modules
-   - active repo constraints
-   - verification commands or acceptance checks
-   - known risks and stop conditions
-   If the active orchestrator supports per-task goal-state commands, refresh the
-   goal state at each phase boundary. For Cursor, use `/mål` or `/goal` with the
-   current phase objective, acceptance criteria, out-of-scope items, and stop
-   conditions. Still include the same details in any implementation or
-   verification prompt.
-2. Run planning/exploration according to the execution profile when it would
-   reduce risk or clarify the implementation path. Codex may plan directly, or
-   ask selected agents for bounded plans using their reference prompts.
-3. Delegate implementation according to the execution profile only when bounded
-   delegation is useful. Use an edit-capable agent for workspace edits, or have
-   a planning/review-only agent produce guidance that Codex applies after
-   inspection. Include Ponytail/minimal-diff by default unless the user requested
-   another style. Drive every delegated job to a terminal result under the
-   External Job Lifecycle before moving to the next step.
-4. After delegated implementation or Codex edits, run `git status --short` and
-   inspect the actual diff yourself before trusting the result or running broad
-   verification.
-5. Run the smallest relevant verification first, then broaden based on risk,
-   touched surfaces, failures, or repo norms.
-6. Run verifier review according to the execution profile using an independent
-   agent where practical. Use selected agent references for exact wrapper,
-   model, effort, and prompt details. Drive the verifier job to a terminal result
-   under the External Job Lifecycle, then classify it under the Verifier Result
-   Contract before evaluating its verdict or invoking a fallback.
-7. If Codex review, tests, or verifier output are red, fix directly or redelegate
-   a targeted follow-up. Repeat review and verification until green or until a
-   real blocker or user decision is needed.
-8. Check whether durable state is sufficient for the next phase. If context is
-   getting heavy, update a plan document, ledger, changelog, issue, or handoff
-   note before asking to continue.
-9. Confirm that no delegated job remains in flight. Then end with a phase report
-   and ask for one approval covering both the phase
-   commit and continuation to the next phase, unless a stop condition applies.
-10. After approval, create a focused phase commit unless the user says not to, the
-   repo is not under git, or there are no changes. Do not push unless separately
-   requested.
-11. If the approval included continuation, the commit succeeded or was skipped
-    for a valid reason, another phase remains, and no blocker or handoff warning
-    applies, immediately start the next phase. Do not stop after committing and
-    wait for a second "continue" prompt.
-
-Green means the phase objective is met, relevant verification passed or was
-explicitly waived with reason, Codex inspected the diff, the verifier found no
-blocker, and durable state is adequate for the next phase.
-
-## Agent References
-
-Read only the reference files needed by the execution profile. They define how
-each agent can be used across roles, including supported wrappers, model/effort
-defaults, and prompt shapes.
-
-- `references/agent-codex.md`: Codex as implementer, reviewer, verifier, or
-  fallback.
-- `references/agent-cursor.md`: Cursor as implementer, explorer, reviewer, or
-  verifier.
-- `references/agent-claude.md`: Claude as planner, reviewer, verifier, or
-  implementation advisor when edit delegation is unavailable.
-
-## Fallbacks
-
-If a selected agent is unavailable because of usage, token, quota, credits,
-rate-limit, subscription limits, wrapper failure, or missing access, do not keep
-retrying that provider in the same phase. Switch the affected role to another
-capable agent and disclose the fallback in the phase report.
-
-- Implementation role unavailable: use another edit-capable agent. If no
-  delegated edit-capable agent is available, the main Codex agent may implement
-  directly while keeping the same phase brief and gates.
-- Planning/exploration role unavailable: the main Codex agent plans, optionally
-  using another available agent for bounded exploration.
-- Verification role unavailable: follow the Verification Fallback Chain. If no
-  fresh Codex verifier subagent is available after both external tiers fail, the
-  main Codex agent may perform a disclosed second pass, but it does not count as
-  independent verification and critical phases require a user decision.
-
-Do not treat an unstructured but non-empty verifier response as unavailable. A
-fallback is appropriate only after a documented terminal transport/provider
-failure, an `INCONCLUSIVE` result, or concrete unresolved review risk.
-
-Green is still possible with fallback when the same gates pass. Peer-agent quota
-exhaustion is not automatically a blocker.
-
-## Retry And Blocker Handling
-
-Do not repeat the same failing command, peer-agent prompt, or fix attempt without
-new information. After two similar red cycles, stop and either document a blocker
-or ask the user a focused question unless there is a clear new fix to try.
-
-Stop and ask before continuing when:
-
-- phase scope changes materially
-- a destructive action, secret exposure, credential change, deploy, push, risky
-  branch switch, or pre-approval commit is needed
-- important verification cannot be run
-- peer agents recommend conflicting high-risk changes
-- a delegated job reached a terminal error, commands hang, or commands repeatedly
-  fail without new information; an in-flight handle by itself is not a failure
-- no usable fallback exists for an exhausted peer-agent role
-- the next phase depends on a product or architecture decision
-- precise history needed for the next phase has not been written to durable state
-
-## Commit Gate
-
-Do not commit before the user approves the phase report. Ask for approval in a
-form that makes continuation explicit, for example: "Approve committing Phase N
-and proceeding to Phase N+1?" If the user approves both, commit and continue
-without asking for another prompt. If the user approves only the commit, stop
-after committing.
-
-Before committing, check `git status --short`, review the staged diff, and stage
-only the phase changes. Avoid unrelated user changes even when they are in files
-touched during the phase. Never push unless the user separately requests it.
-
-If Linear issues are linked and the tools are available, update the relevant
-issues at phase boundaries with branch, commit when available, verification,
-blockers, deferrals, and next steps. Linear updates do not replace the phase
-report or approval gate.
-
-## Context And Handoff
-
-Codex is responsible for context health. At the end of each phase, and sooner if
-the thread becomes noisy, decide whether a new thread would be safer.
-
-Write or update durable state before recommending handoff when:
-
-- peer-agent iterations, diffs, logs, or tests produced large outputs
-- important product or architecture decisions happened in chat
-- the next phase depends on exact commands, counts, run ids, blockers, or
-  approval decisions
-- the current state cannot be reconstructed from durable artifacts plus the diff
-
-Durable state should record: phase status, files changed, commit hash if any,
-verification commands and results, verifier result, blockers, deferred work, next
-phase, and exact user decisions.
-
-Handoff prompt shape:
-
-```text
-Continue the phase implementation loop from [artifact/path].
-
-Current status:
-- Completed phase: [phase]
-- Commit: [hash or none]
-- Verification: [commands/results]
-- Verifier review: [PASS/BLOCKED/degraded summary]
-- Deferred/skipped: [items]
-- Blockers/risks: [items]
-- Next phase to start: [phase]
-
-Read the durable artifact first, then continue:
-phase brief -> selected implementation if useful -> Codex diff inspection ->
-verification -> selected verifier review -> phase report -> wait for approval ->
-commit only after approval -> continue automatically when approval included
-continuation.
-```
+1. Run the Common Phase State Machine in `references/shared-protocol.md` through
+   its GREEN or stop decision. Refresh a supported phase goal with objective,
+   acceptance criteria, out-of-scope items, and stop conditions.
+2. Confirm every delegated handle is terminal and durable state is sufficient
+   for another agent to reconstruct the phase.
+3. If not GREEN, do not commit. Preserve the workspace and report the failed gate,
+   evidence, attempted repairs, and one focused decision request.
+4. If GREEN, produce the phase report below and request one explicit approval:
+   `Approve committing Phase N and proceeding to Phase N+1?`
+5. Interpret approval literally. Approval for both actions means commit and
+   continue. Approval for commit only means commit and stop. No approval means no
+   commit.
+6. Before committing, recheck `git status --short`, stage only explicit
+   phase-owned paths, inspect the staged diff, and create one focused phase commit.
+   Never push unless separately authorized.
+7. When continuation was approved, the commit succeeded or was validly skipped,
+   another phase remains, and no stop gate applies, start the next phase
+   immediately without asking for a second continuation prompt.
 
 ## Phase Report
 
-End each phase with:
+Report only decision-relevant state:
 
-- phase status: green, blocked, or needs user decision
-- what changed
-- branch name and current commit, if any
-- verification run and result
-- verifier result, including fallback or degraded confidence if applicable
-- what was skipped or deferred and why
-- remaining risks
-- suggested plan updates
-- Linear update made or intentionally skipped, if relevant
-- context and handoff recommendation
-- explicit single approval request before committing and continuing, or a clear
-  stop/handoff recommendation when continuing would be unsafe
+- phase status: GREEN, BLOCKED, or NEEDS DECISION
+- changed files and behavior
+- branch and current commit
+- tests and results
+- verifier tier/model/verdict, including fallback or degraded confidence
+- skipped/deferred work and remaining risks
+- Linear update made or intentionally pending
+- durable-state or handoff location
+- the single approval request, or the exact stop question
+
+Do not relay peer-agent transcripts or routine progress logs.
+
+## Tracker And Handoff
+
+With established tracker authority, update linked issues at phase boundaries with
+branch, commit, verification, blockers, deferrals, and next step. Do not close or
+change issue status/ownership unless that authority is explicit.
+
+When context becomes noisy or the next phase depends on exact commands, ids,
+counts, logs, or decisions, update durable state before recommending a fresh
+task. A handoff points to that artifact and states completed phase, commit,
+verification, verifier verdict, deferrals, blockers, and next phase.
+
+## Completion
+
+After the final approved phase commit, run plan-level verification when the
+combined change warrants it, update durable state, and report all phase commits,
+verification, fallbacks, deferrals, and remaining unperformed tracker, push,
+deploy, or release actions.
