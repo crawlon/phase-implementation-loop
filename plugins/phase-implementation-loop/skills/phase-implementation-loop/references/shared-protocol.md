@@ -74,8 +74,8 @@ transport only; role and safety policy belongs in prompts and these references.
 When the user has not explicitly selected an implementation agent, apply routing
 in this order using phase facts already gathered:
 
-1. **Complex:** if any trigger applies, use Cursor Grok 4.5
-   (`cursor-grok-4.5-high`): ambiguous root cause, cross-package behavior,
+1. **Complex:** if any trigger applies, use Cursor Grok 4.6
+   (`cursor-grok-4.6-high`): ambiguous root cause, cross-package behavior,
    migration/schema/public contract, concurrency, auth/security, production-data
    risk, or likely multi-iteration exploration.
 2. **Tiny:** if every condition holds, use a Codex worker subagent: at most two

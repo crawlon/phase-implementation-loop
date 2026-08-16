@@ -21,7 +21,7 @@ and active shell.
 claude --print --permission-mode plan --no-chrome --no-session-persistence --model opus "..."
 ```
 
-The `opus` alias should target Claude Opus 4.8 for this package; verify the current
+The `opus` alias should target Claude Opus 5.0 for this package; verify the current
 CLI mapping when uncertain. Let the orchestrator choose effort from phase risk:
 default for bounded work; high or maximum supported effort for large diffs,
 subtle architecture, auth/security, migration, or data-loss risk. Do not hardcode
@@ -45,7 +45,7 @@ advisor only, return concrete code-level guidance to the selected edit-capable
 implementation agent. If that agent is Codex, it must be the separate worker
 subagent defined in `agent-codex.md`, never the orchestrator.
 
-Claude Opus is the preferred external verifier. GLM follows only after documented
+Claude Opus 5.0 is the preferred external verifier. GLM follows only after documented
 terminal failure, unavailability, or `INCONCLUSIVE`, or explicit user selection.
 A Claude `BLOCKED` finding returns to implementation and must not be shopped to a
 fallback verifier.

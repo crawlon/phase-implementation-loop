@@ -78,7 +78,7 @@ Classify terminal results as follows:
 
 Use one verifier at a time:
 
-1. Claude Opus 4.8 via `codex-claude-ask --model opus`; choose effort from phase
+1. Claude Opus 5.0 via `codex-claude-ask --model opus`; choose effort from phase
    risk and verify the alias when provider mapping is uncertain.
 2. Cursor GLM 5.2 via `codex-cursor-ask --model glm-5.2-high` only when Claude is
    terminally unavailable or `INCONCLUSIVE`, unless the user explicitly approved

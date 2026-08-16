@@ -51,8 +51,10 @@ covers command discovery and shell adaptation on macOS, Linux, PowerShell, and
 - Offers an explicit autopilot variant that freezes the approved scope, commits
   each green phase, continues without routine approval pauses, and stops on
   ambiguity, insufficient verification, or high-risk actions.
-- Uses Claude Opus as the preferred external verifier, GLM 5.2 as fallback, and
-  a fresh high-reasoning Codex sub-agent as the final verification fallback.
+- Routes complex implementation to Cursor Grok 4.6 and routine implementation
+  to Cursor Composer 2.5 when the user has not selected an implementer.
+- Uses Claude Opus 5.0 as the preferred external verifier, GLM 5.2 as fallback,
+  and a fresh high-reasoning Codex sub-agent as the final verification fallback.
 - Keeps wrappers transport-focused: agent policies, prompts, defaults, and
   fallbacks live in the skill references. Optional hardened macOS/zsh Cursor
   wrappers live under `scripts/cursor-bridge/`.

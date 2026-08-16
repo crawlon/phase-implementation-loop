@@ -171,12 +171,21 @@ combined_diagnostic() {
   fi
 }
 
+failure_is_restricted_keychain() {
+  local diagnostic
+  diagnostic="$(combined_diagnostic 2>/dev/null)"
+  diagnostic="${diagnostic:l}"
+
+  [[ "$diagnostic" == *"secitemcopymatching failed -50"* ]]
+}
+
 failure_is_non_retryable() {
   local diagnostic
   diagnostic="$(combined_diagnostic 2>/dev/null)"
   diagnostic="${diagnostic:l}"
 
-  [[ "$diagnostic" == *"authentication"* ||
+  [[ "$diagnostic" == *"secitemcopymatching failed -50"* ||
+    "$diagnostic" == *"authentication"* ||
     "$diagnostic" == *"credential"* ||
     "$diagnostic" == *"login required"* ||
     "$diagnostic" == *"not logged in"* ||
@@ -258,6 +267,9 @@ print_failure() {
   print -u2 -- "$wrapper_name: $reason (model=$model_label status=$run_status stdout_bytes=$stdout_bytes stderr_bytes=$stderr_bytes session_id=$session_id request_id=$request_id)"
   if [[ "$kind" == "impl" ]]; then
     print -u2 -- "$wrapper_name: Cursor may have changed files; inspect the workspace diff before resuming or retrying."
+  fi
+  if failure_is_restricted_keychain; then
+    print -u2 -- "$wrapper_name: macOS Keychain is unavailable in this execution context; rerun the same command with host access. Do not log out or replace credentials unless that host-access run also fails."
   fi
 }
 

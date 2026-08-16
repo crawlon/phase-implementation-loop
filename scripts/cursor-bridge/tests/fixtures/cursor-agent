@@ -50,6 +50,10 @@ case "$scenario" in
     print -u2 -- "Authentication failed: network connection unavailable"
     exit 1
     ;;
+  keychain_failure)
+    print -u2 -- "ERROR: SecItemCopyMatching failed -50"
+    exit 139
+    ;;
   permission_failure)
     print -u2 -- "Permission check failed: network access is not allowed"
     exit 1

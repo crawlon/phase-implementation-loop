@@ -30,6 +30,11 @@ has no model text yet.
 transient provider/network error. Authentication, permission, and model errors
 are not retried.
 
+On macOS, `SecItemCopyMatching failed -50` means the current process cannot read
+the login from Keychain. Re-run the same wrapper or `cursor-agent models` with
+host access before changing authentication. Do not log out, replace credentials,
+or switch to file-backed credentials unless the host-access run also fails.
+
 `impl` never retries automatically. A failed or empty implementation response
 may follow completed file edits, so the wrapper tells the orchestrator to
 inspect the workspace diff before deciding whether to resume or retry.
@@ -60,7 +65,7 @@ scripts/cursor-bridge/tests/run.zsh
 Then run a harmless live read-only probe:
 
 ```sh
-codex-cursor-ask --model cursor-grok-4.5-high \
+codex-cursor-ask --model cursor-grok-4.6-high \
   "Reply with exactly CURSOR_BRIDGE_OK. Do not use tools."
 ```
 

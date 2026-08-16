@@ -15,12 +15,16 @@ Pass the selected model per call with `--model`. Wrappers may also honor
 `CODEX_CURSOR_MODEL`, but per-call selection wins. Current configured routes are:
 
 - `composer-2.5-fast`: routine implementation
-- `cursor-grok-4.5-high`: complex implementation
+- `cursor-grok-4.6-high`: complex implementation
 - `glm-5.2-high`: verification fallback after Claude
 
 Treat model ids as configured defaults, not permanent inventory. Check
 `cursor-agent models` when a configured id fails or the user changes available
-models. The orchestrator chooses from the phase brief under `shared-protocol.md`;
+models. On macOS, `SecItemCopyMatching failed -50` from a restricted run means
+the Keychain is unavailable in that execution context. Re-run the same read-only
+command with host access before diagnosing authentication; do not log out,
+replace credentials, or switch credential stores unless the host-access run also
+fails. The orchestrator chooses from the phase brief under `shared-protocol.md`;
 do not ask Cursor to choose or run comparison prompts.
 
 Examples:
@@ -28,7 +32,7 @@ Examples:
 ```text
 codex-cursor-plan --model composer-2.5-fast "..."
 codex-cursor-impl --model composer-2.5-fast "..."
-codex-cursor-impl --model cursor-grok-4.5-high "..."
+codex-cursor-impl --model cursor-grok-4.6-high "..."
 codex-cursor-ask --model glm-5.2-high "..."
 ```
 

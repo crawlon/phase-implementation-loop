@@ -60,7 +60,7 @@ Compact profile shape:
 Recommended execution profile
 - Orchestrator: [agent]
 - Implementation: [agent/model/reasoning and fallback]
-- Verification: Claude Opus -> Cursor GLM 5.2 -> fresh Codex verifier
+- Verification: Claude Opus 5.0 -> Cursor GLM 5.2 -> fresh Codex verifier
 - Continuation: after approval, commit Phase N and immediately start Phase N+1
 
 Approve this profile?
