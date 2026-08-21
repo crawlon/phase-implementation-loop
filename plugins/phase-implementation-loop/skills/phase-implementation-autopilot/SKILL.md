@@ -29,6 +29,12 @@ deterministic routing, Codex worker selection, terminal handling, verification,
 fallbacks, and prompt contracts. This file defines only autopilot authorization,
 commit behavior, and stop gates.
 
+For every phase with user-visible UI changes, the orchestrator must invoke
+`$ui-ux-browser-review` only against an app instance proven to serve the actual
+phase worktree and its current changes, after implementation checks and before
+the independent verifier. The shared protocol defines the app-target, repair,
+evidence, and waiver rules.
+
 ## Startup Envelope
 
 Before Phase 1, inspect repository instructions, worktree, branch, git status,
@@ -90,8 +96,9 @@ For each phase:
 4. With tracker authority, update linked issues with branch, commit, verification,
    blockers, deferrals, and next step. Do not close or change status/ownership
    without explicit authority.
-5. Emit a compact checkpoint containing phase, commit, tests, verifier verdict,
-   fallback/degradation, and deferrals. Do not ask a routine question.
+5. Emit a compact checkpoint containing phase, commit, tests, UI/UX browser
+   review outcome and app-target proof for UI phases (or `N/A` reason), verifier
+   verdict, fallback/degradation, and deferrals. Do not ask a routine question.
 6. If another approved phase remains and no stop gate applies, begin it
    immediately. Never push automatically.
 

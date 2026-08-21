@@ -1,6 +1,6 @@
 {
   "name": "phase-implementation-loop",
-  "version": "0.3.1",
+  "version": "0.3.1+codex.20260821222403",
   "description": "Generalized phase-gated and autopilot workflows with shared orchestration, routing, and verification contracts.",
   "author": {
     "name": "Jonas Velander"

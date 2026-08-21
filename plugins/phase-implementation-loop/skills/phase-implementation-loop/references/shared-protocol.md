@@ -111,18 +111,31 @@ For each phase:
    belongs to the phase and no unrelated work was overwritten.
 6. Run the smallest relevant verification, then broaden according to risk and
    repository norms.
-7. Run the verifier chain in `delegated-jobs.md`. Return concrete findings to the
-   selected implementer or another edit-capable worker, then repeat affected
-   tests and verification.
-8. After two materially similar red repair cycles without new evidence or a
+7. If the phase changes user-visible UI, start an app instance from the exact
+   phase worktree, or reuse one only after proving that its process and displayed
+   UI contain the current phase diff. Do not review a stale dev server, another
+   worktree, an older build, or a deployed environment as evidence for the phase.
+   Then run `$ui-ux-browser-review` after the implementation checks and before
+   sending work to the verifier chain. The orchestrator records the app target,
+   proof it contains the phase changes, tested routes, viewports, states,
+   findings, and limitations, and returns any actionable finding to an
+   edit-capable worker. Re-run affected checks and the UI review after the fix.
+   A UI phase cannot be GREEN without this completed review or an explicit user
+   waiver. For a non-UI phase, record `N/A` with the reason.
+8. Run the verifier chain in `delegated-jobs.md` only after the UI review gate.
+   Return concrete findings to the selected implementer or another edit-capable
+   worker, then repeat affected tests, UI review where applicable, and
+   verification.
+9. After two materially similar red repair cycles without new evidence or a
    distinct fix, stop with the exact blocker or decision needed.
-9. Update durable state before the mode-specific commit/continuation gate.
+10. Update durable state before the mode-specific commit/continuation gate.
 
 A phase is GREEN only when its acceptance criteria are met, the orchestrator has
-inspected the diff, relevant tests pass or have an explicit approved waiver, the
-verifier reports no unresolved blocker at confidence appropriate to the risk, no
-unrelated change is staged, no delegated job remains in flight, and durable state
-can reconstruct the result.
+inspected the diff, relevant tests pass or have an explicit approved waiver, UI
+phases have a completed UI/UX browser review against a proven current app target
+or explicit user waiver, the verifier reports no unresolved blocker at confidence
+appropriate to the risk, no unrelated change is staged, no delegated job remains
+in flight, and durable state can reconstruct the result.
 
 ## Shared Fallback And Stop Rules
 
@@ -138,5 +151,7 @@ can reconstruct the result.
   fallbacks.
 
 Durable state records phase status, branch, changed files, implementation route
-and model, verification commands/results, verifier tier/model/verdict, commit
-when available, blockers, deferrals, next phase, and exact user decisions.
+and model, verification commands/results, UI/UX browser review result, app target
+and proof of the current phase changes (or `N/A` reason), verifier tier/model/
+verdict, commit when available, blockers, deferrals, next phase, and exact user
+decisions.

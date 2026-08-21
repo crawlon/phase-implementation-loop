@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser UI UX Review"
+  short_description: "Inspect UI quality, clarity, and redundancy"
+  default_prompt: "Use $ui-ux-browser-review to inspect this built or changed UI for UX, visual quality, and redundant content."

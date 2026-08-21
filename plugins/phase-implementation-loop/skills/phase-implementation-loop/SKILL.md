@@ -29,6 +29,12 @@ Those files are authoritative for plan synchronization, role separation,
 deterministic routing, Codex worker selection, terminal handling, verification,
 fallbacks, and prompt contracts. This file defines only gated-mode behavior.
 
+For every phase with user-visible UI changes, the orchestrator must invoke
+`$ui-ux-browser-review` only against an app instance proven to serve the actual
+phase worktree and its current changes, after implementation checks and before
+the independent verifier. The shared protocol defines the app-target, repair,
+evidence, and waiver rules.
+
 ## Startup Gate
 
 Before Phase 1:
@@ -97,6 +103,9 @@ Report only decision-relevant state:
 - changed files and behavior
 - branch and current commit
 - tests and results
+- UI/UX browser review result for UI phases: routes, viewports, outcome, findings
+  or explicit waiver, plus the app target and proof it contained the phase
+  changes; otherwise `N/A` with the reason
 - verifier tier/model/verdict, including fallback or degraded confidence
 - skipped/deferred work and remaining risks
 - Linear update made or intentionally pending
