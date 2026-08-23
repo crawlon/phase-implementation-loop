@@ -73,17 +73,67 @@ if [[ "$kind" == "ask" || "$kind" == "plan" ]]; then
 fi
 
 temp_dir="$(mktemp -d "${TMPDIR:-/tmp}/codex-cursor-wrapper.XXXXXX")"
-trap 'rm -rf -- "$temp_dir"' EXIT
 stdout_file="$temp_dir/stdout"
 stderr_file="$temp_dir/stderr"
+cursor_pid=""
+run_timed_out=0
+
+emit_event() {
+  local state="$1"
+  shift
+
+  local event="CODEX_CURSOR_EVENT state=$state kind=$kind $*"
+  print -u2 -- "$event"
+
+  if [[ -n "${CODEX_CURSOR_STATUS_FILE:-}" ]]; then
+    print -r -- "$event" >>"$CODEX_CURSOR_STATUS_FILE" 2>/dev/null || true
+  fi
+}
+
+stop_cursor() {
+  if [[ -n "$cursor_pid" ]] && kill -0 "$cursor_pid" 2>/dev/null; then
+    kill -TERM "$cursor_pid" 2>/dev/null || true
+    sleep 1
+    if kill -0 "$cursor_pid" 2>/dev/null; then
+      kill -KILL "$cursor_pid" 2>/dev/null || true
+    fi
+    wait "$cursor_pid" 2>/dev/null || true
+  fi
+  cursor_pid=""
+}
+
+on_signal() {
+  emit_event "cancelled" "signal=$1"
+  stop_cursor
+  exit 143
+}
+
+cleanup() {
+  local original_status=$?
+  stop_cursor
+  rm -rf -- "$temp_dir"
+  return "$original_status"
+}
+
+trap cleanup EXIT
+trap 'on_signal HUP' HUP
+trap 'on_signal INT' INT
+trap 'on_signal TERM' TERM
 
 run_cursor() {
   local heartbeat_seconds="${CODEX_CURSOR_HEARTBEAT_SECONDS:-15}"
+  local max_seconds="${CODEX_CURSOR_MAX_SECONDS:-}"
   local elapsed_seconds=0
-  local cursor_pid
+  run_timed_out=0
 
   if [[ "$heartbeat_seconds" != <-> || "$heartbeat_seconds" -lt 1 ]]; then
     print -u2 -- "$wrapper_name: CODEX_CURSOR_HEARTBEAT_SECONDS must be a positive integer"
+    run_status=64
+    return
+  fi
+
+  if [[ -n "$max_seconds" && ( "$max_seconds" != <-> || "$max_seconds" -lt 1 ) ]]; then
+    print -u2 -- "$wrapper_name: CODEX_CURSOR_MAX_SECONDS must be a positive integer"
     run_status=64
     return
   fi
@@ -101,17 +151,28 @@ run_cursor() {
     "$user_prompt" \
     >"$stdout_file" 2>"$stderr_file" &
   cursor_pid=$!
+  emit_event "started" "pid=$cursor_pid max_seconds=${max_seconds:-none}"
 
   while kill -0 "$cursor_pid" 2>/dev/null; do
     sleep 1
     elapsed_seconds=$((elapsed_seconds + 1))
     if (( elapsed_seconds % heartbeat_seconds == 0 )); then
       print -u2 -- "$wrapper_name: Cursor is still running (${elapsed_seconds}s); continue waiting"
+      emit_event "heartbeat" "elapsed_seconds=$elapsed_seconds max_seconds=${max_seconds:-none}"
+    fi
+    if [[ -n "$max_seconds" ]] && (( elapsed_seconds >= max_seconds )); then
+      run_timed_out=1
+      emit_event "timed_out" "elapsed_seconds=$elapsed_seconds max_seconds=$max_seconds"
+      stop_cursor
+      run_status=124
+      set -e
+      return
     fi
   done
 
   wait "$cursor_pid"
   run_status=$?
+  cursor_pid=""
   set -e
 }
 
@@ -139,7 +200,9 @@ result_has_text() {
 }
 
 failure_reason() {
-  if [[ "$run_status" -ne 0 ]]; then
+  if [[ "$run_timed_out" -eq 1 ]]; then
+    print -r -- "Cursor exceeded configured maximum duration"
+  elif [[ "$run_status" -ne 0 ]]; then
     print -r -- "Cursor exited with status $run_status"
   elif ! jq -e . "$stdout_file" >/dev/null 2>&1; then
     print -r -- "Cursor returned invalid JSON"
@@ -203,6 +266,10 @@ failure_is_non_retryable() {
 }
 
 failure_is_transient() {
+  if [[ "$run_timed_out" -eq 1 ]]; then
+    return 1
+  fi
+
   if failure_is_non_retryable; then
     return 1
   fi
@@ -285,6 +352,7 @@ while [[ "$attempt" -le "$max_attempts" ]]; do
   run_cursor
 
   if result_is_successful && result_has_text; then
+    emit_event "succeeded" "status=0"
     jq -r '.result' "$stdout_file"
     exit 0
   fi
@@ -300,6 +368,7 @@ while [[ "$attempt" -le "$max_attempts" ]]; do
   fi
 
   print_failure "$reason"
+  emit_event "failed" "status=$run_status timed_out=$run_timed_out"
   if [[ "$run_status" -ne 0 ]]; then
     exit "$run_status"
   fi

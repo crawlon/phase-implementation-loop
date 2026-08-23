@@ -65,7 +65,7 @@ run_wrapper() {
   set +e
   (
     cd "$case_dir/workspace"
-    "$bin_dir/$wrapper" "$@"
+    CODEX_CURSOR_STATUS_FILE="$case_dir/events" "$bin_dir/$wrapper" "$@"
   ) >"$case_dir/stdout" 2>"$case_dir/stderr"
   RUN_STATUS=$?
   set -e
@@ -82,6 +82,29 @@ run_wrapper() {
   else
     RUN_ARGS=""
   fi
+  if [[ -f "$case_dir/events" ]]; then
+    RUN_EVENTS="$(<"$case_dir/events")"
+  else
+    RUN_EVENTS=""
+  fi
+}
+
+run_wrapper_async() {
+  local wrapper="$1"
+  local scenario="$2"
+  shift 2
+
+  RUN_CASE_DIR="$(mktemp -d "$test_root/case.XXXXXX")"
+  mkdir -p "$RUN_CASE_DIR/state" "$RUN_CASE_DIR/workspace"
+
+  (
+    cd "$RUN_CASE_DIR/workspace"
+    FAKE_CURSOR_STATE_DIR="$RUN_CASE_DIR/state" \
+      FAKE_CURSOR_SCENARIO="$scenario" \
+      CODEX_CURSOR_STATUS_FILE="$RUN_CASE_DIR/events" \
+      "$bin_dir/$wrapper" "$@"
+  ) >"$RUN_CASE_DIR/stdout" 2>"$RUN_CASE_DIR/stderr" &
+  RUN_WRAPPER_PID=$!
 }
 
 run_wrapper codex-cursor-ask success --model cursor-grok-4.6-high-fast "health check"
@@ -94,6 +117,9 @@ assert_contains "$RUN_ARGS" "--mode ask" "ask passes ask mode"
 assert_contains "$RUN_ARGS" "--model cursor-grok-4.6-high-fast" "ask passes model"
 assert_contains "$RUN_ARGS" "--trust" "ask trusts selected workspace"
 assert_contains "$RUN_ARGS" "--workspace" "ask passes workspace"
+assert_contains "$RUN_EVENTS" "CODEX_CURSOR_EVENT state=started" "ask records a durable start event"
+assert_contains "$RUN_EVENTS" "CODEX_CURSOR_EVENT state=succeeded" "ask records a durable success event"
+assert_contains "$RUN_EVENTS" "max_seconds=none" "ask has no default deadline"
 
 export CODEX_CURSOR_HEARTBEAT_SECONDS=1
 run_wrapper codex-cursor-ask slow_success "wait for a slow response"
@@ -101,6 +127,41 @@ assert_eq "0" "$RUN_STATUS" "ask slow success status"
 assert_eq "SLOW_FAKE_OK" "$RUN_STDOUT" "ask slow success output"
 assert_contains "$RUN_STDERR" "Cursor is still running" "ask reports periodic liveness"
 unset CODEX_CURSOR_HEARTBEAT_SECONDS
+
+export FAKE_CURSOR_DELAY_SECONDS=2
+export CODEX_CURSOR_MAX_SECONDS=1
+run_wrapper codex-cursor-ask slow_success "stop a hung Cursor call"
+assert_eq "124" "$RUN_STATUS" "ask timed-out status"
+assert_eq "1" "$RUN_CALLS" "ask timed-out call count"
+assert_contains "$RUN_STDERR" "CODEX_CURSOR_EVENT state=timed_out" "ask reports a machine-readable timeout"
+assert_contains "$RUN_STDERR" "exceeded configured maximum duration" "ask explains its terminal timeout"
+unset CODEX_CURSOR_MAX_SECONDS
+unset FAKE_CURSOR_DELAY_SECONDS
+
+run_wrapper_async codex-cursor-ask slow_success "cancel an in-flight Cursor call"
+for _ in {1..30}; do
+  [[ -f "$RUN_CASE_DIR/state/agent_pid" ]] && break
+  sleep 0.1
+done
+if [[ ! -f "$RUN_CASE_DIR/state/agent_pid" ]]; then
+  fail "ask cancellation test did not start the fake Cursor process"
+else
+  RUN_AGENT_PID="$(<"$RUN_CASE_DIR/state/agent_pid")"
+  kill -TERM "$RUN_WRAPPER_PID"
+  set +e
+  wait "$RUN_WRAPPER_PID"
+  RUN_STATUS=$?
+  set -e
+  assert_eq "143" "$RUN_STATUS" "ask interrupted status"
+  sleep 1
+  if kill -0 "$RUN_AGENT_PID" 2>/dev/null; then
+    fail "ask cancellation stops the child Cursor process"
+  fi
+  RUN_STDERR="$(<"$RUN_CASE_DIR/stderr")"
+  RUN_EVENTS="$(<"$RUN_CASE_DIR/events")"
+  assert_contains "$RUN_STDERR" "CODEX_CURSOR_EVENT state=cancelled" "ask reports cancellation"
+  assert_contains "$RUN_EVENTS" "CODEX_CURSOR_EVENT state=cancelled" "ask persists cancellation"
+fi
 
 export CODEX_CURSOR_MODEL="glm-5.2-high"
 run_wrapper codex-cursor-ask success "use the environment model"

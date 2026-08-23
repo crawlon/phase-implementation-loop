@@ -19,7 +19,10 @@ advance, or end the task while the original job is active.
 
 Only a terminal result or explicit terminal error settles a job. Record role,
 agent/model, handle, start time, and expected artifact when durable recovery may
-be needed.
+be needed. For Cursor wrappers, `CODEX_CURSOR_EVENT state=succeeded|failed|
+timed_out|cancelled` is explicit terminal evidence; `started` and `heartbeat`
+are not. A timeout exits `124`, and cancellation terminates the child Cursor
+process rather than leaving it orphaned.
 
 When `functions.exec` wraps a terminal tool, explicitly emit the completed nested
 result after driving any session to completion:
@@ -46,7 +49,10 @@ prompt, or hang signal. Do not narrate or relay routine agent activity.
 External verification can take several minutes for large diffs, high effort, or
 provider latency. Keep user updates short and about phase state. A one-minute
 wait window limits status churn; it is not a timeout or permission to abandon the
-job.
+job. Cursor wrappers have no default upper bound; `CODEX_CURSOR_MAX_SECONDS` is
+an opt-in terminal timeout, not the poll window. Set
+`CODEX_CURSOR_STATUS_FILE` when the caller needs a durable event trail across a
+terminal/bridge recovery.
 
 ## Verifier Contract
 

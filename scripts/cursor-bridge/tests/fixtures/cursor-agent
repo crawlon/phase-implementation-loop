@@ -15,6 +15,7 @@ fi
 count=$((count + 1))
 print -r -- "$count" >"$count_file"
 print -r -- "$*" >>"$args_file"
+print -r -- "$$" >"$state_dir/agent_pid"
 
 success() {
   local result="$1"
@@ -26,7 +27,7 @@ case "$scenario" in
     success "FAKE_OK"
     ;;
   slow_success)
-    sleep 2
+    sleep "${FAKE_CURSOR_DELAY_SECONDS:-2}"
     success "SLOW_FAKE_OK"
     ;;
   transient_then_success)

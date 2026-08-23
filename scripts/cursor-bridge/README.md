@@ -17,14 +17,25 @@ verifiers. A successful non-empty Cursor result that misses a verifier's expecte
 format is unstructured review evidence, not a bridge-capture failure.
 
 The wrappers print an immediate start notice and a liveness message every 15
-seconds while Cursor is still running. Set `CODEX_CURSOR_HEARTBEAT_SECONDS` to a
-different positive integer to change that interval.
+seconds while Cursor is still running. Every lifecycle transition also emits one
+machine-readable `CODEX_CURSOR_EVENT` line on stderr: `started`, `heartbeat`,
+`succeeded`, `failed`, `timed_out`, or `cancelled`. Set
+`CODEX_CURSOR_HEARTBEAT_SECONDS` to a different positive integer to change the
+heartbeat interval. Set `CODEX_CURSOR_STATUS_FILE` to additionally append those
+events to a caller-owned file for recovery after a lost terminal handle.
+
+Calls have no default deadline: a healthy long-running Cursor call continues
+until it reaches a terminal result. Set `CODEX_CURSOR_MAX_SECONDS` to a positive
+integer only when a caller intentionally needs a supervised deadline. That
+deadline is terminal: the wrapper stops Cursor, emits `state=timed_out`, and
+exits with status `124`. On interruption, the wrapper stops its child process
+and emits `state=cancelled` before it exits.
 
 Cursor calls can outlive an individual Codex tool yield. A tool result that says
 the script is still running, or includes a cell/session ID without a terminal
 exit, is not an empty Cursor response. Continue polling that same cell/session
-until it exits. Do not launch a duplicate request merely because the first poll
-has no model text yet.
+until it exits or the wrapper emits a terminal event. Do not launch a duplicate
+request merely because the first poll has no model text yet.
 
 `ask` and `plan` retry once after an empty/invalid terminal result or an explicit
 transient provider/network error. Authentication, permission, and model errors
