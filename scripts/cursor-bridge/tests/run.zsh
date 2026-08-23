@@ -84,14 +84,14 @@ run_wrapper() {
   fi
 }
 
-run_wrapper codex-cursor-ask success --model cursor-grok-4.6-high "health check"
+run_wrapper codex-cursor-ask success --model cursor-grok-4.6-high-fast "health check"
 assert_eq "0" "$RUN_STATUS" "ask success status"
 assert_eq "FAKE_OK" "$RUN_STDOUT" "ask success output"
 assert_eq "1" "$RUN_CALLS" "ask success call count"
 assert_contains "$RUN_STDERR" "Cursor call started" "ask reports immediate liveness"
 assert_contains "$RUN_ARGS" "--output-format json" "ask requests structured output"
 assert_contains "$RUN_ARGS" "--mode ask" "ask passes ask mode"
-assert_contains "$RUN_ARGS" "--model cursor-grok-4.6-high" "ask passes model"
+assert_contains "$RUN_ARGS" "--model cursor-grok-4.6-high-fast" "ask passes model"
 assert_contains "$RUN_ARGS" "--trust" "ask trusts selected workspace"
 assert_contains "$RUN_ARGS" "--workspace" "ask passes workspace"
 
@@ -106,8 +106,8 @@ export CODEX_CURSOR_MODEL="glm-5.2-high"
 run_wrapper codex-cursor-ask success "use the environment model"
 assert_contains "$RUN_ARGS" "--model glm-5.2-high" "ask honors environment model"
 
-run_wrapper codex-cursor-ask success --model cursor-grok-4.6-high "override the environment model"
-assert_contains "$RUN_ARGS" "--model cursor-grok-4.6-high" "per-call model overrides environment"
+run_wrapper codex-cursor-ask success --model cursor-grok-4.6-high-fast "override the environment model"
+assert_contains "$RUN_ARGS" "--model cursor-grok-4.6-high-fast" "per-call model overrides environment"
 assert_not_contains "$RUN_ARGS" "--model glm-5.2-high" "environment model is not also forwarded"
 unset CODEX_CURSOR_MODEL
 

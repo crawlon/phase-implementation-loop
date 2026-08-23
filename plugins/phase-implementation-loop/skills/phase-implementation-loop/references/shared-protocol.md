@@ -38,11 +38,15 @@ markdown plan containing:
 - likely verification
 - blockers, deferrals, and out-of-scope items
 
-If only Linear exists, create the local markdown plan from the issues. If Linear
-tracking is part of the workflow and issues are missing or stale, prepare the
-exact create/update mapping first. Creating or materially updating tracker state
-requires explicit user authority: ask in gated mode or include it in the
-autopilot startup envelope. Re-read both sources after mutation.
+If only Linear exists, create the local markdown plan from the issues. If a
+canonical plan has no linked Linear coverage, prepare an exact create/update
+mapping that gives every planned phase its intended issue or sub-issue, ordered
+dependencies, objective, acceptance criteria, and known blockers or deferrals.
+Treat that mapping as a required startup artifact, not an optional follow-up.
+Creating or materially updating tracker state still requires explicit user
+authority: ask in gated mode or include it in the autopilot startup envelope.
+Once that authority exists, apply the mapping, record the created issue ids in
+the canonical plan, and re-read both sources after mutation.
 
 100% synchronization is complete only when every planned phase maps to the intended
 issue, every relevant issue appears in markdown, order and dependencies agree,
@@ -74,8 +78,8 @@ transport only; role and safety policy belongs in prompts and these references.
 When the user has not explicitly selected an implementation agent, apply routing
 in this order using phase facts already gathered:
 
-1. **Complex:** if any trigger applies, use Cursor Grok 4.6
-   (`cursor-grok-4.6-high`): ambiguous root cause, cross-package behavior,
+1. **Complex:** if any trigger applies, use Cursor Grok 4.6 High Fast
+   (`cursor-grok-4.6-high-fast`): ambiguous root cause, cross-package behavior,
    migration/schema/public contract, concurrency, auth/security, production-data
    risk, or likely multi-iteration exploration.
 2. **Tiny:** if every condition holds, use a Codex worker subagent: at most two
@@ -97,6 +101,22 @@ Read only the selected agent references:
 - `agent-claude.md`
 - `agent-prompts.md` when constructing a delegated prompt
 
+## UI/UX Review Gate
+
+Classify each phase as UI-affecting when it changes a user-visible screen,
+interaction, responsive layout, navigation, or user-facing information flow or
+copy. For every UI-affecting phase, after functional checks and before the
+independent verifier, start the relevant app from the current worktree, open the
+target route in the in-app Browser, and prove it serves the phase diff. Then
+load and use `$ui-ux-browser-review`. Review the primary user sequence and the
+states/viewports relevant to the change, then record its target, proof, coverage,
+findings, limitations, and outcome in durable state.
+
+For a non-UI phase, record `UI/UX review: N/A` with the reason. A UI-affecting
+phase cannot be GREEN without that review, or an explicit user waiver when the
+required browser evidence cannot be obtained. A waiver must state the untested
+scope and resulting risk; it is not implied by passing functional tests.
+
 ## Common Phase State Machine
 
 For each phase:
@@ -111,18 +131,21 @@ For each phase:
    belongs to the phase and no unrelated work was overwritten.
 6. Run the smallest relevant verification, then broaden according to risk and
    repository norms.
-7. Run the verifier chain in `delegated-jobs.md`. Return concrete findings to the
+7. For a UI-affecting phase, complete the UI/UX Review Gate above. For a non-UI
+   phase, record its N/A decision.
+8. Run the verifier chain in `delegated-jobs.md`. Return concrete findings to the
    selected implementer or another edit-capable worker, then repeat affected
    tests and verification.
-8. After two materially similar red repair cycles without new evidence or a
+9. After two materially similar red repair cycles without new evidence or a
    distinct fix, stop with the exact blocker or decision needed.
-9. Update durable state before the mode-specific commit/continuation gate.
+10. Update durable state before the mode-specific commit/continuation gate.
 
 A phase is GREEN only when its acceptance criteria are met, the orchestrator has
 inspected the diff, relevant tests pass or have an explicit approved waiver, the
 verifier reports no unresolved blocker at confidence appropriate to the risk, no
 unrelated change is staged, no delegated job remains in flight, and durable state
-can reconstruct the result.
+can reconstruct the result. A UI-affecting phase additionally requires a
+completed UI/UX review or explicit user waiver.
 
 ## Shared Fallback And Stop Rules
 
@@ -138,5 +161,6 @@ can reconstruct the result.
   fallbacks.
 
 Durable state records phase status, branch, changed files, implementation route
-and model, verification commands/results, verifier tier/model/verdict, commit
-when available, blockers, deferrals, next phase, and exact user decisions.
+and model, verification commands/results, UI/UX review result or N/A decision,
+verifier tier/model/verdict, commit when available, blockers, deferrals, next
+phase, and exact user decisions.

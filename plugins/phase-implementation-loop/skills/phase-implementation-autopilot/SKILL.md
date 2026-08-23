@@ -48,10 +48,12 @@ the same repository, plan/phase range, local commit-and-continue authority, and
 prohibited-action boundary. Never infer broader authority from the word
 “autopilot.”
 
-Use `shared-protocol.md` to reconcile markdown and Linear. Tracker creation or
-material updates must be listed in the envelope; otherwise prepare the mapping
-and stop for authorization. Begin implementation only after a re-read proves
-complete synchronization.
+Use `shared-protocol.md` to reconcile markdown and Linear. The startup envelope
+must include the exact create/update mapping for every planned phase; when
+issues are absent, include their creation rather than leaving the plan
+untracked. Tracker creation or material updates must be listed in the envelope;
+otherwise prepare the mapping and stop for authorization. Begin implementation
+only after a re-read proves complete synchronization.
 
 Establish one dedicated branch using repository conventions or
 `agent/<plan-slug>`. Prefer a separate worktree for unattended or parallel work.
@@ -80,7 +82,9 @@ self-referencing that commit hash.
 For each phase:
 
 1. Run the Common Phase State Machine in `shared-protocol.md` through its GREEN or
-   stop decision. Drive every delegated handle to terminal completion.
+   stop decision. UI-affecting phases must run `$ui-ux-browser-review` under its
+   shared UI/UX Review Gate; non-UI phases record N/A. Drive every delegated
+   handle to terminal completion.
 2. If not GREEN, do not commit partial work. Preserve the workspace, update state,
    and stop with the failed gate, evidence, attempted repairs, last green commit,
    uncommitted paths, and one focused question.
@@ -90,8 +94,9 @@ For each phase:
 4. With tracker authority, update linked issues with branch, commit, verification,
    blockers, deferrals, and next step. Do not close or change status/ownership
    without explicit authority.
-5. Emit a compact checkpoint containing phase, commit, tests, verifier verdict,
-   fallback/degradation, and deferrals. Do not ask a routine question.
+5. Emit a compact checkpoint containing phase, commit, tests, UI/UX review result
+   or N/A decision, verifier verdict, fallback/degradation, and deferrals. Do not
+   ask a routine question.
 6. If another approved phase remains and no stop gate applies, begin it
    immediately. Never push automatically.
 

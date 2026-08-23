@@ -15,7 +15,7 @@ Pass the selected model per call with `--model`. Wrappers may also honor
 `CODEX_CURSOR_MODEL`, but per-call selection wins. Current configured routes are:
 
 - `composer-2.5-fast`: routine implementation
-- `cursor-grok-4.6-high`: complex implementation
+- `cursor-grok-4.6-high-fast`: complex implementation
 - `glm-5.2-high`: verification fallback after Claude
 
 Treat model ids as configured defaults, not permanent inventory. Check
@@ -32,7 +32,7 @@ Examples:
 ```text
 codex-cursor-plan --model composer-2.5-fast "..."
 codex-cursor-impl --model composer-2.5-fast "..."
-codex-cursor-impl --model cursor-grok-4.6-high "..."
+codex-cursor-impl --model cursor-grok-4.6-high-fast "..."
 codex-cursor-ask --model glm-5.2-high "..."
 ```
 

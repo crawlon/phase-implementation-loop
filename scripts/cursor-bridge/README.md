@@ -65,7 +65,7 @@ scripts/cursor-bridge/tests/run.zsh
 Then run a harmless live read-only probe:
 
 ```sh
-codex-cursor-ask --model cursor-grok-4.6-high \
+codex-cursor-ask --model cursor-grok-4.6-high-fast \
   "Reply with exactly CURSOR_BRIDGE_OK. Do not use tools."
 ```
 

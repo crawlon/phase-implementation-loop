@@ -36,9 +36,10 @@ Before Phase 1:
 1. Read repository/workspace instructions and inspect working directory, git
    status, branch, and relevant process identity.
 2. Reconcile all plan sources into the canonical markdown plan under
-   `shared-protocol.md`. Prepare Linear mutations first and ask for explicit
-   authorization before applying them. Start only after a re-read proves complete
-   synchronization.
+   `shared-protocol.md`. Produce the exact Linear create/update mapping for every
+   planned phase; when issues are absent, this is the path to creating them, not
+   a deferral. Ask for explicit authorization before applying the mapping. Start
+   only after a re-read proves complete synchronization.
 3. Use the user's execution profile or recommend one compactly. The recommendation
    names the orchestrator, implementation route/fallback, verifier chain, models,
    reasoning/effort, and continuation behavior. Obtain confirmation for material
@@ -73,6 +74,8 @@ For each phase:
 1. Run the Common Phase State Machine in `references/shared-protocol.md` through
    its GREEN or stop decision. Refresh a supported phase goal with objective,
    acceptance criteria, out-of-scope items, and stop conditions.
+   UI-affecting phases must run `$ui-ux-browser-review` under its shared UI/UX
+   Review Gate; non-UI phases record N/A.
 2. Confirm every delegated handle is terminal and durable state is sufficient
    for another agent to reconstruct the phase.
 3. If not GREEN, do not commit. Preserve the workspace and report the failed gate,
@@ -97,6 +100,8 @@ Report only decision-relevant state:
 - changed files and behavior
 - branch and current commit
 - tests and results
+- UI/UX review target, outcome, and findings; or N/A with reason, or approved
+  waiver and untested risk
 - verifier tier/model/verdict, including fallback or degraded confidence
 - skipped/deferred work and remaining risks
 - Linear update made or intentionally pending
