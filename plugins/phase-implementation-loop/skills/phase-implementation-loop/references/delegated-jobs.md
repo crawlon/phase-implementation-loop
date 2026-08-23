@@ -19,10 +19,11 @@ advance, or end the task while the original job is active.
 
 Only a terminal result or explicit terminal error settles a job. Record role,
 agent/model, handle, start time, and expected artifact when durable recovery may
-be needed. For Cursor wrappers, `CODEX_CURSOR_EVENT state=succeeded|failed|
-timed_out|cancelled` is explicit terminal evidence; `started` and `heartbeat`
-are not. A timeout exits `124`, and cancellation terminates the child Cursor
-process rather than leaving it orphaned.
+be needed. For Cursor and Claude wrappers, `CODEX_CURSOR_EVENT` or
+`CODEX_CLAUDE_EVENT` with `state=succeeded|failed|timed_out|cancelled` is
+explicit terminal evidence; `started`, `activity`, and `heartbeat` are not. An
+opt-in timeout exits `124`, and cancellation terminates the child process rather
+than leaving it orphaned.
 
 When `functions.exec` wraps a terminal tool, explicitly emit the completed nested
 result after driving any session to completion:

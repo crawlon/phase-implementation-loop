@@ -30,6 +30,15 @@ unsupported effort flags.
 Apply terminal lifecycle, output classification, patience, and fallback rules
 from `delegated-jobs.md`.
 
+The maintained wrapper source is `scripts/claude-bridge/bin/codex-claude-ask`.
+It emits compact `CODEX_CLAUDE_EVENT` lifecycle records: `started`, `activity`,
+`heartbeat`, `succeeded`, `failed`, `timed_out`, or `cancelled`. It uses the
+Claude stream locally but never relays partial assistant text, prompts, tool
+arguments, tool output, or other stream payload content. `activity` and
+`heartbeat` report only event count/type/subtype and idle time. There is no
+default deadline; `CODEX_CLAUDE_MAX_SECONDS` is opt-in, and
+`CODEX_CLAUDE_STATUS_FILE` persists the compact records for recovery.
+
 ## Capabilities And Prompts
 
 The current wrapper is read-only. Use it for planning, review, verification,
