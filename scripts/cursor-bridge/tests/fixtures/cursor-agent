@@ -30,6 +30,13 @@ case "$scenario" in
     sleep "${FAKE_CURSOR_DELAY_SECONDS:-2}"
     success "SLOW_FAKE_OK"
     ;;
+  stream_slow_success)
+    print -r -- '{"type":"system","subtype":"init","session_id":"stream-session"}'
+    print -r -- '{"type":"thinking","subtype":"delta","text":"private thought that must not reach the observer","session_id":"stream-session"}'
+    sleep "${FAKE_CURSOR_DELAY_SECONDS:-2}"
+    print -r -- '{"type":"thinking","subtype":"completed","session_id":"stream-session"}'
+    success "STREAM_FAKE_OK"
+    ;;
   transient_then_success)
     if [[ "$count" -eq 1 ]]; then
       print -u2 -- "service temporarily unavailable"

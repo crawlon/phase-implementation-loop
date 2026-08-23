@@ -18,8 +18,13 @@ format is unstructured review evidence, not a bridge-capture failure.
 
 The wrappers print an immediate start notice and a liveness message every 15
 seconds while Cursor is still running. Every lifecycle transition also emits one
-machine-readable `CODEX_CURSOR_EVENT` line on stderr: `started`, `heartbeat`,
-`succeeded`, `failed`, `timed_out`, or `cancelled`. Set
+machine-readable `CODEX_CURSOR_EVENT` line on stderr: `started`, `activity`,
+`heartbeat`, `succeeded`, `failed`, `timed_out`, or `cancelled`. The wrapper
+uses Cursor's `stream-json` output locally, but never relays thinking text,
+partial assistant text, prompts, tool arguments, or tool output. Each heartbeat
+is a compact activity summary (event count, last event type/subtype, and idle
+time), so long calls remain observable without materially growing observer
+context. Set
 `CODEX_CURSOR_HEARTBEAT_SECONDS` to a different positive integer to change the
 heartbeat interval. Set `CODEX_CURSOR_STATUS_FILE` to additionally append those
 events to a caller-owned file for recovery after a lost terminal handle.

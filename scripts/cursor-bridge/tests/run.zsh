@@ -112,7 +112,7 @@ assert_eq "0" "$RUN_STATUS" "ask success status"
 assert_eq "FAKE_OK" "$RUN_STDOUT" "ask success output"
 assert_eq "1" "$RUN_CALLS" "ask success call count"
 assert_contains "$RUN_STDERR" "Cursor call started" "ask reports immediate liveness"
-assert_contains "$RUN_ARGS" "--output-format json" "ask requests structured output"
+assert_contains "$RUN_ARGS" "--output-format stream-json" "ask requests structured output"
 assert_contains "$RUN_ARGS" "--mode ask" "ask passes ask mode"
 assert_contains "$RUN_ARGS" "--model cursor-grok-4.6-high-fast" "ask passes model"
 assert_contains "$RUN_ARGS" "--trust" "ask trusts selected workspace"
@@ -125,7 +125,19 @@ export CODEX_CURSOR_HEARTBEAT_SECONDS=1
 run_wrapper codex-cursor-ask slow_success "wait for a slow response"
 assert_eq "0" "$RUN_STATUS" "ask slow success status"
 assert_eq "SLOW_FAKE_OK" "$RUN_STDOUT" "ask slow success output"
-assert_contains "$RUN_STDERR" "Cursor is still running" "ask reports periodic liveness"
+assert_contains "$RUN_STDERR" "CODEX_CURSOR_EVENT state=heartbeat" "ask reports periodic liveness"
+unset CODEX_CURSOR_HEARTBEAT_SECONDS
+
+export CODEX_CURSOR_HEARTBEAT_SECONDS=1
+run_wrapper codex-cursor-ask stream_slow_success "surface a streaming Cursor activity summary"
+assert_eq "0" "$RUN_STATUS" "ask stream success status"
+assert_eq "STREAM_FAKE_OK" "$RUN_STDOUT" "ask stream success output"
+assert_contains "$RUN_ARGS" "--output-format stream-json" "ask requests stream JSON"
+assert_contains "$RUN_ARGS" "--stream-partial-output" "ask requests streamed activity"
+assert_contains "$RUN_STDERR" "CODEX_CURSOR_EVENT state=activity" "ask reports compact stream activity"
+assert_contains "$RUN_STDERR" "last_type=thinking" "ask classifies the last stream activity"
+assert_not_contains "$RUN_STDERR" "private thought" "ask does not relay thinking text"
+assert_not_contains "$RUN_EVENTS" "private thought" "ask does not persist thinking text"
 unset CODEX_CURSOR_HEARTBEAT_SECONDS
 
 export FAKE_CURSOR_DELAY_SECONDS=2

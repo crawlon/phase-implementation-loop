@@ -77,6 +77,11 @@ stdout_file="$temp_dir/stdout"
 stderr_file="$temp_dir/stderr"
 cursor_pid=""
 run_timed_out=0
+stream_lines_seen=0
+stream_events_since_heartbeat=0
+stream_last_type="none"
+stream_last_subtype="none"
+stream_idle_seconds=0
 
 emit_event() {
   local state="$1"
@@ -120,11 +125,53 @@ trap 'on_signal HUP' HUP
 trap 'on_signal INT' INT
 trap 'on_signal TERM' TERM
 
+observe_stream_events() {
+  local line_count start_line
+  line_count="$(wc -l <"$stdout_file")"
+  line_count="${line_count//[[:space:]]/}"
+
+  if (( line_count <= stream_lines_seen )); then
+    return
+  fi
+
+  start_line=$((stream_lines_seen + 1))
+  while IFS=$'\t' read -r event_type event_subtype; do
+    [[ -z "$event_type" ]] && continue
+    stream_events_since_heartbeat=$((stream_events_since_heartbeat + 1))
+    stream_last_type="$event_type"
+    stream_last_subtype="${event_subtype:-none}"
+  done < <(
+    sed -n "${start_line},${line_count}p" "$stdout_file" |
+      jq -r 'select(type == "object") | [(.type // "unknown"), (.subtype // "none")] | @tsv' 2>/dev/null
+  )
+  stream_lines_seen=$line_count
+}
+
+emit_liveness() {
+  local heartbeat_seconds="$1"
+
+  observe_stream_events
+  if (( stream_events_since_heartbeat > 0 )); then
+    emit_event "activity" "events=$stream_events_since_heartbeat last_type=$stream_last_type last_subtype=$stream_last_subtype idle_seconds=0"
+    stream_events_since_heartbeat=0
+    stream_idle_seconds=0
+    return
+  fi
+
+  stream_idle_seconds=$((stream_idle_seconds + heartbeat_seconds))
+  emit_event "heartbeat" "idle_seconds=$stream_idle_seconds last_type=$stream_last_type last_subtype=$stream_last_subtype"
+}
+
 run_cursor() {
   local heartbeat_seconds="${CODEX_CURSOR_HEARTBEAT_SECONDS:-15}"
   local max_seconds="${CODEX_CURSOR_MAX_SECONDS:-}"
   local elapsed_seconds=0
   run_timed_out=0
+  stream_lines_seen=0
+  stream_events_since_heartbeat=0
+  stream_last_type="none"
+  stream_last_subtype="none"
+  stream_idle_seconds=0
 
   if [[ "$heartbeat_seconds" != <-> || "$heartbeat_seconds" -lt 1 ]]; then
     print -u2 -- "$wrapper_name: CODEX_CURSOR_HEARTBEAT_SECONDS must be a positive integer"
@@ -143,7 +190,8 @@ run_cursor() {
   set +e
   cursor-agent \
     --print \
-    --output-format json \
+    --output-format stream-json \
+    --stream-partial-output \
     "${mode_args[@]}" \
     "${model_args[@]}" \
     --trust \
@@ -157,8 +205,7 @@ run_cursor() {
     sleep 1
     elapsed_seconds=$((elapsed_seconds + 1))
     if (( elapsed_seconds % heartbeat_seconds == 0 )); then
-      print -u2 -- "$wrapper_name: Cursor is still running (${elapsed_seconds}s); continue waiting"
-      emit_event "heartbeat" "elapsed_seconds=$elapsed_seconds max_seconds=${max_seconds:-none}"
+      emit_liveness "$heartbeat_seconds"
     fi
     if [[ -n "$max_seconds" ]] && (( elapsed_seconds >= max_seconds )); then
       run_timed_out=1
@@ -176,27 +223,37 @@ run_cursor() {
   set -e
 }
 
+terminal_result() {
+  jq -ce -s '
+    [
+      .[] |
+      select(type == "object" and .type == "result")
+    ] |
+    last // empty
+  ' "$stdout_file"
+}
+
 read_json_field() {
   local field="$1"
-  jq -r "$field // \"unknown\"" "$stdout_file" 2>/dev/null || print -r -- "unknown"
+  terminal_result | jq -r "$field // \"unknown\"" 2>/dev/null || print -r -- "unknown"
 }
 
 result_is_successful() {
-  [[ "$run_status" -eq 0 ]] &&
-    jq -e '
+  [[ "$run_status" -eq 0 ]] || return 1
+  terminal_result | jq -e '
       type == "object" and
       .type == "result" and
       .subtype == "success" and
       .is_error == false
-    ' "$stdout_file" >/dev/null 2>&1
+    ' >/dev/null 2>&1
 }
 
 result_has_text() {
-  jq -e '
+  terminal_result | jq -e '
     (.result // "") as $result |
     ($result | type) == "string" and
     ($result | test("\\S"))
-  ' "$stdout_file" >/dev/null 2>&1
+  ' >/dev/null 2>&1
 }
 
 failure_reason() {
@@ -204,8 +261,8 @@ failure_reason() {
     print -r -- "Cursor exceeded configured maximum duration"
   elif [[ "$run_status" -ne 0 ]]; then
     print -r -- "Cursor exited with status $run_status"
-  elif ! jq -e . "$stdout_file" >/dev/null 2>&1; then
-    print -r -- "Cursor returned invalid JSON"
+  elif ! terminal_result >/dev/null 2>&1; then
+    print -r -- "Cursor returned no terminal stream result"
   elif ! result_is_successful; then
     print -r -- "Cursor returned a non-success terminal result"
   else
@@ -218,8 +275,8 @@ combined_diagnostic() {
     command cat "$stderr_file"
   fi
 
-  if jq -e . "$stdout_file" >/dev/null 2>&1; then
-    jq -r '
+  if terminal_result >/dev/null 2>&1; then
+    terminal_result | jq -r '
       [
         .error.message?,
         .message?,
@@ -275,7 +332,7 @@ failure_is_transient() {
   fi
 
   if [[ "$run_status" -eq 0 ]]; then
-    if ! jq -e . "$stdout_file" >/dev/null 2>&1; then
+    if ! terminal_result >/dev/null 2>&1; then
       return 0
     fi
     if result_is_successful && ! result_has_text; then
@@ -319,18 +376,12 @@ print_failure() {
   if [[ -s "$stderr_file" ]]; then
     command cat "$stderr_file" >&2
   fi
-  if jq -e . "$stdout_file" >/dev/null 2>&1; then
+  if terminal_result >/dev/null 2>&1; then
     structured_error="$(combined_diagnostic 2>/dev/null)"
     if [[ -n "$structured_error" ]]; then
       print -u2 -- "$structured_error"
     fi
   fi
-  if [[ "$run_status" -eq 0 ]] && ! jq -e . "$stdout_file" >/dev/null 2>&1 && [[ -s "$stdout_file" ]]; then
-    print -u2 -- "Cursor raw output:"
-    command cat "$stdout_file" >&2
-    print -u2
-  fi
-
   print -u2 -- "$wrapper_name: $reason (model=$model_label status=$run_status stdout_bytes=$stdout_bytes stderr_bytes=$stderr_bytes session_id=$session_id request_id=$request_id)"
   if [[ "$kind" == "impl" ]]; then
     print -u2 -- "$wrapper_name: Cursor may have changed files; inspect the workspace diff before resuming or retrying."
@@ -353,7 +404,7 @@ while [[ "$attempt" -le "$max_attempts" ]]; do
 
   if result_is_successful && result_has_text; then
     emit_event "succeeded" "status=0"
-    jq -r '.result' "$stdout_file"
+    terminal_result | jq -r '.result'
     exit 0
   fi
 

@@ -45,12 +45,15 @@ Wrappers are transport only. Apply terminal and retry classification from
 before retry or fallback because files may already have changed.
 
 The wrapper exposes its lifecycle on stderr as `CODEX_CURSOR_EVENT`: `started`,
-`heartbeat`, `succeeded`, `failed`, `timed_out`, or `cancelled`. It has no default
-maximum duration. Set a positive `CODEX_CURSOR_MAX_SECONDS` only when the phase
-has a documented reason to impose a terminal deadline; `timed_out` then exits
-`124` and is terminal evidence for fallback or recovery, not a reason to guess
-that Cursor is still running. `CODEX_CURSOR_STATUS_FILE` can record the same
-events in a caller-owned path when a lost terminal handle must be recoverable.
+`activity`, `heartbeat`, `succeeded`, `failed`, `timed_out`, or `cancelled`.
+`activity` and `heartbeat` are compact local summaries of Cursor's stream, never
+thinking text, partial assistant text, prompts, tool arguments, or tool output.
+It has no default maximum duration. Set a positive `CODEX_CURSOR_MAX_SECONDS`
+only when the phase has a documented reason to impose a terminal deadline;
+`timed_out` then exits `124` and is terminal evidence for fallback or recovery,
+not a reason to guess that Cursor is still running. `CODEX_CURSOR_STATUS_FILE`
+can record the same events in a caller-owned path when a lost terminal handle
+must be recoverable.
 
 ## Capabilities And Prompts
 
