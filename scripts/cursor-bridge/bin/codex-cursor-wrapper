@@ -72,6 +72,26 @@ if [[ "$kind" == "ask" || "$kind" == "plan" ]]; then
   mode_args=(--mode "$kind")
 fi
 
+# Cursor's --trust only trusts the workspace. It does not approve terminal
+# commands. Implementation runs may opt into --force after the orchestrator has
+# explicitly authorized the phase's command/test scope; read-only roles never
+# receive this capability.
+force_args=()
+force_commands=0
+if [[ "$kind" == "impl" ]]; then
+  case "${CODEX_CURSOR_IMPL_FORCE:-0}" in
+    0|"") ;;
+    1)
+      force_args=(--force)
+      force_commands=1
+      ;;
+    *)
+      print -u2 -- "$wrapper_name: CODEX_CURSOR_IMPL_FORCE must be 0 or 1"
+      exit 64
+      ;;
+  esac
+fi
+
 temp_dir="$(mktemp -d "${TMPDIR:-/tmp}/codex-cursor-wrapper.XXXXXX")"
 stdout_file="$temp_dir/stdout"
 stderr_file="$temp_dir/stderr"
@@ -194,12 +214,13 @@ run_cursor() {
     --stream-partial-output \
     "${mode_args[@]}" \
     "${model_args[@]}" \
+    "${force_args[@]}" \
     --trust \
     --workspace "$PWD" \
     "$user_prompt" \
     >"$stdout_file" 2>"$stderr_file" &
   cursor_pid=$!
-  emit_event "started" "pid=$cursor_pid max_seconds=${max_seconds:-none}"
+  emit_event "started" "pid=$cursor_pid max_seconds=${max_seconds:-none} force_commands=$force_commands"
 
   while kill -0 "$cursor_pid" 2>/dev/null; do
     sleep 1

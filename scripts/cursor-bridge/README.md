@@ -55,6 +55,23 @@ or switch to file-backed credentials unless the host-access run also fails.
 may follow completed file edits, so the wrapper tells the orchestrator to
 inspect the workspace diff before deciding whether to resume or retry.
 
+## Implementation command approval
+
+`--trust` lets Cursor use the selected workspace, but it does not permit
+terminal commands that Cursor's allowlist would otherwise block. For an approved
+implementation phase that needs non-interactive test execution, opt in with:
+
+```sh
+CODEX_CURSOR_IMPL_FORCE=1 codex-cursor-impl --model composer-2.5-fast "..."
+```
+
+This adds Cursor Agent's `--force` flag only to `codex-cursor-impl`; ask and plan
+calls remain read-only and never receive it. The setting is disabled by default
+and accepts only `0` or `1`. Enable it only when the phase execution profile
+explicitly authorizes the workspace and relevant command/test scope. It does not
+replace the orchestrator's independent verification run or the phase's existing
+prohibitions on secrets, credentials, destructive actions, and live actions.
+
 ## Requirements
 
 - `cursor-agent`

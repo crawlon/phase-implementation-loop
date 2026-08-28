@@ -259,6 +259,26 @@ run_wrapper codex-cursor-impl success "implementation success"
 assert_eq "0" "$RUN_STATUS" "implementation success status"
 assert_eq "FAKE_OK" "$RUN_STDOUT" "implementation success output"
 assert_eq "1" "$RUN_CALLS" "implementation success call count"
+assert_not_contains "$RUN_ARGS" "--force" "implementation does not force commands by default"
+assert_contains "$RUN_EVENTS" "force_commands=0" "implementation records default command policy"
+
+export CODEX_CURSOR_IMPL_FORCE=1
+run_wrapper codex-cursor-ask success "read-only calls ignore implementation command force"
+assert_eq "0" "$RUN_STATUS" "ask succeeds while implementation command force is configured"
+assert_not_contains "$RUN_ARGS" "--force" "ask never receives command force"
+
+run_wrapper codex-cursor-impl success "implementation command force is explicitly enabled"
+assert_eq "0" "$RUN_STATUS" "forced implementation success status"
+assert_contains "$RUN_ARGS" "--force" "implementation forwards explicit command force"
+assert_contains "$RUN_EVENTS" "force_commands=1" "implementation records enabled command force"
+unset CODEX_CURSOR_IMPL_FORCE
+
+export CODEX_CURSOR_IMPL_FORCE=unexpected
+run_wrapper codex-cursor-impl success "reject an invalid implementation command force setting"
+assert_eq "64" "$RUN_STATUS" "invalid implementation command force setting status"
+assert_eq "0" "$RUN_CALLS" "invalid implementation command force does not start Cursor"
+assert_contains "$RUN_STDERR" "CODEX_CURSOR_IMPL_FORCE must be 0 or 1" "invalid implementation command force explains valid values"
+unset CODEX_CURSOR_IMPL_FORCE
 
 if [[ "$failures" -gt 0 ]]; then
   print -u2 -- "$failures test assertion(s) failed"

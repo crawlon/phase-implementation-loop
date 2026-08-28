@@ -55,6 +55,18 @@ not a reason to guess that Cursor is still running. `CODEX_CURSOR_STATUS_FILE`
 can record the same events in a caller-owned path when a lost terminal handle
 must be recoverable.
 
+### Non-interactive implementation tests
+
+`--trust` does not bypass Cursor's command allowlist. When the approved phase
+execution profile explicitly permits the selected workspace and its relevant
+test/verification commands, invoke implementation with
+`CODEX_CURSOR_IMPL_FORCE=1`. The wrapper then passes Cursor's `--force` only for
+`codex-cursor-impl`; it never enables command force for planning or verification
+calls. Keep the implementation prompt's existing prohibitions intact, name the
+expected test commands in the phase brief, and treat Cursor's test result as
+implementation evidence only: the orchestrator must independently rerun the
+relevant checks before declaring the phase GREEN.
+
 ## Capabilities And Prompts
 
 Use `agent-prompts.md` for the selected role. Cursor implementation must use an
