@@ -40,6 +40,16 @@ Zero-byte outer output without exit code or stderr is an indeterminate forwardin
 state, not provider failure. Repair or bypass forwarding before invoking a
 fallback.
 
+### Local CLI preflight failures
+
+An `EPERM` from Cursor while it creates local CLI configuration before any model
+request or workspace edit is a launcher-environment failure, not a provider
+failure or a normal implementation retry. Once this has been observed on a local
+macOS host, launch later Cursor wrapper calls with host access from the start.
+If that access is denied, record a platform-permission gate and stop for
+approval; do not spend a sandbox attempt on every phase or switch model/provider
+as though the model failed.
+
 ## Supervision Budget
 
 Supervise at checkpoints: implementation returned, diff inspected, tests

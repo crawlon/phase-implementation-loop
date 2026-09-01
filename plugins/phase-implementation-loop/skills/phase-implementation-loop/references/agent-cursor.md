@@ -40,6 +40,21 @@ If wrappers are unavailable but `cursor-agent` exists, use non-interactive
 `--print --output-format json` with the selected `--mode`, `--model`, and target
 `--workspace`. Adapt quoting/current-directory syntax to the active shell.
 
+### Local CLI access
+
+On a local macOS host where Cursor has already failed with `EPERM` while creating
+its local CLI configuration before a model request, host access is a known
+precondition for every later Cursor wrapper call. Launch the selected
+`codex-cursor-*` wrapper with host access on the first attempt; do not make a
+doomed sandbox probe and call the second launch a retry. This grants the launcher
+access to Cursor's local runtime state, not broader phase scope: preserve the
+selected workspace, prompt prohibitions, and the separate `CODEX_CURSOR_IMPL_FORCE`
+opt-in.
+
+If host access is denied, record a platform-permission gate and stop or request
+approval. Do not misreport the preflight failure as a Grok/model failure, fall
+back to another model, or inspect a workspace diff that Cursor never touched.
+
 Wrappers are transport only. Apply terminal and retry classification from
 `delegated-jobs.md`. On ambiguous implementation failure, inspect the workspace
 before retry or fallback because files may already have changed.
