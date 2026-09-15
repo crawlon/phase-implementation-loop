@@ -67,3 +67,27 @@ FINDINGS:
 EVIDENCE:
 - tests, diff paths, or inspection basis
 ```
+
+## UI/UX Review
+
+```text
+Review Phase [N]: [title] as the dedicated non-editing Codex UI/UX review
+subagent. You did not implement this phase.
+
+Objective and acceptance criteria: [items]
+Repository/worktree: [path]
+UI target and phase diff: [route, paths, or flow]
+Expected user sequence and relevant states: [items]
+Selected model/reasoning: [selection and rationale]
+
+Start the app from the current worktree, open the target route in the in-app
+Browser, and prove it serves the current phase diff. Then follow
+`$ui-ux-browser-review`. Do not edit, stage, commit, push, deploy, access
+secrets or credentials, or perform destructive or live actions.
+
+Return only:
+- review target, worktree/diff proof, routes, states, and viewports covered
+- outcome: ready, ready with follow-ups, or needs revision
+- findings with severity, observed evidence, user impact, and smallest change
+- limitations or untested scope
+```

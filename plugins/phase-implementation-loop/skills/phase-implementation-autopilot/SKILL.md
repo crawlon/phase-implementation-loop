@@ -38,6 +38,8 @@ plan sources, and required tools. Then present one compact envelope containing:
 - synchronized Linear issue range and authorized tracker mutations
 - dedicated branch for the whole plan
 - implementation routes/fallbacks and verifier chain
+- UI/UX review route for UI-affecting phases: dedicated Codex reviewer,
+  `gpt-5.6-luna` at maximum reasoning unless explicitly overridden
 - permission to edit, test, stage exact phase-owned paths, create focused local
   commits, and continue through every listed phase
 - durable-state artifact
@@ -82,9 +84,9 @@ self-referencing that commit hash.
 For each phase:
 
 1. Run the Common Phase State Machine in `shared-protocol.md` through its GREEN or
-   stop decision. UI-affecting phases must run `$ui-ux-browser-review` under its
-   shared UI/UX Review Gate; non-UI phases record N/A. Drive every delegated
-   handle to terminal completion.
+   stop decision. UI-affecting phases delegate `$ui-ux-browser-review` to its
+   dedicated Codex reviewer under the shared UI/UX Review Gate; non-UI phases
+   record N/A. Drive every delegated handle to terminal completion.
 2. If not GREEN, do not commit partial work. Preserve the workspace, update state,
    and stop with the failed gate, evidence, attempted repairs, last green commit,
    uncommitted paths, and one focused question.

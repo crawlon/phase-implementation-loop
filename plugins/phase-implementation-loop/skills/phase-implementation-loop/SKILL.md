@@ -61,6 +61,7 @@ Compact profile shape:
 Recommended execution profile
 - Orchestrator: [agent]
 - Implementation: [agent/model/reasoning and fallback]
+- UI/UX review: dedicated Codex reviewer — gpt-5.6-luna / maximum reasoning
 - Verification: Claude Opus 5.0 -> Cursor GLM 5.2 -> fresh Codex verifier
 - Continuation: after approval, commit Phase N and immediately start Phase N+1
 
@@ -74,8 +75,8 @@ For each phase:
 1. Run the Common Phase State Machine in `references/shared-protocol.md` through
    its GREEN or stop decision. Refresh a supported phase goal with objective,
    acceptance criteria, out-of-scope items, and stop conditions.
-   UI-affecting phases must run `$ui-ux-browser-review` under its shared UI/UX
-   Review Gate; non-UI phases record N/A.
+   UI-affecting phases delegate `$ui-ux-browser-review` to its dedicated Codex
+   reviewer under the shared UI/UX Review Gate; non-UI phases record N/A.
 2. Confirm every delegated handle is terminal and durable state is sufficient
    for another agent to reconstruct the phase.
 3. If not GREEN, do not commit. Preserve the workspace and report the failed gate,

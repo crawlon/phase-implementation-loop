@@ -9,6 +9,9 @@ last verification fallback. The phase-loop orchestrator may be any agent.
   subagent only when bounded exploration saves context.
 - Implementation: always use a separate edit-capable Codex worker subagent. The
   orchestrator never implements or applies a returned patch.
+- UI/UX review: use a fresh, non-editing Codex reviewer subagent to run
+  `$ui-ux-browser-review` for UI-affecting phases. Return findings to the
+  implementation worker; the reviewer never edits the workspace.
 - Verification: after Claude and GLM are unavailable or inconclusive, use a fresh
   read-only Codex verifier subagent that did not implement the phase.
 
@@ -30,6 +33,10 @@ implementation agent or stop. Never collapse the worker role into orchestration.
 
 Choose locally from the phase brief; do not call another model to choose:
 
+- UI/UX review: default to `gpt-5.6-luna` at maximum reasoning. It is the
+  standard lower-cost browser-review route unless the user selects another
+  model. If unavailable, use the least expensive surfaced Codex model capable of
+  the Browser review and record the fallback.
 - Tiny: use the surfaced default or fastest capable Codex coding model at medium
   reasoning.
 - Routine/moderate fallback: use a strong available Codex coding model at high
@@ -48,6 +55,7 @@ Use `agent-prompts.md` and add the role-specific first line:
 
 - Planning: `Act as a bounded Codex planning subagent.`
 - Implementation: `Act as the separate Codex worker subagent; you are not the orchestrator.`
+- UI/UX review: `Act as the dedicated non-editing Codex UI/UX review subagent.`
 - Verification: `Act as the fresh last-resort Codex verifier; you did not implement this phase.`
 
 For implementation, include selected model/reasoning and require workspace edits,

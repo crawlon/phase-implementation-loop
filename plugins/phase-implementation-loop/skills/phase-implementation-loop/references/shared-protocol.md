@@ -25,6 +25,10 @@ implemented the phase. Do not ask delegated agents to commit, push, deploy,
 handle secrets or credentials, approve prompts, or perform destructive or live
 actions.
 
+For a UI-affecting phase, UI/UX review is a separate non-editing role. Its
+findings return to an edit-capable implementation worker; the orchestrator
+inspects the follow-up diff and evidence before deciding GREEN.
+
 ## Canonical Plan And Linear
 
 Accept a markdown plan, chat plan, Linear issue list, one Linear parent with
@@ -67,6 +71,7 @@ profile records:
 
 - orchestrator
 - implementation route and fallback
+- UI/UX review route when any phase is UI-affecting
 - verifier chain
 - selected models and reasoning/effort when configurable
 - one-line routing rationale
@@ -106,11 +111,15 @@ Read only the selected agent references:
 Classify each phase as UI-affecting when it changes a user-visible screen,
 interaction, responsive layout, navigation, or user-facing information flow or
 copy. For every UI-affecting phase, after functional checks and before the
-independent verifier, start the relevant app from the current worktree, open the
-target route in the in-app Browser, and prove it serves the phase diff. Then
-load and use `$ui-ux-browser-review`. Review the primary user sequence and the
-states/viewports relevant to the change, then record its target, proof, coverage,
-findings, limitations, and outcome in durable state.
+independent verifier, delegate a fresh non-editing Codex UI/UX review subagent.
+Unless the user selects another route, use `gpt-5.6-luna` at maximum reasoning.
+Read `agent-codex.md` and the UI/UX Review prompt in `agent-prompts.md`, then
+give the reviewer the phase brief and current-worktree target. The reviewer
+starts the relevant app, opens the target route in the in-app Browser, proves it
+serves the phase diff, and follows `$ui-ux-browser-review`. Record its model,
+effort, target, proof, coverage, findings, limitations, and outcome in durable
+state. Return actionable findings to an edit-capable implementation worker, then
+rerun affected checks and the UI/UX review before the independent verifier.
 
 For a non-UI phase, record `UI/UX review: N/A` with the reason. A UI-affecting
 phase cannot be GREEN without that review, or an explicit user waiver when the
