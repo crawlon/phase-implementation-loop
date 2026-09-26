@@ -15,6 +15,10 @@ workspace/diff, run required checks, supervise delegated jobs, and enforce the
 active mode's git gates. Otherwise stop before Phase 1 and hand off to a capable
 orchestrator.
 
+The orchestrator owns the canonical plan and decisions but preferably does not
+perform planning or replanning analysis itself. Delegate that analysis under the
+Planning And Replanning section below.
+
 Codex implementation always runs as a separate worker subagent. It must never be
 the orchestrator's current context or a user-owned task/thread created as a
 substitute for a worker. Agent output is advisory until the orchestrator inspects
@@ -65,12 +69,16 @@ separately established tracker policy.
 
 ## Execution Profile
 
-Before Phase 1, use the user's stated roles, models, and effort. Otherwise make a
+Before Phase 1, read `phase-capability.md` and run its phase capability
+assessment across the canonical plan. Use the user's stated roles, models, and
+effort only where they are compatible with that assessment. Otherwise make a
 compact recommendation and obtain the approval required by the active mode. The
 profile records:
 
 - orchestrator
-- implementation route and fallback
+- planning/replanning route and fallback
+- per-phase complexity, plan detail, implementation route, and required action
+- implementation fallback
 - UI/UX review route when any phase is UI-affecting
 - verifier chain
 - selected models and reasoning/effort when configurable
@@ -80,24 +88,25 @@ Check only capabilities needed by the proposed profile. Use `command -v` on
 macOS/Linux, `Get-Command` in PowerShell, or `where` in Windows cmd. Wrappers are
 transport only; role and safety policy belongs in prompts and these references.
 
-When the user has not explicitly selected an implementation agent, apply routing
-in this order using phase facts already gathered:
+After the assessment identifies the required capability tier, map it to the
+available implementation routes using phase facts already gathered:
 
-1. **Complex:** if any trigger applies, use Cursor Grok 4.6 High Fast
-   (`cursor-grok-4.6-high-fast`): ambiguous root cause, cross-package behavior,
-   migration/schema/public contract, concurrency, auth/security, production-data
-   risk, or likely multi-iteration exploration.
-2. **Tiny:** if every condition holds, use a Codex worker subagent: at most two
-   files in one familiar module, clear acceptance check, established pattern,
-   and none of the complex triggers.
-3. **Routine:** otherwise use Cursor Composer 2.5 (`composer-2.5-fast`) for
+1. **Simple:** use a fast capable Codex worker subagent or the user's basic
+   implementer for a TINY or sufficiently detailed low-risk phase.
+2. **Routine:** use Cursor Composer 2.5 (`composer-2.5-fast`) for
    bounded implementation with clear requirements and local patterns.
+3. **Strong:** use Cursor Grok 4.6 High Fast
+   (`cursor-grok-4.6-high-fast`) for ambiguous root cause, cross-package
+   behavior, migration/schema/public contract, concurrency, auth/security,
+   production-data risk, or likely multi-iteration exploration.
 
-Do not call a model to choose the route or compare multiple implementers. If the
-selected route is unavailable, use another edit-capable implementation agent and
-retain the same phase brief. For a Codex fallback, select model and reasoning
-from complexity using `agent-codex.md`. If no separate edit-capable implementer
-is available, stop for operator guidance; the orchestrator does not take over.
+Do not call a model to choose the route or compare multiple implementers. Do not
+silently run a basic implementer where `phase-capability.md` requires a routine
+or strong route. If the selected route is unavailable, use another edit-capable
+implementation agent at the same required capability tier and retain the same
+phase brief. For a Codex fallback, select model and reasoning from complexity
+using `agent-codex.md`. If no separate edit-capable implementer is available,
+stop for operator guidance; the orchestrator does not take over.
 
 Read only the selected agent references:
 
@@ -105,6 +114,27 @@ Read only the selected agent references:
 - `agent-cursor.md`
 - `agent-claude.md`
 - `agent-prompts.md` when constructing a delegated prompt
+
+## Planning And Replanning
+
+When startup, a capability assessment, new repository evidence, verifier
+findings, or a repair cycle requires planning or replanning, delegate one bounded
+read-only planning job. The default route is a fresh Codex subagent using
+`gpt-6-astra` at high reasoning. If that route terminates unsuccessfully or is
+unavailable, use Claude Opus 5.5 through `codex-claude-ask --model
+claude-opus-5-5`. Use the Planning prompt in `agent-prompts.md` for either route.
+
+The planner may inspect the plan and repository evidence but must not edit the
+workspace, mutate Linear, commit, push, deploy, or decide unresolved product
+questions. The orchestrator reviews the advice, presents decisions to the user
+when needed, and alone reconciles the approved result into the canonical plan,
+Linear mapping, capability assessment, and durable state.
+
+Do not call both planners for routine comparison. Use Opus 5.5 only after a
+terminal Astra failure/unavailability or explicit user selection. If both routes
+are unavailable, the orchestrator may plan directly only as a disclosed degraded
+fallback; record the reason, keep the task bounded, and do not bypass user or
+tracker authority.
 
 ## UI/UX Review Gate
 
@@ -130,9 +160,13 @@ scope and resulting risk; it is not implied by passing functional tests.
 
 For each phase:
 
-1. Write a phase brief with objective, scope, likely files, constraints,
-   acceptance checks, risks, and stop conditions.
-2. Run bounded planning/exploration only when it reduces implementation risk.
+1. Reconfirm the approved capability assessment, then write a phase brief with
+   objective, scope, likely files, constraints, acceptance checks, risks, and
+   stop conditions. Resolve any required `add plan detail` or `use stronger
+   implementer` action before delegation.
+2. When bounded planning or replanning would reduce implementation risk,
+   delegate it under Planning And Replanning above and reconcile the approved
+   result before implementation.
 3. Select and record the implementation route, model, and reasoning/effort.
 4. Delegate the bounded edit task with Ponytail/minimal-diff and drive it to a
    terminal result under `delegated-jobs.md`.
@@ -145,20 +179,24 @@ For each phase:
 8. Run the verifier chain in `delegated-jobs.md`. Return concrete findings to the
    selected implementer or another edit-capable worker, then repeat affected
    tests and verification.
-9. After two materially similar red repair cycles without new evidence or a
-   distinct fix, stop with the exact blocker or decision needed.
+9. If a repair exposes interpretation drift or capability mismatch, reassess
+   plan detail and implementation strength before another attempt. After two
+   materially similar red repair cycles without new evidence or a distinct fix,
+   stop with the exact blocker or decision needed.
 10. Update durable state before the mode-specific commit/continuation gate.
 
 A phase is GREEN only when its acceptance criteria are met, the orchestrator has
 inspected the diff, relevant tests pass or have an explicit approved waiver, the
 verifier reports no unresolved blocker at confidence appropriate to the risk, no
 unrelated change is staged, no delegated job remains in flight, and durable state
-can reconstruct the result. A UI-affecting phase additionally requires a
-completed UI/UX review or explicit user waiver.
+can reconstruct the result. The chosen implementation route must remain
+compatible with the approved capability assessment. A UI-affecting phase
+additionally requires a completed UI/UX review or explicit user waiver.
 
 ## Shared Fallback And Stop Rules
 
-- Planning unavailable: the orchestrator may plan directly.
+- Planning unavailable: try Astra High, then Opus 5.5. The orchestrator may plan
+  directly only after both are unavailable, with the degradation recorded.
 - Implementation unavailable: choose another edit-capable agent; never collapse
   implementation into orchestration.
 - Verification unavailable: follow `delegated-jobs.md` and disclose degradation.
@@ -169,7 +207,8 @@ completed UI/UX review or explicit user waiver.
   live actions, secrets/credentials, deploy/release/push authority, or exhausted
   fallbacks.
 
-Durable state records phase status, branch, changed files, implementation route
-and model, verification commands/results, UI/UX review result or N/A decision,
-verifier tier/model/verdict, commit when available, blockers, deferrals, next
-phase, and exact user decisions.
+Durable state records phase status, branch, changed files, planning/replanning
+route and result, capability assessment, approved plan-detail/implementer
+decision, implementation route and model, verification commands/results, UI/UX
+review result or N/A decision, verifier tier/model/verdict, commit when
+available, blockers, deferrals, next phase, and exact user decisions.

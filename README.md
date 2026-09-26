@@ -42,6 +42,11 @@ covers command discovery and shell adaptation on macOS, Linux, PowerShell, and
 
 - Reconciles markdown plans and Linear issues into a canonical markdown phase
   plan before implementation starts.
+- Assesses every phase as TINY, ROUTINE, or COMPLEX against THIN, ADEQUATE, or
+  DETAILED plan detail, then recommends either more detail or the least expensive
+  capable implementer.
+- Delegates planning and replanning to Codex GPT-6 Astra at high reasoning, with
+  Claude Opus 5.5 as the fallback, while the orchestrator retains plan ownership.
 - Lets the invoking orchestrator recommend or confirm an execution profile for
   Codex, Cursor, and Claude roles.
 - Keeps Codex implementation separate from orchestration: a selected Codex
@@ -71,6 +76,7 @@ plugins/phase-implementation-loop/
     SKILL.md
     references/
       shared-protocol.md
+      phase-capability.md
       delegated-jobs.md
       agent-prompts.md
       agent-codex.md

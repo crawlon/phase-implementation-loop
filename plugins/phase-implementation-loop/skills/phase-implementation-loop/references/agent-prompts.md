@@ -8,6 +8,7 @@ Prompts are English by default; user-facing reports may use the user's language.
 ```text
 Plan Phase [N]: [title].
 
+Planning task: [initial plan, detail expansion, or replan]
 Objective: [objective]
 In scope: [items]
 Out of scope: [items]
@@ -16,10 +17,19 @@ Likely files/modules: [paths]
 
 Return only:
 - minimal implementation approach
+- implementer-critical detail gaps and the exact clarification needed
 - risks or unclear requirements
 - suggested verification
 - stop conditions
 ```
+
+When the capability assessment requires more plan detail, ask the planner to
+raise the phase to ADEQUATE or DETAILED without changing its goal. Require
+explicit behavior, boundaries, acceptance checks, dependencies, invariants,
+error states where relevant, likely seams, verification, and stop conditions.
+The planner must identify unresolved product decisions rather than invent them.
+The planner is read-only and returns advice to the orchestrator; it must not edit
+the canonical plan, mutate Linear, or make user decisions.
 
 ## Implementation
 
@@ -31,6 +41,7 @@ In scope: [items]
 Out of scope: [items]
 Acceptance checks: [checks]
 Repository constraints: [constraints]
+Capability assessment: [TINY/ROUTINE/COMPLEX + THIN/ADEQUATE/DETAILED]
 Selected model/reasoning: [selection and rationale]
 
 Follow repository instructions and Ponytail/minimal-diff: make the smallest

@@ -10,14 +10,15 @@ not implement code. A green phase waits for user approval before its focused
 commit; approval may also authorize immediate continuation to the next phase.
 
 ```text
-canonical plan -> delegated implementation -> diff/tests -> verifier ->
-phase report -> approval -> commit -> continue when approved
+canonical plan -> capability assessment/profile -> delegated implementation ->
+diff/tests -> verifier -> phase report -> approval -> commit -> continue
 ```
 
 ## Shared Protocol
 
 This skill is distributed with `phase-implementation-autopilot`. Before planning,
-read `references/shared-protocol.md`. Before the first delegated call, read
+read `references/shared-protocol.md`. Before approving the execution profile,
+read `references/phase-capability.md`. Before the first delegated call, read
 `references/delegated-jobs.md`. Load `references/agent-prompts.md` plus only the
 selected agent references:
 
@@ -26,8 +27,9 @@ selected agent references:
 - `references/agent-claude.md`
 
 Those files are authoritative for plan synchronization, role separation,
-deterministic routing, Codex worker selection, terminal handling, verification,
-fallbacks, and prompt contracts. This file defines only gated-mode behavior.
+phase capability assessment, deterministic routing, Codex worker selection,
+terminal handling, verification, fallbacks, and prompt contracts. This file
+defines only gated-mode behavior.
 
 ## Startup Gate
 
@@ -41,9 +43,12 @@ Before Phase 1:
    a deferral. Ask for explicit authorization before applying the mapping. Start
    only after a re-read proves complete synchronization.
 3. Use the user's execution profile or recommend one compactly. The recommendation
-   names the orchestrator, implementation route/fallback, verifier chain, models,
-   reasoning/effort, and continuation behavior. Obtain confirmation for material
-   work when the profile was not already approved.
+   includes the per-phase capability assessment from `phase-capability.md`, names
+   the orchestrator, planning/replanning route, implementation routes/fallbacks,
+   verifier chain, models, reasoning/effort, and continuation behavior. If a
+   basic implementer is incompatible with any phase, surface the choice between
+   adding plan detail and using a stronger implementer. Obtain confirmation for
+   material work when the profile was not already approved.
 4. Name a durable-state location for multi-phase work. The canonical plan may
    carry phase status when it can record every field required by the shared
    protocol; otherwise use a repo-appropriate adjacent markdown artifact.
@@ -60,7 +65,9 @@ Compact profile shape:
 ```text
 Recommended execution profile
 - Orchestrator: [agent]
-- Implementation: [agent/model/reasoning and fallback]
+- Planning/replanning: Codex gpt-6-astra / high -> Claude Opus 5.5
+- Phase capability: [compact per-phase table]
+- Implementation: [per-phase agent/model/reasoning and fallback]
 - UI/UX review: dedicated Codex reviewer — gpt-5.6-luna / maximum reasoning
 - Verification: Claude Opus 5.0 -> Cursor GLM 5.2 -> fresh Codex verifier
 - Continuation: after approval, commit Phase N and immediately start Phase N+1
@@ -99,6 +106,8 @@ Report only decision-relevant state:
 
 - phase status: GREEN, BLOCKED, or NEEDS DECISION
 - changed files and behavior
+- planning/replanning route used and material plan changes
+- approved capability assessment and actual implementation route
 - branch and current commit
 - tests and results
 - UI/UX review target, outcome, and findings; or N/A with reason, or approved

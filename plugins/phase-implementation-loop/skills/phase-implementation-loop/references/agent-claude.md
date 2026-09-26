@@ -10,6 +10,7 @@ Use the thin read-only wrapper:
 ```text
 codex-claude-ask --model opus "..."
 codex-claude-ask --model opus --prompt-file <path>
+codex-claude-ask --model claude-opus-5-5 --prompt-file <planning-prompt>
 ```
 
 Prefer a prompt file for long calls. If the wrapper is unavailable but `claude`
@@ -21,10 +22,12 @@ and active shell.
 claude --print --permission-mode plan --no-chrome --no-session-persistence --model opus "..."
 ```
 
-The `opus` alias should target Claude Opus 5.0 for this package; verify the current
-CLI mapping when uncertain. Let the orchestrator choose effort from phase risk:
-default for bounded work; high or maximum supported effort for large diffs,
-subtle architecture, auth/security, migration, or data-loss risk. Do not hardcode
+Use the fixed `claude-opus-5-5` model id for planning/replanning fallback. Do not
+substitute the generic `opus` alias unless current CLI inspection proves it maps
+to Opus 5.5. The verification chain continues to use its separately configured
+Opus route. Let the orchestrator choose effort from phase risk: default for
+bounded work; high or maximum supported effort for large diffs, subtle
+architecture, auth/security, migration, or data-loss risk. Do not hardcode
 unsupported effort flags.
 
 Apply terminal lifecycle, output classification, patience, and fallback rules
@@ -44,6 +47,10 @@ default deadline; `CODEX_CLAUDE_MAX_SECONDS` is opt-in, and
 The current wrapper is read-only. Use it for planning, review, verification,
 risk analysis, and implementation advice. Do not claim workspace edits unless an
 explicitly available and authorized edit-capable Claude surface was used.
+
+Claude Opus 5.5 is the planning/replanning fallback after terminal Astra
+unavailability or failure. Give it the same bounded planning prompt and require
+the same output contract; do not use both planners merely to compare answers.
 
 When the user selects Claude implementation and an edit-capable Claude surface is
 available, delegate the implementation prompt to that surface under the same

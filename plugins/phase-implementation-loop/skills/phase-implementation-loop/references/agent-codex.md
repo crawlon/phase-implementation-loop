@@ -1,12 +1,14 @@
 # Codex Agent Reference
 
-Use this reference when Codex is selected for planning, implementation, or the
-last verification fallback. The phase-loop orchestrator may be any agent.
+Use this reference when Codex is selected for planning, implementation, UI/UX
+review, or the last verification fallback. The phase-loop orchestrator may be
+any agent.
 
 ## Roles
 
-- Planning: the orchestrator may plan directly. Use a separate Codex planning
-  subagent only when bounded exploration saves context.
+- Planning and replanning: use a fresh, read-only Codex planning subagent by
+  default. The orchestrator supplies the bounded question, reviews the result,
+  resolves user decisions, and owns the canonical plan.
 - Implementation: always use a separate edit-capable Codex worker subagent. The
   orchestrator never implements or applies a returned patch.
 - UI/UX review: use a fresh, non-editing Codex reviewer subagent to run
@@ -33,6 +35,9 @@ implementation agent or stop. Never collapse the worker role into orchestration.
 
 Choose locally from the phase brief; do not call another model to choose:
 
+- Planning and replanning: use `gpt-6-astra` at high reasoning. If that route is
+  unavailable, use the Claude Opus 5.5 fallback in `agent-claude.md` rather than
+  moving the work into the orchestrator context.
 - UI/UX review: default to `gpt-5.6-luna` at maximum reasoning. It is the
   standard lower-cost browser-review route unless the user selects another
   model. If unavailable, use the least expensive surfaced Codex model capable of
@@ -53,7 +58,7 @@ Record model, reasoning, and one-line rationale in durable state.
 
 Use `agent-prompts.md` and add the role-specific first line:
 
-- Planning: `Act as a bounded Codex planning subagent.`
+- Planning: `Act as the dedicated read-only Codex planning subagent; the orchestrator owns the canonical plan.`
 - Implementation: `Act as the separate Codex worker subagent; you are not the orchestrator.`
 - UI/UX review: `Act as the dedicated non-editing Codex UI/UX review subagent.`
 - Verification: `Act as the fresh last-resort Codex verifier; you did not implement this phase.`

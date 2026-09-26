@@ -20,14 +20,15 @@ Otherwise preserve state and ask one focused operator question.
 This mode depends on its packaged companion skill. Before planning, read:
 
 - `../phase-implementation-loop/references/shared-protocol.md`
+- `../phase-implementation-loop/references/phase-capability.md`
 - `../phase-implementation-loop/references/delegated-jobs.md` before delegation
 - `../phase-implementation-loop/references/agent-prompts.md`
 - only the selected `agent-codex.md`, `agent-cursor.md`, or `agent-claude.md`
 
 Those files are authoritative for plan synchronization, role separation,
-deterministic routing, Codex worker selection, terminal handling, verification,
-fallbacks, and prompt contracts. This file defines only autopilot authorization,
-commit behavior, and stop gates.
+phase capability assessment, deterministic routing, Codex worker selection,
+terminal handling, verification, fallbacks, and prompt contracts. This file
+defines only autopilot authorization, commit behavior, and stop gates.
 
 ## Startup Envelope
 
@@ -37,6 +38,9 @@ plan sources, and required tools. Then present one compact envelope containing:
 - repository/worktree and canonical markdown plan
 - synchronized Linear issue range and authorized tracker mutations
 - dedicated branch for the whole plan
+- planning/replanning route: Codex `gpt-6-astra` at high reasoning, with Claude
+  Opus 5.5 fallback
+- per-phase capability assessment and resolved plan-detail/implementer choices
 - implementation routes/fallbacks and verifier chain
 - UI/UX review route for UI-affecting phases: dedicated Codex reviewer,
   `gpt-5.6-luna` at maximum reasoning unless explicitly overridden
@@ -49,6 +53,12 @@ Obtain one explicit approval unless the user's autopilot request already names
 the same repository, plan/phase range, local commit-and-continue authority, and
 prohibited-action boundary. Never infer broader authority from the word
 “autopilot.”
+
+Do not freeze or start an envelope with an unresolved incompatible phase. When
+the requested basic implementer cannot safely execute a phase, the startup
+discussion must explicitly resolve whether to add plan detail or use a stronger
+implementer for that phase. Recommend a simpler implementer for phases assessed
+as TINY with ADEQUATE or DETAILED plans.
 
 Use `shared-protocol.md` to reconcile markdown and Linear. The startup envelope
 must include the exact create/update mapping for every planned phase; when
@@ -97,8 +107,9 @@ For each phase:
    blockers, deferrals, and next step. Do not close or change status/ownership
    without explicit authority.
 5. Emit a compact checkpoint containing phase, commit, tests, UI/UX review result
-   or N/A decision, verifier verdict, fallback/degradation, and deferrals. Do not
-   ask a routine question.
+   or N/A decision, capability assessment and actual implementation route,
+   verifier verdict, fallback/degradation, and deferrals. Do not ask a routine
+   question.
 6. If another approved phase remains and no stop gate applies, begin it
    immediately. Never push automatically.
 
@@ -117,6 +128,11 @@ Stop and ask for operator guidance when:
 - no separate edit-capable implementation agent is available
 - pre-existing/concurrent changes make path ownership uncertain
 - branch, worktree, or history identity diverges unexpectedly
+- a phase's capability assessment changes or its approved route becomes
+  incompatible with the plan detail or discovered risk
+- planning/replanning is required but neither Astra High nor Opus 5.5 is
+  available, unless the startup envelope explicitly allows degraded
+  orchestrator planning
 - an action outside the startup envelope requires permission
 - the next phase needs an operator/product decision
 - durable state cannot confidently reconstruct the result
