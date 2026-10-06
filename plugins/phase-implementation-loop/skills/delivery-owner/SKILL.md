@@ -7,9 +7,12 @@ description: Own the planning and delivery of one plan or a roadmap across manag
 
 Own the outcome and cross-plan decisions; let managed orchestrators own phase
 execution. Use one owner for a single plan or a roadmap milestone containing
-several plans. Prefer an Astra owner at high reasoning when the user selects
-that profile. A skill cannot change the current chat's model: record the actual
-model when exposed, otherwise unknown; never claim a model switch occurred.
+several plans. Default owner: **GPT-6.1 Sol High** (`gpt-6.1-sol`, reasoning
+`high`), with bounded **GPT-6 Astra High** consultations for difficult decisions.
+Explicit user model selections override these defaults. A skill cannot change
+the current chat's model: record the actual model when exposed, otherwise unknown.
+Disclose a mismatch and resolve it through supported controls or an authorized
+handoff; never claim that reloading the skill switched an existing chat.
 
 Read [the assignment and checkpoint contract](references/contracts.md) at startup.
 Read [coordination](references/coordination.md) only before launch, a dependency
@@ -21,6 +24,8 @@ routine worker updates.
 For roadmap steps whose implementation plans are not yet known, read
 [progressive planning](references/progressive-planning.md) when selecting or
 planning the next step. Fully planned work does not need that extra cycle.
+Read [Astra consultation](references/astra-consultation.md) only when an escalation
+trigger below applies. Sol remains the sole owner and human interface.
 
 ## Establish the delivery agreement
 
@@ -43,6 +48,8 @@ planning the next step. Fully planned work does not need that extra cycle.
    messages, and perform successor handoffs if wanted. Name the managed cohort;
    unrelated chats are excluded. Peer-to-peer messaging is optional and requires
    its own human-authorized scope. Preserve links to the actual human instructions.
+   Establish the return route and recovery arrangement under
+   [coordination](references/coordination.md) before relying on unattended replies.
 5. Maintain one compact owner index beside the roadmap/plan, using the contract.
    Each orchestrator maintains its own phase state. Start with at most two active
    plans; lower this when worker/reviewer capacity or shared resources require it.
@@ -58,7 +65,7 @@ orchestrator profile. Carry that selection into each assignment and authorized
 chat launch. Implementer defaults and fallbacks, owner and reviewer profiles
 remain unchanged; do not apply the orchestrator selection to its workers.
 
-## Supervise with a small Astra context
+## Supervise with a small owner context
 
 - Read the index and new checkpoint deltas first. Orchestrators own routine
   exploration, diffs, tests, verification, retries, and local status updates.
@@ -68,23 +75,33 @@ remain unchanged; do not apply the orchestrator selection to its workers.
   stays in durable state for observation. Notify for an agreed owner drift
   checkpoint or requested reporting, not every green phase. A notification alone
   adds no gate; the assignment explicitly names any coordination checkpoint.
-- Use cursor-based status waits for the authorized cohort, then inspect only
-  changed tasks. A heartbeat may resume supervision after the owner turn ends
-  only when requested/authorized; a skill is not a scheduler. Without one,
-  report when active supervision ends. Never claim unattended monitoring exists.
+- Prefer actionable messages over sustained owner polling. Use cursor waits for
+  a specific imminent transition, not an entire implementation/review run.
+  Before ending supervision, resolve available owner decisions and record who
+  acts next and the actual wake/recovery route. Follow coordination's bounded
+  waiting rules; a skill is not a scheduler.
 - Default checkpoint payloads to roughly 150 words plus evidence pointers.
   Batch related human questions; preserve urgent blockers and all material risk.
   Never sacrifice evidence needed for a decision to meet a word limit.
 - For a decision, read the relevant plan section and decisive evidence. Expand
   to full diffs/logs only for contradictions, material risk, suspected drift,
   or an acceptance claim that the compact evidence cannot establish.
-- Routine routing, factual bookkeeping, and unchanged status need no new Astra
-  planning call. Use the current owner for substantive planning; do not create
-  an Astra planner per orchestrator or per phase. Delegate bounded evidence
-  gathering to a cheaper capable worker when it saves meaningful context.
+- Handle routine planning, routing, scheduling, bookkeeping and outcome checks
+  in the owner context. Consult Astra for unresolved consequential architecture
+  or shared contracts, materially uncertain planning with competing approaches,
+  repeated repairs indicating a faulty plan, or conflicting cross-plan evidence
+  and materially ambiguous acceptance. Do not rely only on subjective confidence
+  or consult automatically for every plan, phase or outcome checkpoint.
+  Delegate bounded evidence gathering to a cheaper capable worker when useful.
 - Preserve the independent verifier: the delivery owner does not replace it.
   Additional Astra verification follows the approved verifier profile, never
   a routine extra owner review of every green phase.
+
+Resolve owner decisions in the receiving turn when evidence and authority allow;
+dispatch the concrete continuation without waiting for a routine acknowledgement.
+Do not let an orchestrator become a second manager of its peers. Each dependency
+has one delivery actor and one decision owner. Informational checkpoints do not
+stop authorized work; genuine waits use the contract's named state and resumer.
 
 Assess progress by acceptance criteria closed and capabilities unblocked. When
 preparation expands without delivery, ask for the specific blocking evidence and

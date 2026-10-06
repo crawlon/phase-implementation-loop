@@ -20,8 +20,11 @@ do not also invoke the standalone phase skill or its startup flow.
 
 1. Validate and acknowledge the assignment. Execute the managed phase protocol
    through GREEN or a stop, settling every delegated handle.
-2. If blocked, preserve state and send one focused request to the owner. End the
-   turn at the pending decision; do not poll yourself or silently continue.
+2. If blocked, record the specific pause state, decision, next actor and resume
+   event under the assignment contract. Send one focused request via the
+   established route, or expose a delivery failure using coordination recovery.
+   End at the genuine pending gate after settling active jobs; do not poll
+   yourself or mistake an informational checkpoint for a stop.
 3. If GREEN, prepare a compact checkpoint and a specific request for human
    approval to commit Phase N, and optionally continue to Phase N+1. Include the
    assignment revision, verified diff/HEAD, checks/verifier pointers, risks, and
@@ -35,8 +38,9 @@ do not also invoke the standalone phase skill or its startup flow.
    inspect the staged diff, and create the focused local commit. Commit-only
    approval means stop; commit-and-continue approval permits the next assigned
    phase when its dependencies remain satisfied.
-6. Update phase state and publish the checkpoint. Continue immediately when
-   authorized; do not require a second owner acceptance. Never push implicitly.
+6. Save phase state durably; notify only on the contract's actionable triggers.
+   Continue immediately when authorized; do not require a second owner acceptance.
+   Never push implicitly.
 
 This mode retains human phase approval. If the user wants to delegate routine
 commit/continuation decisions, establish an explicit managed-autopilot envelope

@@ -21,6 +21,8 @@ This is owner work. Managed orchestrators still receive concrete phase plans.
    dependencies, likely verification, capability assessment, and exclusions.
    Surface unresolved product decisions instead of guessing. Use existing
    planning conventions; length is not a measure of completeness.
+   Apply [Astra consultation](astra-consultation.md) for material uncertainty or
+   the other escalation triggers; routine planning stays with the Sol owner.
 4. Establish launch authority under the policy below. Record the concrete plan
    revision and its authority source; resolve dependencies, execution profile,
    resource ownership, and required tracker reconciliation before dispatch.
@@ -61,7 +63,7 @@ For delegated continuation, before every dispatch record a short eligibility
 decision binding the new plan ID/revision to the original human authority and
 each relevant bound. The orchestrator verifies both the original authorization
 and this concrete assignment. This is application of standing authority, not a
-new human approval manufactured by Astra. Missing or ambiguous bounds require
+new human approval manufactured by the owner. Missing or ambiguous bounds require
 the specific human decision; the word “roadmap” or “autopilot” alone is inadequate.
 
 Refining previously unresolved implementation detail inside explicitly delegated
@@ -82,4 +84,5 @@ gate and any human acceptance gate.
 
 Load this reference at a planning frontier, not every worker checkpoint. Keep
 one compact learning/decision delta in existing state. Plan the next actionable
-step; reuse settled decisions. No routine extra Astra planner or roadmap rewrite.
+step; reuse settled decisions. Astra is a bounded consultant when triggered,
+not a mandatory planner per step or another roadmap owner.

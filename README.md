@@ -13,8 +13,8 @@ roles. The invoking agent orchestrates; a separate edit-capable agent implements
 For a single plan or a roadmap requiring coordinated plans:
 
 - `$delivery-owner`: owns planning, dependencies, assignments, milestone
-  acceptance, and the main human conversation. Designed for an Astra owner with
-  compact, event-driven supervision.
+  acceptance, and the main human conversation. Defaults to Sol 6.1 High with
+  compact, event-driven supervision and bounded Astra High consultation.
 - `$managed-implementation-loop`: an assigned orchestrator executes phases and
   routes human commit/continuation approval through the owner.
 - `$managed-implementation-autopilot`: an assigned orchestrator commits green
@@ -22,7 +22,7 @@ For a single plan or a roadmap requiring coordinated plans:
 
 Both managed modes default to a **GPT-6.1 Sol High** orchestrator
 (`gpt-6.1-sol`, reasoning `high`). Implementer defaults and fallbacks remain
-unchanged, as do the delivery owner and reviewer profiles. Explicit user-selected
+unchanged, as do independent-reviewer profiles. Explicit user-selected
 orchestrator profiles override this default.
 
 The standalone skills retain their own orchestration and approval modes. Managed skills use a
@@ -52,18 +52,32 @@ those permissions. Direct human interventions remain supported and are
 reconciled through the owner when they affect other work.
 
 Use one owner index, a phase-state file per plan, isolated worktrees/resources,
-and serial integration. Astra reads changed checkpoints, resolves cross-plan
+and serial integration. The Sol owner reads changed checkpoints, resolves cross-plan
 decisions, and checks milestone evidence; orchestrators handle detailed execution
 and independent verification. Owner review does not replace that verification.
 Ordinary autopilot green checkpoints stay in durable state without waking the
 owner or waiting for approval. Actionable events trigger authorized messages.
+The owner consults Astra High for unresolved consequential architecture, material
+planning uncertainty, repeated repairs indicating a faulty plan, or conflicting
+cross-plan acceptance evidence. Astra returns bounded advice; it does not manage
+orchestrators or independently review a design it helped author. No consultation
+is required for routine planning or every checkpoint. Reloading a skill does not
+change an existing chat's selected model.
 Gated mode still
 requires the actual human's scoped approval, even when relayed by the owner.
 
-Active supervision uses native chat status/wait tools. Later recurring checks
-require a separately requested heartbeat; this package installs no daemon or
-scheduler. Automatic forks and recursive manager teams are outside the initial
-managed workflow. See the owner's validation scenarios for maintenance checks.
+Startup verifies the authorized return-message route. Every genuine pause names
+the next actor, resume event and recovery route; informational checkpoints do
+not stop authorized work. Owner observation is bounded, and routine commentary
+does not renew its polling window. Peers exchange deliverables without becoming
+extra managers. Failed notifications are exposed as recovery issues.
+
+Later recurring checks require a separately requested native heartbeat; this
+package installs no daemon or scheduler. A heartbeat is a modest recovery safety
+net and also consumes resources. Platform approval review may still reject
+cross-chat authorization evidence; skill wording cannot guarantee delivery.
+Automatic forks and recursive manager teams are outside the initial managed
+workflow. See the owner's validation scenarios for maintenance checks.
 
 Roadmaps can be planned progressively: keep future steps outlined, investigate
 specific unknowns, and prepare the next executable plan as evidence arrives.

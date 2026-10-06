@@ -9,7 +9,9 @@ Use stable IDs and exact paths/revisions; preserve links instead of copying logs
 Record once:
 
 - Milestone and acceptance criteria; canonical roadmap/plan paths and revisions.
-- Owner chat/host, model when known, and ownership generation.
+- Owner chat/host, actual model when known, and ownership generation. Default:
+  `gpt-6.1-sol/high`; bounded advisory consultation: `gpt-6-astra/high`.
+  Record explicit overrides separately; consultation does not transfer ownership.
 - Human authorization sources: allowed actions, modes, messaging directions,
   worktree/chat creation, handoffs, resource bounds, exclusions, pending gates.
 - For progressive roadmaps: investigation/planning authority and launch policy
@@ -17,6 +19,9 @@ Record once:
   Link the continuation bounds and each instantiated plan's authorization basis.
 - Maximum active plans (default two), available worker/reviewer capacity,
   shared-resource owners, and designated integration orchestrator/target.
+- Coordination authority source, tested return route, and recovery arrangement:
+  authorized heartbeat, bounded active observation, or explicitly manual recovery.
+  Record unresolved delivery failures; a saved checkpoint is not a wakeup.
 
 One row per plan:
 
@@ -24,10 +29,10 @@ One row per plan:
 plan ID | revision | mode | orchestrator chat/host + generation |
 worktree/branch | dependencies + required delivery revision/commit |
 owned paths/resources | state path | status/phase | last checkpoint sequence |
-accepted commit/evidence | blocker/decision ID | next action
+accepted commit/evidence | blocker/decision ID | next action + responsible actor
 ```
 
-Use statuses such as READY, RUNNING, WAITING_DEPENDENCY, WAITING_HUMAN, BLOCKED,
+Use statuses such as READY, RUNNING, WAITING_OWNER, WAITING_DEPENDENCY, WAITING_HUMAN, BLOCKED,
 LOCALLY_VERIFIED, INTEGRATED, ACCEPTED. Phase GREEN alone is not plan acceptance.
 Store each chat's wait cursor and last observed checkpoint when available.
 
@@ -57,6 +62,8 @@ Acceptance checks and integration deliverable:
 Execution profile and capability assessment (or bounded preflight to resolve):
 Orchestrator: gpt-6.1-sol / high, unless explicitly overridden by the user:
 Commit/continuation, tracker, messaging and handoff authority:
+Messaging: exact cohort/directions, original human proposal + reply references,
+return-route result and actual recovery arrangement:
 Repair/resource bounds and mandatory stop conditions:
 Review policy: design risk/applicability, early integration boundary/check,
 owner drift checkpoint and authorized notification route:
@@ -94,6 +101,8 @@ Branch/HEAD; relevant diff or commit identity:
 Tests, UI review or N/A, independent verifier outcome and evidence pointers:
 Blocker/dependency change or decision ID, if any:
 Next action; state path:
+For a pause: required event/decision, next actor, notification result,
+resume trigger and recovery/recheck condition:
 ```
 
 Record startup, phase boundaries, material blockers/dependency changes, direct
@@ -109,6 +118,28 @@ A notification alone adds no approval gate or requirement to await a reply.
 An explicitly agreed owner drift checkpoint is a coordination gate under
 [review scope and timing](review-policy.md); record the last actual outcome
 inspection's phase/checkpoint sequence and next due boundary in existing state.
+
+## Pauses and continuation
+
+Use the existing checkpoint, not another ledger. Only affected actions pause.
+
+| State | Who acts next and what resumes work |
+| --- | --- |
+| RUNNING | Orchestrator executes the next authorized action, including after an informational checkpoint; no reply required. |
+| WAITING_OWNER | Owner resolves the named plan/dependency question or performs a due outcome inspection, then sends a concrete continuation within existing authority. |
+| WAITING_HUMAN | Owner presents the exact unresolved human decision; original human approval within scope releases the gate. |
+| WAITING_DEPENDENCY | Named producer delivers the required revision/evidence to the assigned recipient; consumer validates it and resumes within authority. |
+| BLOCKED | Named recovery actor resolves a tool, ownership, authority, or evidence failure; state records the specific condition required to resume. |
+
+Ending a turn requires a truthful pause or completed assignment, or an owner
+switching to its established event/recovery route. Before ending, process already
+available decisions and identify the next actor. Do not stop merely because a
+checkpoint was written or a message sent. Never imply a live job is terminal.
+If notification fails, preserve the decision and report the route failure via
+coordination's recovery rules; do not silently leave both actors waiting.
+An owner decision needs no human approval unless it changes human-controlled
+scope/authority. Acknowledgements are required for changed assignments, writer
+transfer, and pause enforcement, not routine receipt of status or decisions.
 
 ## Decisions and changed instructions
 

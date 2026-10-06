@@ -35,6 +35,10 @@ and only the selected provider references:
 Reuse their implementation/UI/verification mechanics. Where they route
 substantive planning to a fresh planner, route the bounded question to the
 delivery owner instead. Do not spawn a redundant Astra planner.
+The default Sol 6.1 High owner decides whether its bounded Astra High
+consultation policy applies. Consultants advise that owner, never assign work
+directly to orchestrators. Do not import standalone planner fallback rules into
+this managed path; worker and independent-verifier fallback rules still apply.
 
 ## Managed orchestrator model
 
@@ -48,7 +52,8 @@ do not claim the requested model ran merely because the assignment names it.
 Implementation keeps the reused protocol's existing defaults, capability
 assessment and fallback rules: a separate `gpt-6-luna` worker at `max` reasoning
 by default. Explicitly select the worker profile at launch rather than inheriting
-the Sol orchestrator's model. Owner and reviewer profiles are also unchanged.
+the Sol orchestrator's model. Independent-reviewer profiles remain unchanged;
+owner and consultant defaults are defined by the Delivery Owner skill.
 
 ## Role and startup
 
@@ -93,6 +98,33 @@ rollover are outside the agreement, request that specific authority through the
 owner. Established authorization is reusable. Skill invocation or an agent's
 assignment is not independent human consent.
 
+Use [coordination](../../delivery-owner/references/coordination.md#establish-a-usable-route-once)
+at startup to establish the original human messaging authority and return route,
+and again if delivery fails. If the return route itself is unauthorized or
+rejected, expose that in this chat rather than trying to request permission over
+the same blocked route. Apply verified standing authority without per-message
+approval requests. Successful sends do not prove that an owner decision occurred.
+
+Before substantial UI/evidence collection, check that the selected reviewer or
+authorized collector can access the required surface. If collection must be
+assisted, settle one collector and one independent judge before capturing the
+matrix. Reuse an equivalent authorized route when possible; do not launch
+competing reviewers or change browser/provider boundaries without authority.
+
+For managed execution only, an established assisted route replaces the shared
+UI gate and prompt's requirement that the reviewer personally open the browser.
+The independent reviewer defines the necessary interactions, states, viewports
+and evidence, then judges raw captures and can request missing coverage. The
+authorized collector follows the browser/UI skill procedures on the actual
+target and records identity, permitted surface, current worktree/diff proof,
+interaction sequence, raw DOM/screenshots and limitations. Capture the real
+sequence, not just a resting screenshot. Transfer raw evidence with stable
+pointers; collector summaries cannot substitute for independent judgment.
+In the reused UI prompt, explicitly replace the direct-browser step with this
+assignment of collector and reviewer, required coverage and evidence location.
+Record assisted collection and its limits in the verdict. Missing required
+evidence still blocks GREEN unless the human explicitly waives that scope.
+
 ## Phase loop
 
 Apply the assignment's
@@ -127,7 +159,7 @@ required; these checks neither replace it nor authorize scope changes.
    valid dependencies, correct assignment revision, and all jobs terminal.
    Apply the selected managed mode's commit gate; checkpoint only the delta.
 
-Do not wake Astra for routine worker start/finish, passing tests, local repairs,
+Do not wake the owner for routine worker start/finish, passing tests, local repairs,
 factual state changes, or ordinary GREEN phase checkpoints. Record those
 checkpoints locally for observation. Follow the assignment contract's explicit
 notification triggers for agreed owner drift checkpoints, decisions, actionable
@@ -136,7 +168,25 @@ preferences. An ordinary green autopilot checkpoint adds no approval wait;
 an explicitly agreed drift checkpoint retains its owner coordination gate.
 Retain detailed evidence locally so compact messages remain auditable.
 
+Keep review packets bounded to the decision: acceptance criteria, exact changed
+scope, relevant diff/dependencies, check summaries and evidence references.
+Include required excerpts when the reviewer cannot access referenced files;
+links alone are not evidence in that context. Rechecks supply the repair delta
+and invalidated coverage to the same reviewer with still-valid prior evidence.
+Do not repeatedly concatenate full sources, histories, logs and custody manifests
+into a supposedly compact packet, or hash unrelated trees without a concrete
+custody requirement. Preserve mandated checks and enough context for a real review.
+
 ## Stops, intervention, and handoff
+
+Use the assignment contract's explicit pause state, next actor and resume event.
+Process available decisions/dependency deliveries and continue authorized actions
+without a routine acknowledgement round. A receipt, local repair, informational
+checkpoint or terminal worker result is not a stop condition. Notify only the
+actor whose next action changes; do not act as a second manager of peer plans.
+Check for reciprocal dependency waits before ending at WAITING_DEPENDENCY;
+route a discovered cycle once to the owner. Never hold active delegated jobs
+unattended merely to end the turn or reduce polling costs.
 
 Preserve work and escalate through the owner for unmet required checks,
 insufficient/conflicting high-risk verification, exhausted repair/fallback

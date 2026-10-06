@@ -56,7 +56,9 @@ critical-work verification remains, planning requires unavailable owner judgment
 or state cannot reconstruct authority/evidence. Preserve the workspace and
 publish last green commit, owned dirty paths, failed gate, repair evidence,
 affected dependency, and one specific decision request to the owner. End the turn
-at this gate so native completion/status waits can observe the blocked state.
+at this gate after recording the pause state, next actor, notification result,
+resume event and recovery route, so native status waits can observe the blocker.
+Use coordination recovery if the notification fails; do not silently strand it.
 Independent plans may continue; this assignment resumes only after its gate is
 resolved. Never interpret a quiet owner as approval.
 

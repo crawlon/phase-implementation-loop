@@ -1,6 +1,6 @@
 {
   "name": "phase-implementation-loop",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Standalone and owner-managed phase execution with shared worker and verification contracts.",
   "author": {
     "name": "Jonas Velander"

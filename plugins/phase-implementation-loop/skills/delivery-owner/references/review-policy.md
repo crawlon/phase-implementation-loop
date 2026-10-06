@@ -76,7 +76,9 @@ starts at this explicitly agreed checkpoint until the owner records its outcome
 inspection. This is an owner coordination gate, not a new human approval or a
 repeat independent code review. If the owner is unavailable, save state, end the
 turn at the gate, and use authorized notification or direct human recovery;
-never infer inspection from silence or a delivered message. A skill supplies no
+never infer inspection from silence or a delivered message. Record WAITING_OWNER,
+the exact inspection needed, notification result and resumer using the pause
+contract. Failed delivery uses coordination recovery; a skill supplies no
 scheduler. Routine GREEN checkpoints before the agreed boundary remain local.
 
 The owner compares criteria actually advanced, capabilities delivered, new

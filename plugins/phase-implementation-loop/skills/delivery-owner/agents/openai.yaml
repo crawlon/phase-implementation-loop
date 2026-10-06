@@ -1,4 +1,4 @@
 interface:
   display_name: "Delivery Owner"
-  short_description: "Coordinate plans with compact owner checkpoints"
-  default_prompt: "Use $delivery-owner to plan and coordinate this milestone, propose a bounded managed execution agreement, and keep human decisions in this chat."
+  short_description: "Coordinate with Sol and bounded Astra consultation"
+  default_prompt: "Use $delivery-owner with Sol 6.1 High ownership and bounded Astra High consultation to plan and coordinate this milestone, establish the execution agreement, and keep human decisions in this chat."

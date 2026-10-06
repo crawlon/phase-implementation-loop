@@ -61,36 +61,101 @@ and re-acknowledge. Continue unrelated authorized plans. Two preparation-only
 phases or repeated repair without capability progress trigger a short evidence-
 based critical-path check, not another documentation program.
 
+Name one producer and recipient for each dependency delivery and one owner for
+each cross-plan decision. Peers may exchange authorized artifacts or technical
+questions, but do not issue competing assignments, manage each other's workers,
+or duplicate the owner's approval routing. An integration orchestrator's remit
+is its explicit assignment, not general supervision of peers.
+
+Before entering a dependency wait, check the producer's recorded next action.
+If A waits for B while B waits for A (or for an owner decision), send one compact
+cycle report to the owner. The owner selects an executable first delivery or
+resolves the decision; revise/re-acknowledge assignments only if they change.
+Keep independent work moving. Do not answer a cycle with reciprocal pings.
+
 ## Messaging and economical waiting
 
-Use `send_message_to_thread` only with traceable human authorization for that
-direction and cohort, including orchestrator-to-owner replies. An agent asking
-another to report back does not itself authorize a reply. If messaging is not
-authorized, read available state and route authorization through the human.
+### Establish a usable route once
+
+Use `send_message_to_thread` only with original human authorization for that
+direction and cohort, including return messages. In the agreement, specify
+owner/cohort chat IDs (or the explicitly authorized bounded cohort), message
+purposes, and exclusions. Capture the actual approval with its preceding proposal
+when the reply is “approved”. A skill invocation, owner assignment, quoted consent,
+or request to report back is not independent human consent.
+
+Carry concise source references into dispatch and notification calls; the receiver
+checks original human evidence through supported reads before relying on it.
+Reuse verified standing authority for subsequent messages within its scope;
+do not ask the human separately for every receipt. On startup use the required
+assignment acknowledgement as the first return message and verify delivery from
+the owner side. Do not add a ping/acknowledgement loop. Reused chats need this
+check only when their route is unproven, changed, or has failed.
+
+If approval review rejects a send despite existing authority, record that exact
+failure; do not mislabel it as missing user consent. A retry is appropriate only
+when new evidence resolves the stated reason, not with rewritten claims or a
+different tool to bypass the rejection. Read-only owner observation of saved
+state remains available. If delivery is still blocked, ask once in the executing
+chat for the specific destination/scope the review requires, explain the
+rejection, and expose the pending decision and state pointer. No skill can
+guarantee that cross-chat approval evidence will be accepted by the platform.
+External verifier transmissions are separate authority; a working internal
+message route does not authorize exporting a review packet.
+
+### Deliver events, not conversations about events
 
 Follow the checkpoint contract's notification triggers. Sending a message can
-start an idle owner's turn and consume Astra tokens. Keep ordinary GREEN phase
+start an idle owner's turn and consume owner tokens. Keep ordinary GREEN phase
 checkpoints in durable state for observation; notify for agreed owner drift
-checkpoints, actionable events,
-or an explicit human reporting preference. Do not create a new polling schedule
-just to consume routine checkpoints.
+checkpoints, actionable events, or an explicit human reporting preference.
+Send one decision request with a recommendation, or one actionable delivery with
+its recipient and next action. Deduplicate by assignment/revision and sequence.
+Do not forward worker start/finish, provisional findings followed immediately by
+the same terminal finding, routine acknowledgements, or peer copies that do not
+change the recipient's next action. Urgent risk and user reporting requests win.
 
-Prefer compact `wait_threads` calls with saved cursors and the tool's batch
-limit; use waits up to about one minute and back off unchanged snapshots. A
-commentary update may not wake a completion wait. Consume it from the next
-snapshot; do not assume a push subscription. For a blocker or pending human gate,
-the orchestrator saves state and ends its turn after its authorized notification
-so the owner can observe an actionable completion state. For ongoing autopilot
-work, publish the checkpoint locally and continue without awaiting owner assent.
+The receiving owner resolves a supported in-scope decision in that turn and sends
+the concrete next action. If human input is required, present the consolidated
+decision promptly. A producer sends an actionable dependency delivery once; the
+consumer validates it and continues without another generic owner acceptance.
+Do not await a reply unless the checkpoint names a real gate. Use the
+[pause contract](contracts.md#pauses-and-continuation) at every genuine wait.
+
+### Bound owner observation
+
+Use compact `wait_threads` with saved cursors and batched targets for startup,
+handoff, or an imminent decision. Default to at most two waits without an
+actionable transition, each up to about one minute, before switching to the
+established event or recovery route. Routine progress commentary does not reset
+this window. A concrete near-term transition can justify another bounded
+window; record why. Do not renew windows indefinitely or issue recurring status
+messages just to keep the owner active. This owner-observation limit never permits
+abandoning a running worker/verifier handle: its orchestrator still supervises
+that same handle to terminal completion under delegated-jobs.md.
+
+Before the owner ends a turn, process ready checkpoints/decisions and record the
+next actor and route. With working return messaging, say supervision resumes on
+actionable messages, not that continuous polling exists. If the route has failed
+and no authorized recovery mechanism exists, disclose degraded/manual recovery
+and the concrete unresolved decision; do not say “nothing needed” while relying
+on an undeliverable reply. Already authorized independent work may continue.
 
 Read deeper chat history only when the snapshot/state cannot resolve a decision
-or original authorization. Avoid repeated full-history reads, minute-by-minute
-replanning, redundant status requests, and idle commentary. Report only meaningful
-changes to the human, subject to the active surface's communication requirements.
+or original authorization, and extract relevant items before displaying tool
+results. Reuse source references instead of reloading full transcripts. Report
+meaningful changes subject to the active surface's communication requirements.
 
 For requested later/recurring supervision, use native heartbeat automation with
-the index pointer and scope; stay quiet on unchanged/non-actionable state. Do
-not create one merely because work is long. No scheduler means no wakeup promise.
+the index pointer, cohort, allowed actions and stop condition. Propose a modest
+recovery cadence (for example 10–15 minutes, subject to tool support and urgency),
+not another minute-by-minute supervisor. Check only changed/stale checkpoints
+and unresolved waits; stay quiet on unchanged/non-actionable state and do not
+duplicate active owner work or resend unchanged decisions. Use native automation
+controls and record its identity; never write raw schedule directives. Disable
+the assignment-specific schedule on completion or user cancellation within its
+approved lifecycle. No scheduler means no timed wakeup promise. Heartbeats also
+consume resources; do not create one merely because work is long.
 
 ## Integration and completion
 
