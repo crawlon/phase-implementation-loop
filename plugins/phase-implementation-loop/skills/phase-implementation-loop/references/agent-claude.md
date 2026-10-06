@@ -8,9 +8,8 @@ review, verification, exploration, or orchestration.
 Use the thin read-only wrapper:
 
 ```text
-codex-claude-ask --model opus "..."
-codex-claude-ask --model opus --prompt-file <path>
-codex-claude-ask --model claude-opus-5-5 --prompt-file <planning-prompt>
+codex-claude-ask --model claude-opus-5-5 "..."
+codex-claude-ask --model claude-opus-5-5 --prompt-file <path>
 ```
 
 Prefer a prompt file for long calls. If the wrapper is unavailable but `claude`
@@ -19,16 +18,14 @@ integration disabled. Adapt quoting and prompt-file input to the installed CLI
 and active shell.
 
 ```text
-claude --print --permission-mode plan --no-chrome --no-session-persistence --model opus "..."
+claude --print --permission-mode plan --no-chrome --no-session-persistence --model claude-opus-5-5 "..."
 ```
 
-Use the fixed `claude-opus-5-5` model id for planning/replanning fallback. Do not
-substitute the generic `opus` alias unless current CLI inspection proves it maps
-to Opus 5.5. The verification chain continues to use its separately configured
-Opus route. Let the orchestrator choose effort from phase risk: default for
-bounded work; high or maximum supported effort for large diffs, subtle
-architecture, auth/security, migration, or data-loss risk. Do not hardcode
-unsupported effort flags.
+Use the fixed `claude-opus-5-5` model id for planning/replanning fallback and
+primary verification. Do not substitute the generic `opus` alias unless
+current CLI inspection proves it maps
+to Opus 5.5. Let the orchestrator choose supported effort appropriate to the
+phase risk. Do not hardcode unsupported effort flags.
 
 Apply terminal lifecycle, output classification, patience, and fallback rules
 from `delegated-jobs.md`.
@@ -61,7 +58,7 @@ advisor only, return concrete code-level guidance to the selected edit-capable
 implementation agent. If that agent is Codex, it must be the separate worker
 subagent defined in `agent-codex.md`, never the orchestrator.
 
-Claude Opus 5.0 is the preferred external verifier. GLM follows only after documented
-terminal failure, unavailability, or `INCONCLUSIVE`, or explicit user selection.
+Claude Opus 5.5 is the preferred external verifier. Codex Astra High is the first
+fallback and Cursor GLM 5.3 High the second under `delegated-jobs.md`.
 A Claude `BLOCKED` finding returns to implementation and must not be shopped to a
 fallback verifier.

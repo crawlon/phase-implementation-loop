@@ -5,8 +5,9 @@ description: Execute a multi-phase implementation plan in gated mode, with the i
 
 # Phase Implementation Loop
 
-Run one approved phase at a time. The invoking agent is the orchestrator and does
-not implement code. A green phase waits for user approval before its focused
+Run one approved phase at a time. The invoking agent orchestrates and may maintain
+factual bookkeeping under the shared Role Contract; implementation remains
+delegated. A green phase waits for user approval before its focused
 commit; approval may also authorize immediate continuation to the next phase.
 
 ```text
@@ -48,7 +49,11 @@ Before Phase 1:
    verifier chain, models, reasoning/effort, and continuation behavior. If a
    basic implementer is incompatible with any phase, surface the choice between
    adding plan detail and using a stronger implementer. Obtain confirmation for
-   material work when the profile was not already approved.
+   material work when the profile was not already approved. Use the same bounded
+   approval to name targets, allowed actions, risks, incidental effects,
+   repair/retry bounds, and exclusions; reuse established session authority.
+   Include context monitoring and automatic fresh-orchestrator rollover within
+   that approval, unless the user chooses manual handoff.
 4. Name a durable-state location for multi-phase work. The canonical plan may
    carry phase status when it can record every field required by the shared
    protocol; otherwise use a repo-appropriate adjacent markdown artifact.
@@ -65,11 +70,12 @@ Compact profile shape:
 ```text
 Recommended execution profile
 - Orchestrator: [agent]
+- Context: monitor at checkpoints; automatically hand off to a fresh orchestrator within approved authority
 - Planning/replanning: Codex gpt-6-astra / high -> Claude Opus 5.5
 - Phase capability: [compact per-phase table]
-- Implementation: [per-phase agent/model/reasoning and fallback]
-- UI/UX review: dedicated Codex reviewer — gpt-5.6-luna / maximum reasoning
-- Verification: Claude Opus 5.0 -> Cursor GLM 5.2 -> fresh Codex verifier
+- Implementation: separate Codex gpt-6-luna / max -> Cursor Grok 4.7 / phase-appropriate effort -> suitable available worker
+- UI/UX review: dedicated Codex reviewer — gpt-6-luna / max
+- Verification: Claude Opus 5.5 -> fresh Codex gpt-6-astra / high -> Cursor GLM 5.3 High
 - Continuation: after approval, commit Phase N and immediately start Phase N+1
 
 Approve this profile?
@@ -82,8 +88,9 @@ For each phase:
 1. Run the Common Phase State Machine in `references/shared-protocol.md` through
    its GREEN or stop decision. Refresh a supported phase goal with objective,
    acceptance criteria, out-of-scope items, and stop conditions.
-   UI-affecting phases delegate `$ui-ux-browser-review` to its dedicated Codex
-   reviewer under the shared UI/UX Review Gate; non-UI phases record N/A.
+   Apply the shared delivery, evidence-reuse, repair-classification, and drift
+   rules without adding routine planner or review calls. UI-affecting phases
+   delegate `$ui-ux-browser-review` under the shared gate; non-UI phases record N/A.
 2. Confirm every delegated handle is terminal and durable state is sufficient
    for another agent to reconstruct the phase.
 3. If not GREEN, do not commit. Preserve the workspace and report the failed gate,
@@ -112,10 +119,11 @@ Report only decision-relevant state:
 - tests and results
 - UI/UX review target, outcome, and findings; or N/A with reason, or approved
   waiver and untested risk
-- verifier tier/model/verdict, including fallback or degraded confidence
+- verifier tier/model/verdict or valid reused evidence; factual-bookkeeping-only
+  work records orchestrator inspection, including any fallback or degradation
 - skipped/deferred work and remaining risks
 - Linear update made or intentionally pending
-- durable-state or handoff location
+- current-state or handoff location, what the milestone unblocks, and next step
 - the single approval request, or the exact stop question
 
 Do not relay peer-agent transcripts or routine progress logs.
@@ -126,10 +134,11 @@ With established tracker authority, update linked issues at phase boundaries wit
 branch, commit, verification, blockers, deferrals, and next step. Do not close or
 change issue status/ownership unless that authority is explicit.
 
-When context becomes noisy or the next phase depends on exact commands, ids,
-counts, logs, or decisions, update durable state before recommending a fresh
-task. A handoff points to that artifact and states completed phase, commit,
-verification, verifier verdict, deferrals, blockers, and next phase.
+Monitor context under the shared Context Health And Rollover rule. When due,
+perform an authorized fresh-orchestrator handoff using
+`references/context-rollover.md`; do not wait for the user to notice degradation.
+Carry forward any pending commit/continuation approval exactly. If launch is
+unavailable or unauthorized, preserve the handoff and state the limitation.
 
 ## Completion
 
@@ -137,3 +146,6 @@ After the final approved phase commit, run plan-level verification when the
 combined change warrants it, update durable state, and report all phase commits,
 verification, fallbacks, deferrals, and remaining unperformed tracker, push,
 deploy, or release actions.
+
+For skill maintenance only, use `references/delivery-policy-scenarios.md` to
+validate policy changes. Do not run that scenario pack during ordinary phases.

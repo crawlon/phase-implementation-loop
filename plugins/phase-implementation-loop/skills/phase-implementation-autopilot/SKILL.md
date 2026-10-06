@@ -6,7 +6,8 @@ description: Execute an approved multi-phase plan continuously, with the invokin
 # Phase Implementation Autopilot
 
 Run an approved canonical plan continuously on one dedicated branch. The invoking
-agent is the orchestrator and does not implement code. Commit each GREEN phase and
+agent orchestrates and may maintain factual bookkeeping under the shared Role
+Contract; implementation remains delegated. Commit each GREEN phase and
 start the next without routine approval; preserve state and stop whenever work
 leaves the approved execution envelope.
 
@@ -41,11 +42,18 @@ plan sources, and required tools. Then present one compact envelope containing:
 - planning/replanning route: Codex `gpt-6-astra` at high reasoning, with Claude
   Opus 5.5 fallback
 - per-phase capability assessment and resolved plan-detail/implementer choices
-- implementation routes/fallbacks and verifier chain
+- implementation: separate Codex `gpt-6-luna` at `max`, then Cursor Grok 4.7
+  at phase-appropriate effort, then a suitable available edit-capable worker
+- verifier chain: Claude Opus 5.5, then fresh Codex Astra High, then Cursor
+  GLM 5.3 High
 - UI/UX review route for UI-affecting phases: dedicated Codex reviewer,
-  `gpt-5.6-luna` at maximum reasoning unless explicitly overridden
+  `gpt-6-luna` at `max` reasoning unless explicitly overridden
 - permission to edit, test, stage exact phase-owned paths, create focused local
   commits, and continue through every listed phase
+- exact targets, allowed actions, risks, incidental effects, repair/retry bounds,
+  and exclusions under shared Bounded Authorization
+- context monitoring and automatic fresh-orchestrator rollover within this
+  envelope, unless the user chooses manual handoff
 - durable-state artifact
 - prohibited actions and mandatory stop conditions
 
@@ -53,6 +61,9 @@ Obtain one explicit approval unless the user's autopilot request already names
 the same repository, plan/phase range, local commit-and-continue authority, and
 prohibited-action boundary. Never infer broader authority from the word
 “autopilot.”
+
+Reuse established session authority for ordinary steps, approved verifiers, and
+repairs within these bounds; do not ask again merely because a new phase starts.
 
 Do not freeze or start an envelope with an unresolved incompatible phase. When
 the requested basic implementer cannot safely execute a phase, the startup
@@ -82,7 +93,7 @@ Freeze phase order, objectives, acceptance criteria, dependencies, and
 out-of-scope boundaries at startup. Evidence and status may evolve; material
 behavior, scope, architecture, or risk changes require operator approval.
 
-Name one repo-appropriate markdown state artifact, preferably beside the plan.
+Name one repo-appropriate current-status summary, preferably beside the plan.
 Update it before every phase commit and before any stop or handoff. In addition
 to the common durable state, record the frozen envelope, current and next phase,
 phase commit hashes, fallback reasons, retries, and exact operator decision
@@ -96,7 +107,9 @@ For each phase:
 1. Run the Common Phase State Machine in `shared-protocol.md` through its GREEN or
    stop decision. UI-affecting phases delegate `$ui-ux-browser-review` to its
    dedicated Codex reviewer under the shared UI/UX Review Gate; non-UI phases
-   record N/A. Drive every delegated handle to terminal completion.
+   record N/A. Apply shared evidence-reuse and finding-classification rules;
+   factual bookkeeping alone needs orchestrator inspection. Drive every
+   delegated handle to terminal completion.
 2. If not GREEN, do not commit partial work. Preserve the workspace, update state,
    and stop with the failed gate, evidence, attempted repairs, last green commit,
    uncommitted paths, and one focused question.
@@ -108,10 +121,14 @@ For each phase:
    without explicit authority.
 5. Emit a compact checkpoint containing phase, commit, tests, UI/UX review result
    or N/A decision, capability assessment and actual implementation route,
-   verifier verdict, fallback/degradation, and deferrals. Do not ask a routine
-   question.
-6. If another approved phase remains and no stop gate applies, begin it
-   immediately. Never push automatically.
+   verifier verdict or valid reused evidence (or factual-bookkeeping inspection),
+   fallback/degradation, deferrals, and what is now unblocked. Do not ask a routine
+   question; apply a triggered drift checkpoint directly under the shared policy.
+6. If another approved phase remains and no stop gate applies, check context
+   health under the shared rule. If rollover is due, transfer to one fresh
+   orchestrator under `../phase-implementation-loop/references/context-rollover.md`;
+   otherwise begin the next phase immediately. A rollover preserves this
+   envelope and every stop gate. Never push automatically.
 
 ## Mandatory Stop Gates
 
@@ -128,7 +145,8 @@ Stop and ask for operator guidance when:
 - no separate edit-capable implementation agent is available
 - pre-existing/concurrent changes make path ownership uncertain
 - branch, worktree, or history identity diverges unexpectedly
-- a phase's capability assessment changes or its approved route becomes
+- unexpected partial writes appear
+- a phase's capability assessment changes materially or its approved route becomes
   incompatible with the plan detail or discovered risk
 - planning/replanning is required but neither Astra High nor Opus 5.5 is
   available, unless the startup envelope explicitly allows degraded
@@ -136,6 +154,7 @@ Stop and ask for operator guidance when:
 - an action outside the startup envelope requires permission
 - the next phase needs an operator/product decision
 - durable state cannot confidently reconstruct the result
+- context has degraded and safe authorized rollover cannot be completed
 
 On stop, never reset, discard, revert, or clean uncertain work.
 

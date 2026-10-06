@@ -1,8 +1,14 @@
 # Phase Capability Assessment
 
-Run this assessment for every phase before approving the execution profile. It
+Run this assessment for every phase before approving the execution profile; reuse
+it while the relevant scope, plan detail, and risk remain unchanged. It
 matches phase difficulty and plan detail to the least expensive implementer that
 can execute reliably without narrowing the goal or acceptance criteria.
+
+Capability tiers describe phase requirements, not fixed model rankings. Use the
+implementation defaults in `shared-protocol.md` when they meet those requirements.
+The assessment does not automatically select the largest model or maximum
+reasoning; preserve the user's compatible implementation profile.
 
 ## Classify The Phase
 
@@ -32,7 +38,9 @@ Classify the plan separately:
   can follow it with little interpretation.
 
 Do not reward verbosity. Detail counts only when it removes a real implementation
-decision or makes verification more deterministic.
+decision or makes verification more deterministic. New prerequisites must pass
+the delivery test in `shared-protocol.md`; the drift checkpoint is a short
+orchestrator reassessment, not a new planning or documentation phase.
 
 ## Choose Plan Detail Or Implementer Strength
 

@@ -53,13 +53,21 @@ covers command discovery and shell adaptation on macOS, Linux, PowerShell, and
   implementer always runs as an edit-capable worker sub-agent.
 - Runs phase by phase with planning, implementation, verification, phase reports,
   approval gates, commits, and durable handoffs.
+- Keeps prerequisites tied to delivery criteria, reuses still-valid evidence,
+  permits direct factual bookkeeping, and checks drift without routine extra
+  planner calls, artifacts, or approval cycles.
+- Monitors context at existing checkpoints and, with approved rollover authority,
+  transfers to a fresh primary orchestrator using a compact handoff while
+  preserving workspace identity, evidence, and pending gates.
 - Offers an explicit autopilot variant that freezes the approved scope, commits
   each green phase, continues without routine approval pauses, and stops on
   ambiguity, insufficient verification, or high-risk actions.
-- Routes complex implementation to Cursor Grok 4.6 High Fast and routine implementation
-  to Cursor Composer 2.5 when the user has not selected an implementer.
-- Uses Claude Opus 5.0 as the preferred external verifier, GLM 5.2 as fallback,
-  and a fresh high-reasoning Codex sub-agent as the final verification fallback.
+- Defaults implementation to a separate Codex Luna 6 Max worker, with Cursor
+  Grok 4.7 as the first fallback and task-appropriate model/effort selection if
+  both are unavailable. Capability assessment still preserves phase requirements.
+- Delegates UI/UX browser review to a fresh non-editing Codex Luna 6 Max reviewer.
+- Uses Claude Opus 5.5 as the preferred external verifier, fresh Codex Astra High
+  as the first fallback, and Cursor GLM 5.3 High as the second fallback.
 - Keeps wrappers transport-focused: agent policies, prompts, defaults, and
   fallbacks live in the skill references. Optional hardened macOS/zsh Cursor
   wrappers live under `scripts/cursor-bridge/`.
@@ -77,6 +85,8 @@ plugins/phase-implementation-loop/
     references/
       shared-protocol.md
       phase-capability.md
+      delivery-policy-scenarios.md
+      context-rollover.md
       delegated-jobs.md
       agent-prompts.md
       agent-codex.md

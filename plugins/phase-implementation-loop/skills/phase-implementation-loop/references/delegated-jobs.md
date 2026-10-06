@@ -88,30 +88,65 @@ Classify terminal results as follows:
   byte count, and concise stderr/error evidence.
 - `INCONCLUSIVE`: usable but cannot make the phase green. Resolve its stated gap
   or continue down the fallback chain.
-- `BLOCKED`: return the finding to an implementation agent, then re-run the same
-  verifier tier after the fix. Never shop for another verifier to overrule it.
+- `BLOCKED`: acceptance, correctness, or safety remains blocked. Repair under
+  Finding And Repair Scope below, then re-run the same verifier tier over the
+  affected boundary. Never shop for another verifier to overrule it.
+
+## Finding And Repair Scope
+
+Classify each finding by its consequence, with evidence:
+
+- **Blocker:** an unmet acceptance criterion or correctness/security defect.
+  Delegate repair, run affected checks and UI review where applicable, then
+  repeat affected independent verification with the same tier.
+- **Nonblocking improvement:** acceptance and safety remain satisfied. Schedule
+  the follow-up without making it a new prerequisite or narrowing the full goal.
+- **Factual/wording correction:** factual status, receipt-link, commit-id, or
+  handoff transcription only. The orchestrator may correct and inspect it
+  without another implementation or independent-review cycle.
+
+Permissions, acceptance, dependencies, evidence meaning, product behavior, and
+operational instructions are substantive even in Markdown. Missing assurance
+needed for acceptance is not a wording issue. Do not dismiss a substantive
+`BLOCKED` finding or upgrade an evidence claim through reclassification.
+Pure factual corrections alone do not require `BLOCKED`; if wording was the only
+reported obstacle, record its classification, correction, and inspection basis.
+An existing substantive-phase verifier result remains required and is reusable
+only while its recorded scope and conditions remain valid.
+
+Follow Delivery And Evidence Discipline in `shared-protocol.md` to select
+affected verification. Do not repeat whole audits for unrelated documentation
+changes or handoffs. Repairs inside an approved envelope proceed within its
+bounds; new authority, material risk/scope changes, or unexpected partial writes
+require preservation and the appropriate stop/decision.
 
 ## Verification Chain
 
 Use one verifier at a time:
 
-1. Claude Opus 5.0 via `codex-claude-ask --model opus`; choose effort from phase
-   risk and verify the alias when provider mapping is uncertain.
-2. Cursor GLM 5.2 via `codex-cursor-ask --model glm-5.2-high` only when Claude is
-   terminally unavailable or `INCONCLUSIVE`, unless the user explicitly approved
-   GLM as the starting verifier.
-3. A fresh read-only Codex verifier subagent, preferably `gpt-5.6-terra` with
-   high reasoning when available or a comparable strong Codex model. It must not
-   have implemented the phase.
+1. Claude Opus 5.5 via `codex-claude-ask --model claude-opus-5-5`; choose effort
+   from phase risk.
+2. A fresh read-only Codex verifier subagent using `gpt-6-astra` at high
+   reasoning, only when Claude is terminally unavailable or `INCONCLUSIVE`.
+   It must not have implemented the phase.
+3. Cursor GLM 5.3 High via `codex-cursor-ask --model glm-5.3-high`, only when
+   the Astra route is terminally unavailable or `INCONCLUSIVE`.
+
+An explicitly approved verifier profile may select a different starting tier.
+Check the configured model id on its active surface before use. If GLM 5.3 High
+is unavailable, record it and stop when the chain is exhausted; do not silently
+substitute GLM 5.2 or another verifier.
 
 Use a fallback only after documented terminal failure, unavailability, or
-`INCONCLUSIVE`. An orchestrator self-review may add evidence but is never
-independent and cannot by itself satisfy the GREEN verifier gate. If no fresh
-verifier subagent exists, stop or obtain an explicit verification waiver under
-the active mode.
+`INCONCLUSIVE`. For substantive work, orchestrator self-review may add evidence
+but is never independent and cannot by itself satisfy the GREEN verifier gate.
+If no fresh independent verifier route remains, stop or obtain an explicit
+verification waiver under the active mode. Factual bookkeeping alone follows
+Finding And Repair Scope rather than launching this chain.
 
-A last-resort Codex verifier `PASS` may green ordinary work when the report marks
+A Codex fallback verifier `PASS` may green ordinary work when the report marks
 `degraded-independent-verification`. It cannot by itself green auth/security,
 credentials, destructive operations, live migrations, irreversible or
-production-data changes, or similarly high-impact work after both external
-tiers fail.
+production-data changes, or similarly high-impact work. If only Codex can
+provide a `PASS` for such work, stop for operator guidance; do not bypass the
+critical-work gate or run another verifier merely to overrule a finding.
