@@ -71,6 +71,53 @@ otherwise schedule it as follow-up and advance authorized work. This checkpoint
 requires no additional planner, artifact, tracker hierarchy, or approval cycle.
 It does not authorize changes to frozen order or dependencies.
 
+## Review Boundaries And Outcome Checkpoints
+
+At startup, shape phase boundaries under `phase-capability.md` and record the
+following applicable checks in the canonical plan and existing state. This is
+the standalone orchestrator's responsibility; no delivery owner, additional
+chat, fixed model, or separate ledger is needed. Managed workflows retain their
+own review/coordination policy rather than adding a second checkpoint cycle.
+
+Before implementation relies on a novel shared contract, irreversible migration,
+or similarly consequential design, obtain one independent read-only review of
+the decision and dependent assumptions. Record the triggering risk, design
+revision, affected work, and required evidence. The reviewer must not have
+authored the design. Use the approved verifier route and verdict/repair/fallback
+rules in `delegated-jobs.md`, with the Design Review prompt in `agent-prompts.md`.
+Reuse equivalent valid prior review; routine settled designs need no extra call.
+Exploratory planning is not independent verification of its own proposed design.
+Resolve blockers before affected implementation; a design PASS grants no action
+authority and does not replace phase implementation verification. If a triggering
+risk appears later, apply this gate before further dependent work.
+
+For interacting phases, identify the earliest executable shared boundary, its
+concrete compatibility check, required inputs, and dependent work. Run that check
+as soon as verified inputs are usable together, before dependent expansion, not
+only at plan completion. Split/revise a phase under existing authority if needed
+to expose that checkpoint before a large dependent implementation. Record exact
+input revisions, target, result, and evidence invalidation conditions. A missing
+or failing required check blocks its consumer under the active mode; do not use
+a local phase PASS as evidence for an untested interaction. Reuse still-valid
+boundary coverage at completion while performing any remaining combined checks.
+
+For long plans, name meaningful delivery milestones for a compact cumulative
+outcome check. At each named boundary, the same orchestrator compares evidence
+across completed phases with the whole approved outcome: criteria advanced,
+actual usable behavior, accumulated assumptions, new prerequisites, and the next
+critical-path step. Record coverage and the next checkpoint in the existing
+phase report/state. Local phase success alone does not prove overall alignment.
+Short plans may use completion; choose boundaries from delivery/risk rather than
+a universal phase count or elapsed-time limit. Known drift/risk still triggers
+immediate reassessment, including the preparation-drift rule above.
+
+If aligned, continue under existing authority without another planner,
+independent whole-plan review, or human approval. If changes to scope, order,
+dependencies, acceptance, or risk are needed, use the active mode's existing
+decision gate. Reuse an equivalent outcome check already performed at that
+boundary; handoff alone neither invalidates evidence nor counts as inspection.
+Carry covered work and the next named checkpoint through rollover.
+
 ## Context Health And Rollover
 
 Check context health at existing phase/job checkpoints and before the next
@@ -239,13 +286,16 @@ For each phase:
 2. When substantive planning is needed, delegate under Planning And Replanning
    above and reconcile the approved result before implementation. Perform any
    triggered drift checkpoint directly under Delivery And Evidence Discipline.
+   Satisfy any applicable independent design review under Review Boundaries And
+   Outcome Checkpoints before affected implementation relies on that decision.
 3. Select and record the implementation route, model, and reasoning/effort.
 4. Delegate implementation with Ponytail/minimal-diff and drive it to a terminal
    result under `delegated-jobs.md`. Factual bookkeeping follows the Role Contract.
 5. Inspect `git status --short` and the actual diff. Confirm every changed path
    belongs to the phase and no unrelated work was overwritten.
 6. Run the smallest relevant verification, then broaden according to risk and
-   repository norms.
+   repository norms. Run a planned early compatibility check when its inputs
+   become usable; preserve its gate before dependent expansion.
 7. For a UI-affecting phase, complete the UI/UX Review Gate above. For a non-UI
    phase, record its N/A decision.
 8. For substantive work, run the verifier chain in `delegated-jobs.md`. Classify
@@ -256,6 +306,8 @@ For each phase:
    materially similar red repair cycles without new evidence or a distinct fix,
    stop with the exact blocker or decision needed.
 10. Update durable state before the mode-specific commit/continuation gate.
+    Perform a due cumulative outcome check and record its coverage and next
+    checkpoint; it adds no routine approval or independent-review cycle.
     Check context health and perform a due, authorized rollover under Context
     Health And Rollover; do not start another substantive step in degraded context.
 

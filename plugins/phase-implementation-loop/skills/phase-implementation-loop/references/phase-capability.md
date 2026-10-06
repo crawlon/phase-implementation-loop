@@ -12,6 +12,16 @@ reasoning; preserve the user's compatible implementation profile.
 
 ## Classify The Phase
 
+At startup, assess whether phase boundaries make verification useful: group
+related mechanical edits into coherent, reviewable behavior, and split before a
+consequential unchecked decision creates substantial dependent work. Do not
+split by file or task count, or retain an oversized phase merely because a strong
+implementer is available. Propose changes while preserving the outcome and
+required assurance; material revisions to an approved plan still need the
+active mode's authority and plan/tracker reconciliation. Do not regroup phases
+mid-run solely to avoid required reviews. Record applicable early integration
+checks and outcome milestones in the plan, using the active workflow's policy.
+
 Use one complexity class:
 
 - **TINY:** a bounded change in one familiar area, an established pattern, one

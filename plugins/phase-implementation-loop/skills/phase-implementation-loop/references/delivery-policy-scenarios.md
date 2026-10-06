@@ -24,6 +24,19 @@ and that nonblocking follow-ups remain scheduled rather than disappearing.
 Model routes remain those in the execution profile; these scenarios do not
 authorize additional reviewers after a sufficient PASS.
 
+## Review Timing Scenarios
+
+| Input situation | Required behavior |
+| --- | --- |
+| A detailed plan contains a settled novel shared contract or irreversible migration design with no independent review. | Review that decision before dependent implementation, using a reviewer who did not author it. A strong implementer or planning output does not replace the gate. |
+| The same design has equivalent valid independent review; a routine unrelated edit follows. | Reuse the review and avoid another planner/design-review call; retain implementation verification. |
+| Producer and consumer inputs become usable together before the plan's last phase. | Run the named focused compatibility check now, record exact input/target evidence, and block dependent expansion if required evidence is missing or failing. |
+| An early interaction check passes and inputs remain unchanged at completion. | Reuse that coverage and run remaining combined checks; do not treat the narrow early PASS as proof of the entire outcome. |
+| The startup plan has twelve tiny mechanical phases or one broad phase building on a consequential unchecked decision. | Propose coherent reviewable boundaries while preserving scope/assurance; obtain any required revision authority rather than skipping reviews mid-run. |
+| Several capability-producing phases pass locally, but a named outcome milestone shows the whole user path is drifting. | The same orchestrator compares cumulative evidence, records the gap, and uses existing repair or material-change gates. No delivery owner or routine additional planner is introduced. |
+| A named cumulative outcome checkpoint is aligned during autopilot execution. | Record coverage and next checkpoint in existing state and continue under the same envelope; no new human approval or independent whole-plan review. |
+| Rollover occurs after a completed outcome check with no evidence invalidation. | Preserve covered work and next checkpoint; identity reconciliation is not a reason to repeat the audit or falsely record a new inspection. |
+
 ## Context Rollover Scenarios
 
 Validate `context-rollover.md` in dry-run; do not create real chats for this pack.

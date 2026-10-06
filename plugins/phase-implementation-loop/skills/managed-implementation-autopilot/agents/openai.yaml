@@ -1,0 +1,4 @@
+interface:
+  display_name: "Managed Implementation Autopilot"
+  short_description: "Execute bounded plans under a delivery owner"
+  default_prompt: "Use $managed-implementation-autopilot to execute this authorized owner assignment, commit green phases, and route exceptions through the owner."

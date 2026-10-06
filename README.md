@@ -1,6 +1,6 @@
 # Phase Implementation Loop
 
-A Codex plugin with two execution modes:
+A Codex plugin with two standalone execution modes and an optional managed team:
 
 - `$phase-implementation-loop`: phase-gated execution with approval before each
   commit.
@@ -9,6 +9,79 @@ A Codex plugin with two execution modes:
 
 Both use one shared protocol and support configurable Codex, Cursor, and Claude
 roles. The invoking agent orchestrates; a separate edit-capable agent implements.
+
+For a single plan or a roadmap requiring coordinated plans:
+
+- `$delivery-owner`: owns planning, dependencies, assignments, milestone
+  acceptance, and the main human conversation. Designed for an Astra owner with
+  compact, event-driven supervision.
+- `$managed-implementation-loop`: an assigned orchestrator executes phases and
+  routes human commit/continuation approval through the owner.
+- `$managed-implementation-autopilot`: an assigned orchestrator commits green
+  phases within an approved envelope and routes exceptions through the owner.
+
+Both managed modes default to a **GPT-6.1 Sol High** orchestrator
+(`gpt-6.1-sol`, reasoning `high`). Implementer defaults and fallbacks remain
+unchanged, as do the delivery owner and reviewer profiles. Explicit user-selected
+orchestrator profiles override this default.
+
+The standalone skills retain their own orchestration and approval modes. Managed skills use a
+separate ownership protocol and reuse the existing worker and verification
+mechanics. They ship together; do not install a managed mode without its owner,
+managed protocol, and standalone reference dependencies.
+
+## Managed Delivery
+
+Start in the intended owner model's chat; a skill cannot switch its own model.
+For example:
+
+```text
+Use $delivery-owner to plan delivery of this milestone. Keep the outcome and
+acceptance criteria fixed. Propose at most two concurrent plans, choose managed
+loop or managed autopilot per plan, and route human questions through this chat.
+Keep supervision economical: compact checkpoints and evidence pointers, with
+detailed inspection only when a decision or acceptance claim requires it.
+Prepare the execution agreement before launching orchestrators.
+```
+
+The agreement explicitly covers creating orchestrator chats/worktrees, messaging
+in both directions, execution/commit authority, integration, and any handoffs.
+An approved agreement can be reused without repeated routine questions. A plan,
+skill invocation, or message from another agent does not independently grant
+those permissions. Direct human interventions remain supported and are
+reconciled through the owner when they affect other work.
+
+Use one owner index, a phase-state file per plan, isolated worktrees/resources,
+and serial integration. Astra reads changed checkpoints, resolves cross-plan
+decisions, and checks milestone evidence; orchestrators handle detailed execution
+and independent verification. Owner review does not replace that verification.
+Ordinary autopilot green checkpoints stay in durable state without waking the
+owner or waiting for approval. Actionable events trigger authorized messages.
+Gated mode still
+requires the actual human's scoped approval, even when relayed by the owner.
+
+Active supervision uses native chat status/wait tools. Later recurring checks
+require a separately requested heartbeat; this package installs no daemon or
+scheduler. Automatic forks and recursive manager teams are outside the initial
+managed workflow. See the owner's validation scenarios for maintenance checks.
+
+Roadmaps can be planned progressively: keep future steps outlined, investigate
+specific unknowns, and prepare the next executable plan as evidence arrives.
+The agreement separates investigation/planning authority from launching new
+plans. New plans require human approval unless explicitly covered by bounded
+delegated continuation; this does not remove managed-loop phase approvals.
+Existing complete plans execute directly without an added replanning cycle.
+Roadmap completion covers all milestone criteria, including unplanned steps.
+
+Review timing follows risk and delivery boundaries: independent review of
+consequential designs before dependent implementation, early compatibility checks
+as interacting pieces become usable together, and a compact owner outcome check
+at an agreed boundary for long autopilot plans (pilot default: three substantive
+phases without such inspection). The last check pauses new phase starts for owner
+inspection, not new human approval. Ordinary green checkpoints stay local.
+Phase verification and final milestone checks remain required; valid evidence is
+reused. Measure review time, actual owner usage, rework, and integration defects
+before tuning this pilot setting.
 
 ## Install
 
@@ -56,6 +129,11 @@ covers command discovery and shell adaptation on macOS, Linux, PowerShell, and
 - Keeps prerequisites tied to delivery criteria, reuses still-valid evidence,
   permits direct factual bookkeeping, and checks drift without routine extra
   planner calls, artifacts, or approval cycles.
+- Shapes phase boundaries around reviewable behavior, independently checks
+  consequential designs before dependent implementation, tests cross-phase
+  interactions at their earliest useful boundary, and checks cumulative outcomes
+  at named delivery milestones. Standalone orchestrators do these within the
+  existing loop; no delivery owner or additional approval cycle is required.
 - Monitors context at existing checkpoints and, with approved rollover authority,
   transfers to a fresh primary orchestrator using a compact handoff while
   preserving workspace identity, evidence, and pending gates.
@@ -93,6 +171,22 @@ plugins/phase-implementation-loop/
       agent-cursor.md
       agent-claude.md
   skills/phase-implementation-autopilot/
+    SKILL.md
+    agents/openai.yaml
+  skills/delivery-owner/
+    SKILL.md
+    agents/openai.yaml
+    references/
+      contracts.md
+      coordination.md
+      progressive-planning.md
+      review-policy.md
+      validation-scenarios.md
+  skills/managed-implementation-loop/
+    SKILL.md
+    agents/openai.yaml
+    references/managed-execution.md
+  skills/managed-implementation-autopilot/
     SKILL.md
     agents/openai.yaml
 scripts/

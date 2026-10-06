@@ -27,6 +27,8 @@ Return only:
 - implementer-critical detail gaps and the exact clarification needed
 - risks or unclear requirements
 - suggested verification
+- consequential design decisions needing independent review, earliest useful
+  integration checks, and outcome checkpoints where applicable
 - stop conditions
 ```
 
@@ -41,6 +43,36 @@ The planner must identify unresolved product decisions rather than invent them.
 The planner is read-only and returns advice to the orchestrator; it must not edit
 the canonical plan, mutate Linear, or make user decisions.
 
+## Design Review
+
+Use only for the conditional consequential-design gate; reuse valid prior review
+instead of calling again. Use the approved verifier route and its existing
+terminal, finding-classification, repair, and fallback rules.
+
+```text
+Independently review this design decision before dependent implementation.
+You did not author the design. Remain read-only.
+
+Approved plan outcome and acceptance criteria: [items]
+Decision, design revision, and dependent work: [scope]
+Triggering risk and question to resolve: [specific concern]
+Relevant repository/contracts and evidence: [paths/references]
+Prior review and relevant changes, if any: [scope/conditions]
+Authority and exclusions: [bounds]
+
+Assess the decision and dependent assumptions against the approved outcome,
+compatibility/data/security obligations, and proposed validation. Do not perform
+a whole-plan audit or invent unrelated prerequisites. Identify blockers with
+evidence and the smallest justified correction; distinguish nonblocking advice.
+Do not edit, stage, commit, push, deploy, access secrets, or perform live actions.
+Return no prose before:
+VERDICT: PASS | BLOCKED | INCONCLUSIVE
+FINDINGS:
+- none, or specific findings
+EVIDENCE:
+- reviewed decision/revision, inspection basis, and limitations
+```
+
 ## Implementation
 
 ```text
@@ -50,6 +82,7 @@ Objective: [objective]
 In scope: [items]
 Out of scope: [items]
 Acceptance checks: [checks]
+Applicable design/boundary gates and dependent work: [checks, evidence, or N/A]
 Capability delivered/blocker removed: [approved capability or evidenced blocker]
 Criterion/invariant served: [acceptance criterion or safety invariant]
 Repository constraints: [constraints]
@@ -78,6 +111,7 @@ Edit the workspace, then return only:
 Verify Phase [N]: [title] as a read-only verifier. You did not implement it.
 
 Objective and acceptance criteria: [items]
+Whole-plan criterion served and applicable integration boundary: [scope or N/A]
 Repository path and base commit: [path/base]
 Actual diff scope: [paths/modules]
 Tests and results: [evidence]

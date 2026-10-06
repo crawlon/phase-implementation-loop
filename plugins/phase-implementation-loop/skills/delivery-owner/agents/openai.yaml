@@ -1,0 +1,4 @@
+interface:
+  display_name: "Delivery Owner"
+  short_description: "Coordinate plans with compact owner checkpoints"
+  default_prompt: "Use $delivery-owner to plan and coordinate this milestone, propose a bounded managed execution agreement, and keep human decisions in this chat."

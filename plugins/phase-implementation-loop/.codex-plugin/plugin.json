@@ -1,15 +1,15 @@
 {
   "name": "phase-implementation-loop",
-  "version": "0.3.7",
-  "description": "Generalized phase-gated and autopilot workflows with shared orchestration, routing, and verification contracts.",
+  "version": "0.4.0",
+  "description": "Standalone and owner-managed phase execution with shared worker and verification contracts.",
   "author": {
     "name": "Jonas Velander"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "Phase Implementation Loop",
-    "shortDescription": "Run phase plans with gated or autopilot execution.",
-    "longDescription": "Reconcile markdown plans and Linear issues, assign separate orchestration and implementation roles across Codex, Cursor, and Claude, then use either per-phase approval gates or bounded autopilot execution with automatic green-phase commits and strict stop conditions.",
+    "shortDescription": "Run phase plans directly or with a delivery owner.",
+    "longDescription": "Run standalone gated or autopilot phase plans, or use a delivery owner to coordinate bounded parallel plans with compact checkpoints, dependency control, human decisions, and integration acceptance. Managed orchestrators reuse separate implementation and independent verification across Codex, Cursor, and Claude.",
     "developerName": "Jonas Velander",
     "category": "Productivity",
     "capabilities": [

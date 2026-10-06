@@ -54,6 +54,9 @@ Before Phase 1:
    repair/retry bounds, and exclusions; reuse established session authority.
    Include context monitoring and automatic fresh-orchestrator rollover within
    that approval, unless the user chooses manual handoff.
+   Record useful phase boundaries, any consequential-design and early integration
+   checks, and outcome milestones under the shared review policy. Reuse current
+   coverage; this does not add a routine planner or approval cycle.
 4. Name a durable-state location for multi-phase work. The canonical plan may
    carry phase status when it can record every field required by the shared
    protocol; otherwise use a repo-appropriate adjacent markdown artifact.
@@ -117,6 +120,8 @@ Report only decision-relevant state:
 - approved capability assessment and actual implementation route
 - branch and current commit
 - tests and results
+- applicable design/boundary evidence and due cumulative outcome check, including
+  next checkpoint; omit extra detail when unchanged or not applicable
 - UI/UX review target, outcome, and findings; or N/A with reason, or approved
   waiver and untested risk
 - verifier tier/model/verdict or valid reused evidence; factual-bookkeeping-only

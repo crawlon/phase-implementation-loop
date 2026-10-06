@@ -42,6 +42,8 @@ plan sources, and required tools. Then present one compact envelope containing:
 - planning/replanning route: Codex `gpt-6-astra` at high reasoning, with Claude
   Opus 5.5 fallback
 - per-phase capability assessment and resolved plan-detail/implementer choices
+- useful phase boundaries, applicable consequential-design and early integration
+  checks, and meaningful cumulative outcome checkpoints under the shared policy
 - implementation: separate Codex `gpt-6-luna` at `max`, then Cursor Grok 4.7
   at phase-appropriate effort, then a suitable available edit-capable worker
 - verifier chain: Claude Opus 5.5, then fresh Codex Astra High, then Cursor
@@ -123,7 +125,9 @@ For each phase:
    or N/A decision, capability assessment and actual implementation route,
    verifier verdict or valid reused evidence (or factual-bookkeeping inspection),
    fallback/degradation, deferrals, and what is now unblocked. Do not ask a routine
-   question; apply a triggered drift checkpoint directly under the shared policy.
+   question; record a due cumulative outcome check and its next milestone, reusing
+   the check from the common phase loop rather than repeating it. Apply other
+   triggered drift checks directly under the shared policy.
 6. If another approved phase remains and no stop gate applies, check context
    health under the shared rule. If rollover is due, transfer to one fresh
    orchestrator under `../phase-implementation-loop/references/context-rollover.md`;
