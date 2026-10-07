@@ -16,9 +16,10 @@ For a single plan or a roadmap requiring coordinated plans:
   acceptance, and the main human conversation. Defaults to Sol 6.1 High with
   compact, event-driven supervision and bounded Astra High consultation.
 - `$managed-implementation-loop`: an assigned orchestrator executes phases and
-  routes human commit/continuation approval through the owner.
+  requests human commit/continuation approval directly in its executing chat.
 - `$managed-implementation-autopilot`: an assigned orchestrator commits green
-  phases within an approved envelope and routes exceptions through the owner.
+  phases within an approved envelope, sends planning decisions to the owner,
+  and asks for missing human execution approval directly.
 
 Both managed modes default to a **GPT-6.1 Sol High** orchestrator
 (`gpt-6.1-sol`, reasoning `high`). Implementer defaults and fallbacks remain
@@ -38,7 +39,8 @@ For example:
 ```text
 Use $delivery-owner to plan delivery of this milestone. Keep the outcome and
 acceptance criteria fixed. Propose at most two concurrent plans, choose managed
-loop or managed autopilot per plan, and route human questions through this chat.
+loop or managed autopilot per plan. Keep planning decisions here; executing chats
+ask for their own human approvals and keep the owner informed.
 Keep supervision economical: compact checkpoints and evidence pointers, with
 detailed inspection only when a decision or acceptance claim requires it.
 Prepare the execution agreement before launching orchestrators.
@@ -64,7 +66,18 @@ orchestrators or independently review a design it helped author. No consultation
 is required for routine planning or every checkpoint. Reloading a skill does not
 change an existing chat's selected model.
 Gated mode still
-requires the actual human's scoped approval, even when relayed by the owner.
+requires the actual human's scoped approval, requested directly by the executing
+chat. Owner awareness is not an acknowledgement gate; failed notification alone
+does not block valid direct approval. Material changes affecting other plans
+still need owner reconciliation. Reuse valid existing approval regardless of its
+source chat; do not ask twice merely because of locality.
+
+Classify decisions first: routine execution stays with the orchestrator; working
+plan refinements within delegated bounds go to the owner; reserved choices and
+missing authority go to the human. New agreements distinguish working manifests
+from hard human limits; existing exact caps remain binding. Resolve current
+owner/orchestrator destinations from verified role/generation records, with
+explicit successor messaging authority and separate route status per generation.
 
 Startup verifies the authorized return-message route. Every genuine pause names
 the next actor, resume event and recovery route; informational checkpoints do

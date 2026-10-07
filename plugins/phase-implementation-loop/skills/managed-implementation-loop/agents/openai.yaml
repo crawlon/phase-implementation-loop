@@ -1,4 +1,4 @@
 interface:
   display_name: "Managed Implementation Loop"
-  short_description: "Run assigned phases with approvals via the owner"
-  default_prompt: "Use $managed-implementation-loop to execute this delivery-owner assignment, routing human phase approvals through the owner."
+  short_description: "Run assigned phases with direct human approvals"
+  default_prompt: "Use $managed-implementation-loop to execute this delivery-owner assignment, asking for human phase approvals directly in this chat and keeping the owner informed."

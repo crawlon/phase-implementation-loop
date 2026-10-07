@@ -90,17 +90,20 @@ or making their detailed synchronization a gate for the ready plan. Missing
 evidence for an actual dependency still blocks its consumer.
 Have the assigned writer apply authorized mappings and re-read the sources.
 Reuse current proof; do not create duplicate issues for an owner-managed plan.
-Missing tracker authority/synchronization is a startup blocker routed to the
-owner, not a reason to mutate another writer's issues.
+Missing tracker authority is requested directly by the assigned writer; mapping
+and synchronization questions go to the owner. Neither permits another writer's
+issue mutations.
 
 If chat creation, messaging, worktree setup, integration, tracker actions, or
-rollover are outside the agreement, request that specific authority through the
-owner. Established authorization is reusable. Skill invocation or an agent's
+rollover are outside the agreement, the chat that will perform the action asks
+the human directly for that authority; reconcile planning/dependencies with the
+owner separately. Established authorization is reusable. Skill invocation or an agent's
 assignment is not independent human consent.
 
-Use [coordination](../../delivery-owner/references/coordination.md#establish-a-usable-route-once)
+Use [coordination](../../delivery-owner/references/coordination.md#resolve-the-current-role-before-sending)
 at startup to establish the original human messaging authority and return route,
-and again if delivery fails. If the return route itself is unauthorized or
+and again at succession or if delivery fails. Resolve the current role binding
+before sending; do not inherit a predecessor route's rejection. If the route is unauthorized or
 rejected, expose that in this chat rather than trying to request permission over
 the same blocked route. Apply verified standing authority without per-message
 approval requests. Successful sends do not prove that an owner decision occurred.
@@ -143,6 +146,9 @@ required; these checks neither replace it nor authorize scope changes.
    material dependency/architecture changes to the owner with the smallest
    decisive evidence and a recommendation. Pause affected work until resolved;
    do not repeat full repository discovery or send worker transcripts.
+   Apply the contract's decision classification before asking the human: a
+   working-manifest refinement inside delegated bounds is an owner decision;
+   crossing an explicitly approved exclusive allowlist is a human boundary.
 3. Delegate implementation with the shared Ponytail/minimal-diff prompt,
    assignment boundaries, and exact workspace. Supervise the same handle to
    terminal completion under delegated-jobs.md; do not duplicate active jobs.
@@ -158,6 +164,8 @@ required; these checks neither replace it nor authorize scope changes.
 7. Update the existing phase state. GREEN requires the reused GREEN definition,
    valid dependencies, correct assignment revision, and all jobs terminal.
    Apply the selected managed mode's commit gate; checkpoint only the delta.
+   Record the contract's local context assessment before the next substantial
+   step and perform a due authorized handoff. Do not wait for an owner reminder.
 
 Do not wake the owner for routine worker start/finish, passing tests, local repairs,
 factual state changes, or ordinary GREEN phase checkpoints. Record those
@@ -188,18 +196,24 @@ Check for reciprocal dependency waits before ending at WAITING_DEPENDENCY;
 route a discovered cycle once to the owner. Never hold active delegated jobs
 unattended merely to end the turn or reduce polling costs.
 
-Preserve work and escalate through the owner for unmet required checks,
+Preserve work and report the concrete blocker for unmet required checks,
 insufficient/conflicting high-risk verification, exhausted repair/fallback
 bounds, no separate implementer, unknown write ownership, unexpected partial
 writes, branch/worktree divergence, incompatible capability, or an action beyond
-authority. Material scope/order/dependency/acceptance/architecture changes need
-the owner and any required human decision before proceeding. Never reset, clean,
+authority. Send planning/dependency decisions to the owner and request missing
+human execution approval directly here under the contract's routing rule.
+Material scope/order/dependency/acceptance/architecture changes need
+owner reconciliation before proceeding; human approval is required only for
+reserved choices or changes beyond delegated authority, not every design repair.
+Never reset, clean,
 discard, or overwrite uncertain work to recover convenience.
 
 Direct human stop instructions take effect immediately: stop launching work and
 use available interruption safely, preserve partial state/handles, then report
 to the owner. Other material direct human interventions pause affected work
-until the owner reconciles dependent plans. Preserve explicit user instructions
+until the owner reconciles dependent plans. Ordinary direct approval of an
+already-reconciled action is not such an intervention and needs no owner receipt.
+Preserve explicit user instructions
 over prior owner instructions. If the owner is unavailable, direct human contact
 may recover coordination; unaffected authorized work can continue.
 
@@ -207,7 +221,9 @@ Do not claim that sending a message paused another agent. Require acknowledgemen
 before relying on a changed assignment or relinquished writer. Late decisions
 for an old revision/generation cannot authorize current work.
 
-Check context health at phase checkpoints; do not invent usage percentages.
+Apply the contract's [context-health checkpoints](../../delivery-owner/references/contracts.md#context-health-and-follow-up)
+locally, including after large review/repair cycles and at terminal job boundaries
+when a long phase strains context. Owner follow-up does not replace this duty.
 When transfer is due, use the managed
 [coordination and recovery rules](../../delivery-owner/references/coordination.md)
 and their linked safe-transfer procedure. Preserve pending human approval,

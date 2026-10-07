@@ -50,7 +50,8 @@ Run the focused check as soon as those verified inputs are ready, rather than
 waiting for both complete plans. Reuse existing checks where they prove the same
 boundary. Dependent expansion waits for a passing result; independent work may
 continue. If the check cannot run, preserve the gate and route the missing
-evidence/authority through the owner. Do not merge unapproved commits, invent
+evidence question to the owner or missing human authority to the executing chat.
+Do not merge unapproved commits, invent
 live-service access, or treat separate worktrees as proof of compatibility.
 
 Use the existing integration assignment and mode-specific authority. Record the
@@ -81,18 +82,26 @@ the exact inspection needed, notification result and resumer using the pause
 contract. Failed delivery uses coordination recovery; a skill supplies no
 scheduler. Routine GREEN checkpoints before the agreed boundary remain local.
 
+At this existing review, apply the contract's
+[context-health follow-up](contracts.md#context-health-and-follow-up) for the owner
+and reviewed orchestrator. Reuse a current assessment; no separate review cycle.
+
 The owner compares criteria actually advanced, capabilities delivered, new
 prerequisites, and cross-plan assumptions with the approved outcome. Read the
 relevant evidence pointers; inspect details only for a gap, contradiction, or
 material risk. Record the result and the last phase/checkpoint sequence covered.
 Only that actual inspection resets the count; acknowledgements, status polls,
 or handoffs do not. If an earlier approval/decision already included this outcome
-inspection, reuse it. Gated plans can use their owner-routed phase reports for
+inspection, reuse it. Gated plans can use their owner-visible phase reports for
 this check without adding another review cycle.
 
 If aligned, authorize the next already-approved work and next checkpoint without
-asking the human again. If drift needs changed scope, dependencies, authority,
-or acceptance, retain the affected gate for the appropriate human decision.
+asking the human again. For drift, apply the contract's decision classification:
+the owner resolves working-scope or dependency refinements within delegated
+bounds and obtains assignment acknowledgement where needed. Only crossed hard
+limits, reserved choices or missing authority need a human decision. Retain
+affected gates until the responsible actor resolves them, not until a human
+approves every changed plan detail.
 Immediate risk/dependency events and existing two-preparation-phase drift checks
 still apply; do not wait for the periodic checkpoint to raise known problems.
 

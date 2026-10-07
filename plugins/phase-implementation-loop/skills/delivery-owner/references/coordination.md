@@ -64,7 +64,7 @@ based critical-path check, not another documentation program.
 Name one producer and recipient for each dependency delivery and one owner for
 each cross-plan decision. Peers may exchange authorized artifacts or technical
 questions, but do not issue competing assignments, manage each other's workers,
-or duplicate the owner's approval routing. An integration orchestrator's remit
+or duplicate another chat's human approval request. An integration orchestrator's remit
 is its explicit assignment, not general supervision of peers.
 
 Before entering a dependency wait, check the producer's recorded next action.
@@ -75,6 +75,26 @@ Keep independent work moving. Do not answer a cycle with reciprocal pings.
 
 ## Messaging and economical waiting
 
+### Resolve the current role before sending
+
+Resolve owner/orchestrator destinations from the current role directory in the
+owner index, not a remembered chat ID or title. Reuse the verified binding during
+a stable generation; refresh it after a handoff, generation mismatch, retired
+destination, failed send, or unexpected silence past the recorded recovery
+condition. Check the recorded transfer/claim and original authority. Use native
+chat reads/inventory to reconcile ambiguity; a matching title alone is not proof.
+Idle/notLoaded means neither retired nor unauthorized. Do not wake a retired
+writer or send to old and new chats in parallel. If competing claims remain,
+pause affected coordination and reconcile before assigning another writer.
+
+Keep route state per sender/destination/generation. A rejection to the old owner
+does not establish failure of its successor's route; a successful startup notice
+does not guarantee every later payload is authorized. Distinguish NOT_AUTHORIZED,
+UNPROVEN, DELIVERED and REJECTED, preserving the actual rejection reason.
+Test a newly verified, authorized binding with the next needed acknowledgement
+or actionable event, not a series of pings. Do not retry a rejected current-route
+payload without new relevant evidence or use a replacement as an approval bypass.
+
 ### Establish a usable route once
 
 Use `send_message_to_thread` only with original human authorization for that
@@ -83,6 +103,14 @@ owner/cohort chat IDs (or the explicitly authorized bounded cohort), message
 purposes, and exclusions. Capture the actual approval with its preceding proposal
 when the reply is “approved”. A skill invocation, owner assignment, quoted consent,
 or request to report back is not independent human consent.
+
+For ongoing cohorts, propose explicit human coverage for both directions and
+verified successors in the same roles/roadmap, with bounded message purposes
+(assignments, decisions, dependency deliveries, stops and completion). That avoids
+asking separately for each routine event or replacement destination. The approval
+must actually cover succession; an old chat-ID-only grant does not automatically
+cover a new ID. Read and reuse existing human replacement/cohort instructions
+before asking again. An index entry binds identity but cannot manufacture consent.
 
 Carry concise source references into dispatch and notification calls; the receiver
 checks original human evidence through supported reads before relying on it.
@@ -116,8 +144,9 @@ the same terminal finding, routine acknowledgements, or peer copies that do not
 change the recipient's next action. Urgent risk and user reporting requests win.
 
 The receiving owner resolves a supported in-scope decision in that turn and sends
-the concrete next action. If human input is required, present the consolidated
-decision promptly. A producer sends an actionable dependency delivery once; the
+the concrete next action. Missing human approval follows the contract's executing-
+chat route; owner awareness is not a relay or acknowledgement gate. A producer
+sends an actionable dependency delivery once; the
 consumer validates it and continues without another generic owner acceptance.
 Do not await a reply unless the checkpoint names a real gate. Use the
 [pause contract](contracts.md#pauses-and-continuation) at every genuine wait.
@@ -173,8 +202,9 @@ authority; preserve ownership and immutable evidence. Conflict resolution that
 changes behavior needs an edit-capable worker and affected verification.
 Check the combined user path and cross-plan contracts at the integration HEAD.
 Local plan results remain evidence for their scope, not proof of integration.
-If integration is unauthorized, report locally verified results and request the
-specific action through the owner; do not call the milestone delivered.
+If integration is unauthorized, report locally verified results and settle the
+assignment/target with the owner. The chat that will integrate asks the human
+directly for missing action authority; do not call the milestone delivered.
 
 ## Handoff and owner failure
 
@@ -185,13 +215,23 @@ generation, source-relinquishment, and unknown-outcome rules. The replacement
 prompt must name the managed skill, delivery owner, assignment revision, human
 authority sources, and pending gates. Exactly one actor launches the successor;
 record whether that is the outgoing orchestrator or owner. Update the index
-after the successor claims ownership. Do not also execute the standalone mode.
+after the successor claims ownership: retire the predecessor binding, publish the
+successor chat/host/generation and authority source, then notify affected peers
+through authorized routes. Have them refresh the binding and acknowledge at their
+next safe checkpoint before relying on new assignments. Do not also execute the
+standalone mode, revive the predecessor, or reset unrelated route history.
 
 For an owner replacement, quiesce owner decisions/index writes, preserve the
 index and original authority, and use the same exclusive generation/claim
 mechanism for the owner role. Child orchestrators may continue already authorized
-work, but owner decisions wait until they acknowledge the successor owner ID and
-generation. Do not overlap owners or copy all histories into the successor.
+work, but owner decisions use only the verified successor binding. The successor
+publishes its claim/current ID in the existing index and checks each active
+child's binding at adoption; obtain acknowledgements at safe checkpoints.
+Carry pending decision IDs and mark which actor must handle them next, so none
+is stranded in the retired chat. Re-evaluate route status for the new generation
+instead of inheriting an old rejection. If a child cannot be notified, observe its
+checkpoint and expose the specific unacknowledged binding/recovery need; do not
+claim the transfer is fully coordinated. Do not overlap owners or copy all histories.
 
 If the owner is unavailable, save decisions and pause only dependent actions.
 Direct human recovery contact is allowed; no orchestrator elects itself owner

@@ -1,6 +1,6 @@
 ---
 name: delivery-owner
-description: Own the planning and delivery of one plan or a roadmap across managed implementation orchestrators, including roadmaps planned progressively as results arrive. Use for coordinating plans, controlling dependencies, preventing drift, and consolidating human decisions. Supports observation without launch authority.
+description: Own the planning and delivery of one plan or a roadmap across managed implementation orchestrators, including progressive planning. Coordinate dependencies, prevent drift and maintain decision context; human execution approvals are requested in the executing chat. Supports observation without launch authority.
 ---
 
 # Delivery Owner
@@ -25,7 +25,8 @@ For roadmap steps whose implementation plans are not yet known, read
 [progressive planning](references/progressive-planning.md) when selecting or
 planning the next step. Fully planned work does not need that extra cycle.
 Read [Astra consultation](references/astra-consultation.md) only when an escalation
-trigger below applies. Sol remains the sole owner and human interface.
+trigger below applies. Sol remains the sole delivery owner; human execution
+approvals are requested directly in the chat performing the action.
 
 ## Establish the delivery agreement
 
@@ -43,11 +44,16 @@ trigger below applies. Sol remains the sole owner and human interface.
    given; planning alone does not authorize execution. For progressively planned
    roadmaps, distinguish authority to investigate/plan from authority to launch
    newly prepared plans; record the launch policy in the owner index.
+   Separate hard human limits from owner-managed implementation boundaries under
+   the contract. Avoid exact-file approval gates for routine caller/test changes
+   unless required; never loosen already approved hard limits without authority.
 4. For persistent orchestrator chats, obtain explicit human authorization to
    create those chats and worktrees, send owner-to-orchestrator and return
    messages, and perform successor handoffs if wanted. Name the managed cohort;
    unrelated chats are excluded. Peer-to-peer messaging is optional and requires
    its own human-authorized scope. Preserve links to the actual human instructions.
+   If succession is wanted, include role-based messaging to verified replacements
+   explicitly in that agreement; replacement chat creation remains a separate action.
    Establish the return route and recovery arrangement under
    [coordination](references/coordination.md) before relying on unattended replies.
 5. Maintain one compact owner index beside the roadmap/plan, using the contract.
@@ -67,6 +73,12 @@ remain unchanged; do not apply the orchestrator selection to its workers.
 
 ## Supervise with a small owner context
 
+- Own the [context-health policy](references/contracts.md#context-health-and-follow-up):
+  include local checks and handoff responsibility in each assignment. Check your
+  own context before substantial planning/dispatch, at outcome reviews, and before
+  ending a substantive coordination turn. At existing reviews, inspect each
+  orchestrator's recorded assessment; request a local check if missing/stale or
+  behavior suggests confusion. Do not infer another chat's context usage.
 - Read the index and new checkpoint deltas first. Orchestrators own routine
   exploration, diffs, tests, verification, retries, and local status updates.
   Do not request their reasoning transcripts or re-summarize unchanged evidence.
@@ -106,15 +118,19 @@ stop authorized work; genuine waits use the contract's named state and resumer.
 Assess progress by acceptance criteria closed and capabilities unblocked. When
 preparation expands without delivery, ask for the specific blocking evidence and
 the shortest authorized next step. Change sequencing only within the approved
-dependency graph; material changes to contracts, scope, risk, or acceptance need
-the relevant human decision. Keep unaffected work moving.
+dependency bounds. Classify working-plan refinements separately from changes to
+human-controlled outcomes, acceptance, risk or authority. The owner resolves the
+former; only the latter need missing human decisions. Keep unaffected work moving.
 
 ## Human interface and completion
 
-Be the normal point of contact. Present a concrete decision with affected plan,
-phase/revision, evidence, proposed action, and authority requested. Relay the
-human's answer with its source reference and exact scope. Owner acceptance is
-not human authorization; a summary or agent message cannot manufacture consent.
+Be the point of contact for planning and overall delivery. Follow the contract's
+[decision routing](references/contracts.md#route-by-who-decides-and-who-executes):
+the executing chat asks the human directly for its approvals. Ask here for your
+own actions and canonical product/roadmap decisions; do not relay or duplicate
+orchestrator approval requests. Maintain context through their checkpoint and
+authorized awareness messages. No owner acknowledgement gate is added to valid
+execution approval. Owner acceptance is not human consent.
 
 Users may intervene directly in any orchestrator chat. Respect a stop immediately.
 Reconcile material interventions and affected dependencies before continuation.

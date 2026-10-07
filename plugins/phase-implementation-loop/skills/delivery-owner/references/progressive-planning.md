@@ -66,10 +66,13 @@ and this concrete assignment. This is application of standing authority, not a
 new human approval manufactured by the owner. Missing or ambiguous bounds require
 the specific human decision; the word “roadmap” or “autopilot” alone is inadequate.
 
-Refining previously unresolved implementation detail inside explicitly delegated
-bounds is permitted. Changing approved outcomes, acceptance, compatibility,
-contracts, frozen dependencies, or material risk still requires the applicable
-human decision. New plans cannot silently expand that authority. New-plan launch
+Refining previously unresolved implementation detail inside delegated bounds
+is owner work. Apply the contract's classification: necessary internal contract,
+caller/test or dependency refinements may be owner-managed; approved hard limits,
+outcomes, acceptance, compatibility obligations and risk exclusions are not.
+Reconcile and acknowledge changed assignments, obtaining human decisions only
+where the actual boundary requires them. New plans cannot silently expand
+authority. New-plan launch
 policy is separate from phase mode: managed loop retains human phase commit
 approval; managed autopilot needs explicit local commit-and-continue authority.
 
