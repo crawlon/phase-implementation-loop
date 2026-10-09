@@ -15,7 +15,8 @@ preparation need no planner, verifier, separate phase, or routine approval.
 2. Update the existing current-status summary with phase and exact gate,
    next authorized action, repository/host/worktree, branch/HEAD, dirty-path
    ownership, accepted evidence/conditions, relevant service targets, approvals
-   and exclusions, unresolved decisions, and model profile. Reference existing
+   and exclusions, unresolved decisions, model profile and latest context
+   assessment/reason/boundary. Reference existing
    receipts instead of copying logs, diffs, or full chat history.
 3. Write a concise handoff packet to a unique file in the OS temporary directory.
    Include absolute pointers to the canonical plan and current status, source

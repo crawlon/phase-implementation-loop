@@ -120,11 +120,39 @@ Carry covered work and the next named checkpoint through rollover.
 
 ## Context Health And Rollover
 
-Check context health at existing phase/job checkpoints and before the next
-substantial step. Use reliable usage indicators when exposed; otherwise watch
-for accumulating logs/diffs, repeated reconstruction, or difficulty retaining
-exact decisions and authority. Do not invent a token percentage. Save state early
-and roll over at a safe checkpoint before reliable orchestration degrades.
+Check your own context at the start of substantive orchestration turns before
+planning or substantial evidence loading, after large review/repair cycles,
+at phase boundaries and terminal job checkpoints, and before the next substantial
+step. Reuse a current assessment when no material evidence has accumulated.
+Record one line in the existing phase state: `CONTINUE | PREPARE_HANDOFF |
+HANDOFF_DUE`, checkpoint checked, concrete reason, and next action/safe boundary.
+No separate ledger, reviewer, notification or approval cycle is needed.
+
+Use reliable context indicators when exposed; otherwise record usage as unknown
+and assess accumulated logs/diffs, repeated reconstruction, forgotten constraints
+or confused decisions. Account usage/quota is not remaining chat context; do not
+invent percentages or a universal phase-count threshold. A CONTINUE reason explains
+why the target, current phase, authority, pending gates and next action remain
+reliably usable; “usage unknown” or “no active jobs” alone is insufficient.
+Native compaction prompts reassessment at the next safe checkpoint, not automatic
+exhaustion. Repeated reconstruction/compaction with growing decision burden calls
+for preparation; recover lost or contradictory settled constraints before
+dependent action and transfer when reliable continuation remains at risk.
+
+- CONTINUE: decisions and authority remain reliably usable; continue within gates.
+- PREPARE_HANDOFF: refresh durable state now and name the next safe boundary for
+  reassessment/transfer. At that boundary record evidence-supported CONTINUE or
+  HANDOFF_DUE; do not repeatedly postpone it with unchanged preparation statements.
+- HANDOFF_DUE: reliable continuation is at risk; settle active jobs and perform
+  the authorized rollover before another substantial step. Do not merely recommend
+  an already authorized transfer. If no approved work remains, report completion
+  or the pending outside-scope decision instead of launching an idle successor.
+
+Context pressure never makes a running handle terminal: preserve recoverable
+state and supervise the same worker/verifier/operational handle to completion.
+Do not abandon, cancel or duplicate it to relieve context pressure, or launch
+a competing orchestrator. Name terminal completion as the safe boundary when
+preparing during an active job; then reassess and retain its real result/gates.
 
 Include automatic fresh-orchestrator rollover in the execution profile or
 approved envelope. An explicit user request for automatic handoffs supplies
