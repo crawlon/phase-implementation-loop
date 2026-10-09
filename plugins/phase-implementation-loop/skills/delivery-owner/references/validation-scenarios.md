@@ -47,6 +47,18 @@ validation and do not prove a live multi-chat pilot or token savings.
 
 ## Pilot acceptance
 
+Owner understanding and progress scenarios:
+
+| Scenario | Required behavior |
+| --- | --- |
+| A large owner index contains several superseded CURRENT blocks and retained approvals; the latest verified checkpoint advances the next milestone. | Establish one current snapshot in existing owner state, replace superseded live fields and preserve linked history/authority. Read the affected row and relevant delta; no whole-history cleanup or audit gate before continuation. |
+| The short snapshot says the next phase is ready, but a newer raw checkpoint shows a changed required interface and an unfinished verifier. | Inspect decisive current evidence, mark the stale readiness uncertain and reconcile the affected dependency. Keep its gate and supervise existing handles through their orchestrator; no reliance on brevity or new duplicate jobs. |
+| A routine passing-check notification arrives with no owner decision, changed dependency or due outcome review. | Update affected current state only if useful; ordinary authorized execution continues. No new broad inspection, review, receipt gate or poll loop. |
+| Two preparation phases produce fixtures and rehearsal artifacts required by the plan, with a concrete acceptance test still pending. | At the existing drift check identify the prerequisite/uncertainty resolved, evidence scope, remaining blocker and next planned observable result. Continue necessary groundwork within authority; neither file counts nor fixture proof establish product acceptance. |
+| Repeated preparation produces more receipts but no changed evidence about a named blocker; the owner can revise working sequencing within delegated bounds. | Resolve the blocking question or revise the acknowledged plan toward a concrete result now. Preserve hard limits, scope and required checks; do not reward activity, launch another generic audit or silently reorder frozen work. |
+| An outcome decision is already supported by unchanged independent evidence, but the owner could reread every source and rerun all hashes. | Reuse valid scoped evidence and resolve/dispatch the concrete continuation. Expand only for a material question or mandated custody check, not routine duplication of orchestrator work. |
+| Every dispatched plan is locally GREEN, but an outlined criterion and final integration remain unproved. | Keep the target visible and milestone incomplete; advance the next eligible planned step within authority, with its observable result and actor. No narrowed target or completion from phase counts. |
+
 Decision and successor-routing regressions:
 
 | Scenario | Required behavior |
@@ -126,6 +138,26 @@ Context-health scenarios:
 | Owner is losing track of pending decisions; succession is authorized and children are independently running. | Save state, quiesce owner decisions/writes, execute the exclusive owner transfer and update role bindings/pending decisions; independent children need not finish first. |
 | A handoff is due with commit approval or owner outcome inspection pending. | Transfer the exact gate unchanged; neither local assessment nor successful transfer counts as approval or outcome inspection. |
 | Handoff is due but successor creation is not authorized or startup has an unknown outcome. | Preserve state and expose the precise recovery need; obtain missing authority or reconcile the existing launch before another attempt. Do not invent consent or launch a duplicate. |
+
+Permission-continuity and context regressions:
+
+| Scenario | Required behavior |
+| --- | --- |
+| A new orchestrator is exclusively claimed, its correct owner binding is verified, and a lightweight startup notice succeeded; the first repository/security report is rejected because retrieved approval is not trusted in this transcript. | Record the exact REJECTED attempt separately from standing consent and startup success. Ask once directly in this executing successor for the bounded report/standing communication scope; no repeated quoted-consent retry, wrong-owner claim or tool bypass. Preserve unaffected execution. |
+| The owner is replaced and its next assignment to an existing child is rejected on the same trust boundary. | Apply the same recovery in the executing owner chat; an exclusive owner claim does not establish the owner-to-child route. Preserve pending decisions and expose coordination readiness separately. |
+| Original human consent actually covers both role directions, verified successors and the report content; current tool accepts the first necessary assignment and acknowledgement. | Carry source proposal/reply references, resolve current endpoint generations, record each direction's actual result and continue within scope. No new human question merely for a changed ID, synthetic ping or receipt loop. |
+| Successor creation is approved, but the original message grant covers only the predecessor's exact ID. | Carry the actual limited source and expose missing successor-route authority. No broader consent from the transfer token, skill or launch prompt. |
+| The owner starts a substantive turn with a large new repair packet, while its last assessment was CONTINUE solely because usage was unknown and no jobs were running. | Assess before loading/planning/dispatch and give a reason tied to reliable target, actor, authority, gates and next action. Job quiescence alone proves no context health. |
+| Native compaction occurred, reconstruction is repeatedly expensive and the owner has forgotten a settled cap; PREPARE_HANDOFF named the next terminal consultation boundary, now reached. | Reconcile the cap, reassess at that boundary and record HANDOFF_DUE when reliable continuation remains at risk. Settle own jobs, perform authorized exclusive transfer and preserve gates; no unchanged PREPARE_HANDOFF deferral or new substantial dispatch. |
+| A single compaction occurred but the owner can reliably reconstruct the complete current decision and authority from concise verified state. | Record that evidence and CONTINUE if appropriate; no fabricated usage percentage, automatic exhaustion verdict or mandatory replacement solely for compaction. |
+
+Shared-name scenarios:
+
+| Scenario | Required behavior |
+| --- | --- |
+| Owner G5 and editorial-E1 orchestrator G6 use internal aliases while native titles are unrelated; startup naming tools are available. | Set and verify `Owner-OpenHorse-generation5` and `Orchestrator-editorial-E1-generation6` using their recorded plan keys. Current references and messaging requests use these titles plus endpoint IDs/hosts; preserve original grants and historical titles. No generation advance or new communication consent from a rename. |
+| The owner transfers to G6 while the existing E1 orchestrator remains G6, and the plan revision changes. | Keep the owner plan key, set owner title to `Owner-OpenHorse-generation6`, and retain `Orchestrator-editorial-E1-generation6`. Update only current bindings/references; do not increment the orchestrator or rename plan keys for a revision. Titles do not establish claims or successor approval. |
+| Native readback disagrees with the intended title, or renaming is unavailable. | Record both canonical name and observed native title with verified IDs/hosts. Show both in a needed approval request; expose repair without false title synchronization, repeated inventory polling or a new gate for unrelated authorized work. |
 
 After offline checks, use a separately authorized small real milestone with two
 plans and one integration check. Establish baseline outcome and verification

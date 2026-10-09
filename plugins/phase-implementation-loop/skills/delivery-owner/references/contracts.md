@@ -6,10 +6,43 @@ Use stable IDs and exact paths/revisions; preserve links instead of copying logs
 
 ## Owner index — owner is its sole writer
 
-Record once:
+### Current snapshot
+
+Keep exactly one current snapshot at the top of the existing index. Use its
+plan rows and evidence links rather than duplicating their detail:
+
+```text
+Target and canonical plan/roadmap revision:
+Accepted, open and uncertain criteria; evidence scope and pointers:
+Now: active assignments/actors, running jobs, blockers and changed dependencies:
+Next: planned milestone/criterion, observable result, responsible actor and prerequisites:
+Open decisions/gates, authority and exclusions; original source pointers:
+Basis: checkpoint/revision observed, validity conditions and local context assessment:
+```
+
+On a material update, replace superseded live fields. Preserve prior decisions,
+original approvals and immutable evidence under linked history or existing
+receipts; historical entries are not alternative current snapshots. Preserve
+unresolved gates, ownership generations and resource/repair budgets exactly.
+Keep authoritative detail available through pointers, with material risk and
+uncertainty visible in the snapshot. Brevity never removes evidence needed to
+understand or decide. An observation is dated/revision-bound; active work may
+have advanced since it. Reconcile a stale or conflicting field before relying
+on it for affected actions.
+
+When adopting a large legacy index, establish this snapshot from the verified
+current plan, role binding and latest relevant checkpoints within existing
+owner authority. Retain history and its anchors; use targeted historical reads
+for contradictions or authority questions. Snapshot maintenance neither launches
+work nor changes authority, and completing a history cleanup is no execution gate.
+
+### Stable directory and plan rows
+
+Record once and update only affected fields:
 
 - Milestone and acceptance criteria; canonical roadmap/plan paths and revisions.
-- Owner chat/host, actual model when known, and ownership generation. Default:
+- Owner canonical name/native title, chat/host, actual model when known, and
+  ownership generation. Default:
   `gpt-6.1-sol/high`; bounded advisory consultation: `gpt-6-astra/high`.
   Record explicit overrides separately; consultation does not transfer ownership.
 - Human authorization sources: allowed actions, modes, messaging directions,
@@ -24,17 +57,21 @@ Record once:
   Record unresolved delivery failures; a saved checkpoint is not a wakeup.
 - Separate hard human limits from owner-managed working boundaries below. Link
   each hard limit to its authority source; do not turn an estimate into a gate.
-- Keep a compact role directory in this index: role/assignment, current chat/host,
+- Keep a compact role directory in this index: role/assignment, stable plan key,
+  canonical name and verified native title under the
+  [shared naming convention](coordination.md#shared-chat-names), current chat/host,
   generation, active/retired state, predecessor/successor, transfer/claim evidence,
-  and original messaging authority. Track route result by sender + destination +
-  generation, with last attempt/result; a retired route's failure is historical.
+  and original messaging authority. Track authorization basis separately from
+  actual tool delivery, per sender/generation + destination/generation + direction
+  and message purpose/content scope, with last attempt/result and recovery actor.
+  Carry these fields in the linked handoff packet; retired-route failure is historical.
 - Owner's latest context assessment under the policy below; read orchestrator
   assessments from their phase state rather than maintaining a duplicate ledger.
 
 One row per plan:
 
 ```text
-plan ID | revision | mode | orchestrator chat/host + generation |
+plan ID | revision | mode | orchestrator name + chat/host + generation |
 worktree/branch | dependencies + required delivery revision/commit |
 owned paths/resources | state path | status/phase | last checkpoint sequence |
 accepted commit/evidence | blocker/decision ID | next action + responsible actor
@@ -58,9 +95,11 @@ invent detailed phases for distant steps. See
 
 ```text
 Assignment ID and revision:
-Owner chat/host and generation:
+Owner name/native title, chat/host and generation:
+Orchestrator name/native title, chat/host and generation (when allocated):
 Human authorization references and exact boundaries:
 Milestone criterion served:
+Next observable result and required evidence:
 Canonical plan path/revision and assigned phase range:
 Mode: managed-implementation-loop | managed-implementation-autopilot
 Repository/host; exact worktree, branch and baseline HEAD:
@@ -106,12 +145,12 @@ Record only a change since the previous checkpoint, normally at most 150 words
 plus evidence links. Retain detailed local phase evidence in the state file.
 
 ```text
-Assignment/revision + orchestrator generation + checkpoint sequence:
+Assignment/revision + orchestrator name/generation + checkpoint sequence:
 Phase and status; criterion advanced/capability delivered:
 Branch/HEAD; relevant diff or commit identity:
 Tests, UI review or N/A, independent verifier outcome and evidence pointers:
 Blocker/dependency change or decision ID, if any:
-Next action; state path:
+Next planned result/criterion; action and responsible actor; state path:
 Context: CONTINUE | PREPARE_HANDOFF | HANDOFF_DUE; checked at; reason; next action:
 For a pause: required event/decision, next actor, notification result,
 resume trigger and recovery/recheck condition:
@@ -134,8 +173,10 @@ inspection's phase/checkpoint sequence and next due boundary in existing state.
 
 The owner is accountable for this policy and its follow-up; each orchestrator
 assesses its own context without waiting for an owner prompt. The owner checks
-its own context before substantial planning or dispatch, at outcome reviews,
-and before ending a substantive coordination turn. Orchestrators check at phase
+its own context at the start of each substantive coordination turn before
+planning, dispatch or substantial evidence loading; reassess after large evidence
+or repair cycles, at terminal consultation boundaries, at outcome reviews and
+before ending the turn. Orchestrators check at phase
 boundaries and after large review/repair cycles, before the next substantial job.
 During a long phase, use terminal job checkpoints if evidence is accumulating
 or decisions are becoming difficult to retain. Never abandon an active handle
@@ -146,11 +187,19 @@ brief evidence/reason, and next action. Use reliable context indicators when
 exposed; otherwise record that usage is unknown and assess accumulating evidence,
 repeated reconstruction, forgotten constraints, or confused decisions. Account
 usage/quota is not remaining chat context; do not invent percentages or a
-universal phase-count threshold.
+universal phase-count threshold. A CONTINUE reason explains why the target,
+current actor, authority, pending gates and next action remain reliably usable;
+"usage unknown" or "no active jobs" alone is insufficient. Native compaction is
+a prompt for reassessment at the next safe checkpoint, not proof of exhaustion.
+Repeated reconstruction or compaction with growing decision burden calls for
+handoff preparation; lost or contradictory settled constraints require recovery
+and a due handoff when reliable continuation is at risk.
 
 - CONTINUE: current decisions and authority remain reliably usable; continue.
 - PREPARE_HANDOFF: evidence/reconstruction burden is growing; refresh durable
-  state now and name the next safe boundary for reassessment or transfer.
+  state now and name the next safe boundary for reassessment or transfer. At that
+  boundary, record either evidence supporting reliable CONTINUE or HANDOFF_DUE;
+  do not repeatedly postpone the boundary with unchanged preparation statements.
 - HANDOFF_DUE: reliable continuation is at risk; settle active jobs, then perform
   the authorized [managed handoff](coordination.md#handoff-and-owner-failure)
   before another substantial step. Do not repeatedly defer it or merely recommend

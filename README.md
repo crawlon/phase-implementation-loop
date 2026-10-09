@@ -33,6 +33,24 @@ managed protocol, and standalone reference dependencies.
 
 ## Managed Delivery
 
+The owner works from one replaceable current snapshot and a simple loop:
+understand the evidence, relate it to the target and plan, resolve the next
+decision, and check direction. Historical authority and evidence stay linked.
+Necessary investigation and verification take priority over brevity. Assess
+efficiency through correct decisions, verified milestones, avoidable stalls and
+duplicated work, alongside measured usage.
+
+Managed chat titles and current references share `Owner-<plan-key>-generation<N>`
+and `Orchestrator-<assigned-plan-key>-generation<N>`. Approval requests use these
+names and actual chat IDs; successors keep the plan key and advance only their
+existing ownership generation.
+
+Handoffs carry per-direction permission sources and actual route results;
+exclusive ownership and working coordination are reported separately. Owners
+assess context before substantial work and honor named reassessment boundaries.
+Platform rejection of inherited consent can still require direct approval in
+the executing successor; skill wording cannot override that review.
+
 Start in the intended owner model's chat; a skill cannot switch its own model.
 For example:
 

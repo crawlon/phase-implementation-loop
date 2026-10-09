@@ -57,6 +57,11 @@ owner and consultant defaults are defined by the Delivery Owner skill.
 
 ## Role and startup
 
+At startup/adoption, apply the owner's
+[shared chat naming convention](../../delivery-owner/references/coordination.md#shared-chat-names).
+Use the same verified name in your title, state, handoff and approval requests;
+retain the actual chat/host and ownership generation for identity.
+
 The owner controls canonical plan revisions, dependencies, cross-plan scope, and
 milestone acceptance. You control execution of the assigned plan: capability
 assessment, worker routing, diff inspection, checks, independent verification,
@@ -75,6 +80,13 @@ human authority, dependencies, profile, required tools, and access to the
 canonical plan/state. Use the exact assigned checkout, not a saved project's
 default. All phases use one dedicated branch following repo conventions or
 `codex/<plan-slug>`. Parallel plans need separate worktrees and resource ownership.
+
+Record a fresh local context assessment before the next substantial job. On
+successor adoption, reconcile the managed
+[permission continuity packet](../../delivery-owner/references/coordination.md#permission-continuity-at-handoff),
+current owner binding and each required direction's actual route state. Ownership
+claim, inherited consent and a successful startup notice are distinct evidence;
+expose incomplete communication through the existing recovery contract.
 
 Reuse the assigned capability assessment if still valid; resolve incompatible
 plan detail/model choices through the owner before implementation. Preserve the

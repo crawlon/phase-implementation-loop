@@ -89,7 +89,12 @@ and reviewed orchestrator. Reuse a current assessment; no separate review cycle.
 The owner compares criteria actually advanced, capabilities delivered, new
 prerequisites, and cross-plan assumptions with the approved outcome. Read the
 relevant evidence pointers; inspect details only for a gap, contradiction, or
-material risk. Record the result and the last phase/checkpoint sequence covered.
+material risk. Include the next planned observable result and its responsible
+actor. Where preparation has expanded, identify the prerequisite or uncertainty
+resolved, the evidence gained and the remaining delivery blocker. Necessary
+groundwork may continue when that link is supported; activity counts alone
+neither establish progress nor justify discarding it. Use the existing review,
+not an additional per-event audit. Record the result and the last phase/checkpoint sequence covered.
 Only that actual inspection resets the count; acknowledgements, status polls,
 or handoffs do not. If an earlier approval/decision already included this outcome
 inspection, reuse it. Gated plans can use their owner-visible phase reports for
@@ -107,8 +112,10 @@ still apply; do not wait for the periodic checkpoint to raise known problems.
 
 ## Tune with evidence
 
-During the pilot, use existing receipts to record review elapsed time, owner
-turns/context and actual usage when exposed, rework, and defects first discovered
-at integration. Adjust future phase sizes/checkpoints from that evidence with
-required authorization. Do not claim token savings without measurement or reduce
-acceptance/required assurance to improve a cost metric.
+Judge owner effectiveness by correct evidence-based decisions, accepted milestones,
+avoidable stalls, duplicated work, rework and integration defects. During the
+pilot, use existing receipts for these observations, review elapsed time, owner
+turns/context and actual usage when exposed. Compare equivalent accepted outcomes;
+shorter messages or fewer reads alone do not prove improvement. Adjust future
+phase sizes/checkpoints with required authorization. Preserve acceptance and
+required assurance; report token savings only when measured.
