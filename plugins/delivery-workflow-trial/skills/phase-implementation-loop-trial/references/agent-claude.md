@@ -1,0 +1,61 @@
+# Claude Agent Reference
+
+Use this reference when Claude is selected for planning, implementation advice,
+review, verification, exploration, or orchestration.
+
+## Transport And Effort
+
+Use the thin read-only wrapper:
+
+```text
+codex-claude-ask --model <selected-model-id> "..."
+codex-claude-ask --model <selected-model-id> --prompt-file <path>
+```
+
+Prefer a prompt file for long calls. If the wrapper is unavailable but `claude`
+exists, use non-interactive print/plan mode with session persistence and browser
+integration disabled. Adapt quoting and prompt-file input to the installed CLI
+and active shell.
+
+```text
+claude --print --permission-mode plan --no-chrome --no-session-persistence --model <selected-model-id> "..."
+```
+
+Load the selected model from shared Planning And Replanning or the
+`delegated-jobs.md` Verification Chain. Use the exact approved model id; a generic
+alias is acceptable only if current CLI inspection proves the same selection.
+Let the orchestrator choose supported effort appropriate to the
+phase risk. Do not hardcode unsupported effort flags.
+
+Apply terminal lifecycle, output classification, patience, and fallback rules
+from `delegated-jobs.md`.
+
+The maintained wrapper source is `scripts/claude-bridge/bin/codex-claude-ask`.
+It emits compact `CODEX_CLAUDE_EVENT` lifecycle records: `started`, `activity`,
+`heartbeat`, `succeeded`, `failed`, `timed_out`, or `cancelled`. It uses the
+Claude stream locally but never relays partial assistant text, prompts, tool
+arguments, tool output, or other stream payload content. `activity` and
+`heartbeat` report only event count/type/subtype and idle time. There is no
+default deadline; `CODEX_CLAUDE_MAX_SECONDS` is opt-in, and
+`CODEX_CLAUDE_STATUS_FILE` persists the compact records for recovery.
+
+## Capabilities And Prompts
+
+The current wrapper is read-only. Use it for planning, review, verification,
+risk analysis, and implementation advice. Do not claim workspace edits unless an
+explicitly available and authorized edit-capable Claude surface was used.
+
+For planning fallback, preserve the shared planning route's terminal prerequisites,
+bounded prompt and output contract.
+
+When the user selects Claude implementation and an edit-capable Claude surface is
+available, delegate the implementation prompt to that surface under the same
+role separation and workspace gates. Otherwise Claude is an advisor only.
+
+Use `agent-prompts.md` for the selected role. When Claude is implementation
+advisor only, return concrete code-level guidance to the selected edit-capable
+implementation agent. If that agent is Codex, it must be the separate worker
+subagent defined in `agent-codex.md`, never the orchestrator.
+
+Verification uses `delegated-jobs.md`; a `BLOCKED` finding returns to implementation,
+never to another verifier to overrule it.

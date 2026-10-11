@@ -1,0 +1,6 @@
+interface:
+  display_name: "Managed Implementation Autopilot Trial"
+  short_description: "Trial owner-managed execution with bounded autopilot"
+  default_prompt: "Use $managed-implementation-autopilot-trial for this explicitly selected trial assignment."
+policy:
+  allow_implicit_invocation: false

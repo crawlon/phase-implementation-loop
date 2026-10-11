@@ -1,0 +1,6 @@
+interface:
+  display_name: "Phase Implementation Loop Trial"
+  short_description: "Trial standalone execution with gated commits"
+  default_prompt: "Use $phase-implementation-loop-trial for this explicitly selected trial assignment."
+policy:
+  allow_implicit_invocation: false

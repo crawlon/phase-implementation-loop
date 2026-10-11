@@ -1,0 +1,20 @@
+{
+  "name": "delivery-workflow-trial",
+  "version": "0.1.0",
+  "description": "Opt-in planner-led workflow startup and retained direction review; current skills remain separately selectable.",
+  "author": {
+    "name": "Jonas Velander"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Delivery Workflow Trial",
+    "shortDescription": "Start planned delivery from one planning chat.",
+    "longDescription": "Start an approved plan from the existing planner: create an orchestrator, add an owner when useful, load child skills automatically and retain strategic review, independent verification and safe handoffs.",
+    "developerName": "Jonas Velander",
+    "category": "Productivity",
+    "capabilities": [
+      "skills"
+    ],
+    "defaultPrompt": "Use $roadmap-planner-trial to start execution of this approved plan. Create an orchestrator and an owner only if the roadmap needs one."
+  }
+}

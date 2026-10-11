@@ -1,0 +1,6 @@
+interface:
+  display_name: "Managed Implementation Loop Trial"
+  short_description: "Trial owner-managed execution with gated commits"
+  default_prompt: "Use $managed-implementation-loop-trial for this explicitly selected trial assignment."
+policy:
+  allow_implicit_invocation: false

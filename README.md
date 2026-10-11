@@ -239,3 +239,12 @@ scripts/
     bin/
     tests/
 ```
+
+## Optional retained-planner trial
+
+The separately selectable **Delivery Workflow Trial 0.1.0** adds a retained
+planner, a delivery-focused owner and matching managed/standalone trial modes.
+All trial names end in `-trial` and require explicit selection. Existing skills,
+assignments and approvals remain unchanged. See the
+[trial usage and switching-back guide](plugins/delivery-workflow-trial/README.md).
+The trial has isolated protocol copies and no automatic cohort migration.

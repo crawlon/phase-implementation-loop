@@ -1,0 +1,6 @@
+interface:
+  display_name: "Delivery Owner Trial"
+  short_description: "Coordinate delivery with an optional retained planner"
+  default_prompt: "Use $delivery-owner-trial for this explicitly selected trial assignment."
+policy:
+  allow_implicit_invocation: false
