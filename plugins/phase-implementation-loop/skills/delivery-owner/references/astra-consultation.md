@@ -9,7 +9,8 @@ unchanged.
 
 ## When to consult
 
-Consult `gpt-6-astra` at `high` reasoning when an unresolved decision involves:
+Use the [owner consultation profile](contracts.md#managed-role-profiles)
+when an unresolved decision involves:
 
 - Consequential architecture or a shared contract with dependent consumers.
 - Substantial uncertainty or competing approaches at a new planning frontier.

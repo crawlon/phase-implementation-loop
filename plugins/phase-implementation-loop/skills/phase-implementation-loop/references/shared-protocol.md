@@ -74,15 +74,18 @@ It does not authorize changes to frozen order or dependencies.
 ## Review Boundaries And Outcome Checkpoints
 
 At startup, shape phase boundaries under `phase-capability.md` and record the
-following applicable checks in the canonical plan and existing state. This is
-the standalone orchestrator's responsibility; no delivery owner, additional
-chat, fixed model, or separate ledger is needed. Managed workflows retain their
-own review/coordination policy rather than adding a second checkpoint cycle.
+applicable checks in the canonical plan and existing state. The common design
+and integration rules below apply to both standalone and managed execution;
+their assignment/decision ownership remains with the active workflow. Standalone
+orchestrators need no delivery owner, extra chat, fixed model or ledger. Managed
+workflows retain their own outcome-review timing, not a second checkpoint cycle.
+
+### Consequential design review
 
 Before implementation relies on a novel shared contract, irreversible migration,
 or similarly consequential design, obtain one independent read-only review of
-the decision and dependent assumptions. Record the triggering risk, design
-revision, affected work, and required evidence. The reviewer must not have
+the decision and dependent assumptions. Record the triggering risk, precise
+question, design revision, affected work, evidence and required checks. The reviewer must not have
 authored the design. Use the approved verifier route and verdict/repair/fallback
 rules in `delegated-jobs.md`, with the Design Review prompt in `agent-prompts.md`.
 Reuse equivalent valid prior review; routine settled designs need no extra call.
@@ -91,15 +94,23 @@ Resolve blockers before affected implementation; a design PASS grants no action
 authority and does not replace phase implementation verification. If a triggering
 risk appears later, apply this gate before further dependent work.
 
-For interacting phases, identify the earliest executable shared boundary, its
-concrete compatibility check, required inputs, and dependent work. Run that check
+### Early integration check
+
+For interacting phases/plans, identify the earliest executable shared boundary,
+concrete compatibility check, required input revisions/commits, responsible actor,
+authorized target and dependent work. Run that check
 as soon as verified inputs are usable together, before dependent expansion, not
 only at plan completion. Split/revise a phase under existing authority if needed
 to expose that checkpoint before a large dependent implementation. Record exact
 input revisions, target, result, and evidence invalidation conditions. A missing
 or failing required check blocks its consumer under the active mode; do not use
 a local phase PASS as evidence for an untested interaction. Reuse still-valid
-boundary coverage at completion while performing any remaining combined checks.
+boundary coverage at completion while performing remaining combined checks;
+an early PASS is narrow evidence, not final combined acceptance. Use the active
+workflow's integration assignment/authority; worktree isolation alone proves no
+compatibility and grants no merge or live-service permission.
+
+### Standalone outcome checkpoints
 
 For long plans, name meaningful delivery milestones for a compact cumulative
 outcome check. At each named boundary, the same orchestrator compares evidence
@@ -120,11 +131,14 @@ Carry covered work and the next named checkpoint through rollover.
 
 ## Context Health And Rollover
 
-Check your own context at the start of substantive orchestration turns before
-planning or substantial evidence loading, after large review/repair cycles,
+### Context assessment
+
+This assessment applies to standalone orchestrators and managed roles; use the
+active workflow's handoff procedure. Check your own context at the start of
+substantive turns before planning, dispatch or substantial evidence loading, after large review/repair cycles,
 at phase boundaries and terminal job checkpoints, and before the next substantial
 step. Reuse a current assessment when no material evidence has accumulated.
-Record one line in the existing phase state: `CONTINUE | PREPARE_HANDOFF |
+Record one line in existing role/phase state: `CONTINUE | PREPARE_HANDOFF |
 HANDOFF_DUE`, checkpoint checked, concrete reason, and next action/safe boundary.
 No separate ledger, reviewer, notification or approval cycle is needed.
 
@@ -132,7 +146,7 @@ Use reliable context indicators when exposed; otherwise record usage as unknown
 and assess accumulated logs/diffs, repeated reconstruction, forgotten constraints
 or confused decisions. Account usage/quota is not remaining chat context; do not
 invent percentages or a universal phase-count threshold. A CONTINUE reason explains
-why the target, current phase, authority, pending gates and next action remain
+why the target, current phase/actor, authority, pending gates and next action remain
 reliably usable; “usage unknown” or “no active jobs” alone is insufficient.
 Native compaction prompts reassessment at the next safe checkpoint, not automatic
 exhaustion. Repeated reconstruction/compaction with growing decision burden calls
@@ -143,16 +157,18 @@ dependent action and transfer when reliable continuation remains at risk.
 - PREPARE_HANDOFF: refresh durable state now and name the next safe boundary for
   reassessment/transfer. At that boundary record evidence-supported CONTINUE or
   HANDOFF_DUE; do not repeatedly postpone it with unchanged preparation statements.
-- HANDOFF_DUE: reliable continuation is at risk; settle active jobs and perform
+- HANDOFF_DUE: reliable continuation is at risk; settle your own active jobs and perform
   the authorized rollover before another substantial step. Do not merely recommend
   an already authorized transfer. If no approved work remains, report completion
   or the pending outside-scope decision instead of launching an idle successor.
 
 Context pressure never makes a running handle terminal: preserve recoverable
-state and supervise the same worker/verifier/operational handle to completion.
+state and supervise the same owned worker/verifier/consultation/operational handle to completion.
 Do not abandon, cancel or duplicate it to relieve context pressure, or launch
 a competing orchestrator. Name terminal completion as the safe boundary when
 preparing during an active job; then reassess and retain its real result/gates.
+
+### Standalone rollover
 
 Include automatic fresh-orchestrator rollover in the execution profile or
 approved envelope. An explicit user request for automatic handoffs supplies

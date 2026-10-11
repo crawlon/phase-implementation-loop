@@ -1,7 +1,7 @@
 # Codex Agent Reference
 
 Use this reference when Codex is selected for planning, implementation, UI/UX
-review, or the first verification fallback. The phase-loop orchestrator may be
+review, or verification. The phase-loop orchestrator may be
 any agent.
 
 ## Roles
@@ -14,9 +14,8 @@ any agent.
 - UI/UX review: use a fresh, non-editing Codex reviewer subagent to run
   `$ui-ux-browser-review` for UI-affecting phases. Return findings to the
   implementation worker; the reviewer never edits the workspace.
-- Verification: after Claude is unavailable or inconclusive, use a fresh
-  read-only `gpt-6-astra` verifier at high reasoning that did not implement the
-  phase. Cursor GLM 5.3 High is the next fallback under `delegated-jobs.md`.
+- Verification: use a fresh read-only verifier that did not implement the phase, following the selected
+  chain in `delegated-jobs.md`.
 
 ## Worker Launch Contract
 
@@ -34,21 +33,11 @@ implementation agent or stop. Never collapse the worker role into orchestration.
 
 ## Model And Reasoning
 
-Choose locally from the phase brief; do not call another model to choose:
-
-- Planning and replanning: use `gpt-6-astra` at high reasoning. If that route is
-  unavailable, use the Claude Opus 5.5 fallback in `agent-claude.md`, then follow
-  the shared degraded-planning and mode-specific stop rules if both fail.
-- Implementation: default to a separate `gpt-6-luna` worker at `max` reasoning.
-  Cursor Grok 4.7 is the first fallback under `shared-protocol.md`.
-- Further implementation fallback: the orchestrator chooses an available model
-  and reasoning level appropriate to the task, required capabilities, and risk.
-  Do not automatically select the largest model or maximum reasoning.
-- UI/UX review: default to a fresh `gpt-6-luna` reviewer at `max` reasoning.
-  If unavailable, select an appropriate non-editing browser-capable reviewer
-  and record the fallback.
-- Verification: use a fresh `gpt-6-astra` verifier at high reasoning after the
-  primary Claude route is unavailable or inconclusive.
+Choose locally from the approved phase brief. Load the role's authoritative
+defaults/fallbacks: `shared-protocol.md` Execution Profile for implementation,
+Planning And Replanning for standalone planning, UI/UX Review Gate for UI review,
+and `delegated-jobs.md` Verification Chain for verification. Managed planning
+uses the owner route instead. Do not call another model to choose.
 
 Check the selected model and reasoning against the active worker surface. If
 they are unavailable or not configurable, follow the role's fallback rules and
@@ -66,8 +55,8 @@ Use `agent-prompts.md` and add the role-specific first line:
 - Verification: `Act as the fresh read-only Codex verifier; you did not implement this phase.`
 
 For implementation, include selected model/reasoning and require workspace edits,
-not a patch for the orchestrator to apply. For verification, use `gpt-6-astra`
-with high reasoning. Start from fresh context; omit implementer reasoning and
+not a patch for the orchestrator to apply. For verification, carry the selected
+model/effort into a fresh context; omit implementer reasoning and
 any desired verdict. Disable unrelated connectors/configuration when supported
 and record the isolation used.
 

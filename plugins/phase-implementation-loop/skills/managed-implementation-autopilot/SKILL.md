@@ -7,10 +7,7 @@ description: Execute a delivery-owner assignment continuously, with separate imp
 
 You are the plan orchestrator under a delivery owner. Read the
 [managed execution protocol](../managed-implementation-loop/references/managed-execution.md)
-and its assignment contract. Do not invoke the standalone skills in addition.
-
-Default orchestrator: **GPT-6.1 Sol High** (`gpt-6.1-sol`, reasoning `high`).
-Separate implementer defaults and fallbacks remain unchanged.
+and follow its section-specific contract reads. Do not invoke the standalone skills in addition.
 
 ## Startup envelope
 

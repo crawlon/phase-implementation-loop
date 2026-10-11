@@ -4,6 +4,17 @@ Use existing repo conventions for filenames. These are fields in ordinary
 Markdown, not a new service, database, tracker hierarchy, or mandatory script.
 Use stable IDs and exact paths/revisions; preserve links instead of copying logs.
 
+## Managed role profiles
+
+Default owner and managed orchestrator: `gpt-6.1-sol/high`; bounded owner
+consultation: `gpt-6-astra/high`. Explicit user selections override these defaults.
+Worker and UI profiles come from shared
+[Execution Profile](../../phase-implementation-loop/references/shared-protocol.md#execution-profile)
+and [UI/UX Review Gate](../../phase-implementation-loop/references/shared-protocol.md#uiux-review-gate);
+independent verifier order comes from
+[Verification Chain](../../phase-implementation-loop/references/delegated-jobs.md#verification-chain). Select each role
+explicitly at launch rather than inheriting the owner's model.
+
 ## Owner index — owner is its sole writer
 
 ### Current snapshot
@@ -42,8 +53,7 @@ Record once and update only affected fields:
 
 - Milestone and acceptance criteria; canonical roadmap/plan paths and revisions.
 - Owner canonical name/native title, chat/host, actual model when known, and
-  ownership generation. Default:
-  `gpt-6.1-sol/high`; bounded advisory consultation: `gpt-6-astra/high`.
+  ownership generation under the managed role profiles above.
   Record explicit overrides separately; consultation does not transfer ownership.
 - Human authorization sources: allowed actions, modes, messaging directions,
   worktree/chat creation, handoffs, resource bounds, exclusions, pending gates.
@@ -108,7 +118,7 @@ Hard human limits and sources; owner-managed working boundaries:
 Dependencies and required revisions/commits/evidence:
 Acceptance checks and integration deliverable:
 Execution profile and capability assessment (or bounded preflight to resolve):
-Orchestrator: gpt-6.1-sol / high, unless explicitly overridden by the user:
+Orchestrator: selected model/effort under Managed role profiles:
 Commit/continuation, tracker, messaging and handoff authority:
 Human approval requester/executing chat; owner awareness pointer:
 Messaging: exact cohort/directions, original human proposal + reply references,
@@ -171,51 +181,24 @@ inspection's phase/checkpoint sequence and next due boundary in existing state.
 
 ## Context health and follow-up
 
-The owner is accountable for this policy and its follow-up; each orchestrator
-assesses its own context without waiting for an owner prompt. The owner checks
-its own context at the start of each substantive coordination turn before
-planning, dispatch or substantial evidence loading; reassess after large evidence
-or repair cycles, at terminal consultation boundaries, at outcome reviews and
-before ending the turn. Orchestrators check at phase
-boundaries and after large review/repair cycles, before the next substantial job.
-During a long phase, use terminal job checkpoints if evidence is accumulating
-or decisions are becoming difficult to retain. Never abandon an active handle
-to perform a check or launch a replacement.
+Apply the shared [context assessment](../../phase-implementation-loop/references/shared-protocol.md#context-assessment)
+for indicators, assessment states, reasons, preparation boundaries and owned-job
+supervision. Read that section only; use [managed handoff](coordination.md#handoff-and-owner-failure)
+for transfer, not standalone dispatch. Each orchestrator checks locally without
+waiting for the owner. The owner additionally checks at outcome reviews, terminal
+consultation boundaries and before ending a substantive coordination turn.
 
-Record one line in existing owner/phase state: assessment, checkpoint checked,
-brief evidence/reason, and next action. Use reliable context indicators when
-exposed; otherwise record that usage is unknown and assess accumulating evidence,
-repeated reconstruction, forgotten constraints, or confused decisions. Account
-usage/quota is not remaining chat context; do not invent percentages or a
-universal phase-count threshold. A CONTINUE reason explains why the target,
-current actor, authority, pending gates and next action remain reliably usable;
-"usage unknown" or "no active jobs" alone is insufficient. Native compaction is
-a prompt for reassessment at the next safe checkpoint, not proof of exhaustion.
-Repeated reconstruction or compaction with growing decision burden calls for
-handoff preparation; lost or contradictory settled constraints require recovery
-and a due handoff when reliable continuation is at risk.
+At existing outcome/progress reviews, read each relevant orchestrator assessment.
+Request a local check if it is missing, stale after substantial evidence, or
+behavior suggests confusion; do not infer another chat's context usage. Reuse a
+current assessment without another review, polling loop, notification or owner
+approval of healthy continuation.
 
-- CONTINUE: current decisions and authority remain reliably usable; continue.
-- PREPARE_HANDOFF: evidence/reconstruction burden is growing; refresh durable
-  state now and name the next safe boundary for reassessment or transfer. At that
-  boundary, record either evidence supporting reliable CONTINUE or HANDOFF_DUE;
-  do not repeatedly postpone the boundary with unchanged preparation statements.
-- HANDOFF_DUE: reliable continuation is at risk; settle active jobs, then perform
-  the authorized [managed handoff](coordination.md#handoff-and-owner-failure)
-  before another substantial step. Do not repeatedly defer it or merely recommend
-  a transfer already authorized. If the assignment is complete, report completion
-  instead of launching an idle successor; otherwise preserve unresolved gates.
-
-At existing outcome/progress reviews, the owner reads each relevant assessment.
-Request a local check when a due assessment is missing, predates substantial
-new evidence, or observed behavior suggests confusion; this is not proof that
-another chat is full. No extra reviewer, polling loop, per-check notification,
-or owner approval of a healthy assessment is needed. A due handoff uses existing
-handoff notifications, one named launcher, and verified successor routing.
-If authority or tooling prevents transfer, save the handoff and expose the exact
-recovery need; pause only dependent work. Independent orchestrators may continue
-during owner transfer. Preserve pending approvals and owner outcome-review gates;
-a context check or handoff does not satisfy them.
+A due managed handoff uses existing notifications, one named launcher and verified
+successor routing. If authority/tooling prevents transfer, save the handoff and
+expose the exact recovery need; pause only dependent work. Independent children
+may continue during owner transfer; settle the owner's own jobs. Preserve pending
+approvals and owner outcome-review gates; assessment or transfer satisfies neither.
 
 ## Pauses and continuation
 

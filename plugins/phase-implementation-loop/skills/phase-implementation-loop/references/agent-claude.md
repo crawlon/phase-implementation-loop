@@ -8,8 +8,8 @@ review, verification, exploration, or orchestration.
 Use the thin read-only wrapper:
 
 ```text
-codex-claude-ask --model claude-opus-5-5 "..."
-codex-claude-ask --model claude-opus-5-5 --prompt-file <path>
+codex-claude-ask --model <selected-model-id> "..."
+codex-claude-ask --model <selected-model-id> --prompt-file <path>
 ```
 
 Prefer a prompt file for long calls. If the wrapper is unavailable but `claude`
@@ -18,13 +18,13 @@ integration disabled. Adapt quoting and prompt-file input to the installed CLI
 and active shell.
 
 ```text
-claude --print --permission-mode plan --no-chrome --no-session-persistence --model claude-opus-5-5 "..."
+claude --print --permission-mode plan --no-chrome --no-session-persistence --model <selected-model-id> "..."
 ```
 
-Use the fixed `claude-opus-5-5` model id for planning/replanning fallback and
-primary verification. Do not substitute the generic `opus` alias unless
-current CLI inspection proves it maps
-to Opus 5.5. Let the orchestrator choose supported effort appropriate to the
+Load the selected model from shared Planning And Replanning or the
+`delegated-jobs.md` Verification Chain. Use the exact approved model id; a generic
+alias is acceptable only if current CLI inspection proves the same selection.
+Let the orchestrator choose supported effort appropriate to the
 phase risk. Do not hardcode unsupported effort flags.
 
 Apply terminal lifecycle, output classification, patience, and fallback rules
@@ -45,9 +45,8 @@ The current wrapper is read-only. Use it for planning, review, verification,
 risk analysis, and implementation advice. Do not claim workspace edits unless an
 explicitly available and authorized edit-capable Claude surface was used.
 
-Claude Opus 5.5 is the planning/replanning fallback after terminal Astra
-unavailability or failure. Give it the same bounded planning prompt and require
-the same output contract; do not use both planners merely to compare answers.
+For planning fallback, preserve the shared planning route's terminal prerequisites,
+bounded prompt and output contract.
 
 When the user selects Claude implementation and an edit-capable Claude surface is
 available, delegate the implementation prompt to that surface under the same
@@ -58,7 +57,5 @@ advisor only, return concrete code-level guidance to the selected edit-capable
 implementation agent. If that agent is Codex, it must be the separate worker
 subagent defined in `agent-codex.md`, never the orchestrator.
 
-Claude Opus 5.5 is the preferred external verifier. Codex Astra High is the first
-fallback and Cursor GLM 5.3 High the second under `delegated-jobs.md`.
-A Claude `BLOCKED` finding returns to implementation and must not be shopped to a
-fallback verifier.
+Verification uses `delegated-jobs.md`; a `BLOCKED` finding returns to implementation,
+never to another verifier to overrule it.

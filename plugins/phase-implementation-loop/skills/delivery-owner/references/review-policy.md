@@ -21,44 +21,21 @@ commit does not by itself require a whole-plan audit.
 
 ## Design review before consequential implementation
 
-Before work commits to a novel shared interface, irreversible migration, or
-similarly high-impact design, assign one independent read-only review of the
-decision and dependent assumptions. Record the triggering risk, precise question,
-plan/contract revision, evidence, and dependent work it gates. The reviewer did
-not author that design; the owner cannot review its own plan independently.
-Use the approved independent reviewer route and the existing
-[verdict, repair, and fallback rules](../../phase-implementation-loop/references/delegated-jobs.md),
-loading only relevant provider guidance. Do not launch a new planner or multiple
-reviewers merely for comparison.
-
-Resolve blocking findings before affected implementation or parallel consumers
-rely on the design; unrelated authorized work can proceed. A prior independent
-review covering the same unchanged decision can satisfy this gate. Routine,
-settled designs need no extra design review; record a short applicability reason
-in the assignment. Design PASS grants no execution/migration authority and does
-not replace implementation, phase verification, or later integration checks.
+Apply the shared [consequential design review](../../phase-implementation-loop/references/shared-protocol.md#consequential-design-review)
+requirements. The owner assigns the independent review and records applicability
+and dependent work in the assignment; it cannot independently review its own plan.
+Use approved reviewer transport only when needed. Blocking findings gate affected
+implementation/consumers; unrelated authorized work may continue.
 
 ## Earliest useful integration check
 
-For each interacting pair or group of plans, name the earliest executable shared
-boundary and a concrete compatibility check when planning. For example, check
-the first API response against its actual consumer before building the remaining
-consumer flows. Record the triggering deliverables, exact input revisions/commits,
-responsible integration orchestrator, authorized target, and work gated by it.
-
-Run the focused check as soon as those verified inputs are ready, rather than
-waiting for both complete plans. Reuse existing checks where they prove the same
-boundary. Dependent expansion waits for a passing result; independent work may
-continue. If the check cannot run, preserve the gate and route the missing
-evidence question to the owner or missing human authority to the executing chat.
-Do not merge unapproved commits, invent
-live-service access, or treat separate worktrees as proof of compatibility.
-
-Use the existing integration assignment and mode-specific authority. Record the
-checked revisions and evidence invalidation conditions. This early result is
-narrow evidence; combined milestone acceptance still requires its final checks.
-When inputs remain unchanged, reuse the early coverage instead of rerunning it
-solely because the milestone ended.
+Apply the shared [early integration check](../../phase-implementation-loop/references/shared-protocol.md#early-integration-check)
+requirements across the interacting plans. The owner names one integration
+orchestrator and an existing integration assignment with the triggering
+deliverables, target and dependent work. Missing/failing evidence blocks only
+dependent expansion; independent work continues. Route evidence questions to
+the owner and missing human authority directly to the executing chat. Keep final
+combined milestone verification; do not import standalone outcome-checkpoint timing.
 
 ## Bounded owner drift checkpoint
 

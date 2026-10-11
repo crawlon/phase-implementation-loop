@@ -39,17 +39,14 @@ plan sources, and required tools. Then present one compact envelope containing:
 - repository/worktree and canonical markdown plan
 - synchronized Linear issue range and authorized tracker mutations
 - dedicated branch for the whole plan
-- planning/replanning route: Codex `gpt-6-astra` at high reasoning, with Claude
-  Opus 5.5 fallback
+- planning/replanning route and fallback under the shared planning rule
 - per-phase capability assessment and resolved plan-detail/implementer choices
 - useful phase boundaries, applicable consequential-design and early integration
   checks, and meaningful cumulative outcome checkpoints under the shared policy
-- implementation: separate Codex `gpt-6-luna` at `max`, then Cursor Grok 4.7
-  at phase-appropriate effort, then a suitable available edit-capable worker
-- verifier chain: Claude Opus 5.5, then fresh Codex Astra High, then Cursor
-  GLM 5.3 High
+- separate implementation route and fallbacks under shared Execution Profile
+- independent verifier chain under `delegated-jobs.md`
 - UI/UX review route for UI-affecting phases: dedicated Codex reviewer,
-  `gpt-6-luna` at `max` reasoning unless explicitly overridden
+  selected profile under the shared UI/UX Review Gate
 - permission to edit, test, stage exact phase-owned paths, create focused local
   commits, and continue through every listed phase
 - exact targets, allowed actions, risks, incidental effects, repair/retry bounds,
@@ -63,6 +60,9 @@ Obtain one explicit approval unless the user's autopilot request already names
 the same repository, plan/phase range, local commit-and-continue authority, and
 prohibited-action boundary. Never infer broader authority from the word
 “autopilot.”
+
+Name actual selected models/effort in the envelope, using those default sources
+and preserving explicit user overrides.
 
 Reuse established session authority for ordinary steps, approved verifiers, and
 repairs within these bounds; do not ask again merely because a new phase starts.
@@ -152,7 +152,7 @@ Stop and ask for operator guidance when:
 - unexpected partial writes appear
 - a phase's capability assessment changes materially or its approved route becomes
   incompatible with the plan detail or discovered risk
-- planning/replanning is required but neither Astra High nor Opus 5.5 is
+- planning/replanning is required but neither approved planning route is
   available, unless the startup envelope explicitly allows degraded
   orchestrator planning
 - an action outside the startup envelope requires permission

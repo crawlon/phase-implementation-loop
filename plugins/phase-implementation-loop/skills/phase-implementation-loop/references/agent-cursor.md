@@ -12,12 +12,8 @@ Preferred thin wrappers:
 - Implementation: `codex-cursor-impl`
 
 Pass the selected model per call with `--model`. Wrappers may also honor
-`CODEX_CURSOR_MODEL`, but per-call selection wins. Current configured routes are:
-
-- Grok 4.7: first implementation fallback after Codex Luna 6 Max; choose effort
-  for the phase and its corresponding surfaced id, such as `grok-4.7-high`.
-- `glm-5.3-high`: second verification fallback after Claude Opus 5.5 and Codex
-  Astra High.
+`CODEX_CURSOR_MODEL`, but per-call selection wins. Load implementation defaults
+from shared Execution Profile and verifier order from `delegated-jobs.md`.
 
 Treat model ids as configured defaults, not permanent inventory. Check
 `cursor-agent models` when a configured id fails or the user changes available
@@ -31,8 +27,8 @@ do not ask Cursor to choose or run comparison prompts.
 Examples:
 
 ```text
-codex-cursor-impl --model grok-4.7-high "..."
-codex-cursor-ask --model glm-5.3-high "..."
+codex-cursor-impl --model <selected-model-id> "..."
+codex-cursor-ask --model <selected-model-id> "..."
 ```
 
 If wrappers are unavailable but `cursor-agent` exists, use non-interactive
@@ -87,10 +83,9 @@ Use `agent-prompts.md` for the selected role. Cursor implementation must use an
 edit-capable surface such as `codex-cursor-impl`; ask/plan output is guidance for
 the selected implementation agent, not code for the orchestrator to apply.
 
-Use GLM verification only after the Claude and Astra routes are terminally
-unavailable or `INCONCLUSIVE`, or when the user explicitly selects it. Never use
-GLM to overrule a `BLOCKED` finding from either tier. Check availability before
-use; do not silently substitute an older GLM model.
+Use verification only at the selected chain's permitted tier under
+`delegated-jobs.md`, never to overrule `BLOCKED`. Check the selected model's
+availability; do not silently substitute another model.
 
 ## Cursor Goal State
 

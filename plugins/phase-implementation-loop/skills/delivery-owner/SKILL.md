@@ -12,8 +12,8 @@ support that outcome; necessary understanding and verification take priority.
 
 The owner controls planning, dependencies, assignments and milestone acceptance.
 Managed orchestrators own execution, worker supervision and phase evidence;
-independent reviewers retain verification. Default owner and managed orchestrator:
-**GPT-6.1 Sol High** (`gpt-6.1-sol/high`). Preserve explicit user overrides and
+independent reviewers retain verification. Use the
+[managed role profiles](references/contracts.md#managed-role-profiles). Preserve explicit user overrides and
 worker/reviewer profiles. Record the actual model when exposed, otherwise unknown;
 resolve a mismatch through supported controls or authorized handoff. Loading a
 skill does not change a running chat's model.

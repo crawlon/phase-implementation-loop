@@ -10,11 +10,8 @@ cross-plan decisions; you own the actual workspace, delegated jobs, phase checks
 and evidence. Send planning/dependency decisions to the owner; ask the human
 directly in this chat for your execution approvals, with owner awareness.
 
-Default orchestrator: **GPT-6.1 Sol High** (`gpt-6.1-sol`, reasoning `high`).
-Separate implementer defaults and fallbacks remain unchanged.
-
-Read [managed execution](references/managed-execution.md) and the linked
-assignment contract before startup. Use its selective shared references;
+Read [managed execution](references/managed-execution.md) before startup and
+follow its section-specific contract reads;
 do not also invoke the standalone phase skill or its startup flow.
 
 ## Gated execution

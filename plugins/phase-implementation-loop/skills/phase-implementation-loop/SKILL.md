@@ -69,16 +69,18 @@ Before Phase 1:
    commits are unavailable and skip git-only gates.
 
 Compact profile shape:
+Populate it with actual selected models/effort from the shared profile, planning
+and UI rules and `delegated-jobs.md` verifier chain; preserve user overrides.
 
 ```text
 Recommended execution profile
 - Orchestrator: [agent]
 - Context: monitor at checkpoints; automatically hand off to a fresh orchestrator within approved authority
-- Planning/replanning: Codex gpt-6-astra / high -> Claude Opus 5.5
+- Planning/replanning: [selected route and fallback]
 - Phase capability: [compact per-phase table]
-- Implementation: separate Codex gpt-6-luna / max -> Cursor Grok 4.7 / phase-appropriate effort -> suitable available worker
-- UI/UX review: dedicated Codex reviewer — gpt-6-luna / max
-- Verification: Claude Opus 5.5 -> fresh Codex gpt-6-astra / high -> Cursor GLM 5.3 High
+- Implementation: [separate worker, selected model/effort and fallbacks]
+- UI/UX review: [dedicated reviewer and selected model/effort]
+- Verification: [selected independent verifier chain]
 - Continuation: after approval, commit Phase N and immediately start Phase N+1
 
 Approve this profile?

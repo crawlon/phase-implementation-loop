@@ -6,8 +6,16 @@ verification or safety requirements.
 
 ## Reference boundaries
 
-Read the [assignment/checkpoint contract](../../delivery-owner/references/contracts.md)
-and this protocol first. Reuse the following sections of the existing
+Read this protocol and only these contract sections at startup:
+[managed role profiles](../../delivery-owner/references/contracts.md#managed-role-profiles),
+[assignment](../../delivery-owner/references/contracts.md#assignment--owner-writes-orchestrator-acknowledges),
+[checkpoint](../../delivery-owner/references/contracts.md#checkpoint--orchestrator-writes-its-own-phase-state),
+[decision classification](../../delivery-owner/references/contracts.md#classify-before-escalating),
+and [context health](../../delivery-owner/references/contracts.md#context-health-and-follow-up).
+Read [human decision routing](../../delivery-owner/references/contracts.md#route-by-who-decides-and-who-executes)
+when an approval is needed, and [pauses](../../delivery-owner/references/contracts.md#pauses-and-continuation)
+when blocked. Read the assignment's integration-specific fields before integration;
+owner-index authoring instructions belong to the owner. Reuse these sections of the existing
 [shared protocol](../../phase-implementation-loop/references/shared-protocol.md):
 
 - Delivery And Evidence Discipline
@@ -35,23 +43,22 @@ and only the selected provider references:
 Reuse their implementation/UI/verification mechanics. Where they route
 substantive planning to a fresh planner, route the bounded question to the
 delivery owner instead. Do not spawn a redundant Astra planner.
-The default Sol 6.1 High owner decides whether its bounded Astra High
+The owner decides whether its bounded Astra
 consultation policy applies. Consultants advise that owner, never assign work
 directly to orchestrators. Do not import standalone planner fallback rules into
 this managed path; worker and independent-verifier fallback rules still apply.
 
 ## Managed orchestrator model
 
-Run the plan orchestrator on **GPT-6.1 Sol High** (`gpt-6.1-sol`, reasoning
-`high`) unless the user explicitly selects another orchestrator profile. Record
+Use the [managed role profiles](../../delivery-owner/references/contracts.md#managed-role-profiles)
+unless the user explicitly selects another orchestrator profile. Record
 this separately from implementation and review roles. A skill cannot change its
 current chat's model: verify the active selection when exposed and disclose an
 unknown or mismatched model. Resolve it through the owner before execution;
 do not claim the requested model ran merely because the assignment names it.
 
-Implementation keeps the reused protocol's existing defaults, capability
-assessment and fallback rules: a separate `gpt-6-luna` worker at `max` reasoning
-by default. Explicitly select the worker profile at launch rather than inheriting
+Implementation uses shared Execution Profile defaults, capability assessment
+and fallback rules. Explicitly select the worker profile at launch rather than inheriting
 the Sol orchestrator's model. Independent-reviewer profiles remain unchanged;
 owner and consultant defaults are defined by the Delivery Owner skill.
 
