@@ -62,6 +62,11 @@ Validate `context-rollover.md` in dry-run; do not create real chats for this pac
 
 | Input | Required behavior |
 | --- | --- |
+| Standalone scheduled review has no owner request and the phase remains unfinished through growing tooling effort. | Apply the shared cumulative goal assessment, decide the next direction/outcome and use the retained planner when its triggers warrant. Do not create an owner, planner-signature gate or arbitrary operational budget. |
+| Standalone successor claims the right generation but has not read the exact trial skill or carried the latest convergence rationale. | Reconcile the trial role/entrypoint and goal state before reporting complete adoption. Preserve mode, active gates, owned-job settlement and independent execution; no current-skill substitution from legacy history. |
+| Standalone orchestrator asks retained planner for debugging, implementation tactics or routine sequencing. | Planner declines misplaced substantive advice and returns responsibility to bounded technical consultation or the orchestrator's local execution/decision route. No owner creation, consultant dispatch by the planner or new planner-signature gate. |
+| Standalone request mixes a technical blocker with a threatened milestone assumption. | Planner reviews the strategic consequence and names decisive technical evidence; orchestrator commissions the bounded consultant if needed. No duplicate strategic consultation or lost acceptance, repair or commit gate. |
+| Standalone orchestrator has no retained planner and a distinct unresolved technical question. | Preserve the existing bounded planning/technical route and fallbacks; the scope filter does not require a permanent planner or owner. |
 | Trial standalone mode has a selected retained planner and substantive strategic ambiguity. | Use its verified authorized route; no duplicate default planner, owner creation or silent provider fallback. |
 | No retained planner was selected. | Retain bounded planning/default fallback and all execution gates. |
 | Planner sends an advisory aligned result while commit approval is pending. | Preserve the human gate and independent verification; advice is not approval. |

@@ -31,13 +31,10 @@ Reconcile this launcher binding before creating/adopting any execution actor.
    original authority references, and required startup acknowledgement in the
    initial prompt. Instruct the child to read that skill and its required startup
    references automatically; no manual child invocation is needed. Do not fork the
-   owner's full history. Set model/effort only within tool rules and the user's
-   approved profile; a skill does not silently change a chat's model.
-   For the user-approved Sol 6.1 High orchestrator profile, pass
-   `model: gpt-6.1-sol` and `thinking: high` to `create_thread`. This configures
-   the orchestrator chat, not its implementation subagents. For a reused chat,
-   verify or resolve its model through supported controls and existing authority
-   before execution; do not silently launch a competing orchestrator.
+   owner's full history. Use the shared [role-profile launch contract](../../phase-implementation-loop-trial/references/shared-protocol.md#role-profiles):
+   pass approved model/effort explicitly and verify native runtime evidence before
+   adoption, including reused chats. Resolve mismatches in the same chat under
+   existing authority; skill loading does not change model or reasoning.
 3. Use separate worktrees/branches for simultaneous plans, one branch for all
    phases of a plan. Request worktree creation explicitly in the approved
    agreement. Native managed worktree tools are preferred. If starting from a
@@ -168,14 +165,11 @@ purposes, permitted repository/evidence content, and exclusions. Capture the act
 when the reply is “approved”. A skill invocation, owner assignment, quoted consent,
 or request to report back is not independent human consent.
 
-For ongoing cohorts, propose explicit human coverage for both directions and
-verified successors in the same roles/roadmap, with bounded message purposes
-(assignments, decisions, dependency deliveries, stops and completion), including
-internal repository/security evidence if required by the work and actually approved. That avoids
-asking separately for each routine event or replacement destination. The approval
-must actually cover succession; an old chat-ID-only grant does not automatically
-cover a new ID. Read and reuse existing human replacement/cohort instructions
-before asking again. An index entry binds identity but cannot manufacture consent.
+At startup or the first discovered gap, use the [bounded coordination agreement](../../roadmap-planner-trial/references/workflow-startup.md#bounded-coordination-agreement)
+for remaining same-assignment messaging and succession. Reuse valid coverage;
+if grants cover only named IDs or one generation, propose the missing bounded
+coverage once with the concrete next action. Retain narrower human choices.
+An index binds new identities to an approved role/cohort; it cannot create consent.
 
 Carry concise source references into dispatch and notification calls; the receiver
 checks original human evidence through supported reads before relying on it.
@@ -208,35 +202,33 @@ messages; subsequent platform rejection still needs its own recorded recovery.
 Keep independent authorized work moving; only actions needing the undelivered
 decision or genuine authority pause. Describe a permission-review rejection as
 such, rather than claiming there was no human consent or the owner is unreachable.
-External verifier transmissions are separate authority; a working internal
-message route does not authorize exporting a review packet.
+External delegation uses the shared [provider-consent rule](../../phase-implementation-loop-trial/references/shared-protocol.md#external-provider-consent).
+Reuse applicable workflow-wide consent; internal message authority alone does not
+cover provider transfers, and separate authority does not mean per-call approval.
 
 ### Deliver events, not conversations about events
 
-Follow the checkpoint contract's notification triggers. Sending a message can
-start an idle owner's turn and consume owner tokens. Keep ordinary GREEN phase
-checkpoints in durable state for observation; notify for agreed owner drift
-checkpoints, actionable events, or an explicit human reporting preference.
-Send one decision request with a recommendation, or one actionable delivery with
-its recipient and next action. Deduplicate by assignment/revision and sequence.
-Do not forward worker start/finish, provisional findings followed immediately by
-the same terminal finding, routine acknowledgements, or peer copies that do not
-change the recipient's next action. Urgent risk and user reporting requests win.
+A message should change the recipient's next action: a required decision, agreed
+outcome inspection, material risk, human gate, handoff or completion. Send one
+request with a recommendation or actionable delivery; deduplicate by assignment/
+revision and sequence. Startup, changed assignments and ownership transfers still
+require acknowledgement, included in the next substantive update. Routine worker
+starts, test results and review progress stay in execution state for observation.
+Human reporting preferences and urgent risks override normal quietness.
 
-Planner recommendations use the shared
-[retained-planning protocol](../../roadmap-planner-trial/references/retained-planning.md#direction-reviews).
-A standalone coordinator applies advice under its own mode; managed owner gates
-do not transfer to standalone merely because this reference was read.
-The receiving owner applies its delivery-decision loop:
-resolve a supported in-scope decision in that turn and send the concrete next
-action, responsible actor and planned observable result. Informational events
-only update affected current state; they add no investigation or review gate.
-Missing human approval follows the contract's executing-
-chat route; owner awareness is not a relay or acknowledgement gate. A producer
-sends an actionable dependency delivery once; the
-consumer validates it and continues without another generic owner acceptance.
-Do not await a reply unless the checkpoint names a real gate. Use the
-[pause contract](contracts.md#pauses-and-continuation) at every genuine wait.
+The owner resolves supported in-scope decisions and sends the next action/result.
+An informational arrival needs no receipt message, new investigation or duplicate
+status report; update its current brief only if delivery state materially changed.
+Required acknowledgement establishes adoption, not another acknowledgement round.
+Continue covered work without a reply unless a genuine gate is named under the
+[pause contract](contracts.md#pauses-and-continuation). Failed required delivery
+uses recovery; quietness must not hide a pending decision or broken route.
+
+Planner advice follows the shared [direction review](../../roadmap-planner-trial/references/retained-planning.md#direction-reviews).
+Standalone coordinators keep their own mode; managed owner gates do not transfer
+merely because this reference was read. Human approvals stay with the executing
+actor; owner awareness adds no receipt gate.
+
 
 ### Bound owner observation
 
@@ -278,10 +270,9 @@ so a transfer does not leave supervision attached to a retired role.
 
 For requested later/recurring supervision, use native heartbeat automation with
 the index pointer, cohort, allowed actions and stop condition. Propose a modest
-recovery cadence (for example 10–15 minutes, subject to tool support and urgency),
-not another minute-by-minute supervisor. Check only changed/stale checkpoints
-and unresolved waits; stay quiet on unchanged/non-actionable state and do not
-duplicate active owner work or resend unchanged decisions. Use native automation
+recovery cadence appropriate to the work and urgency. Use the shared
+[change-first wakeup rule](../../roadmap-planner-trial/references/retained-planning.md#wakeups-and-economical-coordination)
+for unchanged waits and due reviews; avoid duplicate owner work. Use native automation
 controls and record its identity; never write raw schedule directives. Disable
 the assignment-specific schedule on completion or user cancellation within its
 approved lifecycle. No scheduler means no timed wakeup promise. Heartbeats also
@@ -309,9 +300,17 @@ directly for missing action authority; do not call the milestone delivered.
 
 ## Handoff and owner failure
 
+Every trial role transfer uses the [role and goal continuity requirements](../../phase-implementation-loop-trial/references/context-rollover.md#safe-transfer):
+actual role/writer responsibilities, exact trial entrypoint to read, last goal
+assessment and rationale, next outcome and review cadence. Carry the approved
+role/model/effort, fallback scope and human selection source. Verify native settings
+and skill/role binding before claim/adoption; titles, prompt text and exclusive
+claims alone do not prove the successor uses the selected profile.
+
 ### Permission continuity at handoff
 
-In the existing handoff packet, preserve for each required direction:
+Carry external provider-consent sources and scope under the shared rule above.
+For internal messages, preserve each required direction in the existing packet:
 
 ```text
 Original human proposal + approval source references and exact covered scope:
@@ -322,7 +321,7 @@ Pending decision/checkpoint; next actor, permitted continuation and recovery rou
 ```
 
 Include planner-to-coordinator directions and planner binding when present, plus
-the trial version, last direction-review coverage, open strategic questions and
+the trial version, last goal-assessment window/judgment/rationale, open questions and
 heartbeat identity/actual target. Claiming a role does not prove schedule rebinding.
 
 Read original evidence and current claims before relying on this packet; a copied

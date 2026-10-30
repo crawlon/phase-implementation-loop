@@ -29,8 +29,9 @@ approval, independent-verification or handoff rules.
    through GREEN or a stop, settling every delegated handle.
 2. If blocked, record the specific pause state, decision, next actor and resume
    event under the assignment contract. Classify the decision before escalating:
-   act on routine execution, send working-plan refinements to the owner, and ask
-   the human only for a reserved decision or unmet authority. Send one focused request via the
+   handle delegated technical choices/repairs locally with required review; send
+   changed outcome, invariant or assignment boundaries to the owner, and ask the
+   human only for a reserved decision or unmet authority. Send one focused request via the
    established route, or expose a delivery failure using coordination recovery.
    End at the genuine pending gate after settling active jobs; do not poll
    yourself or mistake an informational checkpoint for a stop.

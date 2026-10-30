@@ -44,10 +44,10 @@ issue closure, or cross-plan integration. Each needs its own established scope.
 
 ## Continuous execution
 
-Classify stops using the assignment contract before asking the human. The owner
-resolves working-plan refinements within delegated bounds, consulting Astra when
-needed. A plan amendment alone does not cancel autopilot authority or create a
-human approval gate. Existing hard limits and reserved product decisions remain.
+Classify stops using the assignment contract. Delegate technical choices/repairs
+within its invariants and required reviews locally; changed assignment boundaries
+go to the owner. A plan amendment alone neither cancels valid autopilot authority
+nor creates a human gate. Existing hard limits and reserved decisions remain.
 
 1. Run the managed phase protocol, settling implementation and verification jobs.
 2. If GREEN within the envelope, update state, recheck status, stage only owned

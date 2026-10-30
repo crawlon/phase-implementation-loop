@@ -6,13 +6,15 @@ description: Explicit trial workflow entrypoint in the existing planning chat. S
 # Roadmap Planner Trial
 
 Start the approved plan from this planning chat, then keep its agreed outcome
-and rationale usable across execution and handoffs. The human selects this
-workflow once; child chats receive their required skills in their startup prompts.
+and rationale usable across execution and handoffs. After startup, regularly
+assess whether cumulative work is converging on that outcome; proposing budgets
+or recording activity is not delivery oversight. The human selects this workflow
+once; child chats receive their required skills in their startup prompts.
 
 Read the [retained-planning protocol](references/retained-planning.md) at startup,
-when reviewing direction, proposing a plan, or adopting a successor. Default to
-`gpt-6-astra/high` unless explicitly overridden. Verify the actual profile when
-exposed; a skill does not switch a running chat's model.
+when reviewing direction, proposing a plan, or adopting a successor. Use the
+shared [role profiles](../phase-implementation-loop-trial/references/shared-protocol.md#role-profiles)
+for selection and runtime verification; skill loading does not change the model.
 
 ## Start execution from the planning chat
 
@@ -37,10 +39,10 @@ and canonical execution state; return to retained planning and direction review.
 2. Identify the delivery coordinator: the trial owner, or the trial standalone
    orchestrator when there is no owner. It applies canonical plan revisions and
    dispatches execution. Read the fixed goal, criteria, plan/rationale, concise
-   learning summary and latest relevant delivery state. Record unknowns rather
-   than filling them from old conversation history.
+   [current brief](../delivery-owner-trial/references/contracts.md#current-snapshot)
+   and next-action evidence. Record unknowns rather than inferring from old history.
 3. Establish authorized planner-note paths, message directions/content, review
-   boundaries, safe succession and the actual event or recovery route. Use
+   boundaries/cadence, safe succession and the actual event or recovery route. Use
    [shared coordination](../delivery-owner-trial/references/coordination.md)
    only for the applicable identity, messaging, observation or transfer section.
    Planner notes are yours; the canonical plan/index and execution resources are
@@ -48,18 +50,24 @@ and canonical execution state; return to retained planning and direction review.
 
 ## Plan or review
 
+Use the shared [change-first wakeup check](references/retained-planning.md#wakeups-and-economical-coordination).
+When a review is due during active work or a material direction signal arrives,
+assess progress from the last meaningful capability milestone without waiting for
+an advice request. Keep healthy execution running; unchanged pending human gates
+need no repeated assessment or state rewrite.
+
+For an owner or standalone orchestrator request, apply the
+[request scope check](references/retained-planning.md#request-scope-and-routing)
+before substantive analysis. Answer strategic planning/direction questions;
+decline misplaced advice briefly and return it to the responsible role. An
+uncertain coordinator does not by itself justify planner involvement.
+
 For a planning frontier, develop one concrete proposal with ordered observable
 slices, acceptance checks, dependencies, relevant risks and exclusions. Keep
 distant steps outlined. Inspect bounded repository evidence where necessary;
-request specific discovery if a decisive fact is missing. Proposals do not
+request [bounded research](../phase-implementation-loop-trial/references/shared-protocol.md#bounded-research)
+through the coordinator if a decisive fact is missing. Proposals do not
 authorize implementation or change product scope.
-
-For a direction review, read cumulative progress since the last meaningful
-review and the latest relevant phase evidence, including unfinished phases.
-Ask what capability or necessary learning advanced, what blocks the next result,
-why preparation is required, and what result ends it. Compare against the fixed
-goal, not just the owner's framing. Be willing to change a plan you authored.
-Required tests, independent assurance and justified groundwork remain required.
 
 Return the [bounded recommendation](references/retained-planning.md#direction-reviews)
 to the coordinator. Keep detailed technical diagnosis in a bounded consultant
@@ -86,6 +94,7 @@ before substantive work and after large evidence cycles. Prepare concise durable
 rationale and learning before context becomes unreliable. When due and authorized,
 use [role handoff](../delivery-owner-trial/references/coordination.md#handoff-and-owner-failure)
 with one launcher, an exclusive session-bound claim, current directory, permission
-continuity and any heartbeat rebinding. Preserve open strategic questions and
-execution gates; other roles continue independently. A distinct technical question
+continuity and any heartbeat rebinding. Preserve the last goal assessment, its
+rationale, next observable result and review cadence as well as open questions
+and execution gates; other roles continue independently. A distinct technical question
 does not itself require a new retained planner.

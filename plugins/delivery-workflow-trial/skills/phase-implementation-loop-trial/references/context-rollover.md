@@ -11,26 +11,40 @@ preparation need no planner, verifier, separate phase, or routine approval.
 
 ## Safe Transfer
 
+Resolve the actual retained role from the assignment and writer responsibilities,
+not the chat title or a historical combined label. A planner uses
+`roadmap-planner-trial`; an owner uses `delivery-owner-trial`; an orchestrator
+retains its exact managed/standalone and gated/autopilot trial entrypoint. Record
+the skill name and verified absolute `SKILL.md` path. Resolve the selected
+model/effort, permitted fallback and original human selection under the shared
+[role profiles](shared-protocol.md#role-profiles) before relinquishment or dispatch;
+use the approved role row, not an incidental predecessor/app default. Renaming an index writer
+"Planner" does not make it an advisory planner; changing that responsibility
+requires explicit adoption and canonical-writer handover under the
+[trial agreement](../../roadmap-planner-trial/references/retained-planning.md#adoption-and-switching-back).
+
 1. Use an existing checkpoint before the next substantial step. Drive every
    owned delegated handle to terminal completion under `delegated-jobs.md`; preserve
    services and workspace changes. Do not launch a successor while a worker,
    verifier, or operational write is still in flight. If safe quiescence is
    impossible, save known state/handles and report the limitation without
    launching a competing orchestrator.
-2. Update the existing current-status summary with phase and exact gate,
-   next authorized action, repository/host/worktree, branch/HEAD, dirty-path
-   ownership, accepted evidence/conditions, relevant service targets, approvals
-   and exclusions, unresolved decisions, model profile and latest context
-   assessment/reason/boundary. Reference existing
-   receipts instead of copying logs, diffs, or full chat history.
-3. Write a concise handoff packet to a unique file in the OS temporary directory.
-   Include absolute pointers to the canonical plan and current status, source
-   chat/approval references when available, selected phase skill, transfer
-   generation, unique transfer token, exclusive-claim location/mechanism,
-   preserved gate, and exact next action. Summarize human authorization with its
-   evidence; omit
-   secrets, credentials, and unnecessary personal data. The existing status
-   summary remains durable authority if the temporary file expires.
+2. Update the shared [current brief](../../delivery-owner-trial/references/contracts.md#current-snapshot)
+   in the existing role state. Link exact workspace/dirty ownership, evidence
+   validity, authority, gates and next-action technical references. Preserve the
+   last meaningful milestone, goal assessment/rationale, assumptions, next result
+   and review cadence/route. Link useful execution knowledge such as the working
+   verifier invocation and known environment limitations; do not copy transcripts.
+   Carry [provider consent](shared-protocol.md#external-provider-consent) and its
+   original source/profile selection, scope, successor coverage and actual route
+   limitations. Retain superseded allowances as history, not revived stop gates.
+3. Write a compact transfer envelope to a unique OS temporary file, pointing to
+   the canonical plan and current brief/revision. Add source chat/original approval
+   references, actual role and exact trial entrypoint, generation, unique transfer
+   token, exclusive-claim location/mechanism, preserved gate and next action.
+   Reference existing investigation and receipts rather than restating them. Omit
+   secrets, credentials and unnecessary personal data. The durable role state
+   retains these transfer facts if the temporary file expires.
 4. Verify that automatic successor creation is explicitly authorized by the
    user or approved envelope and supported by the active surface. Record the
    new generation, handoff pointer, transfer token/claim location, and source relinquishment
@@ -41,11 +55,12 @@ preparation need no planner, verifier, separate phase, or routine approval.
    below and access to the existing phase workspace. Do not use an ordinary
    implementation subagent or a history-preserving fork as a context reset.
    Do not create a new checkout, reset/clean/stash work, or restart services to
-   make rollover convenient. Preserve the user-approved model profile; do not
-   silently force a new orchestrator model.
+   make rollover convenient. Pass the approved model and reasoning explicitly
+   through native controls, carrying their selection source and fallback scope.
 6. Observe startup through the returned handle and a compact status snapshot.
    Confirm the successor has reconciled workspace identity and claimed the
-   recorded generation before reporting successful transfer. Do not wait for
+   recorded generation after native model/effort verification, read the matching
+   trial skill and identified the next observable result before confirming transfer. Do not wait for
    the whole remaining plan or repeatedly poll unchanged progress. Report the
    successor chat/session and preserved next step, then end source execution.
 
@@ -55,15 +70,23 @@ include the exact phase worktree in the prompt. A saved project's default
 checkout may differ from that worktree: the successor must establish access to
 and use the recorded worktree for every command, not the default checkout.
 If the surface cannot provide that access, stop without workspace mutation.
-Set a model only when explicitly selected by the user; otherwise retain the
-surface's configured default. A queued creation id is not a ready thread id.
+Reuse the explicit human role-profile selection for model and reasoning. Missing
+selection or an unsupported pair is resolved before launch under Role profiles;
+never silently substitute the surface default. A queued creation id is not a ready thread id.
 Use native startup/status tools and report the created-thread reference where
 supported. Initial creation carries continuation instructions; it does not
 authorize messaging unrelated chats.
 
 ## Successor Contract
 
-Read the packet, canonical plan, current status, and applicable instructions.
+Read the envelope, exact trial entrypoint/required references and current brief;
+follow next-action evidence links before loading wider history. Reconcile the
+actual role, loaded skill/path, writer responsibilities, assignment and next
+authorized action before claiming ownership. Verify native model/effort against
+the approved role row under Role profiles before claim or role writes; expose
+mismatch/unobservable settings and resolve in the same chat. A title, prompt or
+historical skill path cannot establish this binding. Resolve conflicting role instructions
+read-only; preserve independent execution while a binding decision is missing.
 Before any action beyond read-only reconciliation, verify recorded host,
 repository/worktree, branch/HEAD, changed-path ownership, service/evidence
 conditions, and inherited human authority. Check that the generation and transfer
@@ -86,6 +109,8 @@ scope, commit authority, and stop gates unchanged. Do not restart Phase 1,
 rerun valid audits, waive blockers, or infer permission from a handoff summary
 alone. Reconcile authorization against available original user approval evidence;
 if it cannot be established, ask for the missing decision before dependent work.
+Verify inherited provider coverage under the shared rule; a thread change alone
+creates no new external-sharing approval gate.
 Keep the same delegated role separation and monitor context at later checkpoints.
 
 ## Failure And Recovery
@@ -106,23 +131,23 @@ instead of launching a successor merely because context is large.
 ## Continuation Prompt
 
 ```text
-Continue the recorded trial assignment as its fresh [orchestrator | owner | planner].
-Retained role and permitted note/index/execution writes: [exact role and boundaries].
-Coordinator/planner directory, direction-specific permissions and route results: [pointers].
-Optional heartbeat identity and required authorized rebinding: [identity or none].
-Read [absolute handoff path] and [absolute current-status/canonical-plan paths].
-Source chat/approval evidence: [verified references or exact available evidence].
-Host and exact phase workspace: [host/path]; branch/HEAD: [recorded identity].
+Continue [assignment] as its fresh [orchestrator | owner | planner].
+Retained role and permitted note/index/execution writes: [role/boundaries].
+Exact trial skill name and absolute SKILL.md to read: [name/path].
+Read [absolute transfer envelope] and [canonical plan/current brief revision].
+Host and exact phase workspace: [host/path]; branch/HEAD: [identity].
 Transfer generation/token and exclusive-claim location: [generation/token/path].
-Mode and model profile: [approved skill/profile].
-Preserved gate and next authorized action: [gate/action].
+Mode: [approved skill]. Model/effort, permitted fallback and original human selection: [row/source].
+Preserved gate and next authorized action/outcome: [gate/action/result].
 
-Follow the selected phase skill and its context-rollover.md successor contract.
-First reconcile identity, ownership, evidence conditions, and original authority
-read-only; then exclusively claim the generation using your distinct session
-identity before other mutations. Stop if already claimed or exclusivity cannot
-be established. Report
-that startup result briefly. Use the exact phase workspace for every command;
-do not substitute the task's default checkout. Preserve pending approvals and
-all exclusions, reuse still-valid evidence, and continue only authorized work.
+Follow the exact trial entrypoint, required references and successor contract.
+Use the brief's original authority, assessment, technical evidence and verified
+coordination/heartbeat routes; resolve missing or conflicting bindings read-only.
+Verify native model/effort under Role profiles before claiming. Then exclusively claim the generation with your distinct session identity before
+other mutations. Stop if already claimed or exclusivity cannot be established.
+Briefly report actual role, native model/effort evidence, skill/path, assignment,
+exclusive claim and next result.
+Use the recorded workspace for every command, preserve gates/exclusions and
+still-valid evidence, and continue only authorized work. Do not import a legacy
+skill from history or turn proposed technical mechanisms into new approval gates.
 ```

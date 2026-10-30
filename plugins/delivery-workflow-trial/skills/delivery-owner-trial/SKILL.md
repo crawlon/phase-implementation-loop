@@ -38,9 +38,9 @@ creating an assignment. Preserve the [startup launch chain](../roadmap-planner-t
    [current snapshot](references/contracts.md#owner-index--owner-is-its-sole-writer).
    Reconcile actors, custody, original authority and pending gates. An observation
    request permits observation and recommendations only.
-2. Establish the next outcome, acceptance and compatibility obligations,
-   delegated decisions, resources, exclusions and execution mode. Preserve hard
-   human limits. Read [role profiles](references/contracts.md#managed-role-profiles);
+2. Assign the next outcome and security/privacy/compatibility invariants,
+   delegated technical choices, resources and reserved decisions. Distinguish
+   proposed mechanisms from mandatory restrictions; preserve existing hard limits. Read [role profiles](references/contracts.md#managed-role-profiles);
    record the actual selected profile, or unknown, without claiming a skill
    changed the running model.
 3. For dispatch, read the [assignment](references/contracts.md#assignment--owner-writes-orchestrator-acknowledges)
@@ -58,12 +58,15 @@ Run this loop on an actionable event or due outcome inspection. Routine GREEN
 phases stay local and continue under their existing authority.
 
 1. **Establish progress.** Read the snapshot, affected row and changed checkpoint.
-   Compare cumulative evidence with the last actual outcome inspection: criteria
-   advanced, usable capabilities, assumptions resolved and remaining blockers.
+   Compare with the last meaningful capability milestone and latest inspection:
+   criteria advanced, assumptions resolved, cumulative prerequisites and blockers.
    Inspect raw evidence for a gap, contradiction, material risk or stale summary;
    name the question and stop when the decision is supported.
 2. **Check direction before advising.** Identify the next planned observable
-   result. For proposed preparation, repairs or harness work, establish the
+   result and assess cumulative progress under the shared
+   [goal-progress review](../roadmap-planner-trial/references/retained-planning.md#direction-reviews)
+   at due outcome checks and scheduled reviews, not just after an advice request.
+   For proposed preparation, repairs or harness work, establish the
    blocker or required invariant served, decisive evidence and stopping condition.
    Necessary groundwork may continue. Repeated activity without new learning or
    criterion coverage requires a changed approach or a concrete missing decision.
@@ -71,15 +74,16 @@ phases stay local and continue under their existing authority.
    even inside an unfinished phase; evaluate the original plan as well as execution.
 3. **Resolve the delivery decision.** Leave authorized routine execution with its
    orchestrator. Resolve working-plan/dependency decisions within delegated bounds;
-   use the retained planner for substantial roadmap proposals and direction review,
+   classify requests under the shared [scope check](../roadmap-planner-trial/references/retained-planning.md#request-scope-and-routing).
+   Use the retained planner for substantial roadmap proposals and direction review,
    and [bounded consultation](references/astra-consultation.md) for a difficult
    technical question. Keep diagnosis with the executing actor. Route genuinely
    reserved choices or missing permissions directly to the executing chat.
 4. **Move the responsible actor forward.** Apply supported proposals to the
    canonical plan within authority, reconcile affected dependencies, and obtain
    acknowledgement of changed assignments. Send one concrete next action and
-   observable result when needed. Preserve real gates; independent authorized
-   work continues. Informational events need no reply or new review.
+   observable result when needed. Independent authorized work continues.
+   Informational events need no receipt, duplicate status report or new review.
 
 Record the decision, evidence limits, next result/actor and next inspection in
 existing state. Process already available decisions before ending the turn.
@@ -103,6 +107,8 @@ Reassess context after large review/repair cycles, terminal consultations and
 before ending substantive coordination. Perform a due authorized
 [exclusive handoff](references/coordination.md#handoff-and-owner-failure), carrying
 pending decisions, approvals, planner binding and actual communication results.
+Carry the last goal assessment/rationale, next observable result and review route;
+verify that the successor reads the trial entrypoint matching its actual role.
 Independent children may continue while the owner transfers; settle the owner's
 own jobs. Adoption or switching back follows the shared trial agreement at a
 safe checkpoint. For maintenance use [behavioral scenarios](references/validation-scenarios.md).

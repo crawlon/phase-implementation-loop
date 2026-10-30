@@ -25,6 +25,7 @@ owner-index authoring instructions belong to the owner. Reuse these sections of 
 - Bounded Authorization
 - Canonical Plan And Linear
 - Execution Profile (worker/reviewer routing; planning ownership is below)
+- Bounded Research (evidence gathering; no planning or owner authority)
 - UI/UX Review Gate
 - The GREEN definition following Common Phase State Machine
 - The final durable-state field list
@@ -54,17 +55,11 @@ this managed path; worker and independent-verifier fallback rules still apply.
 
 ## Managed orchestrator model
 
-Use the [managed role profiles](../../delivery-owner-trial/references/contracts.md#managed-role-profiles)
-unless the user explicitly selects another orchestrator profile. Record
-this separately from implementation and review roles. A skill cannot change its
-current chat's model: verify the active selection when exposed and disclose an
-unknown or mismatched model. Resolve it through the owner before execution;
-do not claim the requested model ran merely because the assignment names it.
-
-Implementation uses shared Execution Profile defaults, capability assessment
-and fallback rules. Explicitly select the worker profile at launch rather than inheriting
-the Sol orchestrator's model. Independent-reviewer profiles remain unchanged;
-owner and consultant defaults are defined by the Delivery Owner skill.
+Use the shared [role profiles](../../phase-implementation-loop-trial/references/shared-protocol.md#role-profiles)
+through the managed contract. Verify actual model/effort before adoption or
+execution; resolve a mismatch or missing selection through existing authority.
+Select worker/research/reviewer profiles separately from the orchestrator.
+Implementation still follows the capability assessment and independent verification.
 
 ## Role and startup
 
@@ -77,8 +72,10 @@ The owner controls canonical plan revisions, dependencies, cross-plan scope, and
 milestone acceptance. You control execution of the assigned plan: capability
 assessment, worker routing, diff inspection, checks, independent verification,
 owned local commits, factual phase state, and agreed tracker bookkeeping.
-Propose substantive plan changes to the owner; do not edit shared plans or the
-owner index concurrently. A shared file/tracker field has one assigned writer.
+Propose changed outcomes, invariants or assignment boundaries to the owner.
+Technical design details remain delegated unless explicitly restricted; use
+[decision classification](../../delivery-owner-trial/references/contracts.md#classify-before-escalating)
+when repairing them. Canonical plans/index and shared fields retain one writer.
 
 Implementation always uses a separate edit-capable worker, not this context or
 a user-owned chat created in place of a worker. Independent reviewers did not
@@ -92,15 +89,17 @@ canonical plan/state. Use the exact assigned checkout, not a saved project's
 default. All phases use one dedicated branch following repo conventions or
 `codex/<plan-slug>`. Parallel plans need separate worktrees and resource ownership.
 
-Record a fresh local context assessment before the next substantial job. On
-successor adoption, reconcile the managed
+At startup/adoption reconcile actual role, exact trial skill/path, writer,
+assignment and next action; resolve legacy/conflicting skill paths read-only
+before relying on them. Record a local context assessment before substantial work.
+On successor adoption, reconcile the managed
 [permission continuity packet](../../delivery-owner-trial/references/coordination.md#permission-continuity-at-handoff),
 current owner binding and each required direction's actual route state. Ownership
 claim, inherited consent and a successful startup notice are distinct evidence;
 expose incomplete communication through the existing recovery contract.
 
-Reuse the assigned capability assessment if still valid; resolve incompatible
-plan detail/model choices through the owner before implementation. Preserve the
+Reuse the assigned capability assessment if valid; resolve incompatible mandatory
+restrictions or model choices through the owner before implementation. Preserve the
 managed orchestrator profile above and choose the least expensive capable worker
 under the existing capability/profile rules; do not change an approved model
 silently. Do not downgrade risky phases to meet a cost preference.
@@ -165,15 +164,14 @@ required; these checks neither replace it nor authorize scope changes.
    and relevant evidence conditions. Write a brief with objective, scope,
    acceptance checks, constraints, risk, capability delivered, criterion served,
    chosen implementation route, and stop conditions.
-2. Resolve routine execution details locally. Send genuine planning gaps or
-   material dependency/architecture changes to the owner with the smallest
-   decisive evidence and a recommendation. Pause affected work until resolved;
-   do not repeat full repository discovery or send worker transcripts.
-   Apply the contract's decision classification before asking the human: a
-   necessary local caller/test coverage inside the acknowledged areas and delegated
-   decisions is routine execution when interfaces, dependencies, frozen order,
-   acceptance and risk stay unchanged. Changed assignment boundaries need owner
-   reconciliation; crossing an explicit hard allowlist is a human boundary.
+2. Apply the contract's decision classification: technical choices/repairs and
+   caller/test coverage within delegated areas and invariants stay local, with
+   applicable independent design and implementation review. Proposed mechanisms
+   alone do not create owner approval gates. Send changed outcomes, invariants,
+   assignment boundaries or cross-plan dependencies to the owner with decisive
+   evidence and a recommendation; pause only affected work until resolved.
+   Crossing an explicit human hard allowlist needs human approval. Do not repeat
+   full repository discovery or send worker transcripts.
 3. Delegate implementation with the shared Ponytail/minimal-diff prompt,
    assignment boundaries, and exact workspace. Supervise the same handle to
    terminal completion under delegated-jobs.md; do not duplicate active jobs.

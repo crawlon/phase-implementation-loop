@@ -76,8 +76,9 @@ continuation; its advice does not release a gate or reset a repair bound.
 
 After two consecutive preparation-only phases, or growing tooling/review effort
 without closing capability criteria, the orchestrator briefly reassesses the
-critical path: what remains blocked, what evidence makes preparation necessary,
-and which authorized step delivers progress. Continue evidenced preparation;
+critical path against the last meaningful capability milestone, including
+accumulated prerequisites and whether a different sequence would reach the fixed
+goal more directly. Use the shared direction review; continue evidenced preparation;
 otherwise schedule it as follow-up and advance authorized work. This checkpoint
 requires no additional planner, artifact, tracker hierarchy, or approval cycle.
 It does not authorize changes to frozen order or dependencies.
@@ -124,10 +125,12 @@ compatibility and grants no merge or live-service permission.
 ### Standalone outcome checkpoints
 
 For long plans, name meaningful delivery milestones for a compact cumulative
-outcome check. At each named boundary, the same orchestrator compares evidence
-across completed phases with the whole approved outcome: criteria advanced,
-actual usable behavior, accumulated assumptions, new prerequisites, and the next
-critical-path step. Record coverage and the next checkpoint in the existing
+outcome check. At each named boundary or authorized scheduled review, the same
+orchestrator applies the shared [goal-progress assessment](../../roadmap-planner-trial/references/retained-planning.md#direction-reviews)
+to cumulative evidence, including unfinished work: capability/necessary learning,
+remaining blocker, convergence judgment and next observable result. Routine checks
+remain local; use the retained planner only under its existing scope and triggers.
+Record coverage, rationale and the next checkpoint in the existing
 phase report/state. Local phase success alone does not prove overall alignment.
 Short plans may use completion; choose boundaries from delivery/risk rather than
 a universal phase count or elapsed-time limit. Known drift/risk still triggers
@@ -202,6 +205,28 @@ and autopilot startup gate remain distinct. New authority, material scope/risk
 changes, or unexpected partial writes require preservation and the appropriate
 stop/decision. Platform permissions and sensitive-action gates still apply.
 
+### External provider consent
+
+Before delegating to Claude or Cursor, verify existing human authorization for
+that provider, content and purpose. An applicable global `Peer Agent Bridge`
+workflow-wide grant plus the actual opt-in request or approved execution profile
+can supply it; the skill or an agent assignment alone cannot. Reuse valid coverage
+for planning, implementation, review and correction rounds. Request only missing
+or expanded scope, or recovery from an actual platform rejection. Preserve
+no-sharing restrictions and exclude secrets, credentials and unrelated private
+data from prompts and delegated file access. Internal chat consent and provider
+consent are distinct; neither grants operational actions or bypasses command rules.
+Provider or transport fallbacks must fit the grant: wrapper-specific consent does
+not automatically cover a direct CLI or another surface. Resolve uncovered scope
+before transfer; reuse any existing grant that already covers it.
+
+Record the original consent source, workflow/profile selection, covered provider/
+content/purpose, exclusions and duration in existing authority state. At handoff,
+carry that reference and verify same-assignment successor coverage before reuse;
+a new generation alone requires no renewal. Preserve narrower/revoked grants and
+actual rejection evidence. If the source or coverage cannot be established,
+resolve that gap before the dependent transfer; other authorized work continues.
+
 ## Canonical Plan And Linear
 
 Accept a markdown plan, chat plan, Linear issue list, one Linear parent with
@@ -236,6 +261,76 @@ Otherwise preserve source ids and state the ordering rule used. Do not close
 issues or change status, ownership, or priority without explicit authority or a
 separately established tracker policy.
 
+## Role profiles
+
+Read at startup, role launch, profile change and handoff. This is the trial's
+single model/effort specification; it imports no other role's authority.
+Explicit human selections override these proposed defaults when capability permits.
+
+| Role | Proposed model / reasoning | Scope |
+| --- | --- | --- |
+| Retained roadmap planner | `gpt-6-astra` / `high` | Goal direction, strategic planning and cumulative progress assessment. |
+| Delivery owner | `gpt-6.1-sol` / `high` | Delivery decisions, dependencies and assignments. |
+| Managed orchestrator | `gpt-6.1-sol` / `high` | Execution coordination, supervision and gates. |
+| Standalone orchestrator | Existing explicitly approved model / reasoning | Preserve its profile; resolve an unspecified choice before launching a successor. |
+| Bounded researcher | `gpt-6-luna` / `max` | Evidence gathering and synthesis under Bounded Research below. |
+| Implementation worker | `gpt-6-luna` / `max` for compatible TINY/ROUTINE phases | Apply `phase-capability.md`; inherent high risk or novel complexity requires a suitable strong implementer. |
+| Bounded strategic/technical consultant | `gpt-6-astra` / `high` | Consequential unresolved reasoning; retain managed/standalone routing. |
+| UI/UX reviewer | `gpt-6-luna` / `max` | Preserve the existing non-editing browser review gate. |
+| Independent verifier | Existing selected [verification chain](delegated-jobs.md#verification-chain) | Preserve provider order, independence and critical-work restrictions. |
+
+Keep one compact row per selected role in existing assignment/profile state:
+`role | model ID | reasoning | permitted fallback or none | human selection source | successor coverage`.
+Present missing retained-role selections together in the existing startup
+agreement, with exact IDs/effort and fallback scope. Approval of that explicit
+profile can cover same-role successors; skill invocation or a suggested default
+alone is not human model selection. Reuse valid grants instead of asking per
+launch. Preserve existing overrides; do not migrate a running assignment merely
+because these defaults or the model catalog changed.
+
+Before creating a retained chat, verify the approved pair against the destination
+host's supported models/efforts. Pass both through the native launch controls
+(`model` and `thinking` for desktop `create_thread`), with the selection source.
+Never omit them to let an unrelated app default choose the successor. If explicit
+selection is missing, resolve that one gap before launch; if the model is unavailable,
+use only an explicitly permitted fallback or obtain a concrete replacement choice.
+Subagents use their native model/effort controls and the role's approved fallback
+policy; preserve fresh contexts and worker/reviewer separation.
+
+On startup/adoption, compare native runtime model/effort evidence with the selected
+pair before role writes or exclusive ownership claim. Prompt text, chat title and
+skill readback are not runtime evidence. If settings are mismatched or unobservable,
+record that limitation and resolve it in the same chat through supported controls
+or a specific human decision, preserving independent work. Do not report verified
+adoption or start a competing chat to repair it. Confirmation carries actual
+role/model/effort, evidence source, assignment and next result. Reuse valid runtime
+evidence until the model, effort, host or session changes.
+
+Fallbacks retain their existing mode-specific rules below and in the managed
+consultation/verification protocols; this table grants no additional provider,
+write, launch or commit authority. A handoff preserves the selected pair and
+fallback scope, not a newly chosen default.
+
+## Bounded Research
+
+The responsible coordinator may delegate a fresh read-only Luna researcher for
+source discovery, documentation comparison, repository mapping or synthesis when
+the question, evidence access and expected result are bounded. Supply the question,
+source scope, relevant constraints and an observable completion condition; require
+source pointers, findings and uncertainties. Small lookups can stay local. Use
+existing authority, provider and data-sharing limits; no additional retained chat.
+
+The researcher gathers evidence, not strategic decisions, canonical plan changes
+or independent acceptance. The coordinator checks decisive sources and routes
+unresolved judgment to the retained planner or warranted technical consultant.
+High-stakes/ambiguous interpretation, conflicting evidence that cannot be resolved
+from the sources, or findings that change risk require that stronger judgment
+before dependent action. Research may still collect facts for such questions.
+If Luna is unavailable or the question exceeds its capabilities, record partial
+evidence and use a permitted stronger route or resolve the missing choice; do not
+repeat an unproductive research loop or weaken the question. Retain owned-job
+supervision, terminal handoff boundaries and required independent verification.
+
 ## Execution Profile
 
 Before Phase 1, read `phase-capability.md` and run its phase capability
@@ -244,7 +339,7 @@ effort only where they are compatible with that assessment. Otherwise make a
 compact recommendation and obtain the approval required by the active mode. The
 profile records:
 
-- orchestrator
+- orchestrator and selected [role-profile rows](#role-profiles)
 - planning/replanning route and fallback
 - per-phase complexity, plan detail, implementation route, and required action
 - implementation fallback
@@ -260,7 +355,9 @@ transport only; role and safety policy belongs in prompts and these references.
 After the assessment identifies the required capabilities, use these defaults
 unless the user selects another implementation profile:
 
-1. A separate Codex worker using `gpt-6-luna` at `max` reasoning.
+1. A separate Codex worker under [Role profiles](#role-profiles), matched to the
+   phase capability assessment; do not use Luna merely because it is available
+   when the phase requires a stronger implementer.
 2. If unavailable, an edit-capable Cursor Grok 4.7 worker. Choose its effort for
    the phase and use the corresponding surfaced model id, such as
    `grok-4.7-high` for high effort.
@@ -287,8 +384,11 @@ Read only the selected agent references:
 
 When a retained planner is selected, use the
 [retained-planning route](../../roadmap-planner-trial/references/retained-planning.md#selection-and-responsibility)
-for substantive roadmap/next-plan proposals and direction reviews. The orchestrator
-remains coordinator and canonical plan owner; substantive edits use a separate
+for substantive roadmap/next-plan proposals and direction reviews. Apply the shared
+[request scope check](../../roadmap-planner-trial/references/retained-planning.md#request-scope-and-routing)
+before contacting it; without an owner, you retain routine coordinator decisions
+and commission distinct technical consultation under the bounded route below.
+The orchestrator remains coordinator and canonical plan owner; substantive edits use a separate
 worker. Establish original human messaging authority and verified generations via
 [shared coordination](../../delivery-owner-trial/references/coordination.md),
 reading only the identity/messaging/recovery sections needed. Do not spawn a new
@@ -301,8 +401,8 @@ with actual authority and no duplicate consultation.
 With no retained planner, delegate one bounded read-only planning job when unresolved implementation
 decisions or risks require substantive exploration or replanning. Do not launch
 a planner merely for a new phase, factual bookkeeping, or the drift checkpoint.
-The default route is a fresh Codex subagent using
-`gpt-6-astra` at high reasoning. If that route terminates unsuccessfully or is
+The default route is a fresh Codex subagent using the consultant profile in
+[Role profiles](#role-profiles). If that route terminates unsuccessfully or is
 unavailable, use Claude Opus 5.5 through `codex-claude-ask --model
 claude-opus-5-5`. Use the Planning prompt in `agent-prompts.md` for either route.
 
@@ -325,7 +425,7 @@ Classify each phase as UI-affecting when it changes a user-visible screen,
 interaction, responsive layout, navigation, or user-facing information flow or
 copy. For every UI-affecting phase, after functional checks and before the
 independent verifier, delegate a fresh non-editing Codex UI/UX review subagent.
-Unless the user selects another route, use `gpt-6-luna` at `max` reasoning.
+Use the selected UI/UX reviewer from [Role profiles](#role-profiles).
 If unavailable, select an appropriate non-editing browser-capable reviewer and
 record its model, effort, and fallback reason.
 Read `agent-codex.md` and the UI/UX Review prompt in `agent-prompts.md`, then
@@ -391,7 +491,8 @@ additionally requires a completed UI/UX review or explicit user waiver.
 ## Shared Fallback And Stop Rules
 
 - Planning unavailable: with a retained planner follow the recorded recovery and
-  authority; do not silently switch planner/provider. Without one, try Astra High, then Opus 5.5. The orchestrator may plan
+  authority; do not silently switch planner/provider. Without one, use the selected
+  consultation profile and its fallback above. The orchestrator may plan
   directly for substantive planning only after both are unavailable, with the
   degradation recorded. Routine reconciliation and drift checks need no planner.
 - Implementation unavailable: choose another edit-capable agent; never collapse
@@ -405,13 +506,11 @@ additionally requires a completed UI/UX review or explicit user waiver.
   actions outside established authority (including destructive/live actions,
   secrets/credentials, deploy/release/push), or exhausted fallbacks.
 
-Use one concise mutable current-status summary, in the canonical plan or its
-existing state artifact, pointing to immutable historical evidence. It records
-what is now unblocked, evidence scope/conditions/invalidation triggers, phase
-status, branch, changed files, planning/replanning route and result, capability
-assessment, approved plan-detail/implementer
-decision, implementation route and model, verification commands/results, UI/UX
-review result or N/A decision, verifier tier/model/verdict, commit when
-available, blockers, deferrals, next phase, and exact user decisions. At rollover,
-include the transfer generation/owner, handoff pointer, preserved gate, and exact
-next authorized action; do not create a second status ledger.
+Use the shared [replaceable current brief](../../delivery-owner-trial/references/contracts.md#current-snapshot)
+in the canonical plan or existing phase state; this imports state format, not
+managed ownership or gates. Record goal/remaining criteria, role/skill/assignment,
+actual blocker and next result/actor, latest assessment, authority and pending
+gates. Link exact branch/HEAD/diff custody, capability/profile, implementation
+route, tests/UI/verifier results, accepted commits and evidence validity. Preserve
+superseded decisions and failed attempts in append-only history. At rollover,
+link the transfer record and next-action technical references; no second ledger.

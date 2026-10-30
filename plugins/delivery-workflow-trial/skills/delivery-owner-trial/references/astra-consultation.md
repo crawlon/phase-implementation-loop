@@ -21,13 +21,17 @@ when an unresolved decision involves:
   Roadmap/delivery drift first uses the retained direction-review route when present.
 - Conflicting cross-plan evidence or materially ambiguous milestone acceptance.
 
-Distinguish technical consultation from retained planning before dispatch. Reuse
-an applicable planner recommendation or recorded technical decision; do not ask both
+Classify technical consultation and retained planning using the shared
+[request scope check](../../roadmap-planner-trial/references/retained-planning.md#request-scope-and-routing)
+before dispatch. Reuse an applicable planner recommendation or recorded technical
+decision; do not ask both
 actors the same question for comparison. Keep repair logs here, not in routine
 planner context. With no retained planner this consultant may advise on an
 unresolved strategic question under the existing bounded policy.
 
-First reuse an applicable recorded decision. A settled design, routine next-plan
+For bounded fact gathering, use the shared [research route](../../phase-implementation-loop-trial/references/shared-protocol.md#bounded-research)
+before commissioning consequential judgment; research evidence does not replace
+that judgment or independent review. First reuse an applicable recorded decision. A settled design, routine next-plan
 elaboration, factual update, scheduling choice, or normal outcome checkpoint
 does not trigger a call. Do not generate a token-cost saving by weakening the
 outcome, acceptance or required assurance. Urgent stops and clear human authority

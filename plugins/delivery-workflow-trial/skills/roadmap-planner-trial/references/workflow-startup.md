@@ -12,22 +12,22 @@ in this chat; the human need not invoke skills in each new chat.
    multi-phase plan. Use an owner for interacting plans, shared dependencies or a
    progressively planned roadmap needing continuing cross-plan decisions. Several
    phases alone do not justify an owner. State the choice briefly.
-2. Reuse approved execution mode, profiles and permissions. If creation, execution,
-   role messaging or succession scope is missing, prepare one concrete compact
-   startup agreement covering the missing bounds and actors. Obtain genuinely
-   required human authority before the affected action; do not ask each actor to
-   reapprove valid grants. No autopilot, worktree, tracker, schedule, push or deploy
-   authority follows merely from selecting this skill. Preserve executing-chat
-   approval gates and actual platform trust rejection recovery.
+2. Reuse approved mode, [role profiles](../../phase-implementation-loop-trial/references/shared-protocol.md#role-profiles)
+   and permissions. Resolve missing exact model/effort selections and coordination
+   scope together in the [bounded agreement](#bounded-coordination-agreement)
+   before launch; executing actors retain operational approval gates.
 3. Select the child skill from the table below. Resolve its absolute `SKILL.md`
    path in the installed trial bundle or this self-contained source bundle and
-   verify it exists. Pass that path and explicit read instructions in the initial
+   verify it exists and matches the actual role/writer responsibilities. Reconcile
+   any legacy or conflicting skill path read-only before relying on it; preserve
+   independent work. Pass
+   that path and explicit read instructions in the initial
    prompt; the child reads its entrypoint and the references required for its
    next action automatically. Do not load both execution modes or current skills.
 4. Follow the applicable [native launch and identity rules](../../delivery-owner-trial/references/coordination.md#launch-only-the-authorized-cohort).
    Use fresh role prompts, not a fork of the planning transcript. Preserve human
-   profile overrides; supply model parameters only when allowed by the tool and
-   explicitly selected by the human. Record LAUNCH_PENDING and returned handles
+   profile overrides; pass the approved model and reasoning explicitly under
+   the shared launch contract, with original selection evidence. Record LAUNCH_PENDING and returned handles
    in existing planner notes before relying on the coordinator's state. Reconcile
    queued/unknown outcomes before retrying; a queued client ID is not a thread ID.
 5. **Standalone:** the planner creates/adopts one orchestrator. **Managed:** the
@@ -36,7 +36,8 @@ in this chat; the human need not invoke skills in each new chat.
    The planner never also creates that managed orchestrator. An existing active
    cohort adopts only at a safe checkpoint, preserving writers, budgets and gates.
 6. Observe using native status/wait/read tools until the coordinator acknowledges
-   the binding, workspace, selected skill and next action or exact pending gate.
+   actual role/writer binding, native model/effort evidence, workspace, trial
+   skill/path read and next observable result or exact pending gate.
    For managed startup the owner checks its child's acknowledgement and publishes
    the result. Creation success alone is not running execution. Report a real
    approval or recovery boundary accurately; no duplicate launch to escape it.
@@ -52,6 +53,29 @@ in this chat; the human need not invoke skills in each new chat.
 Absent approved autopilot, select gated execution; this does not waive its
 execution-profile or phase-commit approval. Reuse an already approved profile.
 
+## Bounded coordination agreement
+
+Use the existing agreement, not another ledger. When needed, present one concrete
+human approval request naming the assignment/roadmap, current actors and permitted
+roles and their exact model/effort selections, permitted fallbacks and successor
+coverage, sole launcher per role, necessary message directions/purposes/content,
+exclusions, and same-assignment successor creation and communication coverage.
+Bind future IDs through verified succession; specify the assignment's end or
+other agreed expiry. State which execution grants carry forward and which
+operations still lack authority. For external delegation, reuse applicable
+[provider consent](../../phase-implementation-loop-trial/references/shared-protocol.md#external-provider-consent),
+including a verified global grant; request only its missing scope.
+
+Propose coverage for the remaining assignment and its verified successors rather
+than one generation at a time. If the human chooses narrower coverage, retain it.
+An approved grant is reused within its actual scope; changed recipients outside
+the cohort, resources, scope or reserved actions need the relevant authority.
+Skill/plan selection alone grants no action authority; apply explicit standing
+grants only when their actual opt-in conditions and scope are satisfied.
+Before launch each actor verifies original human evidence and its binding; actual
+tool delivery remains separate. A platform rejection still uses coordination
+recovery. Missing authority pauses only dependent actions, not independent work.
+
 ## Child startup prompt
 
 Populate this compact prompt with verified values and actual source references:
@@ -61,14 +85,19 @@ The human selected the trial workflow and requested this role: [original request
 Act as [canonical name/generation]. Read $[selected skill] at [absolute SKILL.md]
 now, then its required startup references; do not ask for manual skill invocation.
 Plan/goal/acceptance/rationale: [paths and revisions].
+Last goal assessment/rationale and next observable outcome: [current result or not yet assessed].
+Review cadence and actual authorized wakeup/recovery route: [agreement or unavailable].
 Workspace and ownership: [repository, host, checkout/worktree, branch, HEAD, dirty paths].
-Authority: [original human sources, allowed actions/mode/profile, limits and gates].
+Selected role/model/effort and permitted fallback: [approved row/source; successor coverage].
+Authority: [original human sources, allowed actions/mode, limits and gates].
 Bindings: [planner and existing coordinator/actors, IDs/hosts, message purposes,
 successor scope and actual route status; unknowns explicitly named].
 Next action: [standalone: establish phase state and begin allowed work;
 owner: establish index/first assignment and launch/adopt its managed orchestrator].
-You are the sole coordinator; keep the canonical directory. Acknowledge startup
-and actual execution readiness or the exact pending gate. The planner observes
+You are the sole coordinator; keep the canonical directory. Acknowledge your
+actual role, native model/effort evidence, loaded trial skill/path and readiness
+or exact pending gate under the shared role-profile contract.
+The planner observes
 startup and retains strategic review; it will not dispatch a competing child.
 ```
 

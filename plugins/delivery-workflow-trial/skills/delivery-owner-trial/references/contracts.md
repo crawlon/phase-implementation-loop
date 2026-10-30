@@ -6,51 +6,45 @@ Use stable IDs and exact paths/revisions; preserve links instead of copying logs
 
 ## Managed role profiles
 
-Default owner and managed orchestrator: `gpt-6.1-sol/high`; bounded owner
-consultation: `gpt-6-astra/high`. Explicit user selections override these defaults.
-Optional retained planner: `gpt-6-astra/high`, under the
-[trial agreement](../../roadmap-planner-trial/references/retained-planning.md).
-It owns proposals and planner notes, not canonical plan/index writes.
-Worker and UI profiles come from shared
-[Execution Profile](../../phase-implementation-loop-trial/references/shared-protocol.md#execution-profile)
-and [UI/UX Review Gate](../../phase-implementation-loop-trial/references/shared-protocol.md#uiux-review-gate);
-independent verifier order comes from
-[Verification Chain](../../phase-implementation-loop-trial/references/delegated-jobs.md#verification-chain). Select each role
-explicitly at launch rather than inheriting the owner's model.
+Use the shared [role profiles](../../phase-implementation-loop-trial/references/shared-protocol.md#role-profiles)
+for model/effort selection, human selection evidence, native launch parameters and
+runtime confirmation, including successors. Read only that section; it does not
+import standalone ownership or gates. Record owner, orchestrator, optional planner,
+research and consultation profiles separately from implementation and verification.
+The [trial agreement](../../roadmap-planner-trial/references/retained-planning.md)
+keeps planner proposals separate from canonical owner writes.
 
 ## Owner index — owner is its sole writer
 
 ### Current snapshot
 
-Keep exactly one current snapshot at the top of the existing index. Use its
-plan rows and evidence links rather than duplicating their detail:
+Keep one replaceable current brief at the top of each role's existing state:
+owner index, execution state or planner notes. Each writer records only its role's
+decisions and links the others. Use the owner fields below as applicable; keep
+technical details in linked evidence, not competing current summaries:
 
 ```text
 Target and canonical plan/roadmap revision:
 Accepted, open and uncertain criteria; evidence scope and pointers:
-Necessary learning since last outcome review; preparation blocker and observable exit:
-Now: active assignments/actors, running jobs, blockers and changed dependencies:
-Next: planned milestone/criterion, observable result, responsible actor and prerequisites:
-Open decisions/gates, authority and exclusions; original source pointers:
-Basis: checkpoint/revision observed, validity conditions and local context assessment:
-Last outcome/direction review coverage; next review boundary and retained planner binding or none:
+Last meaningful capability milestone and latest assessment, learning and rationale:
+Now: actual role/skill, assignment, actors, running jobs and blocker:
+Next observable result/actor, prerequisites and evidence that changes direction:
+Pending gates; authority/exclusions and original source pointers; actual recovery route:
+Observed checkpoint/revision, evidence validity, context assessment and next review:
 ```
 
-On a material update, replace superseded live fields. Preserve prior decisions,
-original approvals and immutable evidence under linked history or existing
-receipts; historical entries are not alternative current snapshots. Preserve
-unresolved gates, ownership generations and resource/repair budgets exactly.
-Keep authoritative detail available through pointers, with material risk and
-uncertainty visible in the snapshot. Brevity never removes evidence needed to
-understand or decide. An observation is dated/revision-bound; active work may
-have advanced since it. Reconcile a stale or conflicting field before relying
-on it for affected actions.
+On material change, replace superseded fields and retain prior decisions in linked
+append-only history. Preserve original approvals, failed attempts, immutable
+evidence, custody, unresolved gates and resource/repair bounds. History supplies
+evidence, not active instructions. Keep uncertainty visible and reconcile stale
+fields before dependent actions. Read the brief and next-action references first;
+expand into history only for a specific authority, risk or evidence question.
+No-change observation needs no timestamp-only rewrite. Compaction is not cleanup
+authority or an execution gate.
 
-When adopting a large legacy index, establish this snapshot from the verified
-current plan, role binding and latest relevant checkpoints within existing
-owner authority. Retain history and its anchors; use targeted historical reads
-for contradictions or authority questions. Snapshot maintenance neither launches
-work nor changes authority, and completing a history cleanup is no execution gate.
+For a legacy index, reconcile the brief against the verified plan, role binding
+and latest checkpoints within existing authority. Retain history and anchors;
+no whole-history cleanup or audit is required before authorized continuation.
 
 ### Stable directory and plan rows
 
@@ -77,7 +71,8 @@ Record once and update only affected fields:
   each hard limit to its authority source; do not turn an estimate into a gate.
 - Keep a compact role directory in this index: role/assignment, stable plan key,
   canonical name and verified native title under the
-  [shared naming convention](coordination.md#shared-chat-names), current chat/host,
+  [shared naming convention](coordination.md#shared-chat-names), actual retained role,
+  verified trial skill/path read at startup, current chat/host,
   generation, active/retired state, predecessor/successor, transfer/claim evidence,
   and original messaging authority. Track authorization basis separately from
   actual tool delivery, per sender/generation + destination/generation + direction
@@ -111,6 +106,13 @@ invent detailed phases for distant steps. See
 
 ## Assignment — owner writes, orchestrator acknowledges
 
+Assign outcomes and invariants; delegate technical choices and repairs inside
+them. Mark mandatory mechanisms as restrictions with their reason and source.
+Keep proposed mechanisms in the linked technical design; adopting an outcome or
+reviewing that design does not make every detail an owner approval boundary.
+Existing explicit restrictions remain binding until the authorized actor amends
+them. Apply [decision classification](#classify-before-escalating) to changes.
+
 ```text
 Assignment ID and revision:
 Owner name/native title, chat/host and generation:
@@ -121,13 +123,14 @@ Next observable result and required evidence:
 Canonical plan path/revision and assigned phase range:
 Mode: managed-implementation-loop-trial | managed-implementation-autopilot-trial
 Repository/host; exact worktree, branch and baseline HEAD:
-Owned paths/resources; shared interfaces and excluded areas:
-Hard human limits and sources; owner-managed working boundaries:
-Delegated local execution decisions; optional planner binding and rationale pointers:
+Allowed areas/resources, shared interfaces and exclusions:
+Security/privacy/compatibility invariants; mandatory restrictions and authority sources:
+Delegated technical choices/repairs; reserved owner/human decisions; design pointer:
+Optional planner binding and rationale pointers:
 Dependencies and required revisions/commits/evidence:
 Acceptance checks and integration deliverable:
 Execution profile and capability assessment (or bounded preflight to resolve):
-Orchestrator: selected model/effort under Managed role profiles:
+Role-profile rows: model/effort, permitted fallback, human selection source and successor coverage:
 Commit/continuation, tracker, messaging and handoff authority:
 Human approval requester/executing chat; owner awareness pointer:
 Messaging: exact cohort/directions, original human proposal + reply references,
@@ -147,7 +150,7 @@ unavailable, request the missing authority directly in the executing chat before
 actions. Repository identity and a plan path alone do not grant write permission.
 
 Orchestrator acknowledges assignment revision, actual workspace/branch/HEAD,
-exclusive ownership, resolved profile and dependencies, phase state path, and
+exclusive ownership, verified runtime model/effort and dependencies, phase state path, and
 next action before implementation. The owner records that acknowledgement.
 
 For an integration assignment, reuse this contract and additionally name the
@@ -160,8 +163,9 @@ integration role alone grants no merge authority.
 
 ## Checkpoint — orchestrator writes its own phase state
 
-Record only a change since the previous checkpoint, normally at most 150 words
-plus evidence links. Retain detailed local phase evidence in the state file.
+Update the [current brief](#current-snapshot) on material change; retain checkpoint
+deltas and detailed evidence in linked history. Normally a delta needs at most
+150 words plus pointers, not another copy of the assignment or handoff.
 
 ```text
 Assignment/revision + orchestrator name/generation + checkpoint sequence:
@@ -236,20 +240,24 @@ transfer, and pause enforcement, not routine receipt of status or decisions.
 
 ### Classify before escalating
 
-The routing rule below chooses where to ask only AFTER a human decision is
-actually needed. It does not make every question an approval request.
+Classify the change before escalating. Ask only the actor whose decision or
+authority is actually missing; routine technical judgment is delegated.
 
 | Decision | Responsible actor |
 | --- | --- |
-| Routine implementation detail, required caller/test coverage, factual correction or repair inside the acknowledged areas, delegated decisions and budget, with unchanged acceptance, interfaces, dependencies, frozen order and risk | Orchestrator acts and records the result; no owner round trip. |
+| Technical choice, caller/test coverage or repair within delegated areas/resources and agreed product, security, privacy and compatibility invariants, with unchanged interfaces, dependencies, frozen order and risk bounds | Orchestrator delegates implementation, obtains applicable independent review and records evidence; no owner round trip. |
 | Substantive plan/interface changes, changed assignment boundaries, cross-plan dependencies or sequencing inside delegated outcome, risk and resource bounds | Owner resolves, using the retained planner for strategic proposals or direction and bounded consultation for specific technical uncertainty; revise/acknowledge affected assignments. No human approval merely for a plan revision. |
 | A reserved product choice, changed outcome/acceptance/compatibility obligation, crossed hard human limit or genuinely new action authority | Executing chat asks the human with the exact boundary and its source. Gated commits still need approval; authorized autopilot commits do not. |
 
-For new agreements, prefer bounded outcomes, repository areas, excluded resources
-and risk/budget limits, with owner authority to refine necessary implementation
-paths and affected tests. Enumerated files and phase details are working plans
-unless explicitly approved as exclusive limits. Use exact allowlists when needed
-for custody/security or requested by the human; identify them as hard limits.
+For example, repairing type lookup to preserve the agreed access model stays with
+execution and its independent reviewer; changing who can access protected data
+returns to the owner or human according to authority. A consequential repair can
+need independent design review without needing owner approval. If its effects on
+the invariants are uncertain, establish the decisive evidence before proceeding.
+
+Enumerated files and proposed mechanisms are working plans unless explicitly
+restricted. Use exact allowlists where custody/security or the human requires
+them; identify their source and who may amend them.
 An existing approved exact-file cap or explicit exclusion stays hard until the
 human changes it. Never reinterpret it as an estimate to avoid a stop.
 Resolve ambiguous legacy boundaries from the actual proposal and human reply;
@@ -306,14 +314,6 @@ specific action. For commit approval include the verified diff/HEAD identity,
 verification pointers, and whether continuation is included. Before using an
 approval, recheck that its scope and evidence still apply; changed behavior,
 material diff, dependencies, or acceptance invalidate affected approval/evidence.
-
-Distinguish:
-
-- Owner coordination within approved scope: scheduling ready plans, clarifying
-  an already settled interface, factual status, or requesting an allowed repair.
-- Human decisions: reserved product choices and changes beyond delegated authority;
-  loop commits
-  unless the human explicitly changes the approval policy.
 
 Ignore already applied checkpoint/decision sequences. A late message for an old
 revision/generation never authorizes current work. If messages contradict,

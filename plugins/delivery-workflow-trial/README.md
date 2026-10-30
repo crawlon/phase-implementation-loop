@@ -25,22 +25,37 @@ need to invoke another skill in each chat.
 
 Existing execution mode, profiles and authority are reused. If necessary, the
 planner presents one compact startup agreement for missing permissions and bounds,
-including coordination messages and successor coverage. Phase approvals remain
+including coordination messages and successor coverage. External CLI delegation
+reuses applicable human provider consent, including global workflow-wide grants,
+across correction rounds and verified handoffs; command rules remain separate.
+Phase approvals remain
 in gated mode; autopilot requires explicit bounded authority. Creation success is
 reported as execution only after verified startup, with any pending gate named.
 See [startup mechanics](skills/roadmap-planner-trial/references/workflow-startup.md).
 
-After launch, the planner preserves rationale, proposes later plans and reviews
-cumulative direction. The owner or standalone orchestrator owns canonical execution
+After launch, the planner regularly assesses capability gained, necessary learning,
+remaining blockers and whether to continue or change direction, using the agreed
+review cadence and actual authorized wakeup route. Reviews compare cumulative
+evidence from the last meaningful capability milestone, including the cost of
+accumulated prerequisites and credible alternative sequences. A review interval
+is not a deadline. Existing human limits and required assurance remain.
+The planner preserves rationale and proposes later plans. The owner or standalone
+orchestrator owns canonical execution
 decisions and dispatch. Specific technical consultation and independent verification
 remain separate. Routine GREEN phases need no planner signature or message.
-Necessary preparation retains its evidenced blocker and observable exit; reviews
-also catch drift during unfinished repair loops.
+Assignments bind outcomes and invariants; proposed technical mechanisms remain
+delegated choices unless explicitly mandatory. Necessary preparation retains its
+blocker and observable exit. Routine progress stays local; unchanged human gates
+need no repeated assessment. Each role replaces one linked current brief while
+preserving decisions, failed attempts, approvals and immutable evidence in history.
 
-Default owner/managed orchestrator is Sol 6.1 High and retained planner/technical
-consultant is Astra High. Human selections override defaults. Tool rules control
-model selection; a skill cannot change the running chat's model. Optional recurring
-reviews require separately authorized native heartbeat controls.
+The shared [role specification](skills/phase-implementation-loop-trial/references/shared-protocol.md#role-profiles)
+proposes Astra High for strategic planning/consultation, Sol 6.1 High for ownership
+and managed orchestration, and Luna Max for bounded research and compatible simple
+coding. Existing UI and independent-verification routes remain. Startup records
+explicit human model/effort selections and permitted fallbacks; handoffs reuse
+those rows and verify native settings before adoption, never silently substituting
+an app default. Optional recurring reviews require authorized native heartbeats.
 
 The other five entrypoints are workflow components and remain available for direct
 adoption by advanced users. Existing chats adopt at safe checkpoints with their
@@ -56,8 +71,10 @@ names and workflow selection do not grant authority or reset generations.
 Each role assesses its own context. Authorized handoffs settle owned jobs and
 use one launcher, exclusive session-bound claims, exact workspace custody,
 compact durable state and per-direction permission/route evidence. Independent
-roles can continue. A planner successor also carries rationale, unresolved advice
-and actual heartbeat rebinding or explicit degraded recovery.
+roles can continue. Every successor reads and verifies the exact trial skill
+matching its actual role/writer responsibilities. Handoffs carry the last goal
+assessment and rationale, next observable outcome, review cadence and actual
+heartbeat rebinding or explicit degraded recovery; titles alone cannot change roles.
 
 To leave the trial:
 

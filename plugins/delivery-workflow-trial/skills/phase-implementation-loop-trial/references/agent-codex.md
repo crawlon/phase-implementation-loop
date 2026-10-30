@@ -1,11 +1,13 @@
 # Codex Agent Reference
 
-Use this reference when Codex is selected for planning, implementation, UI/UX
-review, or verification. The phase-loop orchestrator may be
+Use this reference when Codex is selected for research, planning, implementation,
+UI/UX review or verification. The phase-loop orchestrator may be
 any agent.
 
 ## Roles
 
+- Bounded research: use a fresh read-only researcher under the shared protocol;
+  return source-linked findings and uncertainty to the commissioning coordinator.
 - Substantive planning and replanning: use a fresh, read-only Codex planning
   subagent by default under `shared-protocol.md`. Routine reconciliation,
   factual bookkeeping, and drift checks remain direct orchestrator work.
@@ -33,11 +35,10 @@ implementation agent or stop. Never collapse the worker role into orchestration.
 
 ## Model And Reasoning
 
-Choose locally from the approved phase brief. Load the role's authoritative
-defaults/fallbacks: `shared-protocol.md` Execution Profile for implementation,
-Planning And Replanning for standalone planning, UI/UX Review Gate for UI review,
-and `delegated-jobs.md` Verification Chain for verification. Managed planning
-uses the owner route instead. Do not call another model to choose.
+Use the shared [role profiles](shared-protocol.md#role-profiles) with the approved
+brief. Read only the relevant shared protocol section for research, implementation,
+standalone planning or UI review; verification uses `delegated-jobs.md`. Managed
+planning uses the owner route. Do not call another model to choose.
 
 Check the selected model and reasoning against the active worker surface. If
 they are unavailable or not configurable, follow the role's fallback rules and
@@ -49,6 +50,7 @@ Record model, reasoning, and one-line rationale in durable state.
 
 Use `agent-prompts.md` and add the role-specific first line:
 
+- Research: `Act as the bounded read-only researcher; return evidence and uncertainty, not plan decisions or acceptance.`
 - Planning: `Act as the dedicated read-only Codex planning subagent; the orchestrator owns the canonical plan.`
 - Implementation: `Act as the separate Codex worker subagent; you are not the orchestrator.`
 - UI/UX review: `Act as the dedicated non-editing Codex UI/UX review subagent.`

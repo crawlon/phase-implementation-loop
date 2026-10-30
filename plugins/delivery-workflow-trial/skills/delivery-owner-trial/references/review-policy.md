@@ -56,8 +56,11 @@ If an earlier decision included this actual inspection, record/reuse it rather
 than adding another cycle. Gated owner-visible reports may serve the same review.
 No new human approval arises merely from an owner coordination gate.
 
-The owner inspects cumulative criterion coverage, usable capabilities, necessary
-learning and remaining blockers before advising on the next technical question.
+The owner applies the shared [goal-progress assessment](../../roadmap-planner-trial/references/retained-planning.md#direction-reviews)
+before advising on the next technical question: compare with the last meaningful
+capability milestone as well as the previous review. Reassess the whole slice when
+prerequisites accumulate, even if each repair is justified; decide the next outcome
+and disposition any sequencing proposal without dropping acceptance obligations.
 Preparation needs an evidenced blocker/invariant and observable exit. Record the
 next result, actor, covered checkpoint sequence and next required boundary. Reuse
 valid evidence; inspect deeper for a material gap, contradiction or risk. If
