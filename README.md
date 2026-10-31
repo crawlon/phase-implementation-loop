@@ -1,250 +1,28 @@
-# Phase Implementation Loop
+# Delivery Workflow
 
-A Codex plugin with two standalone execution modes and an optional managed team:
+The active bundle has three skills: **roadmap-planner**, **delivery-owner** and
+**implementation-orchestrator**. Start with the planner; add an owner only when
+cross-plan coordination warrants it. The orchestrator supports standalone or
+owner-managed coordination and gated or explicitly authorized autopilot execution.
 
-- `$phase-implementation-loop`: phase-gated execution with approval before each
-  commit.
-- `$phase-implementation-autopilot`: bounded continuous execution with automatic
-  commits for green phases and strict operator stop gates.
+See the [workflow guide](plugins/delivery-workflow/README.md) for invocation,
+installation and validation, and the
+[migration guide](plugins/delivery-workflow/skills/roadmap-planner/references/migration.md)
+for running assignments and rollback.
 
-Both use one shared protocol and support configurable Codex, Cursor, and Claude
-roles. The invoking agent orchestrates; a separate edit-capable agent implements.
+The former phase-loop, managed-loop/autopilot and trial bundles are retired from
+this marketplace. Their source paths remain frozen for existing assignments;
+new work uses Delivery Workflow 1.0.0. Installing it does not migrate a running
+actor or change its approvals.
 
-For a single plan or a roadmap requiring coordinated plans:
+Both the phase-implementation-loop and delivery-owner repositories carry the same
+active bundle. Select one installation to avoid duplicate skill names. Existing
+marketplace repository identities remain valid; each now offers Delivery Workflow.
+Local development installs can symlink the three stable folders into
+`~/.agents/skills` and disable legacy discovery entries without deleting their files.
 
-- `$delivery-owner`: owns planning, dependencies, assignments, milestone
-  acceptance, and the main human conversation. Defaults to Sol 6.1 High with
-  compact, event-driven supervision and bounded Astra High consultation.
-- `$managed-implementation-loop`: an assigned orchestrator executes phases and
-  requests human commit/continuation approval directly in its executing chat.
-- `$managed-implementation-autopilot`: an assigned orchestrator commits green
-  phases within an approved envelope, sends planning decisions to the owner,
-  and asks for missing human execution approval directly.
-
-Both managed modes default to a **GPT-6.1 Sol High** orchestrator
-(`gpt-6.1-sol`, reasoning `high`). Implementer defaults and fallbacks remain
-unchanged, as do independent-reviewer profiles. Explicit user-selected
-orchestrator profiles override this default.
-
-The standalone skills retain their own orchestration and approval modes. Managed skills use a
-separate ownership protocol and reuse the existing worker and verification
-mechanics. They ship together; do not install a managed mode without its owner,
-managed protocol, and standalone reference dependencies.
-
-## Managed Delivery
-
-The owner works from one replaceable current snapshot and a simple loop:
-understand the evidence, relate it to the target and plan, resolve the next
-decision, and check direction. Historical authority and evidence stay linked.
-Necessary investigation and verification take priority over brevity. Assess
-efficiency through correct decisions, verified milestones, avoidable stalls and
-duplicated work, alongside measured usage.
-
-Managed chat titles and current references share `Owner-<plan-key>-generation<N>`
-and `Orchestrator-<assigned-plan-key>-generation<N>`. Approval requests use these
-names and actual chat IDs; successors keep the plan key and advance only their
-existing ownership generation.
-
-Handoffs carry per-direction permission sources and actual route results;
-exclusive ownership and working coordination are reported separately. Owners
-assess context before substantial work and honor named reassessment boundaries.
-Platform rejection of inherited consent can still require direct approval in
-the executing successor; skill wording cannot override that review.
-
-Start in the intended owner model's chat; a skill cannot switch its own model.
-For example:
-
-```text
-Use $delivery-owner to plan delivery of this milestone. Keep the outcome and
-acceptance criteria fixed. Propose at most two concurrent plans, choose managed
-loop or managed autopilot per plan. Keep planning decisions here; executing chats
-ask for their own human approvals and keep the owner informed.
-Keep supervision economical: compact checkpoints and evidence pointers, with
-detailed inspection only when a decision or acceptance claim requires it.
-Prepare the execution agreement before launching orchestrators.
-```
-
-The agreement explicitly covers creating orchestrator chats/worktrees, messaging
-in both directions, execution/commit authority, integration, and any handoffs.
-An approved agreement can be reused without repeated routine questions. A plan,
-skill invocation, or message from another agent does not independently grant
-those permissions. Direct human interventions remain supported and are
-reconciled through the owner when they affect other work.
-
-Use one owner index, a phase-state file per plan, isolated worktrees/resources,
-and serial integration. The Sol owner reads changed checkpoints, resolves cross-plan
-decisions, and checks milestone evidence; orchestrators handle detailed execution
-and independent verification. Owner review does not replace that verification.
-Ordinary autopilot green checkpoints stay in durable state without waking the
-owner or waiting for approval. Actionable events trigger authorized messages.
-The owner consults Astra High for unresolved consequential architecture, material
-planning uncertainty, repeated repairs indicating a faulty plan, or conflicting
-cross-plan acceptance evidence. Astra returns bounded advice; it does not manage
-orchestrators or independently review a design it helped author. No consultation
-is required for routine planning or every checkpoint. Reloading a skill does not
-change an existing chat's selected model.
-Gated mode still
-requires the actual human's scoped approval, requested directly by the executing
-chat. Owner awareness is not an acknowledgement gate; failed notification alone
-does not block valid direct approval. Material changes affecting other plans
-still need owner reconciliation. Reuse valid existing approval regardless of its
-source chat; do not ask twice merely because of locality.
-
-Classify decisions first: routine execution stays with the orchestrator; working
-plan refinements within delegated bounds go to the owner; reserved choices and
-missing authority go to the human. New agreements distinguish working manifests
-from hard human limits; existing exact caps remain binding. Resolve current
-owner/orchestrator destinations from verified role/generation records, with
-explicit successor messaging authority and separate route status per generation.
-
-Startup verifies the authorized return-message route. Every genuine pause names
-the next actor, resume event and recovery route; informational checkpoints do
-not stop authorized work. Owner observation is bounded, and routine commentary
-does not renew its polling window. Peers exchange deliverables without becoming
-extra managers. Failed notifications are exposed as recovery issues.
-
-Later recurring checks require a separately requested native heartbeat; this
-package installs no daemon or scheduler. A heartbeat is a modest recovery safety
-net and also consumes resources. Platform approval review may still reject
-cross-chat authorization evidence; skill wording cannot guarantee delivery.
-Automatic forks and recursive manager teams are outside the initial managed
-workflow. See the owner's validation scenarios for maintenance checks.
-
-Roadmaps can be planned progressively: keep future steps outlined, investigate
-specific unknowns, and prepare the next executable plan as evidence arrives.
-The agreement separates investigation/planning authority from launching new
-plans. New plans require human approval unless explicitly covered by bounded
-delegated continuation; this does not remove managed-loop phase approvals.
-Existing complete plans execute directly without an added replanning cycle.
-Roadmap completion covers all milestone criteria, including unplanned steps.
-
-Review timing follows risk and delivery boundaries: independent review of
-consequential designs before dependent implementation, early compatibility checks
-as interacting pieces become usable together, and a compact owner outcome check
-at an agreed boundary for long autopilot plans (pilot default: three substantive
-phases without such inspection). The last check pauses new phase starts for owner
-inspection, not new human approval. Ordinary green checkpoints stay local.
-Phase verification and final milestone checks remain required; valid evidence is
-reused. Measure review time, actual owner usage, rework, and integration defects
-before tuning this pilot setting.
-
-## Install
-
-Prerequisites:
-
-- Codex installed and available as `codex` on `PATH`.
-- Git available in repositories where the phase loop should create branches or
-  commits.
-- Optional peer agents installed and authenticated only where you want to use
-  them: Cursor Agent as `cursor-agent` and Claude Code as `claude`.
-
-Add this repository as a Codex plugin marketplace. The command is the same from
-macOS/Linux shells, Windows PowerShell, and Windows `cmd.exe` when `codex` is on
-`PATH`:
-
-```text
-codex plugin marketplace add crawlon/phase-implementation-loop --sparse .agents/plugins
-```
-
-Then restart Codex and install **Phase Implementation Loop** from the plugin
-directory.
-
-## Cross-Platform Notes
-
-The plugin is platform-neutral: it is a Codex plugin manifest plus Markdown
-skill instructions. No Bash-only setup script is required. The shared protocol
-covers command discovery and shell adaptation on macOS, Linux, PowerShell, and
-`cmd.exe`.
-
-## What It Does
-
-- Reconciles markdown plans and Linear issues into a canonical markdown phase
-  plan before implementation starts.
-- Assesses every phase as TINY, ROUTINE, or COMPLEX against THIN, ADEQUATE, or
-  DETAILED plan detail, then recommends either more detail or the least expensive
-  capable implementer.
-- Delegates planning and replanning to Codex GPT-6 Astra at high reasoning, with
-  Claude Opus 5.5 as the fallback, while the orchestrator retains plan ownership.
-- Lets the invoking orchestrator recommend or confirm an execution profile for
-  Codex, Cursor, and Claude roles.
-- Keeps Codex implementation separate from orchestration: a selected Codex
-  implementer always runs as an edit-capable worker sub-agent.
-- Runs phase by phase with planning, implementation, verification, phase reports,
-  approval gates, commits, and durable handoffs.
-- Keeps prerequisites tied to delivery criteria, reuses still-valid evidence,
-  permits direct factual bookkeeping, and checks drift without routine extra
-  planner calls, artifacts, or approval cycles.
-- Shapes phase boundaries around reviewable behavior, independently checks
-  consequential designs before dependent implementation, tests cross-phase
-  interactions at their earliest useful boundary, and checks cumulative outcomes
-  at named delivery milestones. Standalone orchestrators do these within the
-  existing loop; no delivery owner or additional approval cycle is required.
-- Monitors context at existing checkpoints and, with approved rollover authority,
-  transfers to a fresh primary orchestrator using a compact handoff while
-  preserving workspace identity, evidence, and pending gates.
-- Offers an explicit autopilot variant that freezes the approved scope, commits
-  each green phase, continues without routine approval pauses, and stops on
-  ambiguity, insufficient verification, or high-risk actions.
-- Defaults implementation to a separate Codex Luna 6 Max worker, with Cursor
-  Grok 4.7 as the first fallback and task-appropriate model/effort selection if
-  both are unavailable. Capability assessment still preserves phase requirements.
-- Delegates UI/UX browser review to a fresh non-editing Codex Luna 6 Max reviewer.
-- Uses Claude Opus 5.5 as the preferred external verifier, fresh Codex Astra High
-  as the first fallback, and Cursor GLM 5.3 High as the second fallback.
-- Keeps wrappers transport-focused: agent policies, prompts, defaults, and
-  fallbacks live in the skill references. Optional hardened macOS/zsh Cursor
-  wrappers live under `scripts/cursor-bridge/`.
-- Packages both execution modes together; autopilot intentionally reuses the
-  gated skill's shared protocol and agent references.
-
-## Structure
-
-```text
-.agents/plugins/marketplace.json
-plugins/phase-implementation-loop/
-  .codex-plugin/plugin.json
-  skills/phase-implementation-loop/
-    SKILL.md
-    references/
-      shared-protocol.md
-      phase-capability.md
-      delivery-policy-scenarios.md
-      context-rollover.md
-      delegated-jobs.md
-      agent-prompts.md
-      agent-codex.md
-      agent-cursor.md
-      agent-claude.md
-  skills/phase-implementation-autopilot/
-    SKILL.md
-    agents/openai.yaml
-  skills/delivery-owner/
-    SKILL.md
-    agents/openai.yaml
-    references/
-      contracts.md
-      coordination.md
-      progressive-planning.md
-      review-policy.md
-      validation-scenarios.md
-  skills/managed-implementation-loop/
-    SKILL.md
-    agents/openai.yaml
-    references/managed-execution.md
-  skills/managed-implementation-autopilot/
-    SKILL.md
-    agents/openai.yaml
-scripts/
-  cursor-bridge/
-    bin/
-    tests/
-```
-
-## Optional retained-planner trial
-
-The separately selectable **Delivery Workflow Trial 0.1.0** adds a retained
-planner, a delivery-focused owner and matching managed/standalone trial modes.
-All trial names end in `-trial` and require explicit selection. Existing skills,
-assignments and approvals remain unchanged. See the
-[trial usage and switching-back guide](plugins/delivery-workflow-trial/README.md).
-The trial has isolated protocol copies and no automatic cohort migration.
+Codex and Git are required for repository execution. Approved external profiles
+may use the optional [Claude bridge](scripts/claude-bridge/README.md) or
+[Cursor bridge](scripts/cursor-bridge/README.md). UI-affecting work also uses the
+separately installed `ui-ux-browser-review` skill. No provider credentials or
+background scheduler are included.

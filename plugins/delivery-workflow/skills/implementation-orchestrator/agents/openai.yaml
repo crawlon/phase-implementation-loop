@@ -1,0 +1,7 @@
+interface:
+  display_name: "Implementation Orchestrator"
+  short_description: "Execute approved plans with independent review."
+  default_prompt: "Use $implementation-orchestrator to execute this plan. Preserve approved coordination and execution settings; otherwise start standalone and gated."
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Delivery Owner"
+  short_description: "Coordinate delivery across plans and dependencies."
+  default_prompt: "Use $delivery-owner to coordinate this roadmap with the existing approved execution settings."
+
+policy:
+  allow_implicit_invocation: false

@@ -1,26 +1,14 @@
 {
   "name": "phase-implementation-loop",
   "interface": {
-    "displayName": "Phase Implementation Loop"
+    "displayName": "Delivery Workflow"
   },
   "plugins": [
     {
-      "name": "phase-implementation-loop",
+      "name": "delivery-workflow",
       "source": {
         "source": "local",
-        "path": "./plugins/phase-implementation-loop"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "delivery-workflow-trial",
-      "source": {
-        "source": "local",
-        "path": "./plugins/delivery-workflow-trial"
+        "path": "./plugins/delivery-workflow"
       },
       "policy": {
         "installation": "AVAILABLE",

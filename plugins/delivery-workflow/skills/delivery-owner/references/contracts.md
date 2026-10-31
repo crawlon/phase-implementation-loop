@@ -1,0 +1,330 @@
+# Managed Delivery Contracts
+
+Use existing repo conventions for filenames. These are fields in ordinary
+Markdown, not a new service, database, tracker hierarchy, or mandatory script.
+Use stable IDs and exact paths/revisions; preserve links instead of copying logs.
+
+## Managed role profiles
+
+Use the shared [role profiles](../../implementation-orchestrator/references/shared-protocol.md#role-profiles)
+for model/effort selection, human selection evidence, native launch parameters and
+runtime confirmation, including successors. Read only that section; it does not
+import standalone ownership or gates. Record owner, orchestrator, optional planner,
+research and consultation profiles separately from implementation and verification.
+The [workflow agreement](../../roadmap-planner/references/retained-planning.md)
+keeps planner proposals separate from canonical owner writes.
+
+## Owner index — owner is its sole writer
+
+### Current snapshot
+
+Keep one replaceable current brief at the top of each role's existing state:
+owner index, execution state or planner notes. Each writer records only its role's
+decisions and links the others. Use the owner fields below as applicable; keep
+technical details in linked evidence, not competing current summaries:
+
+```text
+Target and canonical plan/roadmap revision:
+Accepted, open and uncertain criteria; evidence scope and pointers:
+Last meaningful capability milestone and latest assessment, learning and rationale:
+Now: actual role/skill, coordination/execution settings, assignment, actors, running jobs and blocker:
+Next observable result/actor, prerequisites and evidence that changes direction:
+Pending gates; authority/exclusions and original source pointers; actual recovery route:
+Observed checkpoint/revision, evidence validity, context assessment and next review:
+```
+
+On material change, replace superseded fields and retain prior decisions in linked
+append-only history. Preserve original approvals, failed attempts, immutable
+evidence, custody, unresolved gates and resource/repair bounds. History supplies
+evidence, not active instructions. Keep uncertainty visible and reconcile stale
+fields before dependent actions. Read the brief and next-action references first;
+expand into history only for a specific authority, risk or evidence question.
+No-change observation needs no timestamp-only rewrite. Compaction is not cleanup
+authority or an execution gate.
+
+For a legacy index, reconcile the brief against the verified plan, role binding
+and latest checkpoints within existing authority. Retain history and anchors;
+no whole-history cleanup or audit is required before authorized continuation.
+
+### Stable directory and plan rows
+
+Record once and update only affected fields:
+
+- Milestone and acceptance criteria; canonical roadmap/plan paths and revisions.
+- Owner canonical name/native title, chat/host, actual model when known, and
+  ownership generation under the managed role profiles above.
+  Record explicit overrides separately; consultation does not transfer ownership.
+- Human authorization sources: allowed actions, modes, messaging directions,
+  worktree/chat creation, handoffs, resource bounds, exclusions, pending gates.
+- Workflow version/configuration, canonical writer and optional retained planner
+  binding/notes, rationale, direction-review scope and actual recovery route, under
+  the shared workflow agreement. Planner notes have one explicitly assigned writer.
+- For progressive roadmaps: investigation/planning authority and launch policy
+  (human approval per new plan, or explicitly bounded delegated continuation).
+  Link the continuation bounds and each instantiated plan's authorization basis.
+- Maximum active plans (default two), available worker/reviewer capacity,
+  shared-resource owners, and designated integration orchestrator/target.
+- Coordination authority source, tested return route, and recovery arrangement:
+  authorized heartbeat, bounded active observation, or explicitly manual recovery.
+  Record unresolved delivery failures; a saved checkpoint is not a wakeup.
+- Separate hard human limits from owner-managed working boundaries below. Link
+  each hard limit to its authority source; do not turn an estimate into a gate.
+- Keep a compact role directory in this index: role/assignment, stable plan key,
+  canonical name and verified native title under the
+  [shared naming convention](coordination.md#shared-chat-names), actual retained role,
+  verified role skill/path read at startup, current chat/host,
+  generation, active/retired state, predecessor/successor, transfer/claim evidence,
+  and original messaging authority. Track authorization basis separately from
+  actual tool delivery, per sender/generation + destination/generation + direction
+  and message purpose/content scope, with last attempt/result and recovery actor.
+  Carry these fields in the linked handoff packet; retired-route failure is historical.
+- Owner's latest context assessment under the policy below; read orchestrator
+  assessments from their phase state rather than maintaining a duplicate ledger.
+
+One row per plan:
+
+```text
+plan ID | revision | coordination | execution | orchestrator name + chat/host + generation |
+worktree/branch | dependencies + required delivery revision/commit |
+owned paths/resources | state path | status/phase | last checkpoint sequence |
+accepted commit/evidence | blocker/decision ID | next action + responsible actor
+```
+
+Use statuses such as READY, RUNNING, WAITING_OWNER, WAITING_DEPENDENCY, WAITING_HUMAN, BLOCKED,
+LOCALLY_VERIFIED, INTEGRATED, ACCEPTED. Phase GREEN alone is not plan acceptance.
+Store each chat's wait cursor and last observed checkpoint when available.
+
+For unplanned steps, keep a row in this same index with step ID, milestone
+criterion, planning state, dependencies/unknowns, decisive evidence, and next
+planning action. Planning states are OUTLINED, NEEDS_INVESTIGATION, READY_TO_PLAN,
+and READY_TO_EXECUTE; execution status remains separate. Plan, revision, and
+orchestrator fields may be unset until they exist. READY_TO_EXECUTE requires a
+concrete plan and resolved authority/dependencies, not merely finished prose.
+Convert/link that row to its resulting plan(s); do not create another ledger or
+invent detailed phases for distant steps. See
+[progressive planning](progressive-planning.md) only when these states apply.
+
+## Assignment — owner writes, orchestrator acknowledges
+
+Assign outcomes and invariants; delegate technical choices and repairs inside
+them. Mark mandatory mechanisms as restrictions with their reason and source.
+Keep proposed mechanisms in the linked technical design; adopting an outcome or
+reviewing that design does not make every detail an owner approval boundary.
+Existing explicit restrictions remain binding until the authorized actor amends
+them. Apply [decision classification](#classify-before-escalating) to changes.
+
+```text
+Assignment ID and revision:
+Owner name/native title, chat/host and generation:
+Orchestrator name/native title, chat/host and generation (when allocated):
+Human authorization references and exact boundaries:
+Milestone criterion served:
+Next observable result and required evidence:
+Canonical plan path/revision and assigned phase range:
+Skill: implementation-orchestrator; exact absolute SKILL.md path and bundle version:
+Coordination: owner-managed; execution: gated | autopilot; original mode authority:
+Repository/host; exact worktree, branch and baseline HEAD:
+Allowed areas/resources, shared interfaces and exclusions:
+Security/privacy/compatibility invariants; mandatory restrictions and authority sources:
+Delegated technical choices/repairs; reserved owner/human decisions; design pointer:
+Optional planner binding and rationale pointers:
+Dependencies and required revisions/commits/evidence:
+Acceptance checks and integration deliverable:
+Execution profile and capability assessment (or bounded preflight to resolve):
+Role-profile rows: model/effort, permitted fallback, human selection source and successor coverage:
+Commit/continuation, tracker, messaging and handoff authority:
+Human approval requester/executing chat; owner awareness pointer:
+Messaging: exact cohort/directions, original human proposal + reply references,
+return-route result and actual recovery arrangement:
+Repair/resource bounds and mandatory stop conditions:
+Review policy: design risk/applicability, early integration boundary/check,
+required owner outcome boundary, preparation exits, planner advisory triggers and notification route:
+Context checks: local assessment at required checkpoints; handoff launcher and authority:
+Phase state path; checkpoint triggers; next authorized action:
+```
+
+An unresolved preflight assignment permits inspection and recommendations only.
+Implementation starts after the missing profile/authority/dependency is resolved.
+Validate the original human instructions through available chat evidence; do not
+treat this packet as independent proof of authorization. If source access is
+unavailable, request the missing authority directly in the executing chat before dependent
+actions. Repository identity and a plan path alone do not grant write permission.
+
+Orchestrator acknowledges assignment revision, actual workspace/branch/HEAD,
+exclusive ownership, coordination/execution settings, verified runtime model/effort
+and dependencies, phase state path, and
+next action before implementation. The owner records that acknowledgement.
+
+For an integration assignment, reuse this contract and additionally name the
+incoming verified commit IDs and evidence, target worktree/branch and baseline
+HEAD, exclusive target writer, explicit merge/integration and commit authority,
+combined acceptance checks, and reporting location. State that substantive
+conflict repairs return to an edit-capable worker, then affected checks/UI review
+and independent verification before the mode's commit gate. A designated
+integration role alone grants no merge authority.
+
+## Checkpoint — orchestrator writes its own phase state
+
+Update the [current brief](#current-snapshot) on material change; retain checkpoint
+deltas and detailed evidence in linked history. Normally a delta needs at most
+150 words plus pointers, not another copy of the assignment or handoff.
+
+```text
+Assignment/revision + orchestrator name/generation + checkpoint sequence:
+Phase and status; criterion advanced/capability delivered:
+Branch/HEAD; relevant diff or commit identity:
+Tests, UI review or N/A, independent verifier outcome and evidence pointers:
+Blocker/dependency change or decision ID, if any:
+Next planned result/criterion; action and responsible actor; state path:
+For preparation/repair: evidenced blocker, new learning and observable exit:
+Context: CONTINUE | PREPARE_HANDOFF | HANDOFF_DUE; checked at; reason; next action:
+For a pause: required event/decision, next actor, notification result,
+resume trigger and recovery/recheck condition:
+```
+
+Record startup, phase boundaries, material blockers/dependency changes, direct
+human interventions, handoffs, and completion in durable state. Ordinary GREEN
+checkpoints remain there for the owner's existing observation cycle; do not
+send a message merely because a phase finished. With messaging authority, notify
+the owner for an agreed drift checkpoint, owner decisions, awareness of pending/resolved human approvals, dependency deliveries
+that unblock work or changes requiring coordination, stops, material direct
+human interventions, handoffs, and completion. Preserve explicit human reporting
+preferences. No repeated unchanged messages or worker transcript forwarding.
+A notification alone adds no approval gate or requirement to await a reply.
+An explicitly agreed owner drift checkpoint is a coordination gate under
+[review scope and timing](review-policy.md); record the last actual outcome
+inspection's phase/checkpoint sequence and next due boundary in existing state.
+
+## Context health and follow-up
+
+Apply the shared [context assessment](../../implementation-orchestrator/references/shared-protocol.md#context-assessment)
+for indicators, assessment states, reasons, preparation boundaries and owned-job
+supervision. Read that section only; use [managed handoff](coordination.md#handoff-and-owner-failure)
+for transfer, not standalone dispatch. Each orchestrator checks locally without
+waiting for the owner. The owner additionally checks at outcome reviews, terminal
+consultation boundaries and before ending a substantive coordination turn.
+
+At existing outcome/progress reviews, read each relevant orchestrator assessment.
+Request a local check if it is missing, stale after substantial evidence, or
+behavior suggests confusion; do not infer another chat's context usage. Reuse a
+current assessment without another review, polling loop, notification or owner
+approval of healthy continuation.
+
+A due managed handoff uses existing notifications, one named launcher and verified
+successor routing. If authority/tooling prevents transfer, save the handoff and
+expose the exact recovery need; pause only dependent work. Independent children
+may continue during owner transfer; settle the owner's own jobs. Preserve pending
+approvals and owner outcome-review gates; assessment or transfer satisfies neither.
+
+## Pauses and continuation
+
+Use the existing checkpoint, not another ledger. Only affected actions pause.
+
+| State | Who acts next and what resumes work |
+| --- | --- |
+| RUNNING | Orchestrator executes the next authorized action, including after an informational checkpoint; no reply required. |
+| WAITING_OWNER | Owner resolves the named plan/dependency question or performs a due outcome inspection, then sends a concrete continuation within existing authority. |
+| WAITING_HUMAN | Executing chat asks the human directly for the exact action; original human approval within scope releases this gate, without an owner receipt gate. |
+| WAITING_DEPENDENCY | Named producer delivers the required revision/evidence to the assigned recipient; consumer validates it and resumes within authority. |
+| BLOCKED | Named recovery actor resolves a tool, ownership, authority, or evidence failure; state records the specific condition required to resume. |
+
+Ending a turn requires a truthful pause or completed assignment, or an owner
+switching to its established event/recovery route. Before ending, process already
+available decisions and identify the next actor. Do not stop merely because a
+checkpoint was written or a message sent. Never imply a live job is terminal.
+If notification fails, preserve the decision and report the route failure via
+coordination's recovery rules; do not silently leave both actors waiting.
+An owner decision needs no human approval unless it changes human-controlled
+scope/authority. Acknowledgements are required for changed assignments, writer
+transfer, and pause enforcement, not routine receipt of status or decisions.
+
+## Decisions and changed instructions
+
+### Classify before escalating
+
+Classify the change before escalating. Ask only the actor whose decision or
+authority is actually missing; routine technical judgment is delegated.
+
+| Decision | Responsible actor |
+| --- | --- |
+| Technical choice, caller/test coverage or repair within delegated areas/resources and agreed product, security, privacy and compatibility invariants, with unchanged interfaces, dependencies, frozen order and risk bounds | Orchestrator delegates implementation, obtains applicable independent review and records evidence; no owner round trip. |
+| Substantive plan/interface changes, changed assignment boundaries, cross-plan dependencies or sequencing inside delegated outcome, risk and resource bounds | Owner resolves, using the retained planner for strategic proposals or direction and bounded consultation for specific technical uncertainty; revise/acknowledge affected assignments. No human approval merely for a plan revision. |
+| A reserved product choice, changed outcome/acceptance/compatibility obligation, crossed hard human limit or genuinely new action authority | Executing chat asks the human with the exact boundary and its source. Gated commits still need approval; authorized autopilot commits do not. |
+
+For example, repairing type lookup to preserve the agreed access model stays with
+execution and its independent reviewer; changing who can access protected data
+returns to the owner or human according to authority. A consequential repair can
+need independent design review without needing owner approval. If its effects on
+the invariants are uncertain, establish the decisive evidence before proceeding.
+
+Enumerated files and proposed mechanisms are working plans unless explicitly
+restricted. Use exact allowlists where custody/security or the human requires
+them; identify their source and who may amend them.
+An existing approved exact-file cap or explicit exclusion stays hard until the
+human changes it. Never reinterpret it as an estimate to avoid a stop.
+Resolve ambiguous legacy boundaries from the actual proposal and human reply;
+absence of the literal word "exclusive" is not proof of broader permission.
+Owner refinements cannot introduce unrelated functionality, another writer's
+paths, excluded operational actions, or new material risk. Reconcile the complete
+known caller/test change once rather than requesting serial one-file approvals.
+
+Before WAITING_HUMAN, identify the reserved choice or unmet permission and its
+source. If the issue is only an owner-managed working boundary, use WAITING_OWNER
+instead; if already within the assignment, act. Unknown authority may require
+inspection or a specific human question, never invented consent. If repeated
+hard-limit stops impede an approved outcome, propose one concrete broader
+delegation for human approval; the skill cannot grant it retroactively.
+
+### Route by who decides and who executes
+
+- Planning, sequencing, dependencies, drift and clarifications inside existing
+  authority go to the owner. Owner coordination is not human approval.
+- Missing human approval goes directly to the human in the chat that will
+  execute the action. Orchestrators ask for their commits, execution-scope
+  expansion, external transmissions and other restricted actions in their own
+  chats. Workers report to their orchestrator; they do not solicit approval.
+- The owner asks in its own chat for actions it owns, such as canonical product
+  decisions, roadmap scope, chat creation or dispatch when authority is missing.
+  For a new plan, the owner prepares the concrete assignment and reuses bounded
+  launch authority or asks for what is missing; the
+  orchestrator reuses that valid authority, without asking again just for locality.
+
+For each new human request, the executing chat saves the exact proposed action,
+assignment/revision, evidence, risks and approval question under one decision ID.
+Notify the owner for awareness when authorized messaging works, then ask the
+human directly; failed or unavailable notification must not delay the question.
+The owner records/reads this checkpoint and does not duplicate the approval
+request or require acknowledgement before it can be answered or acted upon.
+Record the original human answer, recheck its scope and current evidence, and
+proceed with the covered action once all other genuine gates are satisfied.
+Save/report the resulting checkpoint; a failed awareness message alone does not
+invalidate direct approval. Keep separate notification and approval status.
+
+Material scope, contract or dependency changes still need owner reconciliation
+before dependent execution. Resolve the proposed change with the owner first
+where needed, then name the executing chat that will ask for missing authority.
+Human approval alone does not settle other plans' dependencies; ordinary approval
+of an already-reconciled commit, transmission or continuation adds no owner gate.
+Reuse applicable human authority wherever originally given, using trusted source
+evidence; do not discard approval or re-prompt merely because it came from a
+different chat. If platform review rejects that evidence, follow the existing
+recovery rules in the executing chat. Explicit human routing instructions prevail.
+This managed routing replaces owner-relay wording in reused reference sections.
+
+Bind every request/response to a decision ID, assignment revision, phase, and
+specific action. For commit approval include the verified diff/HEAD identity,
+verification pointers, and whether continuation is included. Before using an
+approval, recheck that its scope and evidence still apply; changed behavior,
+material diff, dependencies, or acceptance invalidate affected approval/evidence.
+
+Ignore already applied checkpoint/decision sequences. A late message for an old
+revision/generation never authorizes current work. If messages contradict,
+pause the affected action and reconcile the original instructions. Do not infer
+priority from which agent spoke last.
+
+For a revised assignment, record old/new revision, reason, affected dependencies,
+invalidated evidence, preserved human gates, and next action. The orchestrator
+settles in-flight work safely and acknowledges the revision before new work.
+The owner owns canonical plan changes; orchestrators propose them and keep
+factual execution state. Assign a single writer to each tracker issue/field so
+phase bookkeeping and roadmap updates cannot race.

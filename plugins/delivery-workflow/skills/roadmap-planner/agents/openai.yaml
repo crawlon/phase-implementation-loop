@@ -1,0 +1,7 @@
+interface:
+  display_name: "Roadmap Planner"
+  short_description: "Start delivery and keep its direction on track."
+  default_prompt: "Use $roadmap-planner to start delivery of this approved plan. Add an owner only when useful."
+
+policy:
+  allow_implicit_invocation: false
