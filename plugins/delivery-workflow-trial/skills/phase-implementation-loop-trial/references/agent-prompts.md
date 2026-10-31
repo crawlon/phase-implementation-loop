@@ -40,8 +40,8 @@ raise the phase to ADEQUATE or DETAILED without changing its goal. Require
 explicit behavior, boundaries, acceptance checks, dependencies, invariants,
 error states where relevant, likely seams, verification, and stop conditions.
 The planner must identify unresolved product decisions rather than invent them.
-The planner is read-only and returns advice to the orchestrator; it must not edit
-the canonical plan, mutate Linear, or make user decisions.
+The planning subagent is read-only and returns advice to its commissioning role;
+it must not edit the canonical plan, mutate Linear, or make user decisions.
 
 ## Design Review
 

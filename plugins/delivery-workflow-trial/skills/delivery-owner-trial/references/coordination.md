@@ -155,8 +155,9 @@ payload without new relevant evidence or use a replacement as an approval bypass
 For planner coordination, explicitly cover planner-to-coordinator and the return
 direction, roles/generations, allowed planning/review purposes and evidence content.
 An owner-orchestrator grant does not automatically add a planner. A planner may
-perform the bounded authorized startup launch; it may not message workers or
-independently dispatch later execution.
+perform the bounded authorized startup launch and supervise its own planning
+subagents; it may not message execution workers or independently dispatch later
+execution.
 
 Use `send_message_to_thread` only with original human authorization for that
 direction and cohort, including return messages. In the agreement, specify
@@ -361,14 +362,15 @@ instead of inheriting an old rejection. If a child cannot be notified, observe i
 checkpoint and expose the specific unacknowledged binding/recovery need; do not
 claim the transfer is fully coordinated. Do not overlap owners or copy all histories.
 
-For a retained-planner replacement, settle its own consultations/discovery jobs
+For a retained-planner replacement, settle all its own planning-support jobs
 and note writes, refresh concise rationale/learning in its notes, and apply the
 same safe-transfer generation/token, session-bound exclusive claim and unknown-
 launch-outcome rules to the planner role. The source relinquishes planner writes
 before one launcher dispatches a fresh planner. The successor reads the trial
 planner skill, notes, canonical goal/plan and latest delivery state; it claims only
-planner resources and never child execution/index ownership. The coordinator
-publishes the verified successor binding in its directory and retires the old
+planner resources and resumes its own supporting delegation, never child execution/index
+ownership. Preserve completed findings and unresolved follow-ups without repeating
+valid research. The coordinator publishes the verified successor binding in its directory and retires the old
 route. During bootstrap, if the coordinator is not yet available, preserve
 the current planner binding and exclusive claim receipts in planner notes;
 the coordinator reconciles and publishes them before dependent dispatch. A

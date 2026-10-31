@@ -20,7 +20,7 @@ The coordinator is the owner for managed execution and the invoking orchestrator
 for standalone execution. It owns canonical plan decisions, evidence disposition
 and execution routing under its mode. The retained planner owns proposals,
 strategic rationale and its own notes. Its bounded startup launch transfers
-dispatch to the coordinator after acknowledgement. It may write authorized planner
+execution dispatch to the coordinator after acknowledgement. It may write authorized planner
 notes/drafts, but not canonical execution plans, owner indexes, source code or
 tracker fields owned by other actors. Standalone substantive plan edits still
 go through an edit-capable worker under the shared Role Contract.
@@ -41,6 +41,42 @@ retained planner. Pause only a decision that genuinely requires its unresolved
 input; continue independent work. Disclose a missing route and the precise recovery
 need. A different planner/provider requires the corresponding established authority.
 
+## Delegation within each role
+
+Each role directly commissions and supervises subagents for work within its own
+responsibility; another retained role is not a relay or approval gate for that work.
+
+| Commissioning role | Supporting work it owns |
+| --- | --- |
+| Planner | Research, read-only repository investigation, option/dependency analysis, draft plan sections and challenges to planning assumptions. It integrates findings into its proposals and authorized notes. |
+| Owner | Delivery/dependency analysis, milestone evidence assessment and bounded advice for owner decisions; progressive planning when no retained planner is selected. It retains canonical plan adoption and assignments. |
+| Orchestrator | Execution investigation, technical consultation within its assignment, separate implementation workers, checks and independent review under its execution protocol. |
+
+Before delegating, reuse current evidence and check the relevant delivery brief
+for overlapping active work. Keep small tasks local. Use bounded read-only
+subagents for research/analysis/drafts; return results to the commissioning role,
+which checks decisive evidence and owns the resulting judgment. Use the approved
+[role profiles](../../phase-implementation-loop-trial/references/shared-protocol.md#role-profiles):
+Luna Max for bounded support it can handle, an approved stronger route for harder
+analysis. The retained agent's model and decision responsibility stay unchanged.
+
+A brief names the question/result, sources, constraints and completion condition.
+The commissioning role owns the handle and follows the
+[terminal lifecycle and supervision rules](../../phase-implementation-loop-trial/references/delegated-jobs.md#terminal-lifecycle),
+records findings and open follow-ups in its existing state, and settles its own
+jobs before handoff. Preserve original model/fallback selections, provider consent,
+access limits and successor coverage; delegation adds no retained chat or authority.
+Reserve execution/reviewer capacity rather than creating recursive managers.
+
+Route a decision to another role only when it crosses that role's boundary.
+Execution tests, runtime operations, prototype edits and shared implementation
+changes go through the executing orchestrator and its gates. Canonical plan
+adoption stays with the coordinator and its designated writer. A planner's read-only
+investigation is not permission to run the project or direct execution workers.
+Keep routine subagent exchanges local; send only relevant findings, decisions or
+changed dependencies to other retained roles. Design authors and their contributors
+cannot supply the required independent review of their own work.
+
 ## Request scope and routing
 
 The same check applies to requests from an owner or, with no owner, the standalone
@@ -55,14 +91,15 @@ The planner classifies the request before loading detailed evidence or answering
 | Request | Responsible response |
 | --- | --- |
 | Roadmap assumptions, next planning frontier, milestone strategy or cumulative delivery direction | Planner assesses and recommends. |
-| Specific architecture choice, debugging or technical uncertainty | Coordinator uses warranted bounded technical consultation under its existing approved route, reusing settled guidance first; routine diagnosis stays with execution. |
+| Specific architecture choice, debugging or technical uncertainty | The role owning the decision commissions warranted technical consultation directly: orchestrator within its assignment, owner for cross-plan or reserved delivery decisions. Reuse settled guidance; routine diagnosis stays with execution. |
 | Routine sequencing/scheduling, settled elaboration or an unchanged decision | Coordinator decides within its authority, reusing recorded guidance. |
 | Implementation tactics or test execution | Executing orchestrator handles it through its existing worker/execution protocol. |
 
 For a misplaced request, the planner declines substantive advice and returns one
 brief scope explanation, responsible role and concrete next action through the
 existing authorized route. It does not answer the technical question as a courtesy,
-forward it to workers or launch a consultant itself. The coordinator owns routing;
+forward it to execution workers or commission its diagnosis. This does not restrict
+direct planning support under Delegation within each role;
 reserved human decisions and actual execution gates remain unchanged.
 
 For mixed questions, address the strategic consequence and separate the technical
@@ -159,7 +196,8 @@ gates pause only dependent actions.
 Notify once for a recommendation, planning delivery, material risk, required
 decision or authorized binding change. Use the current directory and actual
 message-purpose authority; keep routine activity in state. The planner neither
-dispatches workers nor supervises another actor's jobs.
+dispatches execution workers nor supervises another actor's jobs; it supervises
+its own planning subagents directly.
 
 For requested recurring oversight, reuse a suitable authorized native heartbeat.
 At each wakeup first check changed checkpoint/binding/gate status and the recorded

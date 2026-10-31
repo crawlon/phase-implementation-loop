@@ -42,7 +42,11 @@ is not a deadline. Existing human limits and required assurance remain.
 The planner preserves rationale and proposes later plans. The owner or standalone
 orchestrator owns canonical execution
 decisions and dispatch. Specific technical consultation and independent verification
-remain separate. Routine GREEN phases need no planner signature or message.
+remain separate. Each role directly delegates its own supporting work: the planner
+owns planning research/analysis/drafts, the owner delivery/dependency support, and
+the orchestrator execution investigation, implementation and review. Results return
+to that role; only cross-role decisions need coordination. Routine GREEN phases
+need no planner signature or message.
 Assignments bind outcomes and invariants; proposed technical mechanisms remain
 delegated choices unless explicitly mandatory. Necessary preparation retains its
 blocker and observable exit. Routine progress stays local; unchanged human gates

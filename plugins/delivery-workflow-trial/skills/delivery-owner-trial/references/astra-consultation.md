@@ -6,13 +6,14 @@ selected, supplies strategic proposals under the
 [trial agreement](../../roadmap-planner-trial/references/retained-planning.md).
 This bounded consultant supplies advice on a concrete difficult
 question; it is not another manager or a standing participant in cohort messages.
-This managed policy replaces inherited standalone planner routing only for
-owner-managed planning. Implementation and independent-verifier profiles stay
-unchanged.
+The owner commissions advice for delivery/cross-plan decisions; a managed
+orchestrator commissions its own technical advice within the assigned outcome.
+Each supervises its own job and retains its existing decision/write boundaries.
+Implementation and independent-verifier profiles stay unchanged.
 
 ## When to consult
 
-Use the [owner consultation profile](contracts.md#managed-role-profiles)
+Use the [consultation profile](contracts.md#managed-role-profiles) within your role
 when an unresolved decision involves:
 
 - Consequential architecture or a shared contract with dependent consumers.
@@ -40,9 +41,10 @@ questions go directly to their proper gate; Astra cannot grant permissions.
 ## Dispatch and result
 
 Use a bounded read-only subagent with explicit model/effort through supported
-controls and minimal context, not a user-owned chat or a fork of the whole owner
+controls and minimal context, not a user-owned chat or a fork of the caller
 history. If delegation is unavailable, disclose it. Record the trigger and
-question in existing owner state; do not create a separate planning bureaucracy.
+question in the commissioning role's existing state; do not create a separate
+planning bureaucracy.
 
 Give the consultant the question, fixed outcome and relevant acceptance criteria,
 constraints and authority boundaries, current plan/contract revision, alternatives
@@ -61,16 +63,18 @@ behalf of the human. Reuse the same consultant for follow-ups on this question
 while its context/evidence remain valid. A distinct question can use a fresh
 minimal-context consultant; do not keep it polling or forward routine updates.
 Supervise an active consultation to terminal completion; never launch duplicates
-or abandon its handle to satisfy an owner-observation limit.
+or abandon its handle to satisfy an observation limit.
 
-The owner assesses the advice against source evidence, records its disposition
-and applies authorized plan changes, preserving human gates and assignment
-acknowledgements. Advice is not execution authority or a second approval gate.
+The commissioning role assesses advice against source evidence and records its
+disposition. The owner applies authorized canonical plan changes; the orchestrator
+keeps technical changes within its assignment and worker protocol. Preserve human
+gates and required assignment acknowledgements. Advice is not execution authority
+or a second approval gate.
 Unrelated authorized work may continue while the affected decision is unresolved.
 If Astra is unavailable or inconclusive, preserve the question and pause only
 dependent work; report the limitation and concrete missing evidence or alternative
 route requiring approval. Do not silently claim an equivalent consultation or
-switch external providers. Routine owner work remains with Sol.
+switch external providers. Routine work remains with its responsible role.
 
 ## Independence and cost
 

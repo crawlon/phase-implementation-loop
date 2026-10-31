@@ -45,13 +45,15 @@ and only the selected provider references:
 [Cursor](../../phase-implementation-loop-trial/references/agent-cursor.md), or
 [Claude](../../phase-implementation-loop-trial/references/agent-claude.md).
 Reuse their implementation/UI/verification mechanics. Where they route
-substantive planning to a fresh planner, route the bounded question to the
-delivery owner instead. Do not spawn a redundant Astra planner.
-The owner routes strategic work to the selected retained planner and specific
-technical uncertainty to bounded consultation; without a planner it follows
-progressive planning. Both advise the owner, never assign work directly to
-orchestrators. Do not create or contact a second planner to bypass this route. Do not import standalone planner fallback rules into
-this managed path; worker and independent-verifier fallback rules still apply.
+substantive planning to a fresh planner, route canonical plan/assignment changes
+to the delivery owner. The owner routes strategic work to the selected retained
+planner or follows progressive planning when none is selected. For investigation
+and technical judgment inside your assigned outcome, directly commission your own
+research or [bounded consultation](../../delivery-owner-trial/references/astra-consultation.md)
+under the shared delegation contract; owner approval is not an extra gate.
+Escalate cross-plan decisions and explicit reserved restrictions to the owner.
+Do not spawn a duplicate retained planner or import standalone planner fallback
+rules; worker and independent-verifier fallback rules still apply.
 
 ## Managed orchestrator model
 

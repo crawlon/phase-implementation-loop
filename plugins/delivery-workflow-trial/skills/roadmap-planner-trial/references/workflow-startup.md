@@ -42,7 +42,8 @@ in this chat; the human need not invoke skills in each new chat.
    the result. Creation success alone is not running execution. Report a real
    approval or recovery boundary accurately; no duplicate launch to escape it.
    After acknowledgement the coordinator maintains the role directory and owns
-   later dispatch. Planner notes retain only the bootstrap receipt and rationale.
+   later execution dispatch. Each role owns its supporting subagents under the trial
+   agreement. Planner notes retain the bootstrap receipt and planning evidence.
 
 | Structure | Gated execution | Explicitly approved autopilot |
 | --- | --- | --- |

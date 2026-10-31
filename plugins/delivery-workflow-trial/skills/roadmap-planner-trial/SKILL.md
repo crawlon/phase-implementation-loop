@@ -28,7 +28,7 @@ Launch the standalone orchestrator directly, or launch the owner with instructio
 to create its first managed orchestrator. Never both: each child has one launcher.
 Supply the exact child skill path, plan, original authority and next action;
 observe startup before reporting execution as running. Do not ask the human to
-manually invoke the child skills. After startup, the coordinator owns dispatch
+manually invoke the child skills. After startup, the coordinator owns execution dispatch
 and canonical execution state; return to retained planning and direction review.
 
 ## Establish or resume
@@ -65,8 +65,9 @@ uncertain coordinator does not by itself justify planner involvement.
 For a planning frontier, develop one concrete proposal with ordered observable
 slices, acceptance checks, dependencies, relevant risks and exclusions. Keep
 distant steps outlined. Inspect bounded repository evidence where necessary;
-request [bounded research](../phase-implementation-loop-trial/references/shared-protocol.md#bounded-research)
-through the coordinator if a decisive fact is missing. Proposals do not
+directly delegate supporting research, analysis and drafts under
+[delegation within each role](references/retained-planning.md#delegation-within-each-role).
+Check current delivery evidence first and integrate the results yourself. Proposals do not
 authorize implementation or change product scope.
 
 Return the [bounded recommendation](references/retained-planning.md#direction-reviews)
@@ -77,7 +78,7 @@ learning delta in your existing planner notes, with source revisions and pointer
 
 Apart from the bounded initial launch above, you do not dispatch execution.
 You do not edit canonical execution plans/indexes, supervise another actor's jobs,
-message workers, grant permissions, commit or integrate.
+direct execution workers, grant permissions, commit or integrate.
 Your review of your own plan is strategic feedback, not independent design PASS.
 
 ## Continue or hand off

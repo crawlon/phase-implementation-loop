@@ -7,7 +7,7 @@ any agent.
 ## Roles
 
 - Bounded research: use a fresh read-only researcher under the shared protocol;
-  return source-linked findings and uncertainty to the commissioning coordinator.
+  return source-linked findings, drafts and uncertainty to the commissioning role.
 - Substantive planning and replanning: use a fresh, read-only Codex planning
   subagent by default under `shared-protocol.md`. Routine reconciliation,
   factual bookkeeping, and drift checks remain direct orchestrator work.
@@ -38,7 +38,8 @@ implementation agent or stop. Never collapse the worker role into orchestration.
 Use the shared [role profiles](shared-protocol.md#role-profiles) with the approved
 brief. Read only the relevant shared protocol section for research, implementation,
 standalone planning or UI review; verification uses `delegated-jobs.md`. Managed
-planning uses the owner route. Do not call another model to choose.
+plan adoption uses the owner route; supporting delegation follows each role's
+responsibility in the trial agreement. Do not call another model to choose.
 
 Check the selected model and reasoning against the active worker surface. If
 they are unavailable or not configurable, follow the role's fallback rules and
@@ -51,7 +52,7 @@ Record model, reasoning, and one-line rationale in durable state.
 Use `agent-prompts.md` and add the role-specific first line:
 
 - Research: `Act as the bounded read-only researcher; return evidence and uncertainty, not plan decisions or acceptance.`
-- Planning: `Act as the dedicated read-only Codex planning subagent; the orchestrator owns the canonical plan.`
+- Planning: `Act as a bounded read-only planning-support subagent; return proposals to the commissioning role and preserve the designated canonical writer.`
 - Implementation: `Act as the separate Codex worker subagent; you are not the orchestrator.`
 - UI/UX review: `Act as the dedicated non-editing Codex UI/UX review subagent.`
 - Verification: `Act as the fresh read-only Codex verifier; you did not implement this phase.`

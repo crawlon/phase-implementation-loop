@@ -16,8 +16,9 @@ receive concrete phase plans.
    Keep distant steps OUTLINED; do not repeatedly elaborate the whole roadmap.
 2. If a consequential question lacks evidence, mark NEEDS_INVESTIGATION and
    name the specific question, necessary evidence, and stopping condition.
-   Use existing evidence first; delegate bounded read-only discovery to a cheaper
-   capable worker when authorized and useful. Prototype edits, live calls, and
+   The role owning that question reuses evidence and directly commissions support
+   under [delegation within each role](../../roadmap-planner-trial/references/retained-planning.md#delegation-within-each-role);
+   the retained planner owns discovery for its proposals. Prototype edits, live calls, and
    other side effects require their own scope. Discovery is not implicit
    implementation authority. Stop or escalate an exhausted investigation bound.
 3. Mark READY_TO_PLAN when sufficient evidence exists. The selected planning actor proposes one

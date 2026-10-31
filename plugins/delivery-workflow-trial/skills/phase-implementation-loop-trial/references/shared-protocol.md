@@ -273,7 +273,7 @@ Explicit human selections override these proposed defaults when capability permi
 | Delivery owner | `gpt-6.1-sol` / `high` | Delivery decisions, dependencies and assignments. |
 | Managed orchestrator | `gpt-6.1-sol` / `high` | Execution coordination, supervision and gates. |
 | Standalone orchestrator | Existing explicitly approved model / reasoning | Preserve its profile; resolve an unspecified choice before launching a successor. |
-| Bounded researcher | `gpt-6-luna` / `max` | Evidence gathering and synthesis under Bounded Research below. |
+| Bounded researcher | `gpt-6-luna` / `max` | Bounded evidence gathering, analysis and planning drafts under Bounded Research below. |
 | Implementation worker | `gpt-6-luna` / `max` for compatible TINY/ROUTINE phases | Apply `phase-capability.md`; inherent high risk or novel complexity requires a suitable strong implementer. |
 | Bounded strategic/technical consultant | `gpt-6-astra` / `high` | Consequential unresolved reasoning; retain managed/standalone routing. |
 | UI/UX reviewer | `gpt-6-luna` / `max` | Preserve the existing non-editing browser review gate. |
@@ -313,16 +313,19 @@ fallback scope, not a newly chosen default.
 
 ## Bounded Research
 
-The responsible coordinator may delegate a fresh read-only Luna researcher for
-source discovery, documentation comparison, repository mapping or synthesis when
+The planner, owner or orchestrator directly delegates research supporting its own
+role under [Delegation within each role](../../roadmap-planner-trial/references/retained-planning.md#delegation-within-each-role).
+Use a fresh read-only Luna researcher for source discovery, documentation comparison,
+repository mapping, bounded analysis or planning drafts when
 the question, evidence access and expected result are bounded. Supply the question,
 source scope, relevant constraints and an observable completion condition; require
 source pointers, findings and uncertainties. Small lookups can stay local. Use
 existing authority, provider and data-sharing limits; no additional retained chat.
 
 The researcher gathers evidence, not strategic decisions, canonical plan changes
-or independent acceptance. The coordinator checks decisive sources and routes
-unresolved judgment to the retained planner or warranted technical consultant.
+or independent acceptance. The commissioning role checks decisive sources and
+owns interpretation within its remit; it uses approved stronger support when needed
+and routes only decisions outside its remit to the responsible role.
 High-stakes/ambiguous interpretation, conflicting evidence that cannot be resolved
 from the sources, or findings that change risk require that stronger judgment
 before dependent action. Research may still collect facts for such questions.

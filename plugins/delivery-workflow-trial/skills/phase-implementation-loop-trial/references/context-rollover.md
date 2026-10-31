@@ -111,7 +111,11 @@ alone. Reconcile authorization against available original user approval evidence
 if it cannot be established, ask for the missing decision before dependent work.
 Verify inherited provider coverage under the shared rule; a thread change alone
 creates no new external-sharing approval gate.
-Keep the same delegated role separation and monitor context at later checkpoints.
+Preserve [delegation within each role](../../roadmap-planner-trial/references/retained-planning.md#delegation-within-each-role):
+carry settled findings, unresolved follow-ups and approved support profiles in the
+role's current brief. The successor resumes its own supporting work, not another
+role's jobs; do not relaunch completed research without an evidence gap.
+Monitor context at later checkpoints.
 
 ## Failure And Recovery
 
