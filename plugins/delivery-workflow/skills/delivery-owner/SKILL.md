@@ -32,7 +32,8 @@ authority. You are that child's sole launcher. Verify its startup acknowledgemen
 and report actual readiness or the pending gate to the planner; do not stop at
 creating an assignment. Preserve the [startup launch chain](../roadmap-planner/references/workflow-startup.md).
 
-1. Check your [context health](references/contracts.md#context-health-and-follow-up)
+1. Use the shared [compact context assessment](../implementation-orchestrator/references/shared-protocol.md#context-assessment)
+   and owner [follow-up](references/contracts.md#context-health-and-follow-up)
    before substantial evidence loading or decisions. Read repository instructions,
    the fixed target, canonical plan and the index's single
    [current snapshot](references/contracts.md#owner-index--owner-is-its-sole-writer).

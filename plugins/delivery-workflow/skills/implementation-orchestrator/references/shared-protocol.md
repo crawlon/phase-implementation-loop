@@ -149,40 +149,62 @@ Carry covered work and the next named checkpoint through rollover.
 
 ### Context assessment
 
-This assessment applies to standalone orchestrators, owners and retained planners; use the
-active workflow's handoff procedure. Check your own context at the start of
-substantive turns before planning, dispatch or substantial evidence loading, after large review/repair cycles,
-at phase boundaries and terminal job checkpoints, and before the next substantial
-step. Reuse a current assessment when no material evidence has accumulated.
-Record one line in existing role/phase state: `CONTINUE | PREPARE_HANDOFF |
-HANDOFF_DUE`, checkpoint checked, concrete reason, and next action/safe boundary.
-No separate ledger, reviewer, notification or approval cycle is needed.
+Use this same assessment for planners, owners and both orchestrator configurations.
+Read it at startup/adoption; reuse it at checkpoints. Check before substantial work,
+after large evidence/repair cycles, at phase/owned-job completion, and after native
+compaction at the next safe checkpoint. Reuse an unchanged assessment. Use the
+existing current brief and already-available signals; no routine transcript scans,
+delegated self-reviews, extra polling, notifications or separate ledger.
 
-Use reliable context indicators when exposed; otherwise record usage as unknown
-and assess accumulated logs/diffs, repeated reconstruction, forgotten constraints
-or confused decisions. Account usage/quota is not remaining chat context; do not
-invent percentages or a universal phase-count threshold. A CONTINUE reason explains
-why the target, current phase/actor, authority, pending gates and next action remain
-reliably usable; “usage unknown” or “no active jobs” alone is insufficient.
-Native compaction prompts reassessment at the next safe checkpoint, not automatic
-exhaustion. Repeated reconstruction/compaction with growing decision burden calls
-for preparation; recover lost or contradictory settled constraints before
-dependent action and transfer when reliable continuation remains at risk.
+Replace one line in existing role state only when evidence, decision or the named
+boundary changes. Keep it within 60 words, with a concrete basis and next action:
 
-- CONTINUE: decisions and authority remain reliably usable; continue within gates.
-- PREPARE_HANDOFF: refresh durable state now and name the next safe boundary for
-  reassessment/transfer. At that boundary record evidence-supported CONTINUE or
-  HANDOFF_DUE; do not repeatedly postpone it with unchanged preparation statements.
-- HANDOFF_DUE: reliable continuation is at risk; settle your own active jobs and perform
-  the authorized rollover before another substantial step. Do not merely recommend
-  an already authorized transfer. If no approved work remains, report completion
-  or the pending outside-scope decision instead of launching an idle successor.
+```text
+CTX <CONTINUE|PREPARE_HANDOFF|HANDOFF_DUE> @<checkpoint> | usage=<value/source|?> | compact=<count/source|?>@<last> | brief=<ok|recovered|gap> | load=<ordinary|raised:reason> | basis=<evidence> | next=<action/safe boundary>
+```
 
-Context pressure never makes a running handle terminal: preserve recoverable
-state and supervise the same owned worker/verifier/consultation/operational handle to completion.
-Do not abandon, cancel or duplicate it to relieve context pressure, or launch
-a competing orchestrator. Name terminal completion as the safe boundary when
-preparing during an active job; then reassess and retain its real result/gates.
+Assess these together; use no numerical complexity score:
+
+- **Usage:** current session context from a reliable exposed source, or `?` when
+  unavailable/stale. Account quota and lifetime tokens are different measures;
+  invent no percentages or universal cutoff.
+- **Compaction:** count unique completed compactions and the last event/checkpoint;
+  use a verified total, or partial observation as
+  `>=N since <checkpoint>`, never an assumed total or zero. Otherwise use `?`.
+  Reconcile the brief after an observed compaction; the count alone does not force
+  transfer. Keep each session's counters separate from subagents and predecessors.
+- **Brief:** verify goal/adopted revision, role/workspace, authority/gates,
+  evidence/open decisions and next action/owned handles match current evidence.
+  For a gap, make one targeted reread of the decisive source, not the whole history.
+  A correctly recorded unresolved work/permission blocker is not a context gap.
+- **Load:** raised when integrating consequential interacting decisions, changing
+  assumptions, conflicting/large results, repeated rework or interdependent jobs.
+  Bounded delegation with concise settled outputs can reduce parent burden;
+  agent count or complex work alone does not establish context pressure. Reduce
+  the next intake/batch when load rises; do not reread child transcripts routinely.
+
+- **CONTINUE:** the brief accurately represents anchors/blockers and context supports
+  the next bounded step plus safe supervision, within existing gates. This is context
+  readiness, not execution permission. Unknown usage or no active jobs alone is insufficient.
+- **PREPARE_HANDOFF:** native pressure threatens the next step; repeated compaction
+  accompanies raised load; or settled state repeatedly needs reconstruction. Also
+  prepare before large evidence intake when usage is unknown and load is raised.
+  Refresh the existing brief now and name the next safe boundary, usually terminal
+  completion of owned jobs. At that boundary choose CONTINUE with new supporting
+  evidence or HANDOFF_DUE; unchanged PREPARE statements cannot defer it again.
+- **HANDOFF_DUE:** after that bounded reconciliation, context still cannot support
+  the next step/supervision reliably, or measured headroom cannot cover it and safe
+  state preservation. Settle owned handles and perform the authorized exclusive
+  rollover before new substantial work. A missing permission or unresolved source
+  conflict remains its actual blocker; transferring does not resolve it.
+
+Pressure never makes a handle terminal: preserve state and supervise the same owned
+worker/verifier/consultant/operational handle to completion; no abandonment,
+cancellation, duplicates or competing successor for context relief. Independent
+other-role work continues. Preserve gates and use the role's authorized transfer
+route; if blocked, save the brief and expose the precise recovery need. If no
+approved work remains, report completion or the outside-scope decision rather
+than launching an idle successor.
 
 ### Standalone rollover
 

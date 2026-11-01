@@ -251,6 +251,19 @@ Run these only for maintenance, with raw cases separated from expected results.
 | Planner successor is due with an active planning editor. | Settle the same handle and inspect its result before exclusive planning-resource transfer; unrelated execution continues. |
 | No retained planner is selected. | Owner retains progressive planning/writes; standalone retains bounded planning and delegated substantive edits. No new planner or extra approval gate. |
 
+## Compact context assessment
+
+| Scenario | Expected behavior |
+| --- | --- |
+| Usage and compaction counts are unavailable; brief is consistent and independent research returned short settled results. | CONTINUE with a concrete brief/next-step basis, unknown measurements and ordinary parent load. No inferred zero, transcript scan or transfer from agent count alone. |
+| Two compactions were observed since K, earlier history is unknown, and dependent jobs return large conflicting findings. | Record `>=2 since K`, raised integration burden and PREPARE before the large intake; refresh existing brief and name the safe boundary. No assumed lifetime total. |
+| High-context warning threatens the next phase while an owned verifier runs. | Prepare state and supervise that same handle. At terminal completion reassess; if pressure remains and reliable continuation is unsupported, perform authorized exclusive transfer before new substantial work. |
+| PREPARE's named terminal boundary arrives with no new evidence supporting continuation. | Choose HANDOFF_DUE instead of another unchanged preparation deferral. If transfer authority is missing, preserve state and report that precise blocker; no competing successor. |
+| One compaction leaves measured headroom, settled design and a consistent current brief. | CONTINUE for the supported bounded step; neither one compaction nor inherently complex work requires a fresh chat. |
+| An unchanged assessment is current while the same human gate remains pending. | Reuse it without rewrite, polling, notifications, log scans or delegated self-review. Keep the original gate. |
+| A targeted reread confirms source conflict about a missing permission, while context is usable. | Report the real authority blocker and continue independent authorized work; handover cannot manufacture the missing approval. |
+| Fresh successor receives predecessor's compaction count and independent children's live jobs. | Preserve the old assessment/reason as history; record own available session observations separately, retain work/repair bounds and leave child-job custody unchanged. |
+
 Pilot all four coordination/execution combinations offline, then a separately authorized small real roadmap.
 Record comparable accepted outcomes, implementation/verification time, human and
 coordination waits, repeated repairs, review turns and actual usage if exposed.

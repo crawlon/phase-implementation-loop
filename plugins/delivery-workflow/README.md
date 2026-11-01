@@ -1,4 +1,4 @@
-# Delivery Workflow 1.1.0
+# Delivery Workflow 1.2.0
 
 Three role skills replace the earlier trial and phase-loop variants:
 
@@ -55,6 +55,13 @@ The planner regularly assesses cumulative capability, learning, blockers and the
 shortest credible route to the goal. Review cadence is agreed, not a deadline.
 Recurring wakeups need an authorized native heartbeat. Routine progress stays
 local; each role maintains a compact current brief with linked evidence/history.
+
+All three roles use one [compact context assessment](skills/implementation-orchestrator/references/shared-protocol.md#context-assessment):
+available context measurements, compaction history, brief integrity and the actual
+decision/subagent coordination burden. Keep one line within 60 words in existing
+state and reuse it until material change; no routine log scans or extra agents.
+Unknown measurements stay unknown. Preparation names a binding reassessment
+boundary; safe exclusive handoff and existing approval gates remain unchanged.
 
 ## Install and migrate
 

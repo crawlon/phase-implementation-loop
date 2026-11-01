@@ -177,7 +177,7 @@ Tests, UI review or N/A, independent verifier outcome and evidence pointers:
 Blocker/dependency change or decision ID, if any:
 Next planned result/criterion; action and responsible actor; state path:
 For preparation/repair: evidenced blocker, new learning and observable exit:
-Context: CONTINUE | PREPARE_HANDOFF | HANDOFF_DUE; checked at; reason; next action:
+Context: [shared compact assessment line; reuse it rather than a second assessment]
 For a pause: required event/decision, next actor, notification result,
 resume trigger and recovery/recheck condition:
 ```

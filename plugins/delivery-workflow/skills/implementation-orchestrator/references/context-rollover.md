@@ -37,6 +37,9 @@ requires explicit adoption and canonical-writer handover under the
    last meaningful milestone, goal assessment/rationale, assumptions, next result
    and review cadence/route. Link useful execution knowledge such as the working
    verifier invocation and known environment limitations; do not copy transcripts.
+   Carry the compact context assessment and transfer reason as history; the
+   successor starts its own session-local usage/compaction observations without
+   inheriting predecessor or child counters. Preserve other work/repair counters.
    Carry [provider consent](shared-protocol.md#external-provider-consent) and its
    original source/profile selection, scope, successor coverage and actual route
    limitations. Retain superseded allowances as history, not revived stop gates.

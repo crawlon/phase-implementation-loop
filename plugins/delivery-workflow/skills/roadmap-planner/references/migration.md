@@ -41,6 +41,11 @@ transfer live custody, authorize messages or restart execution.
 
 ### Adoption steps
 
+Version 1.2.0 standardizes the shared compact context assessment. At adoption,
+reuse the current brief, available measurements and pending preparation/transfer
+boundary; replace the old assessment line without replaying history to fill
+unknown counters. This changes no role ownership, model, permission or execution gate.
+
 1. Reconcile the actual role, canonical writer, current assignment and both settings.
    Each adopting role settles its own jobs at a safe checkpoint. Other roles keep
    their independent authorized work; no coordinated full-cohort restart is needed.
@@ -64,7 +69,7 @@ transfer live custody, authorize messages or restart execution.
 A compact instruction to an existing actor:
 
 ```text
-At your next safe checkpoint, adopt Delivery Workflow 1.1.0 for this assignment.
+At your next safe checkpoint, adopt Delivery Workflow 1.2.0 for this assignment.
 Read [absolute stable role SKILL.md] and its required references. Preserve your
 actual role, coordination/execution settings, approved models,
 original permissions, work, evidence, repair bounds and pending gates. Settle your

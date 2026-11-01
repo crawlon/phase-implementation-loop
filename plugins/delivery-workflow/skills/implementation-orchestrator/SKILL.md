@@ -75,7 +75,8 @@ research/technical advice inside your role under the workflow agreement.
 
 ## Handoff and completion
 
-Assess context before substantial work and at terminal evidence/phase boundaries.
+Use the shared [compact context assessment](references/shared-protocol.md#context-assessment)
+before substantial work and at terminal evidence/phase boundaries.
 Use [context rollover](references/context-rollover.md) when due and authorized;
 owner-managed work also follows its coordination contract. Settle your jobs,
 carry both settings and original authority, preserve evidence/repair counts and

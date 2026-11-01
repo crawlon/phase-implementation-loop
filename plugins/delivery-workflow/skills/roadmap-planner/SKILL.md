@@ -93,7 +93,7 @@ otherwise return to the established event/recovery route after the review.
 Recurring reviews require an authorized native heartbeat; this skill creates no
 scheduler and promises no timed wakeup on its own.
 
-Use the shared [context assessment](../implementation-orchestrator/references/shared-protocol.md#context-assessment)
+Use the shared [compact context assessment](../implementation-orchestrator/references/shared-protocol.md#context-assessment)
 before substantive work and after large evidence cycles. Prepare concise durable
 rationale and learning before context becomes unreliable. When due and authorized,
 use [role handoff](../delivery-owner/references/coordination.md#handoff-and-owner-failure)
