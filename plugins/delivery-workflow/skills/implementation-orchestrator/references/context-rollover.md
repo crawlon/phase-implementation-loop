@@ -4,7 +4,7 @@ Read only when context rollover is due or a successor resumes. This transfers
 the recorded retained role: orchestrator, owner or planner, never implementation.
 Managed and planner transfers also use the role-specific overlay in
 [coordination](../../delivery-owner/references/coordination.md#handoff-and-owner-failure).
-A planner successor owns only planner notes/proposals and claims, never execution;
+A planner successor inherits assigned planning documents, notes and claims, never execution;
 an owner successor owns the index/decisions, never child jobs. Settle the
 transferring actor's own jobs; independent other roles can continue. Monitoring and factual handoff
 preparation need no planner, verifier, separate phase, or routine approval.
@@ -21,7 +21,7 @@ Record the settings, their original authority, skill name and verified absolute
 model/effort, permitted fallback and original human selection under the shared
 [role profiles](shared-protocol.md#role-profiles) before relinquishment or dispatch;
 use the approved role row, not an incidental predecessor/app default. Renaming an index writer
-"Planner" does not make it an advisory planner; changing that responsibility
+"Planner" does not transfer planning ownership or remove index duties; changing that responsibility
 requires explicit adoption and canonical-writer handover under the
 [workflow agreement](../../roadmap-planner/references/retained-planning.md#adoption-and-switching-back).
 

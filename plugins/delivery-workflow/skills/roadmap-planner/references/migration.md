@@ -21,6 +21,26 @@ chat title cannot elect a planner, add/remove an owner or change execution mode.
 
 ## Adopt without restarting work
 
+### Planning ownership in 1.1.0
+
+Version 1.0.0 made the coordinator the canonical plan writer even with a retained
+planner. In 1.1.0, a selected planner owns planning content and authorized plan edits;
+the coordinator retains execution adoption, assignments, evidence disposition and
+dispatch. Without a planner the existing coordinator planning fallback remains.
+
+For an authorized existing assignment adopting this ownership change, record the
+planning paths/sections and current writers in existing state. Settle affected
+editing jobs and stop the previous writer's planning edits at a safe checkpoint;
+acknowledge its relinquishment and the planner's exclusive custody before new edits.
+Preserve the active adopted plan revision, pending changes and all execution gates.
+Assign mixed-document sections explicitly, or keep execution status in existing
+execution state. The coordinator records later execution adoption without rewriting
+planner-owned content. Existing path restrictions and narrower human grants survive;
+resolve only missing authority. Installing or rereading the bundle alone does not
+transfer live custody, authorize messages or restart execution.
+
+### Adoption steps
+
 1. Reconcile the actual role, canonical writer, current assignment and both settings.
    Each adopting role settles its own jobs at a safe checkpoint. Other roles keep
    their independent authorized work; no coordinated full-cohort restart is needed.
@@ -44,11 +64,14 @@ chat title cannot elect a planner, add/remove an owner or change execution mode.
 A compact instruction to an existing actor:
 
 ```text
-At your next safe checkpoint, adopt Delivery Workflow 1.0.0 for this assignment.
+At your next safe checkpoint, adopt Delivery Workflow 1.1.0 for this assignment.
 Read [absolute stable role SKILL.md] and its required references. Preserve your
-actual role and canonical writer, coordination/execution settings, approved models,
+actual role, coordination/execution settings, approved models,
 original permissions, work, evidence, repair bounds and pending gates. Settle your
 own active jobs; do not restart phases or launch replacements just to reload.
+For the authorized planning-ownership change, reconcile and acknowledge the previous
+writer's relinquishment and the selected planner's exclusive planning paths/sections
+before edits; preserve execution adoption/assignment ownership and the active revision.
 Confirm the role/path/settings, remaining gate and next observable result, then
 continue authorized work. Coordinate adoption with existing actors only through
 already-authorized message routes; this instruction adds no new recipients.

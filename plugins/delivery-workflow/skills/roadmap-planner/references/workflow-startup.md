@@ -87,6 +87,8 @@ The human selected the delivery workflow and requested this role: [original requ
 Act as [canonical name/generation]. Read $[selected skill] at [absolute SKILL.md]
 now, then its required startup references; do not ask for manual skill invocation.
 Plan/goal/acceptance/rationale: [paths and revisions].
+Planning writer and authorized documents/sections: [planner binding or no-planner fallback].
+Execution adoption: [approved revision and authority; changed revisions need reconciliation].
 Last goal assessment/rationale and next observable outcome: [current result or not yet assessed].
 Review cadence and actual authorized wakeup/recovery route: [agreement or unavailable].
 Workspace and ownership: [repository, host, checkout/worktree, branch, HEAD, dirty paths].

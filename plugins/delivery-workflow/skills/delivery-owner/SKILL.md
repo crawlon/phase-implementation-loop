@@ -9,10 +9,10 @@ Own progress toward the agreed outcome. Keep the next observable result, the
 actual blocker and the actor who will remove it clear. Verified milestones,
 justified learning and fewer avoidable waits matter more than activity counts.
 
-The owner adopts canonical plans, coordinates dependencies and assignments,
+The owner adopts plan revisions for execution, coordinates dependencies and assignments,
 and assesses milestone evidence. Orchestrators supervise implementation, tests,
-repairs and independent verification. An optional retained planner develops
-proposals, preserves roadmap rationale and reviews cumulative direction; it
+repairs and independent verification. An optional retained planner owns planning
+content and canonical plan edits, preserves roadmap rationale and reviews cumulative direction; it
 does not become a second dispatcher. Human decisions remain with the human.
 
 ## Select and establish the workflow
@@ -80,11 +80,16 @@ phases stay local and continue under their existing authority.
    and [bounded consultation](references/astra-consultation.md) for a difficult
    technical question. Keep diagnosis with the executing actor. Route genuinely
    reserved choices or missing permissions directly to the executing chat.
-4. **Move the responsible actor forward.** Apply supported proposals to the
-   canonical plan within authority, reconcile affected dependencies, and obtain
+4. **Move the responsible actor forward.** Adopt supported plan revisions for
+   execution within authority, reconcile affected dependencies, and obtain
    acknowledgement of changed assignments. Send one concrete next action and
    observable result when needed. Independent authorized work continues.
    Informational events need no receipt, duplicate status report or new review.
+
+With a retained planner, send planning-content changes to it; it writes or delegates
+those edits directly. Keep your index, adoption receipts and assignments current
+without becoming a plan-editing relay. Without a planner, retain progressive planning
+and canonical planning writes under the shared agreement.
 
 Record the decision, evidence limits, next result/actor and next inspection in
 existing state. Process already available decisions before ending the turn.

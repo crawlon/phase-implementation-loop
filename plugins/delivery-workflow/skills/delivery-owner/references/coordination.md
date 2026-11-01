@@ -365,8 +365,8 @@ instead of inheriting an old rejection. If a child cannot be notified, observe i
 checkpoint and expose the specific unacknowledged binding/recovery need; do not
 claim the transfer is fully coordinated. Do not overlap owners or copy all histories.
 
-For a retained-planner replacement, settle all its own planning-support jobs
-and note writes, refresh concise rationale/learning in its notes, and apply the
+For a retained-planner replacement, settle all its own planning-support and editing jobs
+and planning-document/note writes, refresh concise rationale/learning in its notes, and apply the
 same safe-transfer generation/token, session-bound exclusive claim and unknown-
 launch-outcome rules to the planner role. The source relinquishes planner writes
 before one launcher dispatches a fresh planner. The successor reads the workflow

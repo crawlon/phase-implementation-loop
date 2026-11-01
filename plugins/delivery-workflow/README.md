@@ -1,10 +1,10 @@
-# Delivery Workflow 1.0.0
+# Delivery Workflow 1.1.0
 
 Three role skills replace the earlier trial and phase-loop variants:
 
 | Skill | Responsibility |
 | --- | --- |
-| `$roadmap-planner` | Usual entrypoint: start an approved plan, retain planning rationale and assess progress toward the fixed goal. |
+| `$roadmap-planner` | Own roadmap/plan content and edits, start approved delivery and assess progress toward the fixed goal. |
 | `$delivery-owner` | Optional delivery coordination across interacting plans, dependencies and successive planning steps. |
 | `$implementation-orchestrator` | Execute a concrete plan with separate implementers and independent verification. |
 
@@ -30,7 +30,7 @@ Use standalone coordination and gated execution.
 
 Execution settings replace four separate skills:
 
-- `coordination: standalone | owner-managed` records canonical ownership and routing.
+- `coordination: standalone | owner-managed` records delivery coordination and routing.
 - `execution: gated | autopilot` records phase-commit and continuation authority.
 
 Preserve existing settings. New work is gated unless explicitly authorized for
@@ -44,6 +44,12 @@ analysis and drafts need no owner/orchestrator relay. Execution tests, code edit
 and live operations remain with execution. Luna Max handles compatible bounded
 support and simpler code; the approved profile/capability assessment governs
 stronger routes. Retained agents keep their actual selected models.
+
+When selected, the planner writes canonical planning documents directly or delegates
+bounded edits to its own subagent. The coordinator adopts revisions for execution
+within existing authority and owns assignments; editing a plan does not change an
+active assignment or grant execution permission. Planning and execution resources
+each retain one writer. Without a planner, coordinator planning fallbacks remain.
 
 The planner regularly assesses cumulative capability, learning, blockers and the
 shortest credible route to the goal. Review cadence is agreed, not a deadline.
@@ -62,6 +68,8 @@ restart to refresh discovery; they do not restart the underlying assignment.
 Existing assignments adopt explicitly at a safe checkpoint, preserving role,
 settings, authority, evidence and pending gates. Follow the
 [migration and rollback procedure](skills/roadmap-planner/references/migration.md).
+The 1.1.0 planning-writer transfer must be acknowledged before new edits; an
+installation update alone does not change live ownership.
 Legacy source bundles remain frozen and absent from the active marketplace for
 saved-path continuity; they are not additional supported workflow choices.
 

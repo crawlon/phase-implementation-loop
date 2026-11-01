@@ -6,16 +6,17 @@ setting selects gated or autopilot authority in [execution modes](execution-mode
 
 Workflow selection/adoption reads the
 [workflow agreement](../../roadmap-planner/references/retained-planning.md).
-An optional retained planner advises this orchestrator without adding an owner.
+An optional retained planner owns planning content/edits without adding an owner.
 Reuse the recorded configuration and permissions in ordinary phases.
 
 ## Role Contract
 
-The orchestrator owns plan reconciliation, routing, supervision, diff inspection,
+The orchestrator owns execution reconciliation, routing, supervision, diff inspection,
 tests, verification gates, commits, and reporting. It may directly maintain
 factual phase status, receipt links, commit ids, and handoff summaries. Delegate
-implementation, operational scripts, and substantive plan changes to an
-edit-capable worker; substantive verification remains independent. A correction
+implementation and operational scripts to an edit-capable worker; substantive
+verification remains independent. Planning edits follow Planning And Replanning
+and the shared workflow agreement. A correction
 to permissions, acceptance, dependencies, or evidence meaning is substantive
 even in Markdown. Factual bookkeeping must not upgrade an evidence claim.
 
@@ -27,8 +28,9 @@ orchestrator.
 Keep the invoking agent as orchestrator; no fixed model or maximum reasoning is
 required for this role.
 
-The orchestrator owns the canonical plan and decisions. Delegate substantive
-planning analysis under Planning And Replanning below; routine status updates,
+The orchestrator owns execution decisions and adoption of a plan revision within
+authority. A retained planner owns canonical planning content; without one, use
+Planning And Replanning below. Routine status updates,
 evidence reconciliation, and critical-path checks need no planning agent.
 
 Codex implementation always runs as a separate worker subagent. It must never be
@@ -230,7 +232,8 @@ resolve that gap before the dependent transfer; other authorized work continues.
 ## Canonical Plan And Linear
 
 Accept a markdown plan, chat plan, Linear issue list, one Linear parent with
-sub-issues, or mixed sources. Before Phase 1, reconcile them into one canonical
+sub-issues, or mixed sources. Before Phase 1, have the designated planning writer
+reconcile them into one canonical
 markdown plan containing:
 
 - ordered phase number and title
@@ -240,15 +243,17 @@ markdown plan containing:
 - likely verification
 - blockers, deferrals, and out-of-scope items
 
-If only Linear exists, create the local markdown plan from the issues. If a
+If only Linear exists, the planning writer creates the local markdown plan from the issues. If a
 canonical plan has no linked Linear coverage, prepare an exact create/update
 mapping that gives every planned phase its intended issue or sub-issue, ordered
 dependencies, objective, acceptance criteria, and known blockers or deferrals.
 Treat that mapping as a required startup artifact, not an optional follow-up.
 Creating or materially updating tracker state still requires explicit user
 authority: ask in gated mode or include it in the autopilot startup envelope.
-Once that authority exists, apply the mapping, record the created issue ids in
-the canonical plan, and re-read both sources after mutation.
+Once that authority exists, the assigned tracker writer applies the mapping and
+the planning writer records created issue ids in the canonical plan. Re-read both
+sources after mutation. Plan ownership grants no tracker-write authority; serialize
+any shared fields under the workflow agreement rather than acquiring a second writer.
 
 100% synchronization is complete only when every planned phase maps to the intended
 issue, every relevant issue appears in markdown, order and dependencies agree,
@@ -274,6 +279,7 @@ Explicit human selections override these proposed defaults when capability permi
 | Managed orchestrator | `gpt-6.1-sol` / `high` | Execution coordination, supervision and gates. |
 | Standalone orchestrator | Existing explicitly approved model / reasoning | Preserve its profile; resolve an unspecified choice before launching a successor. |
 | Bounded researcher | `gpt-6-luna` / `max` | Bounded evidence gathering, analysis and planning drafts under Bounded Research below. |
+| Planning editor | `gpt-6-luna` / `max` for bounded settled edits; approved stronger profile for consequential reasoning | Planner-commissioned planning-document edits under exclusive temporary custody; no implementation or execution authority. |
 | Implementation worker | `gpt-6-luna` / `max` for compatible TINY/ROUTINE phases | Apply `phase-capability.md`; inherent high risk or novel complexity requires a suitable strong implementer. |
 | Bounded strategic/technical consultant | `gpt-6-astra` / `high` | Consequential unresolved reasoning; retain managed/standalone routing. |
 | UI/UX reviewer | `gpt-6-luna` / `max` | Preserve the existing non-editing browser review gate. |
@@ -391,8 +397,11 @@ for substantive roadmap/next-plan proposals and direction reviews. Apply the sha
 [request scope check](../../roadmap-planner/references/retained-planning.md#request-scope-and-routing)
 before contacting it; without an owner, you retain routine coordinator decisions
 and commission distinct technical consultation under the bounded route below.
-The orchestrator remains coordinator and canonical plan owner; substantive edits use a separate
-worker. Establish original human messaging authority and verified generations via
+The orchestrator remains execution coordinator. The retained planner writes or
+directly delegates planning edits, and supplies a revision/delta for execution
+adoption under the shared agreement. Report feasibility conflicts and missing work
+to it rather than expanding the plan or commissioning an editing relay. Establish
+original human messaging authority and verified generations via
 [shared coordination](../../delivery-owner/references/coordination.md),
 reading only the identity/messaging/recovery sections needed. Do not spawn a new
 Astra subagent for the same strategic question or silently substitute a provider
@@ -409,7 +418,8 @@ The default route is a fresh Codex subagent using the consultant profile in
 unavailable, use Claude Opus 5.5 through `codex-claude-ask --model
 claude-opus-5-5`. Use the Planning prompt in `agent-prompts.md` for either route.
 
-The planner may inspect the plan and repository evidence but must not edit the
+With no retained planner, this read-only planning consultant may inspect the plan
+and repository evidence but must not edit the
 workspace, mutate Linear, commit, push, deploy, or decide unresolved product
 questions. The orchestrator reviews the advice, presents decisions to the user
 when needed, and owns reconciliation into the canonical plan, Linear mapping,

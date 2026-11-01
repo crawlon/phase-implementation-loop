@@ -1,6 +1,6 @@
 ---
 name: roadmap-planner
-description: Explicit delivery workflow entrypoint in the existing planning chat. Start an approved plan with an orchestrator and an owner only when useful, load child skills automatically, then retain roadmap rationale and review delivery direction.
+description: Own roadmap and plan content, write or delegate planning edits, start approved delivery with an orchestrator and an owner only when useful, and review progress toward the fixed goal.
 ---
 
 # Roadmap Planner
@@ -37,16 +37,16 @@ and canonical execution state; return to retained planning and direction review.
    binding. Reuse the designated planner chat; never elect yourself planner or
    create another planner merely because a question arose.
 2. Identify the delivery coordinator: the delivery owner, or the standalone
-   orchestrator when there is no owner. It applies canonical plan revisions and
-   dispatches execution. Read the fixed goal, criteria, plan/rationale, concise
+   orchestrator when there is no owner. It adopts revisions for execution and
+   dispatches work; you own canonical planning content. Read the fixed goal, criteria, plan/rationale, concise
    [current brief](../delivery-owner/references/contracts.md#current-snapshot)
    and next-action evidence. Record unknowns rather than inferring from old history.
-3. Establish authorized planner-note paths, message directions/content, review
+3. Establish authorized planning-document/section and note paths, message directions/content, review
    boundaries/cadence, safe succession and the actual event or recovery route. Use
    [shared coordination](../delivery-owner/references/coordination.md)
    only for the applicable identity, messaging, observation or transfer section.
-   Planner notes are yours; the canonical plan/index and execution resources are
-   the coordinator's and orchestrators' resources.
+   Record exclusive planning custody under the shared agreement; owner indexes
+   and execution resources remain with the responsible delivery roles.
 
 ## Plan or review
 
@@ -62,22 +62,25 @@ before substantive analysis. Answer strategic planning/direction questions;
 decline misplaced advice briefly and return it to the responsible role. An
 uncertain coordinator does not by itself justify planner involvement.
 
-For a planning frontier, develop one concrete proposal with ordered observable
+For a planning frontier, author one concrete plan revision with ordered observable
 slices, acceptance checks, dependencies, relevant risks and exclusions. Keep
 distant steps outlined. Inspect bounded repository evidence where necessary;
 directly delegate supporting research, analysis and drafts under
 [delegation within each role](references/retained-planning.md#delegation-within-each-role).
-Check current delivery evidence first and integrate the results yourself. Proposals do not
-authorize implementation or change product scope.
+Check current delivery evidence first and integrate the results yourself. Write
+authorized planning edits directly or delegate them to your own bounded editing
+subagent under the shared custody rule; no orchestrator editing relay is needed.
+Plan edits do not authorize implementation or change approved product scope.
 
-Return the [bounded recommendation](references/retained-planning.md#direction-reviews)
-to the coordinator. Keep detailed technical diagnosis in a bounded consultant
+Return the revision, execution-relevant delta and
+[bounded recommendation](references/retained-planning.md#direction-reviews)
+to the coordinator for execution adoption and assignment reconciliation. Keep detailed technical diagnosis in a bounded consultant
 or execution context; do not duplicate an existing valid answer. Read underlying
 evidence for material gaps, not every transcript. Record a compact rationale and
 learning delta in your existing planner notes, with source revisions and pointers.
 
 Apart from the bounded initial launch above, you do not dispatch execution.
-You do not edit canonical execution plans/indexes, supervise another actor's jobs,
+You do not edit owner indexes or execution state, supervise another actor's jobs,
 direct execution workers, grant permissions, commit or integrate.
 Your review of your own plan is strategic feedback, not independent design PASS.
 

@@ -73,7 +73,8 @@ when a phase completes. Expanding preparation, repeated repairs without new evid
 or repeated postponement of the next result use the shared
 [direction-review triggers](../../roadmap-planner/references/retained-planning.md#direction-reviews).
 The owner requests the retained planner's cumulative assessment when present,
-without giving it worker supervision or canonical writes. Without one, the owner
+without giving it execution-worker supervision or dispatch authority. Planning
+edits remain with that planner under the shared agreement. Without one, the owner
 performs the same direction check and uses bounded consultation for unresolved
 consequential questions. Two materially similar red cycles and autopilot's two
 distinct failed repairs keep their existing stops; advice never resets a budget.

@@ -8,8 +8,9 @@ any agent.
 
 - Bounded research: use a fresh read-only researcher under the shared protocol;
   return source-linked findings, drafts and uncertainty to the commissioning role.
-- Substantive planning and replanning: use a fresh, read-only Codex planning
-  subagent by default under `shared-protocol.md`. Routine reconciliation,
+- Planning: a selected retained planner owns content and edits under the workflow
+  agreement, including its own bounded editing subagents. Without one, use the
+  fresh read-only planning-support route under `shared-protocol.md`. Routine reconciliation,
   factual bookkeeping, and drift checks remain direct orchestrator work.
 - Implementation: always use a separate edit-capable Codex worker subagent. The
   orchestrator never implements or applies a returned patch.
@@ -49,10 +50,14 @@ Record model, reasoning, and one-line rationale in durable state.
 
 ## Prompts
 
-Use `agent-prompts.md` and add the role-specific first line:
+Use `agent-prompts.md` and add the role-specific first line. A planner-owned editor
+uses a bounded editing brief under the workflow agreement, not the read-only
+Planning prompt: name paths/sections, starting revision, required change, custody,
+constraints and completion evidence.
 
 - Research: `Act as the bounded read-only researcher; return evidence and uncertainty, not plan decisions or acceptance.`
-- Planning: `Act as a bounded read-only planning-support subagent; return proposals to the commissioning role and preserve the designated canonical writer.`
+- Planning support: `Act as a bounded read-only planning-support subagent; return proposals to the commissioning role and preserve the designated canonical writer.`
+- Planner-owned editing: `Edit only [planning paths/sections] for the commissioning planner under exclusive temporary custody; preserve the fixed goal, acceptance and authority. Return the diff and unresolved decisions; no code/tracker/execution writes or commits. The planner inspects and reclaims custody at completion.`
 - Implementation: `Act as the separate Codex worker subagent; you are not the orchestrator.`
 - UI/UX review: `Act as the dedicated non-editing Codex UI/UX review subagent.`
 - Verification: `Act as the fresh read-only Codex verifier; you did not implement this phase.`

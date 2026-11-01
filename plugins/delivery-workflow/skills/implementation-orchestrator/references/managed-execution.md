@@ -45,9 +45,10 @@ and only the selected provider references:
 [Cursor](agent-cursor.md), or
 [Claude](agent-claude.md).
 Reuse their implementation/UI/verification mechanics. Where they route
-substantive planning to a fresh planner, route canonical plan/assignment changes
-to the delivery owner. The owner routes strategic work to the selected retained
-planner or follows progressive planning when none is selected. For investigation
+substantive planning to a fresh planner, route plan/assignment conflicts to the
+delivery owner. The selected retained planner authors planning revisions directly;
+the owner reconciles dependencies and adopts revisions into assignments, or follows
+progressive planning when no planner is selected. For investigation
 and technical judgment inside your assigned outcome, directly commission your own
 research or [bounded consultation](../../delivery-owner/references/astra-consultation.md)
 under the shared delegation contract; owner approval is not an extra gate.
@@ -70,14 +71,16 @@ At startup/adoption, apply the owner's
 Use the same verified name in your title, state, handoff and approval requests;
 retain the actual chat/host and ownership generation for identity.
 
-The owner controls canonical plan revisions, dependencies, cross-plan scope, and
-milestone acceptance. You control execution of the assigned plan: capability
+The owner controls execution adoption, assignments, dependencies, cross-plan delivery
+decisions and milestone acceptance. A selected retained planner controls planning
+content and canonical plan edits under the shared agreement. You control execution of the assigned plan: capability
 assessment, worker routing, diff inspection, checks, independent verification,
 owned local commits, factual phase state, and agreed tracker bookkeeping.
 Propose changed outcomes, invariants or assignment boundaries to the owner.
 Technical design details remain delegated unless explicitly restricted; use
 [decision classification](../../delivery-owner/references/contracts.md#classify-before-escalating)
-when repairing them. Canonical plans/index and shared fields retain one writer.
+when repairing them. Planning documents/sections, the index and shared fields each
+retain one writer. A plan edit does not itself amend your adopted assignment.
 
 Implementation always uses a separate edit-capable worker, not this context or
 a user-owned chat created in place of a worker. Independent reviewers did not

@@ -12,7 +12,7 @@ runtime confirmation, including successors. Read only that section; it does not
 import standalone ownership or gates. Record owner, orchestrator, optional planner,
 research and consultation profiles separately from implementation and verification.
 The [workflow agreement](../../roadmap-planner/references/retained-planning.md)
-keeps planner proposals separate from canonical owner writes.
+separates planner-owned content/edits from owner execution adoption and assignments.
 
 ## Owner index — owner is its sole writer
 
@@ -56,9 +56,9 @@ Record once and update only affected fields:
   Record explicit overrides separately; consultation does not transfer ownership.
 - Human authorization sources: allowed actions, modes, messaging directions,
   worktree/chat creation, handoffs, resource bounds, exclusions, pending gates.
-- Workflow version/configuration, canonical writer and optional retained planner
+- Workflow version/configuration, planning writers, adopted execution revisions and optional retained planner
   binding/notes, rationale, direction-review scope and actual recovery route, under
-  the shared workflow agreement. Planner notes have one explicitly assigned writer.
+  the shared workflow agreement. Planning documents/sections and notes each have one assigned writer.
 - For progressive roadmaps: investigation/planning authority and launch policy
   (human approval per new plan, or explicitly bounded delegated continuation).
   Link the continuation bounds and each instantiated plan's authorization basis.
@@ -248,7 +248,7 @@ authority is actually missing; routine technical judgment is delegated.
 | Decision | Responsible actor |
 | --- | --- |
 | Technical choice, caller/test coverage or repair within delegated areas/resources and agreed product, security, privacy and compatibility invariants, with unchanged interfaces, dependencies, frozen order and risk bounds | Orchestrator delegates implementation, obtains applicable independent review and records evidence; no owner round trip. |
-| Substantive plan/interface changes, changed assignment boundaries, cross-plan dependencies or sequencing inside delegated outcome, risk and resource bounds | Owner resolves, using the retained planner for strategic proposals or direction and bounded consultation for specific technical uncertainty; revise/acknowledge affected assignments. No human approval merely for a plan revision. |
+| Substantive plan/interface changes, changed assignment boundaries, cross-plan dependencies or sequencing inside delegated outcome, risk and resource bounds | Owner resolves delivery dependencies and execution adoption; a selected retained planner authors planning revisions, using bounded support as needed. Without one, owner plans. Revise/acknowledge affected assignments; no human approval merely for a plan revision. |
 | A reserved product choice, changed outcome/acceptance/compatibility obligation, crossed hard human limit or genuinely new action authority | Executing chat asks the human with the exact boundary and its source. Gated commits still need approval; authorized autopilot commits do not. |
 
 For example, repairing type lookup to preserve the agreed access model stays with
@@ -325,6 +325,7 @@ priority from which agent spoke last.
 For a revised assignment, record old/new revision, reason, affected dependencies,
 invalidated evidence, preserved human gates, and next action. The orchestrator
 settles in-flight work safely and acknowledges the revision before new work.
-The owner owns canonical plan changes; orchestrators propose them and keep
-factual execution state. Assign a single writer to each tracker issue/field so
+The selected planner owns canonical planning edits; the owner owns execution
+adoption and assignment changes, or planning as well when no planner is selected.
+Orchestrators report planning gaps and keep factual execution state. Assign a single writer to each tracker issue/field so
 phase bookkeeping and roadmap updates cannot race.

@@ -4,7 +4,7 @@ Use when later implementation plans depend on learning from earlier steps.
 Keep milestone outcomes, acceptance criteria, compatibility obligations, and
 constraints fixed; leave unresolved implementation detail visibly unresolved.
 The owner adopts canonical plans and dispatches assignments. An explicitly selected
-retained planner develops substantive proposals under the
+retained planner owns planning content and canonical plan edits under the
 [workflow agreement](../../roadmap-planner/references/retained-planning.md);
 without one, the owner performs this planning work. Managed orchestrators still
 receive concrete phase plans.
@@ -18,16 +18,17 @@ receive concrete phase plans.
    name the specific question, necessary evidence, and stopping condition.
    The role owning that question reuses evidence and directly commissions support
    under [delegation within each role](../../roadmap-planner/references/retained-planning.md#delegation-within-each-role);
-   the retained planner owns discovery for its proposals. Prototype edits, live calls, and
+   the retained planner owns discovery for its plans. Prototype edits, live calls, and
    other side effects require their own scope. Discovery is not implicit
    implementation authority. Stop or escalate an exhausted investigation bound.
-3. Mark READY_TO_PLAN when sufficient evidence exists. The selected planning actor proposes one
+3. Mark READY_TO_PLAN when sufficient evidence exists. The selected planning actor authors one
    executable plan with ordered phases, acceptance checks, settled interfaces,
    dependencies, likely verification, capability assessment, and exclusions.
    Surface unresolved product decisions instead of guessing. Use existing
    planning conventions; length is not a measure of completeness.
-   The owner adopts a supported proposal within authority and records the canonical
-   revision. Use the retained planner for substantial strategic questions when
+   The planner writes or delegates the canonical planning edit directly; without
+   one, the owner writes it. The owner records execution adoption of the supported
+   revision within authority in its own state. Use the retained planner for substantial strategic questions when
    present; [bounded consultation](astra-consultation.md) handles distinct technical
    uncertainty. Settled elaboration needs neither a new planner nor a duplicate call.
 4. Establish launch authority under the policy below. Record the concrete plan
@@ -74,7 +75,9 @@ new human approval manufactured by the owner. Missing or ambiguous bounds requir
 the specific human decision; the word “roadmap” or “autopilot” alone is inadequate.
 
 Refining previously unresolved implementation detail inside delegated bounds
-is owner work. Apply the contract's classification: necessary internal contract,
+follows the contract's classification: execution handles local technical choices,
+the planner authors planning revisions when selected, and the owner resolves
+delivery dependencies and assignment changes. Necessary internal contract,
 caller/test or dependency refinements may be owner-managed; approved hard limits,
 outcomes, acceptance, compatibility obligations and risk exclusions are not.
 Reconcile and acknowledge changed assignments, obtaining human decisions only

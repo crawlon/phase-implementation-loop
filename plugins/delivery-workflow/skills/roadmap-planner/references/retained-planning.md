@@ -17,15 +17,34 @@ original human authority for those actions and their scope. Selecting the workfl
 does not require separate manual selection of every child skill.
 
 The coordinator is the owner for managed execution and the invoking orchestrator
-for standalone execution. It owns canonical plan decisions, evidence disposition
-and execution routing under its mode. The retained planner owns proposals,
-strategic rationale and its own notes. Its bounded startup launch transfers
-execution dispatch to the coordinator after acknowledgement. It may write authorized planner
-notes/drafts, but not canonical execution plans, owner indexes, source code or
-tracker fields owned by other actors. Standalone substantive plan edits still
-go through an edit-capable worker under the shared Role Contract.
+for standalone execution. It owns execution adoption/readiness, evidence disposition,
+assignments and execution routing under its mode. The retained planner owns planning
+content, canonical roadmap/plan edits, strategic rationale and its own notes. It
+writes authorized planning documents directly or commissions a bounded edit-capable
+subagent itself; the coordinator is not an editing relay. Its bounded startup launch
+transfers execution dispatch, not planning ownership, after acknowledgement.
 
-The coordinator may adopt a supported proposal only within existing authority.
+Record one writer for each planning document or explicitly separated section and
+each execution resource. The planner integrates execution findings into plan revisions;
+coordinators keep factual progress, evidence and adoption receipts in their own state
+or assigned sections. Use concurrent section-level writes only with section-aware
+edits/merging that preserve concurrent changes; otherwise serialize all writes to
+the physical document across roles. For a delegated edit, the planner gives the subagent exclusive
+temporary custody of the named paths/sections, suspends overlapping writes, inspects
+the diff and reclaims custody at terminal completion. Planning writes do not include
+source code, owner indexes, execution state or tracker fields assigned to other roles.
+
+A plan revision is a proposal for execution until the coordinator records its
+adoption against existing authority. Keep the active assignment bound to a retrievable
+adopted revision in existing version history/state, not the latest mutable document.
+Before affected work changes, reconcile dependencies, safely settle affected
+in-flight work, acknowledge the changed assignment and revalidate only affected checks
+or approvals. Unchanged authorized work continues. Neither the coordinator nor its
+worker rewrites planner-owned content; send the concrete conflict or requested change
+to the planner. With no retained planner, the coordinator owns planning under its
+existing fallback; standalone substantive plan edits still use an edit-capable worker.
+
+The coordinator may adopt a supported revision only within existing authority.
 Fixed outcomes, acceptance, compatibility obligations, hard limits and reserved
 human choices remain human-controlled. The planner neither grants execution
 authority nor replaces independent verification. A design author cannot provide
@@ -48,14 +67,15 @@ responsibility; another retained role is not a relay or approval gate for that w
 
 | Commissioning role | Supporting work it owns |
 | --- | --- |
-| Planner | Research, read-only repository investigation, option/dependency analysis, draft plan sections and challenges to planning assumptions. It integrates findings into its proposals and authorized notes. |
+| Planner | Research, read-only repository investigation, option/dependency analysis, plan drafting/edits and challenges to planning assumptions. It checks findings and owns canonical planning content and notes. |
 | Owner | Delivery/dependency analysis, milestone evidence assessment and bounded advice for owner decisions; progressive planning when no retained planner is selected. It retains canonical plan adoption and assignments. |
 | Orchestrator | Execution investigation, technical consultation within its assignment, separate implementation workers, checks and independent review under its execution protocol. |
 
 Before delegating, reuse current evidence and check the relevant delivery brief
 for overlapping active work. Keep small tasks local. Use bounded read-only
-subagents for research/analysis/drafts; return results to the commissioning role,
-which checks decisive evidence and owns the resulting judgment. Use the approved
+subagents for research/analysis/drafts; a planner may instead authorize a planning-only
+editing subagent under the custody rule above. Return results to the commissioning
+role, which checks decisive evidence and owns the resulting judgment. Use the approved
 [role profiles](../../implementation-orchestrator/references/shared-protocol.md#role-profiles):
 Luna Max for bounded support it can handle, an approved stronger route for harder
 analysis. The retained agent's model and decision responsibility stay unchanged.
@@ -70,8 +90,9 @@ Reserve execution/reviewer capacity rather than creating recursive managers.
 
 Route a decision to another role only when it crosses that role's boundary.
 Execution tests, runtime operations, prototype edits and shared implementation
-changes go through the executing orchestrator and its gates. Canonical plan
-adoption stays with the coordinator and its designated writer. A planner's read-only
+changes go through the executing orchestrator and its gates. Canonical planning
+edits stay with the planner when selected; execution adoption stays with the coordinator.
+A planner's read-only
 investigation is not permission to run the project or direct execution workers.
 Keep routine subagent exchanges local; send only relevant findings, decisions or
 changed dependencies to other retained roles. Design authors and their contributors
@@ -90,7 +111,7 @@ The planner classifies the request before loading detailed evidence or answering
 
 | Request | Responsible response |
 | --- | --- |
-| Roadmap assumptions, next planning frontier, milestone strategy or cumulative delivery direction | Planner assesses and recommends. |
+| Roadmap assumptions, next planning frontier, milestone strategy, cumulative delivery direction or substantive planning-content edits | Planner assesses, authors the revision within planning authority and supplies the execution-relevant delta to the coordinator. |
 | Specific architecture choice, debugging or technical uncertainty | The role owning the decision commissions warranted technical consultation directly: orchestrator within its assignment, owner for cross-plan or reserved delivery decisions. Reuse settled guidance; routine diagnosis stays with execution. |
 | Routine sequencing/scheduling, settled elaboration or an unchanged decision | Coordinator decides within its authority, reusing recorded guidance. |
 | Implementation tactics or test execution | Executing orchestrator handles it through its existing worker/execution protocol. |
@@ -116,7 +137,7 @@ route. Declining a request adds no planner-signature gate to valid execution.
 Use the shared [current brief](../../delivery-owner/references/contracts.md#current-snapshot)
 in existing role state, with linked assignment and directory fields. Record the
 workflow version/configuration and original selection/action authority; coordinator
-and optional planner bindings/profiles; canonical writers and authorized note
+and optional planner bindings/profiles; planning writers, adopted execution revision and authorized note
 paths; delegated decisions, limits and gates; required outcome reviews versus
 advisory triggers; message-purpose/successor authority and actual route results;
 and optional heartbeat identity, binding, scope and lifecycle. No additional ledger.
@@ -226,11 +247,13 @@ ownership, accepted evidence, failed attempts, repair bounds, pending approvals,
 original provider/communication/launch authority and next step. Installation or a
 renamed skill neither migrates a running assignment nor adds permissions.
 
-Record the exact role skill/path, bundle version, canonical writer and separate
+Record the exact role skill/path, bundle version, planning/execution writers and separate
 coordination/execution settings. Acknowledge changed assignments before dependent
 execution. Existing frozen order, hard limits and due owner inspections survive;
 resolve missing/conflicting bindings read-only. The coordinator remains sole
 execution dispatcher; planner delegation stays within planning responsibility.
+When adopting changed planning ownership, use the writer transfer in the migration
+guide before any new writer edits; publishing a skill does not transfer live custody.
 
 Reliable chats may adopt in place. Otherwise use an already-authorized fresh
 handoff, preserving exclusive claims, original selected models and verified

@@ -6,7 +6,8 @@ checkpoint rather than repeating Phase 1 startup.
 1. Read repository/workspace instructions; reconcile host, checkout/worktree,
    branch/HEAD, dirty-path custody and relevant process identity. Preserve existing
    approved settings and the optional retained planner binding.
-2. Reconcile plan sources into canonical Markdown and the exact Linear create/update
+2. Have the designated planning writer reconcile sources into canonical Markdown;
+   prepare the exact Linear create/update
    mapping under [Canonical Plan And Linear](shared-protocol.md#canonical-plan-and-linear).
    Include absent issues rather than silently dropping tracking. Prepare the
    mapping before requesting missing tracker authority. Start implementation only
@@ -24,7 +25,8 @@ checkpoint rather than repeating Phase 1 startup.
    automatic fresh-orchestrator handoff, unless manual handoff was chosen. Present
    missing permissions together; do not treat the word autopilot as an envelope.
 5. Name a durable-state location containing the shared protocol's required fields;
-   the canonical plan may serve when sufficient. Record current/next phase,
+   an explicitly assigned section in the canonical plan may serve when sufficient;
+   preserve the planner's separate content custody. Record current/next phase,
    coordinator/execution settings, actual profile and exact pending gates.
 6. Use one dedicated branch for the whole plan, following repository conventions
    or `codex/<plan-slug>`. Reuse suitable authorized workspaces. Unattended/parallel
@@ -34,5 +36,6 @@ checkpoint rather than repeating Phase 1 startup.
    commits and skip git-only steps while preserving other gates.
 
 Proceed with the Common Phase State Machine in the shared protocol. Execution
-approval, canonical ownership and goal assessment stay here unless an explicit
-coordination change establishes an owner; adding a retained planner alone does not.
+approval/readiness, adoption receipts and execution dispatch stay here unless an
+explicit coordination change establishes an owner. A selected retained planner
+owns planning content and edits under the shared workflow agreement.

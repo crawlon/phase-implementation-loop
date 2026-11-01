@@ -1,8 +1,8 @@
 # Bounded Astra Consultation
 
-The Sol owner retains canonical plan decisions/writes, scheduling and milestone
+The Sol owner retains execution adoption, assignments, scheduling and milestone
 acceptance; human decisions remain with the human. A retained planner, when
-selected, supplies strategic proposals under the
+selected, owns planning content and plan edits under the
 [workflow agreement](../../roadmap-planner/references/retained-planning.md).
 This bounded consultant supplies advice on a concrete difficult
 question; it is not another manager or a standing participant in cohort messages.
@@ -66,7 +66,8 @@ Supervise an active consultation to terminal completion; never launch duplicates
 or abandon its handle to satisfy an observation limit.
 
 The commissioning role assesses advice against source evidence and records its
-disposition. The owner applies authorized canonical plan changes; the orchestrator
+disposition. Planning edits go to the retained planner when selected; otherwise
+the owner applies them. The owner reconciles execution assignments; the orchestrator
 keeps technical changes within its assignment and worker protocol. Preserve human
 gates and required assignment acknowledgements. Advice is not execution authority
 or a second approval gate.

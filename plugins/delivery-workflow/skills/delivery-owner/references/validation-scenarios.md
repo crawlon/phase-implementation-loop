@@ -93,7 +93,7 @@ Owner-model scenarios:
 | Scenario | Required behavior |
 | --- | --- |
 | A ready next plan follows settled interfaces and acceptance; no material uncertainty exists. | Sol owner prepares/dispatches it within authority without a mandatory Astra consultation. |
-| A new shared contract has competing designs and unclear consequences for two plans. | Use the selected retained planner for strategic proposals when present; a distinct difficult technical question may use bounded consultation. Without a retained planner use the bounded route. Owner retains canonical decisions and dispatch; preserve separate independent design review. |
+| A new shared contract has competing designs and unclear consequences for two plans. | Use the selected retained planner for strategic planning and planning edits when present; a distinct difficult technical question may use bounded consultation. Without a retained planner use the bounded route. Owner retains execution adoption and dispatch; preserve separate independent design review. |
 | The consultant proposes directing orchestrators itself or treating its design advice as independent PASS. | Keep it advisory; owner dispatches authorized work and a separate non-authoring reviewer provides required independent review. |
 | Astra consultation is unavailable while independent approved work is ready. | Preserve the unresolved question, pause its dependent actions, disclose the limitation and continue unrelated work; no silent external-provider substitution. |
 | An existing Astra owner reloads the new skill; runtime model is still Astra. | Disclose the actual model and resolve through supported selection or authorized handoff; do not claim reload changed the model. |
@@ -194,7 +194,7 @@ Run these only for maintenance, with raw cases separated from expected results.
 | One phase remains unfinished through repeated repairs without new evidence. | Detect stagnation at safe job checkpoints; retain repair stops, examine cumulative direction and propose a concrete correction. Completed phase count is not the only trigger. |
 | Required harness work removes an evidenced acceptance blocker. | Preserve the work and assurance; state its observable exit and next capability test. No dismissal solely because product behavior is not delivered yet. |
 | Owner has a positive stale snapshot; raw child checkpoint contradicts it. | Planner reads decisive current evidence directly when accessible and challenges the framing; affected decisions await resolved evidence. No mandatory whole-history replay. |
-| A retained planner is selected for standalone execution. | Orchestrator remains sole coordinator; route strategic work to the retained planner without spawning a duplicate or importing managed owner gates. Substantive plan edits stay delegated. |
+| A retained planner is selected for standalone execution. | Orchestrator remains sole execution coordinator; planner owns planning content and writes or delegates its edits directly. No duplicate planner or managed owner gates. |
 | Advisory direction request has no reply; execution remains valid and within authority. | Continue with local direction checks and existing mode gates; absence alone creates no planner-signature gate. A genuine unresolved decision still blocks its consumer. |
 | Retained planner's required proposal is unavailable. | Record exact missing input/route, pause only dependent work, continue independent work and seek authorized recovery. No silent new planner/provider. |
 | Planner authored a consequential design and agrees with it. | Strategic review is not independent PASS; use a non-authoring independent reviewer under the preserved chain. |
@@ -222,7 +222,7 @@ Run these only for maintenance, with raw cases separated from expected results.
 | Planner investigation would require a database probe, prototype edit or test run. | Route execution through the responsible orchestrator and existing gates; a planning-support brief cannot authorize those operations. |
 | Managed orchestrator needs difficult technical advice inside its assignment; no reserved restriction changes. | It directly commissions and supervises approved bounded consultation; owner is involved only if a cross-plan/reserved decision emerges. |
 | Owner needs delivery dependency analysis while a retained planner handles roadmap options. | Owner delegates its own delivery support; reuses current planning evidence and does not duplicate the planner's strategic job. |
-| Planner's supporting analyst proposes a canonical plan edit and offers independent design PASS. | Planner uses the proposal as advisory; coordinator/designated writer adopts authorized changes and an independent non-author provides required review. |
+| Planner's supporting analyst proposes a canonical plan edit and offers independent design PASS. | Planner checks the proposal and writes or delegates an authorized planning edit. Coordinator separately adopts it for execution; an independent non-author provides required review. |
 | Planner successor is due with an active research handle and a completed related report. | Settle the active handle before transfer; preserve report, follow-ups, selected support models and original authority. Successor resumes role-local delegation without replaying valid research. |
 
 ## Stable role consolidation
@@ -237,6 +237,19 @@ Run these only for maintenance, with raw cases separated from expected results.
 | Handoff identifies implementation-orchestrator but omits coordination/execution settings. | Reconcile both from original assignment/authority before dependent work; never infer standalone or autopilot from a generic skill name. |
 | Retired discovery entry remains readable and its assignment has not adopted. | Preserve its existing behavior/path; stable installation alone causes no live migration or cleanup. |
 | Migration reaches a safe checkpoint with pending approval, due inspection, failed attempts and valid accepted evidence. | Keep all gates, counters and evidence; record stable role/path/settings and continue the next authorized step without restarting or replaying valid checks. |
+
+## Planner-owned planning content
+
+| Scenario | Expected behavior |
+| --- | --- |
+| Retained planner has authority to add settled phases to the canonical plan. | Planner writes directly or commissions its own planning editor; no owner/orchestrator editing relay. Send the revision/delta for execution adoption. |
+| Planner delegates an edit and also wants to change the same document. | Give the editor exclusive temporary custody, suspend overlapping writes, inspect its terminal diff and reclaim custody before further edits. |
+| Planner changes its plan while an older adopted assignment is executing. | Keep the active assignment pinned; reconcile dependencies and affected in-flight work before acknowledged adoption. Independent unchanged work continues. |
+| A revision is ready while human gated-commit approval is pending. | Plan authorship/adoption supplies neither commit approval nor independent review; preserve the actual gate and reassess any affected evidence. |
+| Existing plan mixes planning and factual execution sections. | Record section-level writers explicitly or keep status in existing execution state; no overlapping whole-document writers. |
+| A 1.0.0 plan-editing job is still running when new planning ownership is selected. | Settle affected edits, acknowledge the old writer's relinquishment and planner custody before new edits; retain the adopted revision, valid evidence and pending gates. |
+| Planner successor is due with an active planning editor. | Settle the same handle and inspect its result before exclusive planning-resource transfer; unrelated execution continues. |
+| No retained planner is selected. | Owner retains progressive planning/writes; standalone retains bounded planning and delegated substantive edits. No new planner or extra approval gate. |
 
 Pilot all four coordination/execution combinations offline, then a separately authorized small real roadmap.
 Record comparable accepted outcomes, implementation/verification time, human and

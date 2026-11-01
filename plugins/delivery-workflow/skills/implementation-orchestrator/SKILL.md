@@ -35,13 +35,18 @@ checkpoint; naming, installation or handoff changes neither setting.
 ## Load the applicable execution contract
 
 - **Standalone:** read [shared protocol](references/shared-protocol.md) and
-  [standalone startup](references/standalone-startup.md). You own canonical plan
-  decisions; substantive planning analysis and plan edits follow the shared role
-  contract. Use the retained planner when selected; do not add an owner gate.
+  [standalone startup](references/standalone-startup.md). You own execution adoption
+  and readiness. A selected retained planner owns planning content and plan edits;
+  otherwise use the shared planning fallback. Do not add an owner gate.
 - **Owner-managed:** read [managed execution](references/managed-execution.md)
   and only its listed shared sections. The owner owns canonical plan adoption,
   cross-plan decisions and assignments. You own execution within that assignment.
   Do not import standalone ownership, startup or planning fallback rules.
+
+Implement the adopted revision. Keep implementation details within its bounds and
+report feasibility conflicts or missing work through the planning route; do not
+expand planner-owned content or commission its edits. Execution findings inform
+the planner's revisions; edits alone do not change your active assignment.
 
 Read [phase capability](references/phase-capability.md) before choosing the profile;
 read [delegated jobs](references/delegated-jobs.md), [prompt contracts](references/agent-prompts.md)

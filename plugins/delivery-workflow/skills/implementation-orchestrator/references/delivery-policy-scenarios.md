@@ -73,3 +73,7 @@ Validate `context-rollover.md` in dry-run; do not create real chats for this pac
 | Retained planner is absent and no unresolved decision exists. | Continue valid execution; an advisory review is not a required signature. |
 | Planner recommendation materially changes architecture or exceeds a hard exclusion. | Reconcile under the standalone mode's existing user decision gate; do not expand the envelope. |
 | Switching back during an in-flight verification job. | Drive the same handle terminal, preserve evidence/work and pending gates, then explicitly adopt the current workflow. |
+| Standalone gated execution receives a planner-written revision with additional phases. | Reconcile execution adoption against original authority and frozen boundaries; a document edit does not authorize new work or a gated commit. |
+| Standalone autopilot finds missing work with a retained planner selected. | Report the concrete gap to the planner for content/edits; reconcile the proposed revision under the existing envelope and human decision rules before affected execution. |
+| Owner-managed gated execution sees a canonical plan edit before a changed assignment arrives. | Keep the adopted assignment and human gates; owner reconciles dependencies and obtains acknowledgement before changed work. |
+| Owner-managed autopilot needs a planner-owned amendment within delegated bounds. | Planner writes/delegates the plan edit; owner adopts and reconciles the assignment. Preserve valid autopilot authority without an added per-phase human approval. |
