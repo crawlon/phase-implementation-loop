@@ -35,7 +35,8 @@ requires explicit adoption and canonical-writer handover under the
    in the existing role state. Link exact workspace/dirty ownership, evidence
    validity, authority, gates and next-action technical references. Preserve the
    last meaningful milestone, goal assessment/rationale, assumptions, next result
-   and review cadence/route. Link useful execution knowledge such as the working
+   and any Planner checkpoint, last substantive review, time backstop and route.
+   Link useful execution knowledge such as the working
    verifier invocation and known environment limitations; do not copy transcripts.
    Carry the compact context assessment and transfer reason as history; the
    successor starts its own session-local usage/compaction observations without

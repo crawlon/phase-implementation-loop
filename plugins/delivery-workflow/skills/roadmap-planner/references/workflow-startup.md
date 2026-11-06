@@ -16,6 +16,8 @@ in this chat; the human need not invoke skills in each new chat.
    and permissions. Resolve missing exact model/effort selections and coordination
    scope together in the [bounded agreement](#bounded-coordination-agreement)
    before launch; executing actors retain operational approval gates.
+   Set the [Planner checkpoint and time backstop](retained-planning.md#direction-reviews)
+   in the existing brief and pass its pointer to the coordinator.
 3. Select the child skill from the table below. Resolve its absolute `SKILL.md`
    path in the installed stable bundle or this self-contained source bundle and
    verify it exists and matches the actual role/writer responsibilities. Reconcile
@@ -90,7 +92,7 @@ Plan/goal/acceptance/rationale: [paths and revisions].
 Planning writer and authorized documents/sections: [planner binding or no-planner fallback].
 Execution adoption: [approved revision and authority; changed revisions need reconciliation].
 Last goal assessment/rationale and next observable outcome: [current result or not yet assessed].
-Review cadence and actual authorized wakeup/recovery route: [agreement or unavailable].
+Planner checkpoint, active-work backstop and wakeup/recovery route: [current brief pointer].
 Workspace and ownership: [repository, host, checkout/worktree, branch, HEAD, dirty paths].
 Selected role/model/effort and permitted fallback: [approved row/source; successor coverage].
 Execution assignment settings: [coordination + execution; original approval source].

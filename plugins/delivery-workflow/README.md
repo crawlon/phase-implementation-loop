@@ -1,4 +1,4 @@
-# Delivery Workflow 1.2.0
+# Delivery Workflow 1.3.0
 
 Three role skills replace the earlier trial and phase-loop variants:
 
@@ -52,9 +52,10 @@ active assignment or grant execution permission. Planning and execution resource
 each retain one writer. Without a planner, coordinator planning fallbacks remain.
 
 The planner regularly assesses cumulative capability, learning, blockers and the
-shortest credible route to the goal. Review cadence is agreed, not a deadline.
-Recurring wakeups need an authorized native heartbeat. Routine progress stays
-local; each role maintains a compact current brief with linked evidence/history.
+shortest credible route to the goal. With or without an owner, set a [Planner
+checkpoint and active-work time backstop](skills/roadmap-planner/references/retained-planning.md#direction-reviews)
+in the existing current brief. Reuse evidence across checks and use an authorized
+heartbeat or named manual recovery route. Routine progress stays local.
 
 All three roles use one [compact context assessment](skills/implementation-orchestrator/references/shared-protocol.md#context-assessment):
 available context measurements, compaction history, brief integrity and the actual

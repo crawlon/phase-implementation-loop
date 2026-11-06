@@ -72,7 +72,9 @@ Assess stagnation at terminal jobs/checkpoints within unfinished phases, not onl
 when a phase completes. Expanding preparation, repeated repairs without new evidence,
 or repeated postponement of the next result use the shared
 [direction-review triggers](../../roadmap-planner/references/retained-planning.md#direction-reviews).
-The owner requests the retained planner's cumulative assessment when present,
+With a retained planner, set the shared [Planner checkpoint and time backstop](../../roadmap-planner/references/retained-planning.md#direction-reviews)
+at assignment setup or adoption in the existing brief and link it from the
+assignment. The owner requests the planner's cumulative assessment at early drift triggers,
 without giving it execution-worker supervision or dispatch authority. Planning
 edits remain with that planner under the shared agreement. Without one, the owner
 performs the same direction check and uses bounded consultation for unresolved

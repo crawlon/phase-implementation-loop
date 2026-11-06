@@ -46,6 +46,10 @@ reuse the current brief, available measurements and pending preparation/transfer
 boundary; replace the old assessment line without replaying history to fill
 unknown counters. This changes no role ownership, model, permission or execution gate.
 
+For 1.3.0, record or reuse the [Planner checkpoint and time backstop](retained-planning.md#direction-reviews)
+in the existing brief at adoption. Carry forward the last equivalent Planner
+review, existing wakeup authority and any already due check.
+
 1. Reconcile the actual role, canonical writer, current assignment and both settings.
    Each adopting role settles its own jobs at a safe checkpoint. Other roles keep
    their independent authorized work; no coordinated full-cohort restart is needed.
@@ -69,7 +73,7 @@ unknown counters. This changes no role ownership, model, permission or execution
 A compact instruction to an existing actor:
 
 ```text
-At your next safe checkpoint, adopt Delivery Workflow 1.2.0 for this assignment.
+At your next safe checkpoint, adopt Delivery Workflow 1.3.0 for this assignment.
 Read [absolute stable role SKILL.md] and its required references. Preserve your
 actual role, coordination/execution settings, approved models,
 original permissions, work, evidence, repair bounds and pending gates. Settle your

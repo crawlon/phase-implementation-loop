@@ -27,7 +27,9 @@ checkpoint rather than repeating Phase 1 startup.
 5. Name a durable-state location containing the shared protocol's required fields;
    an explicitly assigned section in the canonical plan may serve when sufficient;
    preserve the planner's separate content custody. Record current/next phase,
-   coordinator/execution settings, actual profile and exact pending gates.
+   coordinator/execution settings, actual profile and exact pending gates. With a
+   retained planner, set the shared [Planner checkpoint and time backstop](../../roadmap-planner/references/retained-planning.md#direction-reviews)
+   in that brief at startup or adoption.
 6. Use one dedicated branch for the whole plan, following repository conventions
    or `codex/<plan-slug>`. Reuse suitable authorized workspaces. Unattended/parallel
    work can use an authorized separate worktree with clear resource ownership.

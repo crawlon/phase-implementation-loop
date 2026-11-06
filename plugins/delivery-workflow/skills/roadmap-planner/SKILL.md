@@ -42,7 +42,8 @@ and canonical execution state; return to retained planning and direction review.
    [current brief](../delivery-owner/references/contracts.md#current-snapshot)
    and next-action evidence. Record unknowns rather than inferring from old history.
 3. Establish authorized planning-document/section and note paths, message directions/content, review
-   boundaries/cadence, safe succession and the actual event or recovery route. Use
+   checkpoint and time backstop under [direction reviews](references/retained-planning.md#direction-reviews),
+   safe succession and the actual event or recovery route. Use
    [shared coordination](../delivery-owner/references/coordination.md)
    only for the applicable identity, messaging, observation or transfer section.
    Record exclusive planning custody under the shared agreement; owner indexes

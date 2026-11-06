@@ -156,11 +156,23 @@ planner inputs. A fresh retained-planner generation starts from this concise sta
 
 ## Direction reviews
 
-Regular goal assessment is the retained planner's main duty after startup, with
-an owner or standalone orchestrator. Agree a workload-appropriate cadence and
-actual authorized wakeup/recovery route. Review unfinished work without waiting
-for advice requests. Coordinators use the same assessment at existing outcome
-checks, reusing equivalent current coverage rather than adding a review cycle.
+For each execution assignment with a retained planner, the planner and delivery
+coordinator set a named Planner review checkpoint tied to an observable outcome,
+and a maximum interval between Planner reviews during active work. The coordinator
+is the owner in managed delivery and the orchestrator in standalone delivery.
+Record both in the coordinator's existing current brief with the last substantive
+Planner review and the actual authorized wakeup or manual recovery route. A managed
+assignment may link to a shared review entry that explicitly covers its outcome.
+
+Review when the checkpoint is reached or the interval is due, whichever comes
+first. The coordinator uses the existing outcome update and recorded route to
+surface the checkpoint with a brief pointer. Measure the interval from the last substantive
+Planner review or the start of execution for the first review. Use the existing
+brief and linked evidence, including relevant Owner outcome evidence. Coalesce
+coincident triggers and reuse an equivalent current Planner assessment that covers
+the trigger, including any material delay. After a substantive review,
+record its coverage and the next checkpoint in the same brief through the current
+writer. Coordinators continue their existing outcome checks and execution decisions.
 
 Review sooner when assumptions change, preparation expands, repairs add no
 learning, or the next capability is repeatedly postponed. Compare cumulative
@@ -220,9 +232,10 @@ message-purpose authority; keep routine activity in state. The planner neither
 dispatches execution workers nor supervises another actor's jobs; it supervises
 its own planning subagents directly.
 
-For requested recurring oversight, reuse a suitable authorized native heartbeat.
+Use a suitable authorized native heartbeat for timed oversight when available.
+Otherwise record a manual check at the backstop and who will prompt it.
 At each wakeup first check changed checkpoint/binding/gate status and the recorded
-recovery condition. If the same human decision is pending, no relevant evidence
+recovery condition. If the assignment is waiting on the same human decision, no relevant evidence
 changed and no recovery trigger is due, retain the last meaningful assessment and
 return quietly without rereading the investigation or rewriting notes. Likewise
 reuse an equivalent current/in-flight review. A new risk, failed route, changed

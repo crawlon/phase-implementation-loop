@@ -30,7 +30,8 @@ Last meaningful capability milestone and latest assessment, learning and rationa
 Now: actual role/skill, coordination/execution settings, assignment, actors, running jobs and blocker:
 Next observable result/actor, prerequisites and evidence that changes direction:
 Pending gates; authority/exclusions and original source pointers; actual recovery route:
-Observed checkpoint/revision, evidence validity, context assessment and next review:
+Observed checkpoint/revision, evidence validity, context assessment and next outcome review:
+Retained Planner review (if selected): next checkpoint, active-work backstop, last review and wakeup/recovery route:
 ```
 
 On material change, replace superseded fields and retain prior decisions in linked
@@ -138,7 +139,8 @@ Messaging: exact cohort/directions, original human proposal + reply references,
 return-route result and actual recovery arrangement:
 Repair/resource bounds and mandatory stop conditions:
 Review policy: design risk/applicability, early integration boundary/check,
-required owner outcome boundary, preparation exits, planner advisory triggers and notification route:
+required owner outcome boundary, preparation exits and notification route:
+Retained Planner review (if selected): brief pointer covering this assignment's checkpoint and time backstop:
 Context checks: local assessment at required checkpoints; handoff launcher and authority:
 Phase state path; checkpoint triggers; next authorized action:
 ```
