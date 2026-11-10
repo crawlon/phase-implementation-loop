@@ -1,4 +1,4 @@
-# Bounded Astra Consultation
+# Bounded Consultation
 
 The Sol owner retains execution adoption, assignments, scheduling and milestone
 acceptance; human decisions remain with the human. A retained planner, when
@@ -9,7 +9,7 @@ question; it is not another manager or a standing participant in cohort messages
 The owner commissions advice for delivery/cross-plan decisions; a managed
 orchestrator commissions its own technical advice within the assigned outcome.
 Each supervises its own job and retains its existing decision/write boundaries.
-Implementation and independent-verifier profiles stay unchanged.
+The selected implementation and independent-verifier profiles are separate.
 
 ## When to consult
 
@@ -36,15 +36,14 @@ that judgment or independent review. First reuse an applicable recorded decision
 elaboration, factual update, scheduling choice, or normal outcome checkpoint
 does not trigger a call. Do not generate a token-cost saving by weakening the
 outcome, acceptance or required assurance. Urgent stops and clear human authority
-questions go directly to their proper gate; Astra cannot grant permissions.
+questions go directly to their proper gate; consultants cannot grant permissions.
 
 ## Dispatch and result
 
-Use a bounded read-only subagent with explicit model/effort through supported
-controls and minimal context, not a user-owned chat or a fork of the caller
-history. If delegation is unavailable, disclose it. Record the trigger and
-question in the commissioning role's existing state; do not create a separate
-planning bureaucracy.
+By default use a bounded read-only Astra subagent with explicit model and effort
+and minimal context. When selected, use the shared [opt-in Fable profile](../../implementation-orchestrator/references/shared-protocol.md#opt-in-fable-consultation-and-review)
+through its read-only wrapper. If the selected route is unavailable, disclose it.
+Record the trigger and question in the commissioning role's existing state.
 
 Give the consultant the question, fixed outcome and relevant acceptance criteria,
 constraints and authority boundaries, current plan/contract revision, alternatives
@@ -72,14 +71,14 @@ keeps technical changes within its assignment and worker protocol. Preserve huma
 gates and required assignment acknowledgements. Advice is not execution authority
 or a second approval gate.
 Unrelated authorized work may continue while the affected decision is unresolved.
-If Astra is unavailable or inconclusive, preserve the question and pause only
-dependent work; report the limitation and concrete missing evidence or alternative
+If the selected consultant is unavailable or inconclusive, preserve the question
+and pause only dependent work. Report the limitation and concrete missing evidence or alternative
 route requiring approval. Do not silently claim an equivalent consultation or
 switch external providers. Routine work remains with its responsible role.
 
 ## Independence and cost
 
-If Astra contributed to authoring a design, it cannot provide that design's
+If the consultant contributed to authoring a design, it cannot provide that design's
 required independent review. Use the existing approved independent reviewer
 route in a separate context; do not reinterpret consultant agreement as PASS.
 Consultation does not automatically add a review when the review policy does

@@ -77,8 +77,10 @@ subagents for research/analysis/drafts; a planner may instead authorize a planni
 editing subagent under the custody rule above. Return results to the commissioning
 role, which checks decisive evidence and owns the resulting judgment. Use the approved
 [role profiles](../../implementation-orchestrator/references/shared-protocol.md#role-profiles):
-Luna Max for bounded support it can handle, an approved stronger route for harder
-analysis. The retained agent's model and decision responsibility stay unchanged.
+Luna Max for bounded support it can handle, and the approved consultant for harder
+judgment. The planner may directly commission [opt-in Fable consultation](../../implementation-orchestrator/references/shared-protocol.md#opt-in-fable-consultation-and-review)
+on an exceptional planning question within its role. The retained agent's model
+and decision responsibility stay unchanged.
 
 A brief names the question/result, sources, constraints and completion condition.
 The commissioning role owns the handle and follows the

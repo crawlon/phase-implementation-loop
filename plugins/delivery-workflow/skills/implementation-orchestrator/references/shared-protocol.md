@@ -339,6 +339,26 @@ consultation/verification protocols; this table grants no additional provider,
 write, launch or commit authority. A handoff preserves the selected pair and
 fallback scope, not a newly chosen default.
 
+### Opt-in Fable consultation and review
+
+Use `claude-fable-5-2` / `high` only when the human selects it for the job or in
+the approved profile and the Claude data-sharing scope covers the evidence. Choose
+it for a consequential question that calls for a new approach or a challenge to
+interacting assumptions, such as a mixed-version migration, coupled rollback and
+retry behavior, or a repair loop that has stopped producing new evidence. State
+what decision, counterexample or discriminating check the job should deliver.
+Astra High remains the default consultant for consequential bounded questions,
+especially when decisive evidence depends on native Codex state. Opus 5.5 remains
+the default independent verifier under the [verification chain](delegated-jobs.md#verification-chain).
+
+Use `codex-claude-ask --model claude-fable-5-2 --effort high` with a bounded read-only
+brief. Verify the actual model using the [Claude reference](agent-claude.md#transport-and-effort).
+Claude Code requires 2.1.321 or later and Fable account access. Treat a provider
+substitution as a different model and apply only the approved fallback. The commissioning role owns
+the result and supervises one job to terminal completion. Keep design contributors
+out of that design's independent review. Fable changes no review, approval, or
+execution requirement.
+
 ## Bounded Research
 
 The planner, owner or orchestrator directly delegates research supporting its own
@@ -430,15 +450,19 @@ Astra subagent for the same strategic question or silently substitute a provider
 if the retained planner is unavailable. Required unresolved input pauses only
 dependent actions; advisory silence does not pause valid execution. A distinct
 technical question may use a bounded read-only planning job under the route below,
-with actual authority and no duplicate consultation.
+with actual authority and no duplicate consultation. Use the
+[opt-in Fable profile](#opt-in-fable-consultation-and-review) for that distinct
+technical question only when selected.
 
 With no retained planner, delegate one bounded read-only planning job when unresolved implementation
 decisions or risks require substantive exploration or replanning. Do not launch
 a planner merely for a new phase, factual bookkeeping, or the drift checkpoint.
-The default route is a fresh Codex subagent using the consultant profile in
-[Role profiles](#role-profiles). If that route terminates unsuccessfully or is
-unavailable, use Claude Opus 5.5 through `codex-claude-ask --model
-claude-opus-5-5`. Use the Planning prompt in `agent-prompts.md` for either route.
+Use the [opt-in Fable profile](#opt-in-fable-consultation-and-review) when selected
+for this job. Otherwise the default is a fresh Codex subagent using the consultant
+profile in [Role profiles](#role-profiles). If that route terminates unsuccessfully
+or is unavailable, use Claude Opus 5.5 through `codex-claude-ask --model
+claude-opus-5-5` under the existing authority. Use the Planning prompt in
+`agent-prompts.md` for the selected route.
 
 With no retained planner, this read-only planning consultant may inspect the plan
 and repository evidence but must not edit the
@@ -448,9 +472,9 @@ when needed, and owns reconciliation into the canonical plan, Linear mapping,
 capability assessment, and durable state. Delegate substantive plan edits to a
 worker; factual status and pointer updates remain direct orchestrator work.
 
-Do not call both planners for routine comparison. Use Opus 5.5 only after a
-terminal Astra failure/unavailability or explicit user selection. If both routes
-are unavailable, the orchestrator may plan directly only as a disclosed degraded
+Use one consultant per question. Use Opus 5.5 only after a terminal Astra
+failure/unavailability or explicit user selection. If the approved routes are
+unavailable, the orchestrator may plan directly only as a disclosed degraded
 fallback; record the reason, keep the task bounded, and do not bypass user or
 tracker authority.
 

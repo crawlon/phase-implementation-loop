@@ -1,4 +1,4 @@
-# Delivery Workflow 1.3.0
+# Delivery Workflow 1.4.0
 
 Three role skills replace the earlier trial and phase-loop variants:
 
@@ -44,6 +44,10 @@ analysis and drafts need no owner/orchestrator relay. Execution tests, code edit
 and live operations remain with execution. Luna Max handles compatible bounded
 support and simpler code; the approved profile/capability assessment governs
 stronger routes. Retained agents keep their actual selected models.
+
+[Fable 5.2 High](skills/implementation-orchestrator/references/shared-protocol.md#opt-in-fable-consultation-and-review)
+is available by explicit selection for exceptional consultation or independent
+review. Astra High remains the default consultant and Opus 5.5 the default verifier.
 
 When selected, the planner writes canonical planning documents directly or delegates
 bounded edits to its own subagent. The coordinator adopts revisions for execution

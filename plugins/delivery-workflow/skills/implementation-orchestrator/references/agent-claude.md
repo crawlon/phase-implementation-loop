@@ -39,6 +39,11 @@ arguments, tool output, or other stream payload content. `activity` and
 default deadline; `CODEX_CLAUDE_MAX_SECONDS` is opt-in, and
 `CODEX_CLAUDE_STATUS_FILE` persists the compact records for recovery.
 
+For Fable, run the wrapper with a private `TMPDIR` and observe its
+`codex-claude-wrapper.*/stdout` stream before cleanup. Record only the
+`message.model` from assistant events or model IDs from the terminal `modelUsage`.
+Report an unverified model if provider metadata is missing.
+
 ## Capabilities And Prompts
 
 The current wrapper is read-only. Use it for planning, review, verification,

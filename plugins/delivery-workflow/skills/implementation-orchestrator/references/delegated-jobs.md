@@ -132,7 +132,12 @@ Use one verifier at a time:
 3. Cursor GLM 5.3 High via `codex-cursor-ask --model glm-5.3-high`, only when
    the Astra route is terminally unavailable or `INCONCLUSIVE`.
 
-An explicitly approved verifier profile may select a different starting tier.
+An explicitly approved verifier profile may select a different starting tier,
+including [Fable 5.2 High](shared-protocol.md#opt-in-fable-consultation-and-review)
+for a consequential cross-system review. Use its separate read-only review job,
+with the exact candidate and normal verifier result contract. A blocking finding
+returns to the repair route. An unavailable or inconclusive Fable review follows
+only the approved fallback order and the same critical-work rules below.
 Check the configured model id on its active surface before use. If GLM 5.3 High
 is unavailable, record it and stop when the chain is exhausted; do not silently
 substitute GLM 5.2 or another verifier.
