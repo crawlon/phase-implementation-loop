@@ -168,9 +168,11 @@ assignment may link to a shared review entry that explicitly covers its outcome.
 
 Review when the checkpoint is reached or the interval is due, whichever comes
 first. The coordinator uses the existing outcome update and recorded route to
-surface the checkpoint with a brief pointer. Measure the interval from the last substantive
-Planner review or the start of execution for the first review. Use the existing
-brief and linked evidence, including relevant Owner outcome evidence. Coalesce
+surface the checkpoint with a brief pointer and relevant independent verifier
+evidence on repository adherence, including material deviations or gaps. Measure the
+interval from the last substantive Planner review or the start of execution for the
+first review. Use the existing brief and linked evidence, including relevant Owner
+outcome evidence. Coalesce
 coincident triggers and reuse an equivalent current Planner assessment that covers
 the trigger, including any material delay. After a substantive review,
 record its coverage and the next checkpoint in the same brief through the current
@@ -187,8 +189,15 @@ approach inefficient. Ask:
   and which belong before broader adoption or release?
 - Is this still the shortest credible route to the fixed goal? What alternative
   sequence or approach merits consideration, and what evidence would decide?
+- Do the cumulative changes, including interacting repairs, still follow the
+  applicable current repository principles at the affected boundaries?
 - Continue, change approach or pause affected work: what observable result comes
   next, and who delivers it?
+
+Reuse the verifier's evidence when judging cumulative adherence. Commission a
+bounded read-only subagent only when existing evidence leaves a material question
+that could change the recommendation. Use the existing repair or decision route
+for a confirmed deviation or a proposed exception to a current requirement.
 
 Challenge the plan as well as execution. Activity/test counts alone are not
 progress. Preparation needs an evidenced blocker and observable exit. Required
@@ -215,6 +224,7 @@ Return a compact advisory result with decisive pointers:
 Goal/plan/checkpoints reviewed; evidence limits:
 Last meaningful capability milestone -> current capability, learning and blocker:
 Cumulative prerequisites: needed now vs before broader adoption; approach assessment:
+Repository adherence: affected boundary, evidence, and any material deviation or gap:
 Judgment: continue | change approach | pause affected work | need decisive evidence
 Reason, alternative if warranted, next observable result/actor and decisive evidence:
 Relevant authority/safety/resource boundary or human decision, if any:

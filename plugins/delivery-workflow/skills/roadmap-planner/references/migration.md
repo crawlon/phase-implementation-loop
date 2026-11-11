@@ -54,6 +54,9 @@ Version 1.4.0 offers [Fable 5.2 High](../../implementation-orchestrator/referenc
 by explicit selection. Carry forward the existing models, fallbacks and provider
 grants when adopting the bundle. Record a Fable selection only within its approved scope.
 
+Version 1.5.0 adds repository adherence to the existing verifier review and
+Planner checkpoint. Carry forward applicable evidence and the agreed checkpoint.
+
 1. Reconcile the actual role, canonical writer, current assignment and both settings.
    Each adopting role settles its own jobs at a safe checkpoint. Other roles keep
    their independent authorized work; no coordinated full-cohort restart is needed.
@@ -77,7 +80,7 @@ grants when adopting the bundle. Record a Fable selection only within its approv
 A compact instruction to an existing actor:
 
 ```text
-At your next safe checkpoint, adopt Delivery Workflow 1.4.0 for this assignment.
+At your next safe checkpoint, adopt Delivery Workflow 1.5.0 for this assignment.
 Read [absolute stable role SKILL.md] and its required references. Preserve your
 actual role, coordination/execution settings, approved models,
 original permissions, work, evidence, repair bounds and pending gates. Settle your

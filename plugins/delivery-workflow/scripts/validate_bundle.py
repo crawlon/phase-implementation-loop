@@ -40,7 +40,7 @@ def anchors(path):
 def main():
     manifest = json.loads((ROOT / ".codex-plugin/plugin.json").read_text())
     require(manifest["name"] == "delivery-workflow", "Unexpected plugin identity")
-    require(manifest["version"] == "1.4.0", "Unexpected stable version")
+    require(manifest["version"] == "1.5.0", "Unexpected stable version")
     require(manifest["skills"] == "./skills/", "Unexpected skills root")
     dirs = {path.name for path in (ROOT / "skills").iterdir() if path.is_dir()}
     require(dirs == NAMES, f"Unexpected skill directories: {dirs ^ NAMES}")

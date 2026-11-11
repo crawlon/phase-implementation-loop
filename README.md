@@ -12,7 +12,7 @@ for running assignments and rollback.
 
 The former phase-loop, managed-loop/autopilot and trial bundles are retired from
 this marketplace. Their source paths remain frozen for existing assignments;
-new work uses Delivery Workflow 1.4.0. Installing it does not migrate a running
+new work uses Delivery Workflow 1.5.0. Installing it does not migrate a running
 actor or change its approvals.
 
 Both the phase-implementation-loop and delivery-owner repositories carry the same

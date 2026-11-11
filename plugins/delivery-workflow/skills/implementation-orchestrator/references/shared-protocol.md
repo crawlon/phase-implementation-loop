@@ -508,7 +508,9 @@ For each phase:
 1. Reconfirm the approved capability assessment, then write a phase brief with
    objective, scope, likely files, constraints, acceptance checks, risks, stop
    conditions, capability delivered/blocker removed, and criterion/invariant
-   served. Resolve any required `add plan detail` or `use stronger
+   served. Cite current repository principles that apply to the affected
+   boundaries and carry the citations into the existing verifier brief.
+   Resolve any required `add plan detail` or `use stronger
    implementer` action before delegation.
 2. When substantive planning is needed, delegate under Planning And Replanning
    above and reconcile the approved result before implementation. Perform any

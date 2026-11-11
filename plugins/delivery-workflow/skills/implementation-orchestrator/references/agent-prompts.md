@@ -116,10 +116,14 @@ Repository path and base commit: [path/base]
 Actual diff scope: [paths/modules]
 Tests and results: [evidence]
 Accepted evidence: [scope, target, conditions, and relevant changes, if any]
-Repository constraints: [constraints]
+Applicable repository principles and constraints: [source pointers to current rules, such as AGENTS.md, accepted ADRs or documented contracts]
 
 Check correctness, regressions, scope compliance, security/auth/data risks, and
 test sufficiency. Reuse valid accepted evidence; verify affected boundaries.
+Check whether the changed implementation follows the applicable repository
+principles. For a deviation, cite the rule, affected code or evidence, and
+consequence. Distinguish current requirements, approved exceptions, preferences
+and future targets. Report material gaps in coverage under EVIDENCE.
 Classify findings as blocker, nonblocking improvement, or factual/wording
 correction under `delegated-jobs.md`. Substantive Markdown changes require
 affected independent verification; missing required assurance cannot be treated

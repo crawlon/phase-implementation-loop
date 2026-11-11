@@ -1,4 +1,4 @@
-# Delivery Workflow 1.4.0
+# Delivery Workflow 1.5.0
 
 Three role skills replace the earlier trial and phase-loop variants:
 
@@ -55,8 +55,9 @@ within existing authority and owns assignments; editing a plan does not change a
 active assignment or grant execution permission. Planning and execution resources
 each retain one writer. Without a planner, coordinator planning fallbacks remain.
 
-The planner regularly assesses cumulative capability, learning, blockers and the
-shortest credible route to the goal. With or without an owner, set a [Planner
+The planner regularly assesses cumulative capability, learning, blockers,
+adherence to repository principles and the shortest credible route to the goal.
+With or without an owner, set a [Planner
 checkpoint and active-work time backstop](skills/roadmap-planner/references/retained-planning.md#direction-reviews)
 in the existing current brief. Reuse evidence across checks and use an authorized
 heartbeat or named manual recovery route. Routine progress stays local.
