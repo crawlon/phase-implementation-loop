@@ -57,6 +57,11 @@ grants when adopting the bundle. Record a Fable selection only within its approv
 Version 1.5.0 adds repository adherence to the existing verifier review and
 Planner checkpoint. Carry forward applicable evidence and the agreed checkpoint.
 
+Version 1.6.0 proposes Sol Extra High for a Planner without a selected profile
+and lets the commissioning role choose the consultant for each question within
+assignment authority. Carry forward explicit model selections. Use supported
+model controls if the human selects a different profile for a running Planner.
+
 1. Reconcile the actual role, canonical writer, current assignment and both settings.
    Each adopting role settles its own jobs at a safe checkpoint. Other roles keep
    their independent authorized work; no coordinated full-cohort restart is needed.
@@ -80,7 +85,7 @@ Planner checkpoint. Carry forward applicable evidence and the agreed checkpoint.
 A compact instruction to an existing actor:
 
 ```text
-At your next safe checkpoint, adopt Delivery Workflow 1.5.0 for this assignment.
+At your next safe checkpoint, adopt Delivery Workflow 1.6.0 for this assignment.
 Read [absolute stable role SKILL.md] and its required references. Preserve your
 actual role, coordination/execution settings, approved models,
 original permissions, work, evidence, repair bounds and pending gates. Settle your

@@ -296,14 +296,14 @@ Explicit human selections override these proposed defaults when capability permi
 
 | Role | Proposed model / reasoning | Scope |
 | --- | --- | --- |
-| Retained roadmap planner | `gpt-6-astra` / `high` | Goal direction, strategic planning and cumulative progress assessment. |
+| Retained roadmap planner | `gpt-6.1-sol` / `xhigh` | Goal direction, strategic planning and cumulative progress assessment. |
 | Delivery owner | `gpt-6.1-sol` / `high` | Delivery decisions, dependencies and assignments. |
 | Managed orchestrator | `gpt-6.1-sol` / `high` | Execution coordination, supervision and gates. |
 | Standalone orchestrator | Existing explicitly approved model / reasoning | Preserve its profile; resolve an unspecified choice before launching a successor. |
 | Bounded researcher | `gpt-6-luna` / `max` | Bounded evidence gathering, analysis and planning drafts under Bounded Research below. |
 | Planning editor | `gpt-6-luna` / `max` for bounded settled edits; approved stronger profile for consequential reasoning | Planner-commissioned planning-document edits under exclusive temporary custody; no implementation or execution authority. |
 | Implementation worker | `gpt-6-luna` / `max` for compatible TINY/ROUTINE phases | Apply `phase-capability.md`; inherent high risk or novel complexity requires a suitable strong implementer. |
-| Bounded strategic/technical consultant | `gpt-6-astra` / `high` | Consequential unresolved reasoning; retain managed/standalone routing. |
+| Bounded strategic/technical consultant | See [Consultant selection](#consultant-selection) | Choose for the unresolved question within assignment authority. |
 | UI/UX reviewer | `gpt-6-luna` / `max` | Preserve the existing non-editing browser review gate. |
 | Independent verifier | Existing selected [verification chain](delegated-jobs.md#verification-chain) | Preserve provider order, independence and critical-work restrictions. |
 
@@ -339,6 +339,29 @@ consultation/verification protocols; this table grants no additional provider,
 write, launch or commit authority. A handoff preserves the selected pair and
 fallback scope, not a newly chosen default.
 
+### Consultant selection
+
+The commissioning role selects the least costly model and effort likely to
+resolve the question within its assignment. Honor any explicit consultant
+profile or provider restrictions.
+The orchestrator makes this choice for technical questions within its assigned
+outcome. Cross-plan and reserved decisions follow their existing route.
+
+- Use existing evidence or local judgment when it can settle the question.
+  For bounded fact gathering, use [Luna Max research](#bounded-research).
+- Start with GPT-6.1 Sol High for bounded technical advice where the constraints
+  and evidence are clear. Adjust effort to the question.
+- Use GPT-6 Astra High directly when consequential uncertainty, interacting
+  constraints, or conflicting evidence needs deeper native judgment. Use Claude
+  Opus 5.5 via the [read-only wrapper](agent-claude.md#transport-and-effort) when a
+  cross-provider challenge would help and the approved profile and data-sharing
+  scope cover it. Use Fable only under its [opt-in profile](#opt-in-fable-consultation-and-review).
+
+Give one read-only consultant the specific decision, relevant constraints and
+decisive evidence. Set model and effort explicitly. If the answer leaves a
+material question, name the gap before using an approved stronger route. Keep
+required independent reviews on the existing [verification chain](delegated-jobs.md#verification-chain).
+
 ### Opt-in Fable consultation and review
 
 Use `claude-fable-5-2` / `high` only when the human selects it for the job or in
@@ -347,9 +370,6 @@ it for a consequential question that calls for a new approach or a challenge to
 interacting assumptions, such as a mixed-version migration, coupled rollback and
 retry behavior, or a repair loop that has stopped producing new evidence. State
 what decision, counterexample or discriminating check the job should deliver.
-Astra High remains the default consultant for consequential bounded questions,
-especially when decisive evidence depends on native Codex state. Opus 5.5 remains
-the default independent verifier under the [verification chain](delegated-jobs.md#verification-chain).
 
 Use `codex-claude-ask --model claude-fable-5-2 --effort high` with a bounded read-only
 brief. Verify the actual model using the [Claude reference](agent-claude.md#transport-and-effort).
@@ -445,24 +465,20 @@ adoption under the shared agreement. Report feasibility conflicts and missing wo
 to it rather than expanding the plan or commissioning an editing relay. Establish
 original human messaging authority and verified generations via
 [shared coordination](../../delivery-owner/references/coordination.md),
-reading only the identity/messaging/recovery sections needed. Do not spawn a new
-Astra subagent for the same strategic question or silently substitute a provider
+reading only the identity/messaging/recovery sections needed. Do not commission
+another consultant for the same strategic question or silently substitute a provider
 if the retained planner is unavailable. Required unresolved input pauses only
 dependent actions; advisory silence does not pause valid execution. A distinct
-technical question may use a bounded read-only planning job under the route below,
-with actual authority and no duplicate consultation. Use the
-[opt-in Fable profile](#opt-in-fable-consultation-and-review) for that distinct
-technical question only when selected.
+technical question may use a bounded read-only consultant under
+[Consultant selection](#consultant-selection).
 
 With no retained planner, delegate one bounded read-only planning job when unresolved implementation
 decisions or risks require substantive exploration or replanning. Do not launch
 a planner merely for a new phase, factual bookkeeping, or the drift checkpoint.
-Use the [opt-in Fable profile](#opt-in-fable-consultation-and-review) when selected
-for this job. Otherwise the default is a fresh Codex subagent using the consultant
-profile in [Role profiles](#role-profiles). If that route terminates unsuccessfully
-or is unavailable, use Claude Opus 5.5 through `codex-claude-ask --model
-claude-opus-5-5` under the existing authority. Use the Planning prompt in
-`agent-prompts.md` for the selected route.
+Use [Consultant selection](#consultant-selection) and the Planning prompt in
+`agent-prompts.md`. If the selected native route terminates unsuccessfully or
+is unavailable, use Claude Opus 5.5 as the standalone fallback where the approved
+profile and provider scope permit it.
 
 With no retained planner, this read-only planning consultant may inspect the plan
 and repository evidence but must not edit the
@@ -472,11 +488,9 @@ when needed, and owns reconciliation into the canonical plan, Linear mapping,
 capability assessment, and durable state. Delegate substantive plan edits to a
 worker; factual status and pointer updates remain direct orchestrator work.
 
-Use one consultant per question. Use Opus 5.5 only after a terminal Astra
-failure/unavailability or explicit user selection. If the approved routes are
-unavailable, the orchestrator may plan directly only as a disclosed degraded
-fallback; record the reason, keep the task bounded, and do not bypass user or
-tracker authority.
+If the approved routes are unavailable, the orchestrator may plan directly
+only as a disclosed degraded fallback. Record the reason, keep the task bounded,
+and do not bypass user or tracker authority.
 
 ## UI/UX Review Gate
 

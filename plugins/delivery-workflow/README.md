@@ -1,4 +1,4 @@
-# Delivery Workflow 1.5.0
+# Delivery Workflow 1.6.0
 
 Three role skills replace the earlier trial and phase-loop variants:
 
@@ -45,9 +45,10 @@ and live operations remain with execution. Luna Max handles compatible bounded
 support and simpler code; the approved profile/capability assessment governs
 stronger routes. Retained agents keep their actual selected models.
 
-[Fable 5.2 High](skills/implementation-orchestrator/references/shared-protocol.md#opt-in-fable-consultation-and-review)
-is available by explicit selection for exceptional consultation or independent
-review. Astra High remains the default consultant and Opus 5.5 the default verifier.
+Sol Extra High is the proposed Planner default. Use the shared
+[consultant selection](skills/implementation-orchestrator/references/shared-protocol.md#consultant-selection)
+for each question. The [verification chain](skills/implementation-orchestrator/references/delegated-jobs.md#verification-chain)
+starts with Opus 5.5 by default. Fable 5.2 High is available by explicit selection.
 
 When selected, the planner writes canonical planning documents directly or delegates
 bounded edits to its own subagent. The coordinator adopts revisions for execution

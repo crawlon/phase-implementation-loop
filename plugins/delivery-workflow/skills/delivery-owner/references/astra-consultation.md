@@ -13,8 +13,7 @@ The selected implementation and independent-verifier profiles are separate.
 
 ## When to consult
 
-Use the [consultation profile](contracts.md#managed-role-profiles) within your role
-when an unresolved decision involves:
+Consider consultation within your role when an unresolved decision involves:
 
 - Consequential architecture or a shared contract with dependent consumers.
 - Substantial uncertainty or competing approaches at a new planning frontier.
@@ -40,10 +39,9 @@ questions go directly to their proper gate; consultants cannot grant permissions
 
 ## Dispatch and result
 
-By default use a bounded read-only Astra subagent with explicit model and effort
-and minimal context. When selected, use the shared [opt-in Fable profile](../../implementation-orchestrator/references/shared-protocol.md#opt-in-fable-consultation-and-review)
-through its read-only wrapper. If the selected route is unavailable, disclose it.
-Record the trigger and question in the commissioning role's existing state.
+Use shared [Consultant selection](../../implementation-orchestrator/references/shared-protocol.md#consultant-selection)
+for a bounded read-only job. Record the question, trigger, model and effort in
+the commissioning role's existing state.
 
 Give the consultant the question, fixed outcome and relevant acceptance criteria,
 constraints and authority boundaries, current plan/contract revision, alternatives
