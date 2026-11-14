@@ -3,6 +3,14 @@
 Use these shapes with the selected agent's transport and model instructions.
 Prompts are English by default; user-facing reports may use the user's language.
 
+Reuse the exact revision of the existing phase brief across implementation,
+design review, verification and repair. For shared fields such as scope,
+acceptance criteria and repository constraints, cite its readable path and
+revision. Include the relevant authorized excerpt if the selected agent cannot
+read it. Keep the job's action limits and output contract inline, along with
+job-specific inputs such as the candidate diff, test evidence or finding to
+recheck. Each result applies to the brief revision and candidate it actually used.
+
 Use these delegated prompts for substantive work. Factual bookkeeping, context
 monitoring/handoff preparation, and the drift checkpoint remain direct
 orchestrator work under `shared-protocol.md`. For a replacement primary

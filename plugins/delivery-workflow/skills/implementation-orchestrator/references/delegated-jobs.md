@@ -17,9 +17,15 @@ windows of up to about one minute until terminal exit. Do not duplicate the
 request, begin the next role, report an empty response, ask for approval, commit,
 advance, or end the task while the original job is active.
 
-Only a terminal result or explicit terminal error settles a job. Record role,
-agent/model, handle, start time, and expected artifact when durable recovery may
-be needed. For Cursor and Claude wrappers, `CODEX_CURSOR_EVENT` or
+Record the role, agent/model, handle, start time and expected artifact in existing
+role state as soon as a job returns an in-flight handle, before waiting. Only a
+terminal result or explicit terminal error settles a job. On arrival, save the
+verifier's verdict, findings and evidence in the existing evidence record, or
+link the exact result if it is already durable. Do this before acting on the
+result. Recover from that record after compaction, or resume the recorded handle
+if the job remains active.
+
+For Cursor and Claude wrappers, `CODEX_CURSOR_EVENT` or
 `CODEX_CLAUDE_EVENT` with `state=succeeded|failed|timed_out|cancelled` is
 explicit terminal evidence; `started`, `activity`, and `heartbeat` are not. An
 opt-in timeout exits `124`, and cancellation terminates the child process rather

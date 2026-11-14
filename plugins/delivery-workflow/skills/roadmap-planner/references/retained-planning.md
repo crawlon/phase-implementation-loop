@@ -195,9 +195,15 @@ approach inefficient. Ask:
 - Continue, change approach or pause affected work: what observable result comes
   next, and who delivers it?
 
-Reuse the verifier's evidence when judging cumulative adherence. Commission a
-bounded read-only subagent only when existing evidence leaves a material question
-that could change the recommendation. Use the existing repair or decision route
+Reuse the verifier's evidence when judging cumulative adherence. Record the
+applicable rule or contract pointers and the code revision or diff covered in
+the existing review. If a material gap could change the recommendation, give one
+bounded read-only subagent the affected rules and the change range from the last
+relevant review or meaningful milestone to the current candidate, including any
+in-scope uncommitted changes. Ask where the changes accumulated, which rule may
+be at risk, and whether the next planned step could deepen the deviation. Treat
+change distribution as a lead and confirm it against affected code and evidence.
+Use the existing repair or decision route
 for a confirmed deviation or a proposed exception to a current requirement.
 
 Challenge the plan as well as execution. Activity/test counts alone are not

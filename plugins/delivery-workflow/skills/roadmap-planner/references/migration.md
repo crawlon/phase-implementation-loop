@@ -62,6 +62,10 @@ and lets the commissioning role choose the consultant for each question within
 assignment authority. Carry forward explicit model selections. Use supported
 model controls if the human selects a different profile for a running Planner.
 
+Version 1.7.0 uses the existing phase brief by revision, preserves job handles
+and verdicts for compaction recovery, and records the revision covered at the
+existing Planner checkpoint. Start from the current brief and valid evidence.
+
 1. Reconcile the actual role, canonical writer, current assignment and both settings.
    Each adopting role settles its own jobs at a safe checkpoint. Other roles keep
    their independent authorized work; no coordinated full-cohort restart is needed.
@@ -85,7 +89,7 @@ model controls if the human selects a different profile for a running Planner.
 A compact instruction to an existing actor:
 
 ```text
-At your next safe checkpoint, adopt Delivery Workflow 1.6.0 for this assignment.
+At your next safe checkpoint, adopt Delivery Workflow 1.7.0 for this assignment.
 Read [absolute stable role SKILL.md] and its required references. Preserve your
 actual role, coordination/execution settings, approved models,
 original permissions, work, evidence, repair bounds and pending gates. Settle your

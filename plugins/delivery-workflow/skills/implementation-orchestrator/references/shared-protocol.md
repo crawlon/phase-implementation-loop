@@ -171,8 +171,11 @@ Assess these together; use no numerical complexity score:
 - **Compaction:** count unique completed compactions and the last event/checkpoint;
   use a verified total, or partial observation as
   `>=N since <checkpoint>`, never an assumed total or zero. Otherwise use `?`.
-  Reconcile the brief after an observed compaction; the count alone does not force
-  transfer. Keep each session's counters separate from subagents and predecessors.
+  Refresh changed gates, their authority pointers and the next action in the
+  existing brief before a large evidence intake. After compaction, reconcile
+  against the brief and its [job records](delegated-jobs.md#terminal-lifecycle).
+  Verify any unclear approval at its original source before dependent action.
+  The count alone does not force transfer. Keep session counters separate.
 - **Brief:** verify goal/adopted revision, role/workspace, authority/gates,
   evidence/open decisions and next action/owned handles match current evidence.
   For a gap, make one targeted reread of the decisive source, not the whole history.
@@ -519,11 +522,13 @@ scope and resulting risk; it is not implied by passing functional tests.
 
 For each phase:
 
-1. Reconfirm the approved capability assessment, then write a phase brief with
+1. Reconfirm the approved capability assessment, then record a phase brief with
    objective, scope, likely files, constraints, acceptance checks, risks, stop
    conditions, capability delivered/blocker removed, and criterion/invariant
-   served. Cite current repository principles that apply to the affected
-   boundaries and carry the citations into the existing verifier brief.
+   served. Cite applicable repository principles. Keep the phase brief in
+   existing durable state and identify the exact revision used by each job under
+   the [prompt contracts](agent-prompts.md). When the brief changes, record a new
+   revision and preserve the earlier one with its evidence.
    Resolve any required `add plan detail` or `use stronger
    implementer` action before delegation.
 2. When substantive planning is needed, delegate under Planning And Replanning
