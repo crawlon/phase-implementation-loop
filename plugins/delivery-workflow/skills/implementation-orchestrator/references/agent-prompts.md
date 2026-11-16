@@ -11,6 +11,19 @@ read it. Keep the job's action limits and output contract inline, along with
 job-specific inputs such as the candidate diff, test evidence or finding to
 recheck. Each result applies to the brief revision and candidate it actually used.
 
+Example using one current brief and its existing job and evidence records:
+
+```text
+Dispatch: phase-4/current.md @ r3 for implementation, verification and repair.
+Before waiting: verifier agent-42, Sol High, started 09:12Z, r3, candidate 7edc9cd,
+                expected result in phase-4/reviews.md.
+On receipt: agent-42 PASS for r3 / 7edc9cd, findings and evidence in phase-4/reviews.md.
+```
+
+On repair, keep citing `r3` while its scope and criteria apply. Pass the repair
+finding and affected candidate to the worker, and bind re-verification to the
+repaired candidate. Update the existing records as each job moves forward.
+
 Use these delegated prompts for substantive work. Factual bookkeeping, context
 monitoring/handoff preparation, and the drift checkpoint remain direct
 orchestrator work under `shared-protocol.md`. For a replacement primary

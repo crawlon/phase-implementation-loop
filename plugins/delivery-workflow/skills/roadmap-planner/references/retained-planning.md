@@ -195,6 +195,15 @@ approach inefficient. Ask:
 - Continue, change approach or pause affected work: what observable result comes
   next, and who delivers it?
 
+At an existing outcome or direction checkpoint, ask whether a late failure or
+costly repeat could change the next decision. If so, use one line in the current
+brief to record what repeated, its known cause, measured time or usage if
+available, the evidence pointer, and the smallest change that preserves the
+required evidence. Mark unknown causes as unknown. Reuse that line across roles.
+Route proposed changes to required proof or authority through the existing
+decision and approval path.
+Keep independent verification and repair stops in force.
+
 Reuse the verifier's evidence when judging cumulative adherence. Record the
 applicable rule or contract pointers and the code revision or diff covered in
 the existing review. If a material gap could change the recommendation, give one

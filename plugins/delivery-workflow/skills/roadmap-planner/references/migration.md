@@ -66,6 +66,9 @@ Version 1.7.0 uses the existing phase brief by revision, preserves job handles
 and verdicts for compaction recovery, and records the revision covered at the
 existing Planner checkpoint. Start from the current brief and valid evidence.
 
+Version 1.7.1 adds a costly-repeat prompt at existing checkpoints and a phase
+brief example for revision, job handle and verdict records.
+
 1. Reconcile the actual role, canonical writer, current assignment and both settings.
    Each adopting role settles its own jobs at a safe checkpoint. Other roles keep
    their independent authorized work; no coordinated full-cohort restart is needed.
@@ -89,7 +92,7 @@ existing Planner checkpoint. Start from the current brief and valid evidence.
 A compact instruction to an existing actor:
 
 ```text
-At your next safe checkpoint, adopt Delivery Workflow 1.7.0 for this assignment.
+At your next safe checkpoint, adopt Delivery Workflow 1.7.1 for this assignment.
 Read [absolute stable role SKILL.md] and its required references. Preserve your
 actual role, coordination/execution settings, approved models,
 original permissions, work, evidence, repair bounds and pending gates. Settle your

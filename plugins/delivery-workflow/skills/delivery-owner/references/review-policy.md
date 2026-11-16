@@ -58,9 +58,11 @@ No new human approval arises merely from an owner coordination gate.
 
 The owner applies the shared [goal-progress assessment](../../roadmap-planner/references/retained-planning.md#direction-reviews)
 before advising on the next technical question: compare with the last meaningful
-capability milestone as well as the previous review. Reassess the whole slice when
-prerequisites accumulate, even if each repair is justified; decide the next outcome
-and disposition any sequencing proposal without dropping acceptance obligations.
+capability milestone as well as the previous review. Use its costly-repeat prompt
+at a due outcome inspection when the repeat could change the decision. Reassess
+the whole slice when prerequisites accumulate, even if each repair is justified.
+Decide the next outcome and resolve any sequencing proposal while preserving
+acceptance obligations.
 Preparation needs an evidenced blocker/invariant and observable exit. Record the
 next result, actor, covered checkpoint sequence and next required boundary. Reuse
 valid evidence; inspect deeper for a material gap, contradiction or risk. If

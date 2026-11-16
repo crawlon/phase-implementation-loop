@@ -75,6 +75,9 @@ the [direction-review triggers](../../roadmap-planner/references/retained-planni
 for expanding preparation, postponed results and repairs without new learning.
 A retained planner reviews cumulative evidence when local checks cannot justify
 continuation; its advice does not release a gate or reset a repair bound.
+At that check or an existing outcome checkpoint, use the shared
+[costly-repeat prompt](../../roadmap-planner/references/retained-planning.md#direction-reviews)
+when a late failure or repeat could change the next decision.
 
 After two consecutive preparation-only phases, or growing tooling/review effort
 without closing capability criteria, the orchestrator briefly reassesses the

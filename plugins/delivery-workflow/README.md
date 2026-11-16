@@ -1,4 +1,4 @@
-# Delivery Workflow 1.7.0
+# Delivery Workflow 1.7.1
 
 Three role skills replace the earlier trial and phase-loop variants:
 
