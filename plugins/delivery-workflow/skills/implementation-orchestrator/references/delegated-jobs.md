@@ -132,7 +132,7 @@ Use one verifier at a time:
 
 1. Claude Opus 5.5 via `codex-claude-ask --model claude-opus-5-5`; choose effort
    from phase risk.
-2. A fresh read-only Codex verifier subagent using `gpt-6-astra` at high
+2. A fresh read-only Codex verifier subagent using `gpt-6.2-astra` at high
    reasoning, only when Claude is terminally unavailable or `INCONCLUSIVE`.
    It must not have implemented the phase.
 3. Cursor GLM 5.3 High via `codex-cursor-ask --model glm-5.3-high`, only when

@@ -302,9 +302,9 @@ Explicit human selections override these proposed defaults when capability permi
 
 | Role | Proposed model / reasoning | Scope |
 | --- | --- | --- |
-| Retained roadmap planner | `gpt-6.1-sol` / `xhigh` | Goal direction, strategic planning and cumulative progress assessment. |
-| Delivery owner | `gpt-6.1-sol` / `high` | Delivery decisions, dependencies and assignments. |
-| Managed orchestrator | `gpt-6.1-sol` / `high` | Execution coordination, supervision and gates. |
+| Retained roadmap planner | `gpt-6.2-sol` / `xhigh` | Goal direction, strategic planning and cumulative progress assessment. |
+| Delivery owner | `gpt-6.2-sol` / `high` | Delivery decisions, dependencies and assignments. |
+| Managed orchestrator | `gpt-6.2-sol` / `high` | Execution coordination, supervision and gates. |
 | Standalone orchestrator | Existing explicitly approved model / reasoning | Preserve its profile; resolve an unspecified choice before launching a successor. |
 | Bounded researcher | `gpt-6-luna` / `max` | Bounded evidence gathering, analysis and planning drafts under Bounded Research below. |
 | Planning editor | `gpt-6-luna` / `max` for bounded settled edits; approved stronger profile for consequential reasoning | Planner-commissioned planning-document edits under exclusive temporary custody; no implementation or execution authority. |
@@ -355,9 +355,9 @@ outcome. Cross-plan and reserved decisions follow their existing route.
 
 - Use existing evidence or local judgment when it can settle the question.
   For bounded fact gathering, use [Luna Max research](#bounded-research).
-- Start with GPT-6.1 Sol High for bounded technical advice where the constraints
-  and evidence are clear. Adjust effort to the question.
-- Use GPT-6 Astra High directly when consequential uncertainty, interacting
+- Start with `gpt-6.2-sol` at high effort for bounded technical advice where
+  the constraints and evidence are clear. Adjust effort to the question.
+- Use `gpt-6.2-astra` at high effort when consequential uncertainty, interacting
   constraints, or conflicting evidence needs deeper native judgment. Use Claude
   Opus 5.5 via the [read-only wrapper](agent-claude.md#transport-and-effort) when a
   cross-provider challenge would help and the approved profile and data-sharing

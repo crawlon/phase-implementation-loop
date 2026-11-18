@@ -15,7 +15,7 @@ Example using one current brief and its existing job and evidence records:
 
 ```text
 Dispatch: phase-4/current.md @ r3 for implementation, verification and repair.
-Before waiting: verifier agent-42, Sol High, started 09:12Z, r3, candidate 7edc9cd,
+Before waiting: verifier agent-42, gpt-6.2-sol/high, started 09:12Z, r3, candidate 7edc9cd,
                 expected result in phase-4/reviews.md.
 On receipt: agent-42 PASS for r3 / 7edc9cd, findings and evidence in phase-4/reviews.md.
 ```

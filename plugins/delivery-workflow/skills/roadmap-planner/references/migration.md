@@ -69,6 +69,10 @@ existing Planner checkpoint. Start from the current brief and valid evidence.
 Version 1.7.1 adds a costly-repeat prompt at existing checkpoints and a phase
 brief example for revision, job handle and verdict records.
 
+Version 1.7.2 recommends Sol 6.2 and Astra 6.2 for the existing native role,
+consultant and verifier routes. Carry explicit running-role selections through
+adoption and verify native settings for any authorized model change.
+
 1. Reconcile the actual role, canonical writer, current assignment and both settings.
    Each adopting role settles its own jobs at a safe checkpoint. Other roles keep
    their independent authorized work; no coordinated full-cohort restart is needed.
@@ -92,7 +96,7 @@ brief example for revision, job handle and verdict records.
 A compact instruction to an existing actor:
 
 ```text
-At your next safe checkpoint, adopt Delivery Workflow 1.7.1 for this assignment.
+At your next safe checkpoint, adopt Delivery Workflow 1.7.2 for this assignment.
 Read [absolute stable role SKILL.md] and its required references. Preserve your
 actual role, coordination/execution settings, approved models,
 original permissions, work, evidence, repair bounds and pending gates. Settle your
